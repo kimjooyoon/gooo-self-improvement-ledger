@@ -302,7 +302,7 @@ jobs:
             echo "historical v0.2.0 release unexpectedly present" >&2
             exit 1
           fi
-          jq -e '.status==404 and .message=="Not Found"' "$RUNNER_TEMP/opentofu-v0.2.0-release.json" >/dev/null
+          jq -e '(.status==404 or .status=="404") and .message=="Not Found"' "$RUNNER_TEMP/opentofu-v0.2.0-release.json" >/dev/null
           historical_refs=$(git ls-remote https://github.com/kimjooyoon/gooo-opentofu-envelope.git refs/tags/v0.2.0 'refs/tags/v0.2.0^{}')
           test "$(awk '$2=="refs/tags/v0.2.0" {print $1}' <<< "$historical_refs")" = 9dfdee84d61f3acbe899b5ad57fd8f35f8159210
           test "$(awk '$2=="refs/tags/v0.2.0^{}" {print $1}' <<< "$historical_refs")" = c9f5de0b33fee1ca8546a627a8a94242b99c0733
