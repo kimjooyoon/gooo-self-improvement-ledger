@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 35,
+  "total_cells": 36,
   "denominator_migration": {
-    "from": 34,
-    "to": 35,
+    "from": 35,
+    "to": 36,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 26,
+    "COHERENCE": 27,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 26,
+    "OUTCOME": 27,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -590,6 +590,22 @@
       "metric_id": "gooo.metric.self-improvement.causal-verification-runner-durable-release.v1",
       "metric_denominator": 1,
       "release_key": "causal_verification_runner_durable_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 36,
+      "id": "EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE",
+      "axis": "EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptExecutableEvolutionTrialCounterexample",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptExecutableEvolutionTrialCounterexample",
+      "ir": "semantic-ir/activity/AdoptExecutableEvolutionTrialCounterexample",
+      "generated_artifact": "evidence/cells/EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE.json",
+      "evaluator": "ledger/executable-evolution-trial-counterexample-durable-release",
+      "metric_id": "gooo.metric.self-improvement.executable-evolution-trial-counterexample-durable-release.v1",
+      "metric_denominator": 1,
+      "release_key": "executable_evolution_trial_counterexample_durable_release",
       "depends_on": []
     }
   ]

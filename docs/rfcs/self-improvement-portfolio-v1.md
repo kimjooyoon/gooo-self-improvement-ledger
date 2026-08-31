@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for thirty-five specifically named capabilities.
+The portfolio is an evidence ledger for thirty-six specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains thirty-five entries. The v0.29
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-four-cell
+`cells` array is immutable during a run and contains thirty-six entries. The v0.30
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-five-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/26/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/26/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/27/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/27/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -367,9 +367,31 @@ the two preserved post-bootstrap direct-main counterexamples. Utility is
 yielding `CLOSED32/UNKNOWN1/REFUTED2`. The prior local diagnostic replay count
 remains one, with no additional local schema/conformance replay.
 
+The v0.30 frontier appends `EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE`.
+It adopts immutable `kimjooyoon/gooo-evolution-trial@v0.1.0` release `380086557`,
+binding annotated tag object `c3a87bd320a24e6c4961afc532fd4df6b5d165c3` to target
+`d917eec6344f2eaa9a6fb0069f7fe0aaafeb6982`. Its successful main run is
+`33445305000`/job `99662940416`, with artifact `9777794326`, `130085` bytes,
+digest `sha256:07c81d12ecf003907678cbbea15d104effd44bdb658893ee426820fdb5b9a13a`.
+The successful release audit is `33445379243`/job `99663170908`, with artifact
+`9777817257`, `33589` bytes, digest
+`sha256:1cf113aaf5a6e629ce2da1f358a5502dba3600ec9f8155b785d72acfd5f20001`.
+All six release assets are pinned by API identity, size, URL, and SHA-256 in
+the release lock, and CI also rechecks the three immutable upstream tool inputs.
+The released experiment is explicitly `REFUTED`: candidate evolution is
+`CLOSED` with `ADD2/RETIRE1/SPLIT1` and exact rollback, but the released
+compiler rejects the four-activity candidate with
+`phase graph must declare exactly three executable activities`; semantic IR and
+backend are `NOT_OBSERVED`, and the causal result is `REFUTED` with
+`2/1/1/1/2/1/0` total/selected/executed/reused/oracle/fail/unknown/avoided
+metrics. This is preserved counterexample evidence, not an experiment success.
+The ledger adoption cell is `CLOSED`, yielding `CLOSED33/UNKNOWN1/REFUTED2`.
+The prior `local_validation_executions=1`, artifact-schema replay count `1`,
+zero local Go executions, and process state `REFUTED` remain unchanged.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-thirty-five-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+thirty-six-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

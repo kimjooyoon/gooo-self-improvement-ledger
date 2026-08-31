@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 35 named cells, each bound one-to-one to
+language. The denominator is exactly 36 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -28,11 +28,12 @@ The fixed axes are:
 `LANGUAGE_DELTA_FORGE_DURABLE_RELEASE`, and
 `OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE`, and
 `REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE`, and
-`CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE`.
+`CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE`, and
+`EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `34 -> 35` with
+The denominator migration is explicit and append-only: `35 -> 36` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/26/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/26/5`.
+`4/27/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/27/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -445,6 +446,28 @@ ledger cell is `CLOSED`, yielding `CLOSED32/UNKNOWN1/REFUTED2`. The prior local
 diagnostic replay count remains exactly one; no additional local schema/conformance
 replay was performed.
 
+The v0.30 frontier appends `EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE`.
+It adopts immutable `kimjooyoon/gooo-evolution-trial@v0.1.0` release `380086557`,
+binding annotated tag object `c3a87bd320a24e6c4961afc532fd4df6b5d165c3` to target
+`d917eec6344f2eaa9a6fb0069f7fe0aaafeb6982`. Its successful main run is
+`33445305000`/job `99662940416`, with artifact `9777794326`, `130085` bytes,
+digest `sha256:07c81d12ecf003907678cbbea15d104effd44bdb658893ee426820fdb5b9a13a`.
+The successful release audit is `33445379243`/job `99663170908`, with artifact
+`9777817257`, `33589` bytes, digest
+`sha256:1cf113aaf5a6e629ce2da1f358a5502dba3600ec9f8155b785d72acfd5f20001`.
+All six release assets are pinned by API identity, size, URL, and SHA-256 in
+`contracts/release-locks-v1.json`, and CI also rechecks the three immutable
+upstream tool inputs. The released experiment is explicitly `REFUTED`: its
+candidate evolution is `CLOSED` with `ADD2/RETIRE1/SPLIT1` and exact rollback,
+but the released compiler rejects the four-activity candidate with
+`phase graph must declare exactly three executable activities`; semantic IR and
+backend are `NOT_OBSERVED`, and the causal result is `REFUTED` with
+`2/1/1/1/2/1/0` total/selected/executed/reused/oracle/fail/unknown/avoided
+metrics. This is preserved counterexample evidence, not an experiment success.
+The ledger adoption cell is `CLOSED`, yielding `CLOSED33/UNKNOWN1/REFUTED2`.
+The prior `local_validation_executions=1`, artifact-schema replay count `1`,
+zero local Go executions, and process state `REFUTED` remain unchanged.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -473,7 +496,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the thirty-two immutable inputs
+commit, and consumer asset identities for the thirty-three immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope
