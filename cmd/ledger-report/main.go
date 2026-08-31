@@ -310,8 +310,8 @@ func validateProfile(profile Profile) {
 	if profile.Schema != profileSchema || profile.ProfileID == "" {
 		fatalf("invalid profile identity")
 	}
-	if profile.TotalCells != 19 || len(profile.Cells) != profile.TotalCells {
-		fatalf("profile must contain exactly 19 cells")
+	if profile.TotalCells != 20 || len(profile.Cells) != profile.TotalCells {
+		fatalf("profile must contain exactly 20 cells")
 	}
 	if !equalStringSlice(profile.Precedence, []string{stateRefuted, stateUnknown, stateClosed}) {
 		fatalf("profile precedence must be REFUTED > UNKNOWN > CLOSED")
@@ -319,11 +319,11 @@ func validateProfile(profile Profile) {
 	if profile.Policy.DenominatorMutationDuringRun || profile.Policy.StatusInferenceFromMissing || profile.Policy.RuntimeRepositoryWrites != 0 || !profile.Policy.CallerOwnedTempOutputOnly || profile.Policy.CrossProjectRequiredGates != 0 || profile.Policy.AggregatePercentage || profile.Policy.AggregateScore {
 		fatalf("profile policy violates fixed denominator or authority boundary")
 	}
-	if !equalIntMap(profile.ProofTotals, map[string]int{"FOUNDATION": 4, "COHERENCE": 10, "REGRESSION": 5}) {
-		fatalf("proof totals must be FOUNDATION4/COHERENCE10/REGRESSION5")
+	if !equalIntMap(profile.ProofTotals, map[string]int{"FOUNDATION": 4, "COHERENCE": 11, "REGRESSION": 5}) {
+		fatalf("proof totals must be FOUNDATION4/COHERENCE11/REGRESSION5")
 	}
-	if !equalIntMap(profile.IndicatorTotals, map[string]int{"DRIVER": 4, "OUTCOME": 10, "GUARDRAIL": 5}) {
-		fatalf("indicator totals must be DRIVER4/OUTCOME10/GUARDRAIL5")
+	if !equalIntMap(profile.IndicatorTotals, map[string]int{"DRIVER": 4, "OUTCOME": 11, "GUARDRAIL": 5}) {
+		fatalf("indicator totals must be DRIVER4/OUTCOME11/GUARDRAIL5")
 	}
 	seenIDs := map[string]bool{}
 	seenAxes := map[string]bool{}

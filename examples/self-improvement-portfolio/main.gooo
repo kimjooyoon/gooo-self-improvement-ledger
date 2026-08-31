@@ -23,3 +23,4 @@ activity AuditSemanticDriftDevelopmentProcess(PortfolioInput) -> PortfolioEviden
 activity AdoptImprovementFrontierRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=IMPROVEMENT_FRONTIER_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptAuthorityBootstrapRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=AUTHORITY_BOOTSTRAP_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptOpenTofuEnvelopeRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=OPENTOFU_ENVELOPE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptImprovementProposerRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=IMPROVEMENT_PROPOSER_RELEASE;proof=COHERENCE;indicator=OUTCOME"

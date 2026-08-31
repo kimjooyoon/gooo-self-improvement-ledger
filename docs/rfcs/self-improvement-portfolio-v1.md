@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for nineteen specifically named capabilities.
+The portfolio is an evidence ledger for twenty specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains nineteen entries. The v0.13
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior eighteen-cell
+`cells` array is immutable during a run and contains twenty entries. The v0.14
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior nineteen-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/10/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/10/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/11/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/11/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -59,9 +59,19 @@ release assets, and the source envelope's exact 12-cell observation. The
 mutable v0.1.0 release and its two failed CI runs remain append-only
 `FAILED_RELEASE_IMMUTABILITY` and `FAILED_CI_VALIDATION` counterexamples.
 
+The v0.14 frontier appends `IMPROVEMENT_PROPOSER_RELEASE`. It closes only when
+the immutable `gooo-improvement-proposer@v0.1.1` release binds its annotated
+tag object and target, successful release run `33397566380`, post-main
+conformance run `33397372252`, post-main artifact `9759855868`, all four
+release assets, the upstream 12-cell observation, and the six fixed output
+artifacts per conformance case. The upstream v0.1.0 tag object/target and
+failed run `33396465907`/job `99502048200` are retained as a separate
+`FAILED_RELEASE_TRIGGER` with no release and cannot close the cell. Earlier
+failed runs are not success evidence.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-nineteen-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+twenty-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
