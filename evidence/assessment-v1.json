@@ -3,8 +3,8 @@
   "profile_id": "self-improvement-portfolio-v1",
   "assessment_id": "self-improvement-portfolio-v1-current-frontier",
   "denominator_migration": {
-    "from": 34,
-    "to": 35,
+    "from": 35,
+    "to": 36,
     "add": 1,
     "retire": 0,
     "split": 0,
