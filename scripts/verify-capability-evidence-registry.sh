@@ -197,10 +197,10 @@ for entry_id in $(jq -r '.entries[].entry_id' "$lock"); do
     else
       proposal_asset_path="$output/$entry_id/assets/$proposal_index.bin"
       proposal_json="$output/$entry_id.adoption-proposal.json"
-      if ! tar -xOzf "$proposal_asset_path" "$proposal_path" > "$proposal_json" 2> "$output/$entry_id.adoption-proposal.error"; then
+      if ! tar --no-xattrs -xOzf "$proposal_asset_path" "$proposal_path" > "$proposal_json" 2> "$output/$entry_id.adoption-proposal.error"; then
         proposal_basename=${proposal_path##*/}
-        proposal_member=$(tar -tzf "$proposal_asset_path" | awk -v base="$proposal_basename" '($0 == base || substr($0, length($0) - length(base) + 1) == base) {print; exit}')
-        if [ -z "$proposal_member" ] || ! tar -xOzf "$proposal_asset_path" "$proposal_member" > "$proposal_json" 2>> "$output/$entry_id.adoption-proposal.error"; then
+        proposal_member=$(tar -tzf "$proposal_asset_path" | awk -v base="$proposal_basename" '($0 == base || $0 ~ ("/" base "$")) {print}')
+        if [ -z "$proposal_member" ] || ! tar --no-xattrs -xOzf "$proposal_asset_path" "$proposal_member" > "$proposal_json" 2>> "$output/$entry_id.adoption-proposal.error"; then
           mark_refuted "ADOPTION_PROPOSAL_CONTENT_UNAVAILABLE"
         fi
       fi
