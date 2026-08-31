@@ -13,16 +13,16 @@ probe=$(mktemp -d)
 mkdir -p "$probe"
 
 jq -e '
-  .total_cells == 30 and
-  .denominator_migration == {from:29,to:30,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 31 and
+  .denominator_migration == {from:30,to:31,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE","SELF_REPAIR_INTEGRATION_RELEASE"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE","SELF_REPAIR_INTEGRATION_RELEASE","OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:21,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:21,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:22,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:22,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -40,7 +40,8 @@ jq -e '
   (.cells|map(select(.id=="SEMANTIC_AUTHORITY_CENSUS_RELEASE" and .release_key=="semantic_authority_census_release"))|length)==1 and
   (.cells|map(select(.id=="REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE" and .release_key=="reflexive_learning_drift_cycle_release"))|length)==1 and
   (.cells|map(select(.id=="UNKNOWN_RESOLUTION_LATTICE_RELEASE" and .release_key=="unknown_resolution_lattice_release"))|length)==1 and
-  (.cells|map(select(.id=="SELF_REPAIR_INTEGRATION_RELEASE" and .release_key=="self_repair_integration_release"))|length)==1
+  (.cells|map(select(.id=="SELF_REPAIR_INTEGRATION_RELEASE" and .release_key=="self_repair_integration_release"))|length)==1 and
+  (.cells|map(select(.id=="OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE" and .release_key=="opentofu_durable_semantic_envelope_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 
 jq -e '
@@ -474,6 +475,57 @@ jq -e '
   (.releases.self_repair_integration_release.assets|map(.id)) == [538378587,538378586,538378585] and
   (.releases.self_repair_integration_release.assets|map(.size_bytes)) == [30698,134,104] and
   (.releases.self_repair_integration_release.assets|map(.sha256)) == ["sha256:7d505a14cfd11c0d6a57cb14ec8de2f51c946285b18d1af8bce1d6ff476b4582","sha256:3655571de02ba889fe83676d700e43befbf6130730079a26bed6aa6b65adcdd3","sha256:fd70f404c9238fb6fd2ace7cf36b19ed0ce7d89d15fc794ce96ee4d5333f5d1f"] and
+  .releases.opentofu_durable_semantic_envelope_release.release_id == 380009987 and
+  .releases.opentofu_durable_semantic_envelope_release.tag_object_sha == "8f913ac3bcef39a5105280a6a05114b7abc3ac87" and
+  .releases.opentofu_durable_semantic_envelope_release.target_commit_sha == "b482afd68a864400a209cb4f439e727cfdfe2eda" and
+  .releases.opentofu_durable_semantic_envelope_release.source_run.run_id == 33432375475 and
+  .releases.opentofu_durable_semantic_envelope_release.source_run.job_id == 99620555197 and
+  .releases.opentofu_durable_semantic_envelope_release.source_run.head_sha == "b482afd68a864400a209cb4f439e727cfdfe2eda" and
+  .releases.opentofu_durable_semantic_envelope_release.source_run.conclusion == "success" and
+  .releases.opentofu_durable_semantic_envelope_release.source_run.artifact_ids == [9773097414] and
+  .releases.opentofu_durable_semantic_envelope_release.source_artifact == {run_id:33432375475,artifact_id:9773097414,name:"gooo-opentofu-envelope-evidence-b482afd68a864400a209cb4f439e727cfdfe2eda",size_bytes:99611,sha256:"sha256:f04619dbd77314bdf84ba2d5c1b9edd4b9a09b533a8a26c2185ec3b786804157"} and
+  .releases.opentofu_durable_semantic_envelope_release.release_run.run_id == 33432449551 and
+  .releases.opentofu_durable_semantic_envelope_release.release_run.job_id == 99620801430 and
+  .releases.opentofu_durable_semantic_envelope_release.release_run.head_sha == "b482afd68a864400a209cb4f439e727cfdfe2eda" and
+  .releases.opentofu_durable_semantic_envelope_release.release_run.conclusion == "success" and
+  .releases.opentofu_durable_semantic_envelope_release.release_run.artifact_ids == [] and
+  (.releases.opentofu_durable_semantic_envelope_release.pull_requests|map(.number)) == [10] and
+  all(.releases.opentofu_durable_semantic_envelope_release.pull_requests[]; .merged == true) and
+  .releases.opentofu_durable_semantic_envelope_release.release_manifest.schema == "gooo/opentofu-envelope/release-manifest/v1" and
+  .releases.opentofu_durable_semantic_envelope_release.release_manifest.release == {tag:"v0.1.9",commit_sha:"b482afd68a864400a209cb4f439e727cfdfe2eda",id:380009987,immutable_expected:true,asset_count_before:0,asset_count_after:4,url:"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/tag/v0.1.9",predecessor_chain:[{tag:"v0.1.3",release_id:379957493,release_present:true,immutable:true,asset_count:0},{tag:"v0.1.4",release_id:null,release_present:false,target_commit_sha:"480e23a159b533be23811667b68b09562ad4c4f8",tag_object_sha:"074d8c01282f20efb55460a69a5177a378878f90",asset_count:0,failed_trigger_counterexample:true,failed_trigger_run_ids:[33429443119,33429524144,33429601185]},{tag:"v0.1.5",release_id:null,release_present:false,target_commit_sha:"bdee16c2506c0efdb3c5562f0d4126a293afc26f",tag_object_sha:"1140c6701c65275bdf6e2cd7e801c9f8191b83ed",asset_count:0,failed_trigger_counterexample:true,failed_trigger_run_ids:[33430206446,33430284845,33430367725,33430500643]},{tag:"v0.1.6",release_id:null,release_present:false,target_commit_sha:"744e32655c6a6d1adf8c31d334814b555bce1a69",tag_object_sha:"cbe70a19dbf547868f907cb51954b66a0f774e66",asset_count:0,failed_trigger_counterexample:true,failed_trigger_run_ids:[33431118426]},{tag:"v0.1.7",release_id:null,release_present:false,target_commit_sha:"a1682d56ec5d5c6ce5aaf1263a157a981d0e7e79",tag_object_sha:"1c3a06733538dc5f4ae3ec143c838984615e68d1",asset_count:0,failed_trigger_counterexample:true,failed_trigger_run_ids:[33431644645]},{tag:"v0.1.8",release_id:380007644,release_present:true,immutable:false,draft:true,target_commit_sha:"4d04baa3dc0157a27f4fca2c3f4e3a9f929953c9",tag_object_sha:"79a59ed5edb82a0d7d234525f897207ed3a59247",asset_count:0,failed_trigger_counterexample:true,failed_trigger_run_ids:[33432034362]}]} and
+  .releases.opentofu_durable_semantic_envelope_release.release_manifest.denominator == {target_cells:12,binding_edges:14,expected_user_path_steps:5,proof_counts:{COHERENCE:4,FOUNDATION:4,REGRESSION:4},indicator_counts:{DRIVER:4,GUARDRAIL:4,OUTCOME:4}} and
+  .releases.opentofu_durable_semantic_envelope_release.release_manifest.main_ci.artifact_id == 9773097414 and
+  .releases.opentofu_durable_semantic_envelope_release.release_manifest.main_ci.artifact_digest == "sha256:f04619dbd77314bdf84ba2d5c1b9edd4b9a09b533a8a26c2185ec3b786804157" and
+  .releases.opentofu_durable_semantic_envelope_release.release_manifest.authority.global_core_authority_claim == "NOT_MADE" and
+  .releases.opentofu_durable_semantic_envelope_release.release_manifest.authority.semantic_graph_authority == {scope:"GOOO_SEMANTIC_GRAPH_ONLY",state:"CLOSED"} and
+  .releases.opentofu_durable_semantic_envelope_release.release_manifest.authority.external_utility.state == "UNKNOWN" and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.schema == "gooo/opentofu-envelope/observation/v2" and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.fixed_denominator == 12 and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.activities == 12 and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.paths == 5 and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.edges == 14 and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.proof_totals == {FOUNDATION:4,COHERENCE:4,REGRESSION:4} and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.indicator_totals == {DRIVER:4,OUTCOME:4,GUARDRAIL:4} and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.case_totals == {CLOSED:3,UNKNOWN:3,REFUTED:3} and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.replay == {comparisons:2,mismatches:0} and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.tests == {total:9,executed:9,reused:0,skipped:0,not_observed:0} and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.runtime == {go:"1.27.0",opentofu:"1.12.6",build_wall_ms:214,test_wall_ms:45,conformance_wall_ms:324,peak_rss_kib:76084} and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.inventory == {directories:7,files:15,physical_lines:2401,go_files:0,go_lines:0,gooo_files:1,gooo_lines:39,root_readme_excluded:true} and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.output_artifacts == {files:3,bytes:8118} and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.authority == {repository_writes:0,remote_mutations:0,direct_main_writes:0,tag_mutations:0,local_test_executions:0,cross_project_required_gates:0} and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.semantic_graph_authority == {scope:"GOOO_SEMANTIC_GRAPH_ONLY",state:"CLOSED"} and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.utility == "UNKNOWN" and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.global_core_authority_claim == "NOT_MADE" and
+  .releases.opentofu_durable_semantic_envelope_release.protocol_observation.validation == {official_opentofu_valid:true,error_count:0,warning_count:0} and
+  (.releases.opentofu_durable_semantic_envelope_release.assets|map(.id)) == [538450808,538450812,538450816,538450823] and
+  (.releases.opentofu_durable_semantic_envelope_release.assets|map(.size_bytes)) == [13344,55115,263,30885] and
+  (.releases.opentofu_durable_semantic_envelope_release.assets|map(.sha256)) == ["sha256:79b549e7471f983e1f3a9f8f19ff73b5c759bac532ad86d8c3d2738885223f6d","sha256:a1352aa6cdeeefc0112884673ce672e920033b6d13d7d8e69ffbf270632df2e1","sha256:efb3cebd7bcdf2dcc1a1a2279817be1286def7e7387b33f2afc505b3eb7129c6","sha256:e33609eee44163d3201d125900d57ea12f183ebb561522e86e930d7f3805338f"] and
+  .releases.opentofu_durable_semantic_envelope_release.historical_provenance["v0.1.3"] == {release_id:379957493,release_present:true,immutable:true,asset_count:0} and
+  .releases.opentofu_durable_semantic_envelope_release.historical_provenance["v0.1.4"] == {release_present:false,asset_count:0,failed:true,failed_trigger_run_ids:[33429443119,33429524144,33429601185]} and
+  .releases.opentofu_durable_semantic_envelope_release.historical_provenance["v0.1.5"] == {release_present:false,asset_count:0,failed:true,failed_trigger_run_ids:[33430206446,33430284845,33430367725,33430500643]} and
+  .releases.opentofu_durable_semantic_envelope_release.historical_provenance["v0.1.6"] == {release_present:false,asset_count:0,failed:true,failed_trigger_run_ids:[33431118426]} and
+  .releases.opentofu_durable_semantic_envelope_release.historical_provenance["v0.1.7"] == {release_present:false,asset_count:0,failed:true,failed_trigger_run_ids:[33431644645]} and
+  .releases.opentofu_durable_semantic_envelope_release.historical_provenance["v0.1.8"] == {release_id:380007644,release_present:true,draft:true,immutable:false,asset_count:0,failed:true,failed_trigger_run_ids:[33432034362]} and
   (.failed_release_triggers|length) == 1 and
   .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
   .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
@@ -512,7 +564,7 @@ jq -e '
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 
 jq -e '
-  .denominator_migration == {from:29,to:30,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:30,to:31,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -734,7 +786,29 @@ jq -e '
     ($self_repair.evidence | index("asset:538378587:30698:sha256:7d505a14cfd11c0d6a57cb14ec8de2f51c946285b18d1af8bce1d6ff476b4582")) != null and
     ($self_repair.evidence | index("asset:538378586:134:sha256:3655571de02ba889fe83676d700e43befbf6130730079a26bed6aa6b65adcdd3")) != null and
     ($self_repair.evidence | index("asset:538378585:104:sha256:fd70f404c9238fb6fd2ace7cf36b19ed0ce7d89d15fc794ce96ee4d5333f5d1f")) != null) and
-  (.cells|length) == 30 and
+  ((.cells[] | select(.cell_id == "OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE")) as $durable_envelope |
+    $durable_envelope.state == "CLOSED" and
+    $durable_envelope.release_key == "opentofu_durable_semantic_envelope_release" and
+    ($durable_envelope.evidence | index("release:380009987:immutable=true")) != null and
+    ($durable_envelope.evidence | index("tag-object:8f913ac3bcef39a5105280a6a05114b7abc3ac87:target=b482afd68a864400a209cb4f439e727cfdfe2eda")) != null and
+    ($durable_envelope.evidence | index("pr-merge:10:b482afd68a864400a209cb4f439e727cfdfe2eda")) != null and
+    ($durable_envelope.evidence | index("main-actions:run=33432375475:job=99620555197:success")) != null and
+    ($durable_envelope.evidence | index("source-actions-artifact:9773097414:99611:sha256:f04619dbd77314bdf84ba2d5c1b9edd4b9a09b533a8a26c2185ec3b786804157")) != null and
+    ($durable_envelope.evidence | index("release-actions:run=33432449551:job=99620801430:success")) != null and
+    ($durable_envelope.evidence | index("upstream-opentofu-envelope:denominator=12:paths=5:edges=14:proof=4/4/4:indicator=4/4/4:cases=3/3/3:replay=2/0")) != null and
+    ($durable_envelope.evidence | index("upstream-tests:total=9:executed=9:reused=0:skipped=0:not_observed=0")) != null and
+    ($durable_envelope.evidence | index("upstream-runtime:go=1.27.0:opentofu=1.12.6:build=214:test=45:conformance=324:peak_rss_kib=76084")) != null and
+    ($durable_envelope.evidence | index("upstream-inventory:files=15:lines=2401:dirs=7:go=0/0:gooo=1/39:root_readme_excluded=true")) != null and
+    ($durable_envelope.evidence | index("upstream-output:artifacts=3:bytes=8118")) != null and
+    ($durable_envelope.evidence | index("upstream-authority:repository_writes=0:remote_mutations=0:direct_main_writes=0:tag_mutations=0:local_test_executions=0")) != null and
+    ($durable_envelope.evidence | index("upstream-semantic-graph:scope=GOOO_SEMANTIC_GRAPH_ONLY:state=CLOSED:utility=UNKNOWN:global_core=NOT_MADE")) != null and
+    ($durable_envelope.evidence | index("upstream-provenance:v0.1.3=release:379957493:immutable=true:assets=0:v0.1.4-v0.1.7=failed:no-release:v0.1.8=draft:release=380007644:immutable=false:assets=0")) != null and
+    ($durable_envelope.evidence | index("asset:538450808:13344:sha256:79b549e7471f983e1f3a9f8f19ff73b5c759bac532ad86d8c3d2738885223f6d")) != null and
+    ($durable_envelope.evidence | index("asset:538450812:55115:sha256:a1352aa6cdeeefc0112884673ce672e920033b6d13d7d8e69ffbf270632df2e1")) != null and
+    ($durable_envelope.evidence | index("asset:538450816:263:sha256:efb3cebd7bcdf2dcc1a1a2279817be1286def7e7387b33f2afc505b3eb7129c6")) != null and
+    ($durable_envelope.evidence | index("asset:538450823:30885:sha256:e33609eee44163d3201d125900d57ea12f183ebb561522e86e930d7f3805338f")) != null and
+    ($durable_envelope.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
+  (.cells|length) == 31 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -903,12 +977,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:30,closed:27,unknown:1,refuted:2} and
+  .summary == {total:31,closed:28,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 30 and
+  (.cells|length) == 31 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 27 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 28 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -941,16 +1015,17 @@ jq -e '
     SEMANTIC_AUTHORITY_CENSUS_RELEASE:"CLOSED",
     REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE:"CLOSED",
     UNKNOWN_RESOLUTION_LATTICE_RELEASE:"CLOSED",
-    SELF_REPAIR_INTEGRATION_RELEASE:"CLOSED"
+    SELF_REPAIR_INTEGRATION_RELEASE:"CLOSED",
+    OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:30,activities:30,unique_axes:30,unique_metrics:30,source_bindings:30,ir_bindings:30,generated_artifact_bindings:30,evaluator_bindings:30} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 21 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 21 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:27,verified:27,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:31,activities:31,unique_axes:31,unique_metrics:31,source_bindings:31,ir_bindings:31,generated_artifact_bindings:31,evaluator_bindings:31} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 22 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 22 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:28,verified:28,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

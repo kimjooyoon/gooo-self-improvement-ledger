@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 30 named cells, each bound one-to-one to
+language. The denominator is exactly 31 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -23,11 +23,12 @@ The fixed axes are:
 `SEMANTIC_AUTHORITY_CENSUS_RELEASE`, and
 `REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE`, and
 `UNKNOWN_RESOLUTION_LATTICE_RELEASE`, and
-`SELF_REPAIR_INTEGRATION_RELEASE`.
+`SELF_REPAIR_INTEGRATION_RELEASE`, and
+`OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE`.
 
-The denominator migration is explicit and append-only: `29 -> 30` with
+The denominator migration is explicit and append-only: `30 -> 31` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/21/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/21/5`.
+`4/22/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/22/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -300,6 +301,31 @@ cross-project required gates. Core semantic authority is `CLOSED`, external
 utility remains `UNKNOWN` because the exact pair axes cross, and the new cell
 is `CLOSED`; the portfolio becomes `CLOSED27/UNKNOWN1/REFUTED2`.
 
+The v0.25 frontier appends `OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE`. It
+adopts immutable `kimjooyoon/gooo-opentofu-envelope@v0.1.9` release
+`380009987`, binding annotated tag object
+`8f913ac3bcef39a5105280a6a05114b7abc3ac87` to target
+`b482afd68a864400a209cb4f439e727cfdfe2eda`. Upstream PR #10, main CI
+`33432375475`/job `99620555197`, and release CI
+`33432449551`/job `99620801430` are successful; main artifact `9773097414`
+is `99611` bytes with digest
+`sha256:f04619dbd77314bdf84ba2d5c1b9edd4b9a09b533a8a26c2185ec3b786804157`.
+All four immutable release assets are pinned by API identity, size, and
+download digest: evidence `538450808` (`13344`), manifest `538450812`
+(`55115`), checksums `538450816` (`263`), and source `538450823` (`30885`).
+The upstream envelope is a fixed 12-cell protocol with 5 path steps, 14
+binding edges, `4/4/4` proof and indicator buckets, cases `3/3/3`, replay
+`2/0`, tests `9/9/0/0/0`, build/test/conformance `214/45/324 ms`, peak RSS
+`76084 KiB`, 15 files/2401 lines/7 directories, 3 outputs/8118 bytes, and
+zero repository, remote, direct-main, tag, and local-test mutations. The
+semantic graph is `CLOSED` only within `GOOO_SEMANTIC_GRAPH_ONLY`; upstream
+utility is `UNKNOWN` and upstream global core is `NOT_MADE`, so the ledger's
+existing core and development-process `REFUTED` states remain unchanged.
+The upstream manifest preserves v0.1.3 as immutable with zero assets,
+v0.1.4-v0.1.7 as failed no-release triggers, and v0.1.8 as a draft with zero
+assets; none are deleted or hidden. The new cell is `CLOSED`, yielding
+`CLOSED28/UNKNOWN1/REFUTED2`.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -328,7 +354,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the twenty-seven immutable inputs
+commit, and consumer asset identities for the twenty-eight immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

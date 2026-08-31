@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for thirty specifically named capabilities.
+The portfolio is an evidence ledger for thirty-one specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains thirty entries. The v0.24
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-nine-cell
+`cells` array is immutable during a run and contains thirty-one entries. The v0.25
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/21/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/21/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/22/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/22/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -239,9 +239,34 @@ and cross-project required gates. Core semantic authority is `CLOSED`,
 external utility is `UNKNOWN` because the exact pair axes cross, and the new
 cell is `CLOSED`; the portfolio becomes `CLOSED27/UNKNOWN1/REFUTED2`.
 
+The v0.25 frontier appends `OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE`. It
+adopts immutable `kimjooyoon/gooo-opentofu-envelope@v0.1.9` release
+`380009987`, binding annotated tag object
+`8f913ac3bcef39a5105280a6a05114b7abc3ac87` to target
+`b482afd68a864400a209cb4f439e727cfdfe2eda`. Upstream PR #10, main CI
+`33432375475`/job `99620555197`, and release CI
+`33432449551`/job `99620801430` are successful; main artifact `9773097414`
+is `99611` bytes with digest
+`sha256:f04619dbd77314bdf84ba2d5c1b9edd4b9a09b533a8a26c2185ec3b786804157`.
+All four immutable release assets are pinned by API identity, size, and
+download digest: evidence `538450808` (`13344`), manifest `538450812`
+(`55115`), checksums `538450816` (`263`), and source `538450823` (`30885`).
+The upstream envelope is a fixed 12-cell protocol with 5 path steps, 14
+binding edges, `4/4/4` proof and indicator buckets, cases `3/3/3`, replay
+`2/0`, tests `9/9/0/0/0`, build/test/conformance `214/45/324 ms`, peak RSS
+`76084 KiB`, 15 files/2401 lines/7 directories, 3 outputs/8118 bytes, and
+zero repository, remote, direct-main, tag, and local-test mutations. The
+semantic graph is `CLOSED` only within `GOOO_SEMANTIC_GRAPH_ONLY`; upstream
+utility is `UNKNOWN` and upstream global core is `NOT_MADE`, so the ledger's
+existing core and development-process `REFUTED` states remain unchanged.
+The manifest preserves v0.1.3 as immutable with zero assets, v0.1.4-v0.1.7
+as failed no-release triggers, and v0.1.8 as a draft with zero assets; none
+are deleted or hidden. The new cell is `CLOSED`, yielding
+`CLOSED28/UNKNOWN1/REFUTED2`.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-thirty-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+thirty-one-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
