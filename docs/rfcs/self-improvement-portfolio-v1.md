@@ -2,21 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for twelve specifically named capabilities.
+The portfolio is an evidence ledger for sixteen specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains twelve entries. Every entry
-has a stable axis, proof bucket, indicator bucket, activity name, source path,
+`cells` array is immutable during a run and contains sixteen entries. The v0.10
+migration is append-only `ADD4/RETIRE0/SPLIT0` from the prior twelve-cell
+profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are four each: `FOUNDATION`, `COHERENCE`, and `REGRESSION`.
-The indicator buckets are four each: `DRIVER`, `OUTCOME`, and `GUARDRAIL`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/7/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/7/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -39,7 +40,7 @@ infer core semantic authority or independent external utility evidence.
 
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-twelve-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+sixteen-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
@@ -48,6 +49,7 @@ Runtime writes are limited to caller-owned temporary output. The source
 checkout is snapshotted before and after CI work and must remain unchanged.
 The report records `wall_ms` and raw `duration_ns` separately so sub-millisecond
 runs do not disappear through rounding. Inventory lines are physical lines;
-the root README is excluded from line accounting. Developer-local verification
-counts remain zero because all build, test, formatting, vet, and conformance
-checks are performed by GitHub Actions.
+the root README is excluded from line accounting. CI also records exact build,
+test, and peak-RSS observations in `ci-observations.json`. Developer-local
+verification counts remain zero because all build, test, formatting, vet, and
+conformance checks are performed by GitHub Actions.

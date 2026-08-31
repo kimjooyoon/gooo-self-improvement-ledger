@@ -2,6 +2,14 @@
   "schema": "gooo/self-improvement-portfolio/assessment/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "assessment_id": "self-improvement-portfolio-v1-current-frontier",
+  "denominator_migration": {
+    "from": 12,
+    "to": 16,
+    "add": 4,
+    "retire": 0,
+    "split": 0,
+    "append_only": true
+  },
   "state_transition_events": [
     {
       "event_id": "CORE_SEMANTIC_AUTHORITY-UNKNOWN-TO-REFUTED-v0.7",
@@ -174,6 +182,41 @@
       "gate": false
     }
   ],
+  "process_deviations": [
+    {
+      "deviation_id": "SEMANTIC_DRIFT_DIRECT_TO_MAIN-v0.10",
+      "cell_id": "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS",
+      "append_only": true,
+      "state": "REFUTED",
+      "stage": "DEVELOPMENT_PROCESS",
+      "step": "TRACE_SUBSTANTIVE_IMPLEMENTATION_COMMIT",
+      "reason": "SUBSTANTIVE_IMPLEMENTATION_LANDED_DIRECTLY_ON_MAIN",
+      "next_operation": "REQUIRE_PULL_REQUEST_FOR_SUBSTANTIVE_IMPLEMENTATION",
+      "observed": {
+        "repository": "kimjooyoon/gooo-semantic-drift",
+        "commit_sha": "e83e42611eeed30100018a98c1f1835e1f17b821",
+        "commit_url": "https://github.com/kimjooyoon/gooo-semantic-drift/commit/e83e42611eeed30100018a98c1f1835e1f17b821",
+        "commit_message": "Implement deterministic semantic drift protocol",
+        "parent_count": 0,
+        "main_ref_after": "1cfff53e4ef48052fb25bf8c56a113d6835726a4",
+        "pull_requests": [],
+        "substantive_paths": [
+          "cmd/gooo-drift/main.go",
+          "internal/drift/compile.go",
+          "internal/drift/evaluate.go",
+          "internal/drift/model.go",
+          "internal/generated/semantic-ir.json",
+          "internal/generated/semantic.gooo.go",
+          "examples/semantic-drift/main.gooo"
+        ]
+      },
+      "blocked_by": [
+        "kimjooyoon/gooo-semantic-drift:commit:e83e42611eeed30100018a98c1f1835e1f17b821",
+        "kimjooyoon/gooo-semantic-drift:commit:e83e42611eeed30100018a98c1f1835e1f17b821:pull_requests=[]",
+        "kimjooyoon/gooo-semantic-drift:main:1cfff53e4ef48052fb25bf8c56a113d6835726a4"
+      ]
+    }
+  ],
   "cells": [
     {
       "cell_id": "CORE_SEMANTIC_AUTHORITY",
@@ -256,6 +299,10 @@
     {"cell_id":"DESIGN_CONSUMER_PATH","state":"CLOSED","release_key":"design_contract_bridge","evidence":["actions.json","dossier.md"]},
     {"cell_id":"OPENTOFU_PLAN_PATH","state":"CLOSED","release_key":"opentofu_bridge","evidence":["bridge-observation.json","dossier.md","gooo-opentofu-bridge-evidence-5444c1f9967ee42af05bf06094473e2950f6a366.zip","intent.tf.json","plan-oracle-v1.json","plan-receipt.json","release-manifest.json","SHA256SUMS","validation.json"]},
     {"cell_id":"RELEASE_PROMOTION","state":"CLOSED","release_key":"reflexive_loop_v0_3","evidence":["gooo-reflexive-loop-v0.3.0-manifest.json","gooo-reflexive-loop-v0.3.0-evidence.zip","SHA256SUMS"]},
-    {"cell_id":"EXTERNAL_UTILITY_EVIDENCE","state":"UNKNOWN","release_key":"resolution_lattice","evidence":["consumer-manifest.json","gooo-resolution-lattice-v0.1.0-evidence.zip"],"unknown":{"stage":"EXTERNAL_UTILITY","step":"REQUIRE_INDEPENDENT_EXTERNAL_UTILITY_EVIDENCE","reason":"EXTERNAL_UTILITY_NOT_OBSERVED","unknown_class":"CAUSALITY_UNPROVEN","next_operation":"PROVIDE_INDEPENDENT_EXTERNAL_UTILITY_EVIDENCE","blocked_by":["exact-before-after-utility-pair"]}}
+    {"cell_id":"EXTERNAL_UTILITY_EVIDENCE","state":"UNKNOWN","release_key":"resolution_lattice","evidence":["consumer-manifest.json","gooo-resolution-lattice-v0.1.0-evidence.zip"],"unknown":{"stage":"EXTERNAL_UTILITY","step":"REQUIRE_INDEPENDENT_EXTERNAL_UTILITY_EVIDENCE","reason":"EXTERNAL_UTILITY_NOT_OBSERVED","unknown_class":"CAUSALITY_UNPROVEN","next_operation":"PROVIDE_INDEPENDENT_EXTERNAL_UTILITY_EVIDENCE","blocked_by":["exact-before-after-utility-pair"]}},
+    {"cell_id":"COUNTERFACTUAL_CHANGE_RELEASE","state":"CLOSED","release_key":"counterfactual_change_release","evidence":["release:379663025:immutable=true","tag-object:b9ddb3bf434988508fa848ed0e3891a38092d09d:target=e8eb77c88093ff91e62b5c218d00d80df462a59b","source-actions:run=33381542920:job=99454796897:success","asset:537808326:22665:sha256:66181456e05cca30f26997368acabc1094990a7163cec26eaba521a50637ecdc","asset:537808327:200:sha256:25ae0dc8f5344fe0ed650fb8a486f6fb2c84aaf4678b3388e85611481772f4d4","asset:537808330:106:sha256:d2da8c9f9fdfca275ab280518beedda0bdc6df8e7c7ca6202a6a1448c441b87b"]},
+    {"cell_id":"VERIFICATION_REUSE_RELEASE","state":"CLOSED","release_key":"verification_reuse_release","evidence":["release:379662322:immutable=true","tag-object:3d9bf3374b4ad7e649499ff4a2538b9ff16fab7a:target=5252c202d8f7e3637209037c1b0bf9595b7da661","source-actions:run=33381424452:job=99454424981:success","asset:537806848:19943:sha256:2be270c57832fe972f69615cedcb787f9f503a11376699bb827299534e8719f6","asset:537806851:402:sha256:7eaa291482d2651d35f188323fe8b81b57ddbd3fb00e5791cc66dceb15c85364","asset:537806849:111:sha256:a4e16388e8ff29f59cb0a850d0e61e1349235e0bd2286715d0fd5410454a1dca"]},
+    {"cell_id":"SEMANTIC_DRIFT_RELEASE","state":"CLOSED","release_key":"semantic_drift_release","evidence":["release:379664434:immutable=true","tag-object:537e5bb79ba4fa34fbe224aa2f40a62b06a35780:target=1cfff53e4ef48052fb25bf8c56a113d6835726a4","source-actions:run=33381774958:job=99455535633:success","asset:537811623:29313:sha256:231bc7915a67b77f83ab434693a37d4929dbaf1b7f7dd356484ecc07500b5cf3"]},
+    {"cell_id":"SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","state":"REFUTED","release_key":null,"evidence":["process-deviation:SEMANTIC_DRIFT_DIRECT_TO_MAIN-v0.10","commit:e83e42611eeed30100018a98c1f1835e1f17b821:direct-main:no-pull-request","main-after:1cfff53e4ef48052fb25bf8c56a113d6835726a4"],"refutation":{"stage":"DEVELOPMENT_PROCESS","step":"TRACE_SUBSTANTIVE_IMPLEMENTATION_COMMIT","reason":"SUBSTANTIVE_IMPLEMENTATION_LANDED_DIRECTLY_ON_MAIN","next_operation":"REQUIRE_PULL_REQUEST_FOR_SUBSTANTIVE_IMPLEMENTATION","blocked_by":["kimjooyoon/gooo-semantic-drift:commit:e83e42611eeed30100018a98c1f1835e1f17b821","kimjooyoon/gooo-semantic-drift:commit:e83e42611eeed30100018a98c1f1835e1f17b821:pull_requests=[]","kimjooyoon/gooo-semantic-drift:main:1cfff53e4ef48052fb25bf8c56a113d6835726a4"]}}
   ]
 }

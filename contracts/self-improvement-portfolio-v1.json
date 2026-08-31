@@ -2,16 +2,24 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 12,
+  "total_cells": 16,
+  "denominator_migration": {
+    "from": 12,
+    "to": 16,
+    "add": 4,
+    "retire": 0,
+    "split": 0,
+    "append_only": true
+  },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 4,
-    "REGRESSION": 4
+    "COHERENCE": 7,
+    "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 4,
-    "GUARDRAIL": 4
+    "OUTCOME": 7,
+    "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
   "policy": {
@@ -215,6 +223,70 @@
       "metric_denominator": 1,
       "release_key": "resolution_lattice",
       "depends_on": ["RESOLUTION_DESCENT"]
+    },
+    {
+      "ordinal": 13,
+      "id": "COUNTERFACTUAL_CHANGE_RELEASE",
+      "axis": "COUNTERFACTUAL_CHANGE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptCounterfactualChangeRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptCounterfactualChangeRelease",
+      "ir": "semantic-ir/activity/AdoptCounterfactualChangeRelease",
+      "generated_artifact": "evidence/cells/COUNTERFACTUAL_CHANGE_RELEASE.json",
+      "evaluator": "ledger/counterfactual-change-release",
+      "metric_id": "gooo.metric.self-improvement.counterfactual-change-release.v1",
+      "metric_denominator": 1,
+      "release_key": "counterfactual_change_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 14,
+      "id": "VERIFICATION_REUSE_RELEASE",
+      "axis": "VERIFICATION_REUSE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptVerificationReuseRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptVerificationReuseRelease",
+      "ir": "semantic-ir/activity/AdoptVerificationReuseRelease",
+      "generated_artifact": "evidence/cells/VERIFICATION_REUSE_RELEASE.json",
+      "evaluator": "ledger/verification-reuse-release",
+      "metric_id": "gooo.metric.self-improvement.verification-reuse-release.v1",
+      "metric_denominator": 1,
+      "release_key": "verification_reuse_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 15,
+      "id": "SEMANTIC_DRIFT_RELEASE",
+      "axis": "SEMANTIC_DRIFT_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptSemanticDriftRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptSemanticDriftRelease",
+      "ir": "semantic-ir/activity/AdoptSemanticDriftRelease",
+      "generated_artifact": "evidence/cells/SEMANTIC_DRIFT_RELEASE.json",
+      "evaluator": "ledger/semantic-drift-release",
+      "metric_id": "gooo.metric.self-improvement.semantic-drift-release.v1",
+      "metric_denominator": 1,
+      "release_key": "semantic_drift_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 16,
+      "id": "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS",
+      "axis": "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS",
+      "proof": "REGRESSION",
+      "indicator": "GUARDRAIL",
+      "activity": "AuditSemanticDriftDevelopmentProcess",
+      "source": "examples/self-improvement-portfolio/main.gooo#AuditSemanticDriftDevelopmentProcess",
+      "ir": "semantic-ir/activity/AuditSemanticDriftDevelopmentProcess",
+      "generated_artifact": "evidence/cells/SEMANTIC_DRIFT_DEVELOPMENT_PROCESS.json",
+      "evaluator": "ledger/semantic-drift-development-process",
+      "metric_id": "gooo.metric.self-improvement.semantic-drift-development-process.v1",
+      "metric_denominator": 1,
+      "release_key": null,
+      "depends_on": ["SEMANTIC_DRIFT_RELEASE"]
     }
   ]
 }

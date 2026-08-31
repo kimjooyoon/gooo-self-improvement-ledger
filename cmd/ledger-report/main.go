@@ -74,6 +74,7 @@ type AssessmentCell struct {
 	ReleaseKey string   `json:"release_key"`
 	Evidence   []string `json:"evidence"`
 	Unknown    *Unknown `json:"unknown"`
+	Refutation *Unknown `json:"refutation"`
 }
 
 type Unknown struct {
@@ -309,8 +310,8 @@ func validateProfile(profile Profile) {
 	if profile.Schema != profileSchema || profile.ProfileID == "" {
 		fatalf("invalid profile identity")
 	}
-	if profile.TotalCells != 12 || len(profile.Cells) != profile.TotalCells {
-		fatalf("profile must contain exactly 12 cells")
+	if profile.TotalCells != 16 || len(profile.Cells) != profile.TotalCells {
+		fatalf("profile must contain exactly 16 cells")
 	}
 	if !equalStringSlice(profile.Precedence, []string{stateRefuted, stateUnknown, stateClosed}) {
 		fatalf("profile precedence must be REFUTED > UNKNOWN > CLOSED")
@@ -318,15 +319,11 @@ func validateProfile(profile Profile) {
 	if profile.Policy.DenominatorMutationDuringRun || profile.Policy.StatusInferenceFromMissing || profile.Policy.RuntimeRepositoryWrites != 0 || !profile.Policy.CallerOwnedTempOutputOnly || profile.Policy.CrossProjectRequiredGates != 0 || profile.Policy.AggregatePercentage || profile.Policy.AggregateScore {
 		fatalf("profile policy violates fixed denominator or authority boundary")
 	}
-	for _, key := range []string{"FOUNDATION", "COHERENCE", "REGRESSION"} {
-		if profile.ProofTotals[key] != 4 {
-			fatalf("proof total %s must be 4", key)
-		}
+	if !equalIntMap(profile.ProofTotals, map[string]int{"FOUNDATION": 4, "COHERENCE": 7, "REGRESSION": 5}) {
+		fatalf("proof totals must be FOUNDATION4/COHERENCE7/REGRESSION5")
 	}
-	for _, key := range []string{"DRIVER", "OUTCOME", "GUARDRAIL"} {
-		if profile.IndicatorTotals[key] != 4 {
-			fatalf("indicator total %s must be 4", key)
-		}
+	if !equalIntMap(profile.IndicatorTotals, map[string]int{"DRIVER": 4, "OUTCOME": 7, "GUARDRAIL": 5}) {
+		fatalf("indicator totals must be DRIVER4/OUTCOME7/GUARDRAIL5")
 	}
 	seenIDs := map[string]bool{}
 	seenAxes := map[string]bool{}
@@ -349,7 +346,7 @@ func validateProfile(profile Profile) {
 		actualIndicator[cell.Indicator]++
 	}
 	if !equalIntMap(actualProof, profile.ProofTotals) || !equalIntMap(actualIndicator, profile.IndicatorTotals) {
-		fatalf("profile cell classification totals do not match declared 4/4/4")
+		fatalf("profile cell classification totals do not match declared 4/7/5")
 	}
 }
 
@@ -450,6 +447,9 @@ func validateAssessment(profile Profile, assessment Assessment) {
 		if cell.State != stateClosed && cell.State != stateUnknown && cell.State != stateRefuted {
 			fatalf("assessment cell %s has invalid state %q", cell.CellID, cell.State)
 		}
+		if cell.State == stateRefuted && cell.Refutation == nil {
+			fatalf("REFUTED cell %s is missing its refutation", cell.CellID)
+		}
 		byID[cell.CellID] = cell
 	}
 	for _, cell := range profile.Cells {
@@ -483,7 +483,7 @@ func buildReport(profile Profile, assessment Assessment, verification ReleaseVer
 		assessmentCell := assessmentByID[cell.ID]
 		state := assessmentCell.State
 		unknown := assessmentCell.Unknown
-		var refutation *Unknown
+		refutation := assessmentCell.Refutation
 		if cell.ReleaseKey != "" {
 			release, ok := verification.Releases[cell.ReleaseKey]
 			if !ok {
@@ -673,9 +673,17 @@ func writeMarkdown(path string, report PortfolioReport) error {
 	fmt.Fprintf(&b, "Go toolchain: `%s`\n\n", report.GoVersion)
 	fmt.Fprintf(&b, "The fixed denominator is `%d` cells. This report measures the named capability profile only; it does not infer whole-language completeness.\n\n", report.Summary.Total)
 	fmt.Fprintf(&b, "Status counts: `CLOSED %d`, `UNKNOWN %d`, `REFUTED %d`. No percentage or score is emitted.\n\n", report.Summary.Closed, report.Summary.Unknown, report.Summary.Refuted)
-	fmt.Fprintf(&b, "## 12-cell report\n\n| # | axis | proof | indicator | state | numerator/denominator | activity | release |\n|---:|---|---|---|---|---:|---|---|\n")
+	fmt.Fprintf(&b, "## %d-cell report\n\n| # | axis | proof | indicator | state | numerator/denominator | activity | release |\n|---:|---|---|---|---|---:|---|---|\n", report.Summary.Total)
 	for _, cell := range report.Cells {
 		fmt.Fprintf(&b, "| %d | `%s` | `%s` | `%s` | **%s** | %d/%d | `%s` | `%s` |\n", cell.Ordinal, cell.Axis, cell.Proof, cell.Indicator, cell.State, cell.Numerator, cell.Denominator, cell.Activity, cell.ReleaseKey)
+	}
+	fmt.Fprintf(&b, "\n## REFUTED process and release frontiers\n\n")
+	fmt.Fprintf(&b, "| cell | stage | step | reason | next_operation | blocked_by |\n|---|---|---|---|---|---|\n")
+	for _, cell := range report.Cells {
+		if cell.State != stateRefuted || cell.Refutation == nil {
+			continue
+		}
+		fmt.Fprintf(&b, "| `%s` | `%s` | `%s` | `%s` | `%s` | `%s` |\n", cell.ID, cell.Refutation.Stage, cell.Refutation.Step, cell.Refutation.Reason, cell.Refutation.NextOperation, strings.Join(cell.Refutation.BlockedBy, ", "))
 	}
 	fmt.Fprintf(&b, "\n## UNKNOWN frontier\n\n")
 	fmt.Fprintf(&b, "| cell | stage | step | reason | unknown_class | next_operation | blocked_by |\n|---|---|---|---|---|---|---|\n")

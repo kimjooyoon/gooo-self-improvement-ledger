@@ -47,17 +47,38 @@ jobs:
             exit 1
           fi
           go vet ./...
-          go test -json ./... > "$RUNNER_TEMP/go-test.json"
-          go build -trimpath -o "$RUNNER_TEMP/ledger-report" ./cmd/ledger-report
+          build_start=$(date +%s%N)
+          /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/build-peak-rss" \
+            go build -trimpath -o "$RUNNER_TEMP/ledger-report" ./cmd/ledger-report
+          build_end=$(date +%s%N)
+          test_start=$(date +%s%N)
+          /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/test-peak-rss" \
+            go test -json ./... > "$ARTIFACT_ROOT/go-test.json"
+          test_end=$(date +%s%N)
+          test_summary=$(jq -s '{event_count:length,package_count:([.[]|select(.Package!=null)|.Package]|unique|length),pass_events:([.[]|select(.Action=="pass")]|length),fail_events:([.[]|select(.Action=="fail")]|length),skip_events:([.[]|select(.Action=="skip")]|length)}' "$ARTIFACT_ROOT/go-test.json")
+          jq -n \
+            --arg schema "gooo/self-improvement-portfolio/ci-observations/v1" \
+            --arg go_version "$(go env GOVERSION)" --arg go_version_line "$(go version)" \
+            --argjson build_wall "$(( (build_end - build_start) / 1000000 ))" \
+            --argjson build_raw "$((build_end - build_start))" \
+            --argjson build_rss "$(cat "$ARTIFACT_ROOT/build-peak-rss")" \
+            --argjson test_wall "$(( (test_end - test_start) / 1000000 ))" \
+            --argjson test_raw "$((test_end - test_start))" \
+            --argjson test_rss "$(cat "$ARTIFACT_ROOT/test-peak-rss")" \
+            --argjson test_summary "$test_summary" \
+            '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
+            > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify ten immutable release locks
+      - name: Fetch and verify thirteen immutable release locks plus four preserved counterexamples
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -Eeuo pipefail
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
-            bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
+          bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
+          jq -e '.summary=={total:13,verified:13,unknown:0,refuted:0} and (.counterexamples|length)==4 and all(.counterexamples[]; .state=="REFUTED" and .verified==true)' \
+            "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
 
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
         shell: bash
@@ -81,12 +102,13 @@ jobs:
           test "$before" = "$(cat "$RUNNER_TEMP/repository-after")"
           fetch=$(jq '.timing.fetch' "$ARTIFACT_ROOT/releases/verification.json")
           verify=$(jq '.timing.verify' "$ARTIFACT_ROOT/releases/verification.json")
+          ci=$(cat "$ARTIFACT_ROOT/ci-observations.json")
           verify_rss=$(cat "$ARTIFACT_ROOT/release-verify-peak-rss")
           jq -n \
             --arg schema "gooo/self-improvement-portfolio/runtime/v1" \
             --arg subject "$SUBJECT_SHA" --arg go_version "$(go env GOVERSION)" \
-            --argjson fetch "$fetch" --argjson verify "$verify" --argjson verify_rss "$verify_rss" \
-            '{schema:$schema,subject_sha:$subject,go_version:$go_version,timing:{fetch:$fetch,verify:($verify|.peak_rss_kib=$verify_rss),report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}},authority:{runtime_repository_writes:0,caller_owned_temp_output:true,cross_project_required_gates:0},local_execution_counts:{gofmt:0,build:0,test:0,vet:0,conformance:0}}' \
+            --argjson fetch "$fetch" --argjson verify "$verify" --argjson verify_rss "$verify_rss" --argjson ci "$ci" \
+            '{schema:$schema,subject_sha:$subject,go_version:$go_version,timing:{fetch:$fetch,verify:($verify|.peak_rss_kib=$verify_rss),report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}},ci_observations:$ci,authority:{runtime_repository_writes:0,caller_owned_temp_output:true,cross_project_required_gates:0},local_execution_counts:{gofmt:0,build:0,test:0,vet:0,conformance:0}}' \
             > "$ARTIFACT_ROOT/runtime.json"
 
       - name: Run fixed-denominator conformance and emit human report
@@ -97,7 +119,8 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:12,closed:10,unknown:1,refuted:1}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:16,closed:13,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/capability-registry/verification.json" >> "$GITHUB_STEP_SUMMARY"
