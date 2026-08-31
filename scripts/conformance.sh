@@ -12,6 +12,7 @@ artifact=$(realpath "$3")
 probe=$(mktemp -d)
 mkdir -p "$probe"
 
+echo "conformance: verify profile contract"
 jq -e '
   .total_cells == 33 and
   .denominator_migration == {from:32,to:33,add:1,retire:0,split:0,append_only:true} and
@@ -45,7 +46,9 @@ jq -e '
   (.cells|map(select(.id=="LANGUAGE_DELTA_FORGE_DURABLE_RELEASE" and .release_key=="language_delta_forge_durable_release"))|length)==1 and
   (.cells|map(select(.id=="OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE" and .release_key=="opentofu_generated_service_project_durable_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
+echo "conformance: profile contract passed"
 
+echo "conformance: verify release lock contract"
 jq -e '
   .releases.counterfactual_change_release.release_id == 379663025 and .releases.counterfactual_change_release.tag_object_sha == "b9ddb3bf434988508fa848ed0e3891a38092d09d" and
   .releases.verification_reuse_release.release_id == 379662322 and .releases.verification_reuse_release.tag_object_sha == "3d9bf3374b4ad7e649499ff4a2538b9ff16fab7a" and
@@ -612,9 +615,11 @@ jq -e '
   all(.counterexample_runs[0:6][]; .job_name=="conformance") and
   all(.counterexample_runs[6:][]; .job_name=="envelope" and .reason=="FAILED_CI_VALIDATION")
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
+echo "conformance: release lock contract passed"
 
+echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:30,to:31,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:32,to:33,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
