@@ -27,3 +27,4 @@ activity AdoptImprovementProposerRelease(PortfolioInput) -> PortfolioEvidence co
 activity AdoptTestFrontierRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=TEST_FRONTIER_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptChangeBundleRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CHANGE_BUNDLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptUtilityTrialProtocolRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=UTILITY_TRIAL_PROTOCOL_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptReflexiveModernCycleRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=REFLEXIVE_MODERN_CYCLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"

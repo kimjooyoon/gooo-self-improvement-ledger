@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for twenty-three specifically named capabilities.
+The portfolio is an evidence ledger for twenty-four specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains twenty-three entries. The v0.17
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-two-cell
+`cells` array is immutable during a run and contains twenty-four entries. The v0.18
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-three-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/14/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/14/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/15/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/15/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -115,9 +115,24 @@ are preserved as an append-only `RELEASE_HISTORY_REWRITE_PROCESS=REFUTED`
 counterexample. Current historical release `379850805` and assets
 `538157619/538157605` remain replacement evidence only and never closure evidence.
 
+The v0.18 frontier appends `REFLEXIVE_MODERN_CYCLE_RELEASE`. It closes only
+when immutable upstream `gooo-reflexive-loop@v0.3.1` release `379879740` binds
+annotated tag object `e54e08feacb3ea4da67b5aa5e404a4ce0b605895` to target
+`ed8ff02c7d8f56d8d9474b68036ea80cdc105261`, successful post-main conformance
+run `33410813438`/job `99549616696`, Actions artifact `9765064827`, and all
+four release assets. Its source observation is fixed at 12 activities/cells,
+`4/4/4` proof and indicator buckets, `3 normal / 3 UNKNOWN / 4 REFUTED`
+scenarios, and precedence `REFUTED > UNKNOWN > CLOSED`. The normal candidate
+receipt records oracle failures `1 -> 0`, tests `4/2/1/1/0`, replay `19/0`,
+rollback `1/0`, build `7436 ms / 270260 KiB`, conformance
+`8844 ms / 14524 KiB`, and `93` Gooo lines across `44` files and `16`
+directories, with all eight authority fields zero. Upstream v0.3.0 release
+`379458203` and its target remain only as a separate historical fact; legacy
+`REFLEXIVE_LOOP` v0.2 is unchanged and is not retired or replaced.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-twenty-three-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+twenty-four-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
