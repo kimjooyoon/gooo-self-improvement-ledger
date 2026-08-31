@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 26 named cells, each bound one-to-one to
+language. The denominator is exactly 27 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -19,11 +19,12 @@ The fixed axes are:
 `IMPROVEMENT_PROPOSER_RELEASE`, `TEST_FRONTIER_RELEASE`, and
 `CHANGE_BUNDLE_RELEASE`, `UTILITY_TRIAL_PROTOCOL_RELEASE`, and
 `REFLEXIVE_MODERN_CYCLE_RELEASE`, `EXPERIENCE_MEMORY_RELEASE`, and
-`SEMANTIC_DRIFT_GUARD_RELEASE`.
+`SEMANTIC_DRIFT_GUARD_RELEASE`, and
+`SEMANTIC_AUTHORITY_CENSUS_RELEASE`.
 
-The denominator migration is explicit and append-only: `25 -> 26` with
+The denominator migration is explicit and append-only: `26 -> 27` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/17/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/17/5`.
+`4/18/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/18/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -46,7 +47,7 @@ append-only frontier records `CI_EFFORT_OBSERVATION` /
 `DERIVE_OPERATION_DURATION` and the next operation is to publish the CI time
 causality protocol with exact clock-domain semantics. The new protocol is
 tracked only as an unreleased, non-required optional dependency.
-The ten release-adoption cells close only from exact immutable release evidence:
+Release-adoption cells close only from exact immutable release evidence:
 `gooo-counterfactual-change@v0.1.2` release `379663025`,
 `gooo-verification-reuse@v0.1.2` release `379662322`, and
 `gooo-semantic-drift@v0.1.1` release `379664434`, plus
@@ -216,6 +217,23 @@ preserved. The successful independent tool release does not close or alter
 line observation keeps `CORE_SEMANTIC_AUTHORITY=REFUTED`. Utility remains
 `UNKNOWN`, so the portfolio is `CLOSED23/UNKNOWN1/REFUTED2`.
 
+The v0.21 frontier appends `SEMANTIC_AUTHORITY_CENSUS_RELEASE`. It adopts the
+immutable upstream `gooo-semantic-authority-census@v0.1.0` release `379947813`,
+binding annotated tag object
+`c81ff9b843dce716c57fe2ab542bde52e922ab2b` to target
+`0451a1f5813e51a2d09145d7516170c7802f9fd5`, successful PR #1 merge, main run
+`33421788389`/job `99585671364` with artifact `9769198151`, and release run
+`33421919840`/job `99586108117` with artifact `9769259042`. Its independent
+protocol has denominator `12`, proof and indicator buckets `4/4/4`, cases
+`CLOSED3/UNKNOWN3/REFUTED3`, and score `NOT_COMBINED`; the exact pair is
+`obligations=3`, `generated_bound=2 -> 3`, `handwritten_go=1 -> 0`. The main-run
+timings are compile `5184 ms`, build `751 ms`, test `2209 ms`, conformance
+`8306 ms`, and peak RSS `270708 KiB`; tests are `4/4/0/0/0`, replay is `9/0`,
+and all authority counts are zero. The census is observation-only: it does not
+close core semantic authority or the semantic-drift development-process cell,
+and external utility remains `UNKNOWN`, so the portfolio is
+`CLOSED24/UNKNOWN1/REFUTED2`.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -244,7 +262,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the twenty-three immutable inputs
+commit, and consumer asset identities for the twenty-four immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

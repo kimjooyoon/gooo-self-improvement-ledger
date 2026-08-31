@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for twenty-six specifically named capabilities.
+The portfolio is an evidence ledger for twenty-seven specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains twenty-six entries. The v0.20
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-five-cell
+`cells` array is immutable during a run and contains twenty-seven entries. The v0.21
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-six-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/17/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/17/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/18/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/18/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -164,9 +164,24 @@ annotated correction assets. This independent release does not close or alter
 keeps `CORE_SEMANTIC_AUTHORITY=REFUTED`. Utility remains `UNKNOWN`, yielding
 `CLOSED23/UNKNOWN1/REFUTED2`.
 
+The v0.21 frontier appends `SEMANTIC_AUTHORITY_CENSUS_RELEASE`. It adopts
+immutable `gooo-semantic-authority-census@v0.1.0` release `379947813`, binding
+annotated tag object `c81ff9b843dce716c57fe2ab542bde52e922ab2b` to target
+`0451a1f5813e51a2d09145d7516170c7802f9fd5`, successful PR #1 merge, main run
+`33421788389`/job `99585671364` with artifact `9769198151`, and release run
+`33421919840`/job `99586108117` with artifact `9769259042`. Its independent
+protocol has denominator `12`, proof and indicator buckets `4/4/4`, cases
+`CLOSED3/UNKNOWN3/REFUTED3`, and score `NOT_COMBINED`; the exact pair is
+`obligations=3`, `generated_bound=2 -> 3`, `handwritten_go=1 -> 0`. The main-run
+timings are compile `5184 ms`, build `751 ms`, test `2209 ms`, conformance
+`8306 ms`, and peak RSS `270708 KiB`; tests are `4/4/0/0/0`, replay is `9/0`,
+and all authority counts are zero. The census is observation-only: it does not
+close core semantic authority or the semantic-drift development-process cell,
+and external utility remains `UNKNOWN`, yielding `CLOSED24/UNKNOWN1/REFUTED2`.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-twenty-six-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+twenty-seven-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 26,
+  "total_cells": 27,
   "denominator_migration": {
-    "from": 25,
-    "to": 26,
+    "from": 26,
+    "to": 27,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 17,
+    "COHERENCE": 18,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 17,
+    "OUTCOME": 18,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -446,6 +446,22 @@
       "metric_id": "gooo.metric.self-improvement.semantic-drift-guard-release.v1",
       "metric_denominator": 1,
       "release_key": "semantic_drift_guard_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 27,
+      "id": "SEMANTIC_AUTHORITY_CENSUS_RELEASE",
+      "axis": "SEMANTIC_AUTHORITY_CENSUS_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptSemanticAuthorityCensusRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptSemanticAuthorityCensusRelease",
+      "ir": "semantic-ir/activity/AdoptSemanticAuthorityCensusRelease",
+      "generated_artifact": "evidence/cells/SEMANTIC_AUTHORITY_CENSUS_RELEASE.json",
+      "evaluator": "ledger/semantic-authority-census-release",
+      "metric_id": "gooo.metric.self-improvement.semantic-authority-census-release.v1",
+      "metric_denominator": 1,
+      "release_key": "semantic_authority_census_release",
       "depends_on": []
     }
   ]
