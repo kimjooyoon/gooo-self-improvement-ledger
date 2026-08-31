@@ -14,8 +14,8 @@ jobs:
   evidence:
     runs-on: ubuntu-latest
     env:
-      SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      ARTIFACT_ROOT: ${{ runner.temp }}/gooo-self-improvement-ledger
+      SUBJECT_SHA: ${{ github.sha }}
+      ARTIFACT_ROOT: /tmp/gooo-self-improvement-ledger
     steps:
       - name: Check out the reviewed subject
         uses: actions/checkout@v5
