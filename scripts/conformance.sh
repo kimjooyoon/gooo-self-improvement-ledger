@@ -13,35 +13,49 @@ probe=$(mktemp -d)
 mkdir -p "$probe"
 
 jq -e '
-  .total_cells == 16 and
-  .denominator_migration == {from:12,to:16,add:4,retire:0,split:0,append_only:true} and
+  .total_cells == 17 and
+  .denominator_migration == {from:16,to:17,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:7,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:7,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:8,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:8,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
-  (.cells|map(select(.id=="SEMANTIC_DRIFT_DEVELOPMENT_PROCESS" and .release_key==null))|length)==1
+  (.cells|map(select(.id=="SEMANTIC_DRIFT_DEVELOPMENT_PROCESS" and .release_key==null))|length)==1 and
+  (.cells|map(select(.id=="IMPROVEMENT_FRONTIER_RELEASE" and .release_key=="improvement_frontier_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 
 jq -e '
   .releases.counterfactual_change_release.release_id == 379663025 and .releases.counterfactual_change_release.tag_object_sha == "b9ddb3bf434988508fa848ed0e3891a38092d09d" and
   .releases.verification_reuse_release.release_id == 379662322 and .releases.verification_reuse_release.tag_object_sha == "3d9bf3374b4ad7e649499ff4a2538b9ff16fab7a" and
   .releases.semantic_drift_release.release_id == 379664434 and .releases.semantic_drift_release.tag_object_sha == "537e5bb79ba4fa34fbe224aa2f40a62b06a35780" and
+  .releases.improvement_frontier_release.release_id == 379728340 and .releases.improvement_frontier_release.tag_object_sha == "72e59658ff08c47c7e7accd8b3af470a87da428d" and
+  .releases.improvement_frontier_release.target_commit_sha == "5749a883b85cc4ede1e53d124f1e3685b23189bd" and
+  .releases.improvement_frontier_release.source_run.run_id == 33390644439 and .releases.improvement_frontier_release.source_run.job_id == 99483229767 and
+  .releases.improvement_frontier_release.source_run.artifact_ids == [9757307658] and
+  .releases.improvement_frontier_release.protocol_receipt.schema == "gooo/improvement-frontier/ci-runtime/v1" and
+  .releases.improvement_frontier_release.protocol_receipt.ci_run_id == "33390644439" and .releases.improvement_frontier_release.protocol_receipt.ci_job_id == "99483229767" and
+  .releases.improvement_frontier_release.protocol_receipt.build_wall_ms == 3950 and .releases.improvement_frontier_release.protocol_receipt.test_wall_ms == 1770 and .releases.improvement_frontier_release.protocol_receipt.peak_rss_kib == 282632 and
+  .releases.improvement_frontier_release.protocol_receipt.tests == {discovered:5,executed:5,reused:0,skipped:0,not_observed:0} and
+  .releases.improvement_frontier_release.protocol_receipt.product_authority == {repository_writes:0,local_test_executions:0,cross_project_required_gates:0} and
   (.releases.counterfactual_change_release.assets|map(.id)) == [537808326,537808327,537808330] and
   (.releases.verification_reuse_release.assets|map(.id)) == [537806848,537806851,537806849] and
   (.releases.semantic_drift_release.assets|map(.id)) == [537811623] and
+  (.releases.improvement_frontier_release.assets|map(.id)) == [537940229,537940232] and
   (.counterexamples|map(.counterexample_id)|sort) == ["counterfactual_change_v0.1.0_mutable","counterfactual_change_v0.1.1_mutable","semantic_drift_v0.1.0_mutable","verification_reuse_v0.1.1_mutable"] and
-  all(.counterexamples[]; .immutable==false and .append_only==true and .reason=="RELEASE_API_IMMUTABLE_FALSE")
+  all(.counterexamples[]; .immutable==false and .append_only==true and .reason=="RELEASE_API_IMMUTABLE_FALSE") and
+  (.counterexample_runs|length) == 6 and
+  (.counterexample_runs|map(.run_id)) == [33390048056,33390048173,33390167631,33390171403,33390257810,33390263187] and
+  all(.counterexample_runs[]; .append_only==true and .conclusion=="failure" and .job_name=="conformance")
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 
 jq -e '
-  .denominator_migration == {from:12,to:16,add:4,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:16,to:17,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -121,6 +135,17 @@ jq -e '
     $process.refutation.reason == "SUBSTANTIVE_IMPLEMENTATION_LANDED_DIRECTLY_ON_MAIN" and
     $process.refutation.next_operation == "REQUIRE_PULL_REQUEST_FOR_SUBSTANTIVE_IMPLEMENTATION" and
     ($process.refutation.blocked_by|length) == 3) and
+  (.cells|length) == 17 and
+  ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
+    $frontier.state == "CLOSED" and
+    $frontier.release_key == "improvement_frontier_release" and
+    ($frontier.evidence | index("release:379728340:immutable=true")) != null and
+    ($frontier.evidence | index("tag-object:72e59658ff08c47c7e7accd8b3af470a87da428d:target=5749a883b85cc4ede1e53d124f1e3685b23189bd")) != null and
+    ($frontier.evidence | index("source-actions:run=33390644439:job=99483229767:success")) != null and
+    ($frontier.evidence | index("source-actions-artifact:9757307658")) != null and
+    ($frontier.evidence | index("asset:537940229:1024:sha256:562db1b6f224a3b732f9b8bb57f1efdcf33d6653e239ffb021fe3e7d9cf2baf4")) != null and
+    ($frontier.evidence | index("asset:537940232:25799:sha256:66ac3b7d659c470544b8bd24d9c79ee50d2d250b2f6162cb5fb79b05a9000388")) != null and
+    ($frontier.evidence | index("receipt:gooo/improvement-frontier/ci-runtime/v1:tests=5/5/0/0/0:build=3950:test=1770:peak_rss_kib=282632:authority=0/0/0")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -192,12 +217,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:16,closed:13,unknown:1,refuted:2} and
+  .summary == {total:17,closed:14,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 16 and
+  (.cells|length) == 17 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 13 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 14 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -216,16 +241,17 @@ jq -e '
     COUNTERFACTUAL_CHANGE_RELEASE:"CLOSED",
     VERIFICATION_REUSE_RELEASE:"CLOSED",
     SEMANTIC_DRIFT_RELEASE:"CLOSED",
-    SEMANTIC_DRIFT_DEVELOPMENT_PROCESS:"REFUTED"
+    SEMANTIC_DRIFT_DEVELOPMENT_PROCESS:"REFUTED",
+    IMPROVEMENT_FRONTIER_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:16,activities:16,unique_axes:16,unique_metrics:16,source_bindings:16,ir_bindings:16,generated_artifact_bindings:16,evaluator_bindings:16} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 7 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 7 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:13,verified:13,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:17,activities:17,unique_axes:17,unique_metrics:17,source_bindings:17,ir_bindings:17,generated_artifact_bindings:17,evaluator_bindings:17} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 8 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 8 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:14,verified:14,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

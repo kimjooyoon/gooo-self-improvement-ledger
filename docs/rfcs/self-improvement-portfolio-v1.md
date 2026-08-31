@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for sixteen specifically named capabilities.
+The portfolio is an evidence ledger for seventeen specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains sixteen entries. The v0.10
-migration is append-only `ADD4/RETIRE0/SPLIT0` from the prior twelve-cell
+`cells` array is immutable during a run and contains seventeen entries. The v0.11
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior sixteen-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/7/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/7/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/8/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/8/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -38,9 +38,16 @@ reflexive-loop v0.3 release carries internal lifecycle-final `PROMOTED`,
 promotion, rollback-boundary, and immutable-target receipts. This does not
 infer core semantic authority or independent external utility evidence.
 
+The v0.11 frontier appends `IMPROVEMENT_FRONTIER_RELEASE`. It closes only
+when the immutable `gooo-improvement-frontier@v0.1.0` release binds its
+annotated tag target, source Actions run/job, downloaded receipt and source
+archive bytes, and the receipt's fixed protocol result. Six failed upstream
+implementation attempts remain append-only counterexample references and are
+not included in the closure-gated release map.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-sixteen-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+seventeen-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

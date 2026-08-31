@@ -2,23 +2,23 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 16,
+  "total_cells": 17,
   "denominator_migration": {
-    "from": 12,
-    "to": 16,
-    "add": 4,
+    "from": 16,
+    "to": 17,
+    "add": 1,
     "retire": 0,
     "split": 0,
     "append_only": true
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 7,
+    "COHERENCE": 8,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 7,
+    "OUTCOME": 8,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -287,6 +287,22 @@
       "metric_denominator": 1,
       "release_key": null,
       "depends_on": ["SEMANTIC_DRIFT_RELEASE"]
+    },
+    {
+      "ordinal": 17,
+      "id": "IMPROVEMENT_FRONTIER_RELEASE",
+      "axis": "IMPROVEMENT_FRONTIER_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptImprovementFrontierRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptImprovementFrontierRelease",
+      "ir": "semantic-ir/activity/AdoptImprovementFrontierRelease",
+      "generated_artifact": "evidence/cells/IMPROVEMENT_FRONTIER_RELEASE.json",
+      "evaluator": "ledger/improvement-frontier-release",
+      "metric_id": "gooo.metric.self-improvement.improvement-frontier-release.v1",
+      "metric_denominator": 1,
+      "release_key": "improvement_frontier_release",
+      "depends_on": []
     }
   ]
 }
