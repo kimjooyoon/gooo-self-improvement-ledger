@@ -13,16 +13,16 @@ probe=$(mktemp -d)
 mkdir -p "$probe"
 
 jq -e '
-  .total_cells == 20 and
-  .denominator_migration == {from:19,to:20,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 21 and
+  .denominator_migration == {from:20,to:21,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:11,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:11,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:12,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:12,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -30,7 +30,8 @@ jq -e '
   (.cells|map(select(.id=="IMPROVEMENT_FRONTIER_RELEASE" and .release_key=="improvement_frontier_release"))|length)==1 and
   (.cells|map(select(.id=="AUTHORITY_BOOTSTRAP_RELEASE" and .release_key=="authority_bootstrap_release"))|length)==1 and
   (.cells|map(select(.id=="OPENTOFU_ENVELOPE_RELEASE" and .release_key=="opentofu_envelope_release"))|length)==1 and
-  (.cells|map(select(.id=="IMPROVEMENT_PROPOSER_RELEASE" and .release_key=="improvement_proposer_release"))|length)==1
+  (.cells|map(select(.id=="IMPROVEMENT_PROPOSER_RELEASE" and .release_key=="improvement_proposer_release"))|length)==1 and
+  (.cells|map(select(.id=="TEST_FRONTIER_RELEASE" and .release_key=="test_frontier_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 
 jq -e '
@@ -103,6 +104,34 @@ jq -e '
   (.releases.improvement_proposer_release.assets|map(.id)) == [538032347,538032342,538032346,538032343] and
   (.releases.improvement_proposer_release.pull_requests|map(.number)) == [1,2,3,4] and
   all(.releases.improvement_proposer_release.pull_requests[]; .merged==true) and
+  .releases.test_frontier_release.release_id == 379783807 and .releases.test_frontier_release.tag_object_sha == "398577621c42eb7450416bdf086b9304c8c1e42a" and
+  .releases.test_frontier_release.target_commit_sha == "f8e1f8aebb67abbda237073893a4a855a8659df5" and
+  .releases.test_frontier_release.source_run.run_id == 33398482775 and .releases.test_frontier_release.source_run.job_id == 99508698139 and
+  .releases.test_frontier_release.source_run.artifact_ids == [9760281954] and
+  .releases.test_frontier_release.release_run.run_id == 33398545885 and .releases.test_frontier_release.release_run.job_id == 99508911340 and
+  .releases.test_frontier_release.source_artifact.artifact_id == 9760281954 and .releases.test_frontier_release.source_artifact.size_bytes == 2777788 and
+  .releases.test_frontier_release.source_artifact.sha256 == "sha256:91f33f285012e6a95861b30f2f7fb259f80165dba99d6087cc261d891619d614" and
+  .releases.test_frontier_release.release_manifest.schema == "gooo/test-frontier/release-manifest/v1" and
+  .releases.test_frontier_release.release_manifest.tag_object_sha == "398577621c42eb7450416bdf086b9304c8c1e42a" and
+  .releases.test_frontier_release.release_manifest.source_asset_digest == "sha256:1ef4c6a13288cb8198734e8fde252d470169b2b4f0d09006fdf467d5317917f8" and
+  .releases.test_frontier_release.protocol_observation.fixed_denominator == 12 and .releases.test_frontier_release.protocol_observation.activities == 12 and .releases.test_frontier_release.protocol_observation.cells == 12 and
+  .releases.test_frontier_release.protocol_observation.proof_totals == {FOUNDATION:4,COHERENCE:4,REGRESSION:4} and
+  .releases.test_frontier_release.protocol_observation.indicator_totals == {DRIVER:4,OUTCOME:4,GUARDRAIL:4} and
+  .releases.test_frontier_release.protocol_observation.case_totals == {normal:3,unknown:3,refuted:4,CLOSED:3,UNKNOWN:3,REFUTED:4} and
+  .releases.test_frontier_release.protocol_observation.precedence == ["REFUTED","UNKNOWN","CLOSED"] and
+  .releases.test_frontier_release.protocol_observation.tests == {total:40,executed:9,reused:16,skipped:10,not_observed:5,sum_is_exactly_total:true} and
+  .releases.test_frontier_release.protocol_observation.invalidated_edge_count == 20 and .releases.test_frontier_release.protocol_observation.output_artifacts == 31 and
+  .releases.test_frontier_release.protocol_observation.runtime == {go:"1.27.0",build_wall_ms:5820,test_wall_ms:7680,conformance_wall_ms:0,peak_rss_kib:274908} and
+  .releases.test_frontier_release.protocol_observation.inventory == {directories:14,files:33,physical_lines:2563,go_files:8,go_lines:1637,gooo_files:1,gooo_lines:15,root_readme_excluded:true} and
+  .releases.test_frontier_release.protocol_observation.authority == {repository_writes:0,local_test_executions:0,cross_project_required_gates:0} and
+  .releases.test_frontier_release.protocol_observation.improvement == null and
+  (.releases.test_frontier_release.protocol_observation.case_facts|length) == 10 and
+  (.releases.test_frontier_release.protocol_observation.case_facts|map(select(.state=="CLOSED"))|length) == 3 and
+  (.releases.test_frontier_release.protocol_observation.case_facts|map(select(.state=="UNKNOWN"))|length) == 3 and
+  (.releases.test_frontier_release.protocol_observation.case_facts|map(select(.state=="REFUTED"))|length) == 4 and
+  (.releases.test_frontier_release.assets|map(.id)) == [538036992,538036991,538036990] and
+  (.releases.test_frontier_release.pull_requests|map(.number)) == [1,2,3,4] and
+  all(.releases.test_frontier_release.pull_requests[]; .merged==true) and
   (.failed_release_triggers|length) == 1 and
   .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
   .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
@@ -110,9 +139,14 @@ jq -e '
   .failed_release_triggers[0].target_commit_sha == "2007b49fdf60765b1868636da75b980f0c16db28" and
   .failed_release_triggers[0].failed_run.run_id == 33396465907 and .failed_release_triggers[0].failed_run.job_id == 99502048200 and
   .failed_release_triggers[0].reason == "FAILED_RELEASE_TRIGGER" and .failed_release_triggers[0].append_only == true and
-  (.counterexamples|map(.counterexample_id)|sort) == ["counterfactual_change_v0.1.0_mutable","counterfactual_change_v0.1.1_mutable","opentofu_envelope_v0.1.0_failed_release_immutability","semantic_drift_v0.1.0_mutable","verification_reuse_v0.1.1_mutable"] and
+  (.counterexamples|map(.counterexample_id)|sort) == ["counterfactual_change_v0.1.0_mutable","counterfactual_change_v0.1.1_mutable","opentofu_envelope_v0.1.0_failed_release_immutability","semantic_drift_v0.1.0_mutable","test_frontier_v0.1.0_platform_immutability","verification_reuse_v0.1.1_mutable"] and
   all(.counterexamples[0:4][]; .immutable==false and .append_only==true and .reason=="RELEASE_API_IMMUTABLE_FALSE") and
   .counterexamples[4].immutable == false and .counterexamples[4].append_only == true and .counterexamples[4].reason == "FAILED_RELEASE_IMMUTABILITY" and
+  .counterexamples[5].immutable == false and .counterexamples[5].append_only == true and .counterexamples[5].reason == "SELF_ASSERTED_IMMUTABILITY_CONTRADICTED_BY_PLATFORM" and
+  .counterexamples[5].self_asserted_immutable == true and .counterexamples[5].platform_immutable == false and
+  .counterexamples[5].direct_main_observation.commit_sha == "7281ead57069050b73538fa247953a4d1d6d1822" and .counterexamples[5].direct_main_observation.changed_paths == [".github/workflows/release.yml"] and .counterexamples[5].direct_main_observation.pull_requests == [] and
+  .counterexamples[5].failed_release_audit.run_id == 33396179603 and .counterexamples[5].failed_release_audit.job_id == 99501127520 and .counterexamples[5].failed_release_audit.conclusion == "failure" and
+  (.counterexamples[5].assets|map(.id)) == [538014107,538014106,538014109] and
   (.counterexample_runs|length) == 8 and
   (.counterexample_runs|map(.run_id)) == [33390048056,33390048173,33390167631,33390171403,33390257810,33390263187,33394717115,33394727232] and
   all(.counterexample_runs[]; .append_only==true and .conclusion=="failure") and
@@ -121,7 +155,7 @@ jq -e '
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 
 jq -e '
-  .denominator_migration == {from:19,to:20,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:20,to:21,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -201,7 +235,7 @@ jq -e '
     $process.refutation.reason == "SUBSTANTIVE_IMPLEMENTATION_LANDED_DIRECTLY_ON_MAIN" and
     $process.refutation.next_operation == "REQUIRE_PULL_REQUEST_FOR_SUBSTANTIVE_IMPLEMENTATION" and
     ($process.refutation.blocked_by|length) == 3) and
-  (.cells|length) == 20 and
+  (.cells|length) == 21 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -325,12 +359,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:20,closed:17,unknown:1,refuted:2} and
+  .summary == {total:21,closed:18,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 20 and
+  (.cells|length) == 21 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 17 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 18 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -353,16 +387,17 @@ jq -e '
     IMPROVEMENT_FRONTIER_RELEASE:"CLOSED",
     AUTHORITY_BOOTSTRAP_RELEASE:"CLOSED",
     OPENTOFU_ENVELOPE_RELEASE:"CLOSED",
-    IMPROVEMENT_PROPOSER_RELEASE:"CLOSED"
+    IMPROVEMENT_PROPOSER_RELEASE:"CLOSED",
+    TEST_FRONTIER_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:20,activities:20,unique_axes:20,unique_metrics:20,source_bindings:20,ir_bindings:20,generated_artifact_bindings:20,evaluator_bindings:20} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 11 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 11 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:17,verified:17,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:21,activities:21,unique_axes:21,unique_metrics:21,source_bindings:21,ir_bindings:21,generated_artifact_bindings:21,evaluator_bindings:21} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 12 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 12 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:18,verified:18,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

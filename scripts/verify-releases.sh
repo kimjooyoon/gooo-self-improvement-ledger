@@ -338,7 +338,7 @@ for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_i
   release_id=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .release_id' "$lock")
   reason=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .reason' "$lock")
   release_json="$output/$counterexample_id.release.json"
-  jq -e --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .immutable==false and .append_only==true and (.reason=="RELEASE_API_IMMUTABLE_FALSE" or .reason=="FAILED_RELEASE_IMMUTABILITY")' "$lock" >/dev/null
+  jq -e --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .immutable==false and .append_only==true and (.reason=="RELEASE_API_IMMUTABLE_FALSE" or .reason=="FAILED_RELEASE_IMMUTABILITY" or .reason=="SELF_ASSERTED_IMMUTABILITY_CONTRADICTED_BY_PLATFORM")' "$lock" >/dev/null
   jq -e --arg tag "$tag" --arg url "$release_url" --argjson release_id "$release_id" \
     '.id==$release_id and .tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==false' \
     "$release_json" >/dev/null
