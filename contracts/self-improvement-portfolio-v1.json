@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 27,
+  "total_cells": 28,
   "denominator_migration": {
-    "from": 26,
-    "to": 27,
+    "from": 27,
+    "to": 28,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 18,
+    "COHERENCE": 19,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 18,
+    "OUTCOME": 19,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -462,6 +462,22 @@
       "metric_id": "gooo.metric.self-improvement.semantic-authority-census-release.v1",
       "metric_denominator": 1,
       "release_key": "semantic_authority_census_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 28,
+      "id": "REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE",
+      "axis": "REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptReflexiveLearningDriftCycleRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptReflexiveLearningDriftCycleRelease",
+      "ir": "semantic-ir/activity/AdoptReflexiveLearningDriftCycleRelease",
+      "generated_artifact": "evidence/cells/REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE.json",
+      "evaluator": "ledger/reflexive-learning-drift-cycle-release",
+      "metric_id": "gooo.metric.self-improvement.reflexive-learning-drift-cycle-release.v1",
+      "metric_denominator": 1,
+      "release_key": "reflexive_learning_drift_cycle_release",
       "depends_on": []
     }
   ]

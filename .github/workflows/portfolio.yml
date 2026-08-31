@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify twenty-four immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify twenty-five immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -77,7 +77,7 @@ jobs:
           set -Eeuo pipefail
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:24,verified:24,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:25,verified:25,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           experience_dir="$ARTIFACT_ROOT/releases/experience_memory_release/assets"
           jq -e '.schema=="gooo/experience-memory/release-manifest/v1" and .tag=="v0.1.0" and .commit_sha=="79fd6edc588ea26279dbe735e5f6e250132f7730" and .immutable==true and .assets==[{digest:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",kind:"source",name:"gooo-experience-memory-v0.1.0.tar.gz"},{digest:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6",kind:"ci-evidence",name:"gooo-experience-memory-evidence-v0.1.0.tar.gz"}]' "$experience_dir/release-manifest.json" >/dev/null
@@ -106,6 +106,22 @@ jobs:
             test "$asset_name" = "source-v0.1.0.tar.gz" || test "$asset_name" = "evidence-v0.1.0.tar.gz" || test "$asset_name" = "manifest-v0.1.0.json"
             test "$(sha256sum "$census_dir/$asset_name" | awk '{print $1}')" = "$declared_digest"
           done < <(awk '{print $1" "$2}' "$census_dir/SHA256SUMS")
+          learning_dir="$ARTIFACT_ROOT/releases/reflexive_learning_drift_cycle_release/assets"
+          jq -e '.schema=="gooo/reflexive-loop/release-manifest/v1" and .version=="v0.4.0" and .repository=="kimjooyoon/gooo-reflexive-loop" and .release=={tag:"v0.4.0",target_commit_sha:"134d9043e8808147ed2f7252527e809d3eafad44",annotated:true,immutable_required:true} and .implementation=={pull_request:7,correction_pull_request:8,merged_main_commit:"134d9043e8808147ed2f7252527e809d3eafad44"} and .workflow.run_id==33420406673 and .workflow.job_id==99581097777 and .workflow.branch=="main" and .workflow.go_version=="go1.27.0" and .workflow.conformance=="passed" and .evidence_artifact=={name:"gooo-reflexive-loop-evidence",id:9768699219,size_bytes:3624947,digest:"sha256:11f3fffb4c6ee93307e46b5c1fdb8013fe5829983e069d823d896dc77e84a6c2"} and .assets=={source:{name:"gooo-reflexive-loop-v0.4.0-source.tar.gz",size_bytes:96363,digest:"sha256:fc8f5e551bb335d0a9133623c2fdc4549f634a93645b41b8fbb7c0acc98ab957"},evidence:{name:"gooo-reflexive-loop-v0.4.0-evidence.tar.gz",size_bytes:2468418,digest:"sha256:1bac0c50f4508922b5351df3a541f4daa115c60867ca106d11d4593e7c58b5ce"}} and .evidence.schema=="gooo/reflexive-loop/learning-drift-gated/conformance/v1" and .evidence.version=="v0.4.0" and .evidence.scenario_counts=={CLOSED:3,REFUTED:5,UNKNOWN:4} and .evidence.denominator=={cells:12,fixed:true} and .evidence.precedence==["REFUTED","UNKNOWN","CLOSED"] and .evidence.normal.normal_report_digest=="sha256:c1c8686b4e9c96acfe665ead2fd176b2314642f93de428039b0b4a32a59bd6fd" and .evidence.normal.decision=="CLOSED" and .evidence.normal.repository_unchanged==true and .evidence.normal.external_utility_state=="UNKNOWN" and .evidence.authority=={repository_writes:0,pull_request_authorized:false,push_authorized:false,commit_authorized:false,merge_authorized:false,apply_authorized:false,local_test_executions:0,cross_project_required_gates:0} and .evidence.utility_inference==false' "$learning_dir/gooo-reflexive-loop-v0.4.0-manifest.json" >/dev/null
+          test "$(wc -c < "$learning_dir/gooo-reflexive-loop-v0.4.0-manifest.json" | tr -d ' ')" = 6537
+          test "$(wc -c < "$learning_dir/gooo-reflexive-loop-v0.4.0-source.tar.gz" | tr -d ' ')" = 96363
+          test "$(wc -c < "$learning_dir/gooo-reflexive-loop-v0.4.0-evidence.tar.gz" | tr -d ' ')" = 2468418
+          test "$(wc -c < "$learning_dir/SHA256SUMS" | tr -d ' ')" = 323
+          test "$(sha256sum "$learning_dir/gooo-reflexive-loop-v0.4.0-manifest.json" | awk '{print $1}')" = b3de9c74872b8b8ec4fac51393a4ee54256c1f97ab9f8f47effdc68971013977
+          test "$(sha256sum "$learning_dir/gooo-reflexive-loop-v0.4.0-source.tar.gz" | awk '{print $1}')" = fc8f5e551bb335d0a9133623c2fdc4549f634a93645b41b8fbb7c0acc98ab957
+          test "$(sha256sum "$learning_dir/gooo-reflexive-loop-v0.4.0-evidence.tar.gz" | awk '{print $1}')" = 1bac0c50f4508922b5351df3a541f4daa115c60867ca106d11d4593e7c58b5ce
+          test "$(sha256sum "$learning_dir/SHA256SUMS" | awk '{print $1}')" = e55c31a6c66eb82cfcf2d8b39182e07fd39f35f45a7bddfd17407025bda59dc0
+          test "$(awk 'NF {count++} END {print count+0}' "$learning_dir/SHA256SUMS")" = 3
+          test "$(awk 'NF {print NF}' "$learning_dir/SHA256SUMS" | sort -u)" = 2
+          while read -r declared_digest asset_name; do
+            test "$asset_name" = "gooo-reflexive-loop-v0.4.0-source.tar.gz" || test "$asset_name" = "gooo-reflexive-loop-v0.4.0-evidence.tar.gz" || test "$asset_name" = "gooo-reflexive-loop-v0.4.0-manifest.json"
+            test "$(sha256sum "$learning_dir/$asset_name" | awk '{print $1}')" = "$declared_digest"
+          done < <(awk '{print $1" "$2}' "$learning_dir/SHA256SUMS")
 
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
         shell: bash
@@ -146,7 +162,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:27,closed:24,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:28,closed:25,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
