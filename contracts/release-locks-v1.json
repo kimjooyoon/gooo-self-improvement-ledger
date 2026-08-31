@@ -1326,6 +1326,115 @@
         {"id":538205039,"name":"gooo-reflexive-loop-v0.3.1-source.tar.gz","size_bytes":81187,"sha256":"sha256:6e4757b752756502c99e358cdfc9071fe4950b83f49e9e02651a0b3afee16797","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.3.1/gooo-reflexive-loop-v0.3.1-source.tar.gz"},
         {"id":538205026,"name":"SHA256SUMS","size_bytes":431,"sha256":"sha256:85ed7f91b12e4e33d9cd5868ce6459de7cfbb717fc9d7aa823c8d721d4fe7d2c","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.3.1/SHA256SUMS"}
       ]
+    },
+    "unknown_resolution_lattice_release": {
+      "repository": "kimjooyoon/gooo-resolution-lattice",
+      "tag": "v0.2.0",
+      "release_id": 379967493,
+      "release_url": "https://github.com/kimjooyoon/gooo-resolution-lattice/releases/tag/v0.2.0",
+      "target_commit_sha": "fac2f5c0688c62fd31912a310e0fae77bc198258",
+      "tag_object_sha": "2f452efe6b05b50760500da1a4bea7d323e9c11d",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33424634161,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-resolution-lattice/actions/runs/33424634161",
+        "event": "pull_request",
+        "head_branch": "resolution-ladder",
+        "head_sha": "8c169cc8d821fb0b68ce28cc519d49935a241b8e",
+        "conclusion": "success",
+        "job_id": 99595118419,
+        "job_name": "conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-resolution-lattice/actions/runs/33424634161/job/99595118419",
+        "artifact_ids": [9770260397]
+      },
+      "source_artifact": {
+        "run_id": 33424634161,
+        "artifact_id": 9770260397,
+        "name": "gooo-resolution-lattice-evidence-33424634161",
+        "size_bytes": 23723,
+        "sha256": "sha256:f80e798ca1893937ba49b86e40ad1ac7f2035e9d666acacb71c28fa6109bb294"
+      },
+      "post_main_validation": {
+        "run_id": 33425091977,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-resolution-lattice/actions/runs/33425091977",
+        "event": "pull_request",
+        "head_branch": "release-workflow-fix",
+        "head_sha": "2c7bdc1b5024616cbc70aa55c3726dc22cda048e",
+        "conclusion": "success",
+        "job_id": 99596614819,
+        "job_name": "conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-resolution-lattice/actions/runs/33425091977/job/99596614819",
+        "artifact_ids": [9770452642]
+      },
+      "post_main_artifact": {
+        "run_id": 33425091977,
+        "artifact_id": 9770452642,
+        "name": "gooo-resolution-lattice-evidence-33425091977",
+        "size_bytes": 23723,
+        "sha256": "sha256:7f3edacdfb5f58a9391ceb10b90de139368a0f537fffa86648eeaf62f9f5dc0e"
+      },
+      "release_run": {
+        "run_id": 33425271313,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-resolution-lattice/actions/runs/33425271313",
+        "event": "workflow_dispatch",
+        "head_branch": "main",
+        "head_sha": "0f0ec4e696cbd6df756051e908f0d9c86d48ba72",
+        "conclusion": "success",
+        "job_id": 99597213464,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-resolution-lattice/actions/runs/33425271313/job/99597213464",
+        "artifact_ids": []
+      },
+      "release_manifest": {
+        "schema": "gooo/resolution-lattice/release-manifest/v1",
+        "tag": "v0.2.0",
+        "commit": "fac2f5c0688c62fd31912a310e0fae77bc198258",
+        "go_version": "go1.27.0",
+        "immutable": true
+      },
+      "protocol_observation": {
+        "schema": "gooo/resolution-lattice/ci-report/v2",
+        "version": "v0.2.0",
+        "ladder": ["PROJECT","ARTIFACT","ACTIVITY","PREDICATE","FIELD"],
+        "fixed_denominator": 12,
+        "activities": 12,
+        "cells": 12,
+        "proof_totals": {"FOUNDATION":4,"COHERENCE":4,"REGRESSION":4},
+        "indicator_totals": {"DRIVER":4,"OUTCOME":4,"GUARDRAIL":4},
+        "case_totals": {"normal":1,"unknown":4,"refuted":5,"CLOSED":1,"UNKNOWN":4,"REFUTED":5},
+        "precedence": ["REFUTED","UNKNOWN","CLOSED"],
+        "unknown_classes": ["DIRECT_MISSING","DEPENDENCY_BLOCKED","DECISION_UNKNOWN","CAUSALITY_UNPROVEN"],
+        "fixed_point_only": true,
+        "top_unknown_decision": "FAIL_CLOSED",
+        "top_unknown_reason": "FEEDBACK_COVERAGE_DECISION_UNKNOWN",
+        "contradiction_priority": "REFUTED",
+        "receipts": {"expected":6,"observed":6,"verified":"6/6"},
+        "identity": {"comparisons":16,"mismatches":0},
+        "normal_exact_pairs": [
+          {"metric":"unidentified_cause_frontier_count","before":4,"after":2,"delta":-2},
+          {"metric":"minimum_cause_reach_stage_count","before":5,"after":3,"delta":-2}
+        ],
+        "improvement_pairs": {
+          "normal": {"unidentified_cause_frontier_count":{"before":4,"after":2},"minimum_cause_reach_stage_count":{"before":5,"after":3}},
+          "decision_unknown": {"unidentified_cause_frontier_count":{"before":2,"after":2},"minimum_cause_reach_stage_count":{"before":5,"after":5}},
+          "dependency_blocked": {"unidentified_cause_frontier_count":{"before":3,"after":3},"minimum_cause_reach_stage_count":{"before":5,"after":5}},
+          "unknown": {"unidentified_cause_frontier_count":{"before":4,"after":4},"minimum_cause_reach_stage_count":{"before":5,"after":5}}
+        },
+        "performance": {
+          "first_run": {"build_wall_ms":5446,"test_wall_ms":1985,"conformance_wall_ms":67,"peak_rss_kib":272748},
+          "post_main": {"build_wall_ms":5869,"test_wall_ms":2259,"conformance_wall_ms":80,"peak_rss_kib":265604}
+        },
+        "tests": {"total":10,"executed":10,"reused":0,"skipped":0,"not_observed":0},
+        "inventory": {"go_files":5,"go_lines":1335,"gooo_files":1,"gooo_lines":27,"directories":14,"files":23,"root_readme_excluded":true},
+        "output_artifacts": {"files":22,"bytes":67397},
+        "authority": {"repository_writes":0,"direct_main_writes":0,"local_test_executions":0,"provider_install_attempts":0,"network_mutation_attempts":0,"infrastructure_mutations":0},
+        "utility_inference": false
+      },
+      "assets": [
+        {"id":538371288,"name":"gooo-resolution-lattice-0.2.0.tar.gz","size_bytes":23967,"sha256":"sha256:f16f43175104a42eb20fd8f701fa8296c289ce69929ff1861269cb3b00ebbc75","download_url":"https://github.com/kimjooyoon/gooo-resolution-lattice/releases/download/v0.2.0/gooo-resolution-lattice-0.2.0.tar.gz"},
+        {"id":538371290,"name":"release-manifest.json","size_bytes":186,"sha256":"sha256:c178b312da828be4589352fbc195853ccaa08e48adacf7f5522c4a06df65f9fd","download_url":"https://github.com/kimjooyoon/gooo-resolution-lattice/releases/download/v0.2.0/release-manifest.json"},
+        {"id":538371285,"name":"SHA256SUMS","size_bytes":103,"sha256":"sha256:8a9b8575cdd5abae5ebba2d1e33a6e93f6b6bfcd7d3ac6855529c74652454549","download_url":"https://github.com/kimjooyoon/gooo-resolution-lattice/releases/download/v0.2.0/SHA256SUMS"}
+      ]
     }
   },
   "counterexample_runs": [

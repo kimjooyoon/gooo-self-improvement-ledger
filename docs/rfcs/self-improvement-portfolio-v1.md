@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for twenty-eight specifically named capabilities.
+The portfolio is an evidence ledger for twenty-nine specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains twenty-eight entries. The v0.22
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-seven-cell
+`cells` array is immutable during a run and contains twenty-nine entries. The v0.23
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-eight-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/19/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/19/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/20/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/20/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -200,9 +200,27 @@ adoption is append-only and does not close core semantic authority or semantic-
 drift development process; utility remains `UNKNOWN`, yielding
 `CLOSED25/UNKNOWN1/REFUTED2`.
 
+The v0.23 frontier appends `UNKNOWN_RESOLUTION_LATTICE_RELEASE`. It adopts
+immutable upstream `kimjooyoon/gooo-resolution-lattice@v0.2.0`, release
+`379967493`, binding annotated tag object
+`2f452efe6b05b50760500da1a4bea7d323e9c11d` to target
+`fac2f5c0688c62fd31912a310e0fae77bc198258`. Source conformance, post-main
+conformance, and release Actions are locked to runs/jobs
+`33424634161/99595118419`, `33425091977/99596614819`, and
+`33425271313/99597213464`; both conformance artifacts are pinned by ID, size,
+and digest. The adopted protocol is the immutable five-stage
+`PROJECT -> ARTIFACT -> ACTIVITY -> PREDICATE -> FIELD` ladder with a fixed
+12-cell denominator, `4/4/4` proof and indicator buckets, cases
+`CLOSED1/UNKNOWN4/REFUTED5`, four UNKNOWN classes, six verified receipts, and
+16 identity comparisons with zero mismatches. Fixed-point evidence is the only
+accepted closure; the top unknown decision is `FAIL_CLOSED`, contradictions have
+`REFUTED` precedence, and utility inference is false. The exact normal pairs
+are `4 -> 2` and `5 -> 3`. The upstream release closes only the new ledger cell;
+the portfolio becomes `CLOSED26/UNKNOWN1/REFUTED2`.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-twenty-eight-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+twenty-nine-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

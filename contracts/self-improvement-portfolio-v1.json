@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 28,
+  "total_cells": 29,
   "denominator_migration": {
-    "from": 27,
-    "to": 28,
+    "from": 28,
+    "to": 29,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 19,
+    "COHERENCE": 20,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 19,
+    "OUTCOME": 20,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -478,6 +478,22 @@
       "metric_id": "gooo.metric.self-improvement.reflexive-learning-drift-cycle-release.v1",
       "metric_denominator": 1,
       "release_key": "reflexive_learning_drift_cycle_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 29,
+      "id": "UNKNOWN_RESOLUTION_LATTICE_RELEASE",
+      "axis": "UNKNOWN_RESOLUTION_LATTICE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptUnknownResolutionLatticeRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptUnknownResolutionLatticeRelease",
+      "ir": "semantic-ir/activity/AdoptUnknownResolutionLatticeRelease",
+      "generated_artifact": "evidence/cells/UNKNOWN_RESOLUTION_LATTICE_RELEASE.json",
+      "evaluator": "ledger/unknown-resolution-lattice-release",
+      "metric_id": "gooo.metric.self-improvement.unknown-resolution-lattice-release.v1",
+      "metric_denominator": 1,
+      "release_key": "unknown_resolution_lattice_release",
       "depends_on": []
     }
   ]
