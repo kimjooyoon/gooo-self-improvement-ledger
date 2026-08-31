@@ -48,9 +48,13 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
   target=$(jq -r --arg key "$key" '.releases[$key].target_commit_sha' "$lock")
   release_json="$output/$key.release.json"
 
-  jq -e --arg tag "$tag" --arg url "$release_url" \
+  if ! jq -e --arg tag "$tag" --arg url "$release_url" \
     '.tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==true' \
-    "$release_json" >/dev/null
+    "$release_json" >/dev/null; then
+    echo "release metadata mismatch for $repo@$tag" >&2
+    jq -c '{tag_name,html_url,draft,prerelease,immutable}' "$release_json" >&2
+    exit 1
+  fi
 
   tag_target=""
   for attempt in 1 2 3; do
