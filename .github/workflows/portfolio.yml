@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify twenty-nine immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify thirty immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,7 +78,7 @@ jobs:
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:29,verified:29,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:30,verified:30,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           experience_dir="$ARTIFACT_ROOT/releases/experience_memory_release/assets"
           jq -e '.schema=="gooo/experience-memory/release-manifest/v1" and .tag=="v0.1.0" and .commit_sha=="79fd6edc588ea26279dbe735e5f6e250132f7730" and .immutable==true and .assets==[{digest:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",kind:"source",name:"gooo-experience-memory-v0.1.0.tar.gz"},{digest:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6",kind:"ci-evidence",name:"gooo-experience-memory-evidence-v0.1.0.tar.gz"}]' "$experience_dir/release-manifest.json" >/dev/null
@@ -236,6 +236,82 @@ jobs:
           jq -e '.schema=="gooo/language-delta-forge/release-ci-measurements/v2" and .go_version=="go1.27.0" and .tag=="v0.1.2" and .target_sha=="30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45" and .release_id==380033725 and .compile=={status:0,wall_ms:173,peak_rss_kib:31364} and .build=={status:0,wall_ms:199,peak_rss_kib:91268} and .test=={status:0,wall_ms:163,peak_rss_kib:95004} and .conformance=={status:0,wall_ms:8,peak_rss_kib:9356} and .test_execution_count==1 and .reuse_count==0 and .local_test_executions==0 and .repository_writes==0 and .protected_core_mutations==0 and .output_files==25' "$language_delta_artifact_dir/release-ci-measurements.json" >/dev/null
           echo "upstream language delta forge release and artifact verified"
 
+      - name: Verify generated OpenTofu service-project release and preserved v0.2.0 failure
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          project_dir="$ARTIFACT_ROOT/releases/opentofu_generated_service_project_durable_release/assets"
+          jq -e '
+            .schema=="gooo/opentofu-envelope/release-manifest/v2" and .version==2 and
+            .source_identity=={all_checks:true,main_ci_head_sha:"bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787",main_ci_observation_source_sha:"a4e5fb7f93e0d2df065cda3d2a4ba177db8cae6049ad2de06b4a42b97c8089fd",service_contract_source_sha:"a4e5fb7f93e0d2df065cda3d2a4ba177db8cae6049ad2de06b4a42b97c8089fd",source_sha256:"a4e5fb7f93e0d2df065cda3d2a4ba177db8cae6049ad2de06b4a42b97c8089fd",tag_commit_sha:"bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787"} and
+            .release.tag=="v0.2.1" and .release.commit_sha=="bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787" and .release.id==380037012 and .release.immutable_expected==true and .release.asset_count_before==0 and .release.asset_count_after==4 and .release.url=="https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/tag/v0.2.1" and .release.required_assets==["evidence-v0.2.1.tar.gz","manifest-v0.2.1.json","SHA256SUMS","source-v0.2.1.tar.gz"] and
+            (.denominator|{binding_edges,expected_user_path_steps,target_cells})=={binding_edges:14,expected_user_path_steps:6,target_cells:12} and
+            (.main_ci|{artifact_digest,artifact_id,artifact_name,consumer_sha256,observation_sha256,run_id,url})=={artifact_digest:"sha256:8e2bd75365b7e0e92ee8276cadbfc0d03842145a7bf5fd52efd1a33e2973de06",artifact_id:9774763580,artifact_name:"gooo-generated-service-project-evidence-bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787",consumer_sha256:"d44b7a561e40ef8ecd8d330ad0e685b2baa1d6ba936c7e8cdcaa74b134dd3802",observation_sha256:"285de6f94b65081bfd4006afada7320e24ec7103c49345b6c283a06011e0edb8",run_id:33436975864,url:"https://github.com/kimjooyoon/gooo-opentofu-envelope/actions/runs/33436975864"} and
+            .generated_outputs.count==5 and .generated_outputs.bytes==9019 and .generated_outputs.files==["contract-receipt.json","dossier.md","main.tf.json","relation-report.md","service-contract.json"] and
+            .project=={bound_relations:2,declared_bindings:2,name:"checkout-api",opentofu_modules:0,opentofu_resources:3,refuted_relations:2,resources:2,service_capabilities:1,service_endpoints:2,unbound_relations:2} and
+            .inventory=={go_physical_files:0,go_physical_lines:0,gooo_physical_files:1,gooo_physical_lines:46,regular_files:22,root_readme_excluded:true,subfolders:7} and
+            .test_counts=={executed:6,failed:2,passed:2,reused:0,total:6,unknown:2} and
+            .authority.scope=="GENERATED_OPENTOFU_SERVICE_PROJECT_ONLY" and .authority.semantic_graph_state=="CLOSED" and .authority.external_utility.state=="UNKNOWN" and .authority.global_core_authority_claim=="NOT_MADE" and .authority.handwritten_go_physical_files==0 and .authority.mutation_counts.repository_writes==0 and
+            .toolchain=={go_requirement:"1.27.x",opentofu_engine:"OPENTOFU",opentofu_version:"1.12.6"} and .utility.state=="UNKNOWN" and .improvement.state=="UNKNOWN"
+          ' "$project_dir/manifest-v0.2.1.json" >/dev/null
+          expected_checksums=$(printf '%s\n' \
+            '9f45cf78ef9339d3d694a30fb21131151d8ec61e4eb62455f2848e0d78180832  evidence-v0.2.1.tar.gz' \
+            'f17271a11b98c48114a740faea96efc3c89f2a5c2746f8efe52d76688ea7ac9f  manifest-v0.2.1.json' \
+            'cdab3d87acf7aad4889ee41027df75f4fbcfd9dc4afe8e23a5a66504ed35dd70  source-v0.2.1.tar.gz')
+          test "$(cat "$project_dir/SHA256SUMS")" = "$expected_checksums"
+          test "$(wc -c < "$project_dir/evidence-v0.2.1.tar.gz" | tr -d ' ')" = 10011
+          test "$(sha256sum "$project_dir/evidence-v0.2.1.tar.gz" | awk '{print $1}')" = 9f45cf78ef9339d3d694a30fb21131151d8ec61e4eb62455f2848e0d78180832
+          test "$(wc -c < "$project_dir/manifest-v0.2.1.json" | tr -d ' ')" = 15336
+          test "$(sha256sum "$project_dir/manifest-v0.2.1.json" | awk '{print $1}')" = f17271a11b98c48114a740faea96efc3c89f2a5c2746f8efe52d76688ea7ac9f
+          test "$(wc -c < "$project_dir/SHA256SUMS" | tr -d ' ')" = 263
+          test "$(sha256sum "$project_dir/SHA256SUMS" | awk '{print $1}')" = bba568c5f8bbba841976d1f6b9b6c9118e9049d3ed014323770456851e8906e1
+          test "$(wc -c < "$project_dir/source-v0.2.1.tar.gz" | tr -d ' ')" = 26719
+          test "$(sha256sum "$project_dir/source-v0.2.1.tar.gz" | awk '{print $1}')" = cdab3d87acf7aad4889ee41027df75f4fbcfd9dc4afe8e23a5a66504ed35dd70
+          project_outputs="$RUNNER_TEMP/opentofu-generated-service-project-outputs"
+          mkdir -p "$project_outputs"
+          tar -xzf "$project_dir/evidence-v0.2.1.tar.gz" -C "$project_outputs"
+          test "$(find "$project_outputs" -type f | wc -l | tr -d ' ')" = 17
+          test "$(wc -c < "$project_outputs/main.tf.json" | tr -d ' ')" = 2092
+          test "$(sha256sum "$project_outputs/main.tf.json" | awk '{print $1}')" = 0d6afd48ac1bc7a1fa666514da037939bfb51a901f0cd861e3ba1b359c3c7b98
+          test "$(wc -c < "$project_outputs/service-contract.json" | tr -d ' ')" = 2699
+          test "$(sha256sum "$project_outputs/service-contract.json" | awk '{print $1}')" = e32df06439bd8dbd35283b3998314d36fde97761e85f9cfb3793670be3f09c48
+          test "$(wc -c < "$project_outputs/relation-report.md" | tr -d ' ')" = 1253
+          test "$(sha256sum "$project_outputs/relation-report.md" | awk '{print $1}')" = 7e133a66fb940121be8806268a66ed0603f0be2327cd8885f4b17df45472cf0b
+          test "$(wc -c < "$project_outputs/dossier.md" | tr -d ' ')" = 1035
+          test "$(sha256sum "$project_outputs/dossier.md" | awk '{print $1}')" = bf9d431ec311f424c264a55135b3e5423b15c06b2efb017d187955185dc52e4c
+          test "$(wc -c < "$project_outputs/contract-receipt.json" | tr -d ' ')" = 1940
+          test "$(sha256sum "$project_outputs/contract-receipt.json" | awk '{print $1}')" = d917919e877bad1b0258a41e88f6b935263e157a49855d36c44e3243388cf324
+          jq -e '.schema=="gooo/opentofu-envelope/project-bindings/v2" and .activity_count==12 and .binding_edges==14 and (([.bindings[].proof_family]|sort|group_by(.)|map({key:.[0],value:length})|from_entries)=={COHERENCE:4,FOUNDATION:4,REGRESSION:4}) and (([.bindings[].indicator]|sort|group_by(.)|map({key:.[0],value:length})|from_entries)=={DRIVER:4,GUARDRAIL:4,OUTCOME:4})' "$project_outputs/bindings.json" >/dev/null
+          jq -e '.schema=="gooo/opentofu-envelope/project-cases/v2" and .state=="CLOSED" and .case_count==6 and .outcome_counts=={BOUND:2,REFUTED:2,UNBOUND_UNKNOWN:2} and ([.cases[].class]|sort)==["NORMAL","NORMAL","REFUTED","REFUTED","UNKNOWN","UNKNOWN"]' "$project_outputs/cases.json" >/dev/null
+          jq -e '.schema=="gooo/opentofu-envelope/project-validation/v2" and .state=="CLOSED" and .official_opentofu=={error_count:0,valid:true,validation_json_sha256:"4cd9eddc4d07c5aff74dadb6b3544f98186f6705ac60e0d94d545fc42b45b9b6",warning_count:0} and .structural_checks.resource_count==3 and .structural_checks.providerless==true and .structural_checks.outputs_exact==true' "$project_outputs/validation.json" >/dev/null
+          project_artifact_metadata="$RUNNER_TEMP/opentofu-generated-service-project-artifact-9774763580.json"
+          gh api repos/kimjooyoon/gooo-opentofu-envelope/actions/artifacts/9774763580 > "$project_artifact_metadata"
+          jq -e '.id==9774763580 and .name=="gooo-generated-service-project-evidence-bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787" and .size_in_bytes==16278 and .digest=="sha256:8e2bd75365b7e0e92ee8276cadbfc0d03842145a7bf5fd52efd1a33e2973de06" and .expired==false and .workflow_run.id==33436975864 and .workflow_run.head_sha=="bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787"' "$project_artifact_metadata" >/dev/null
+          project_artifact="$RUNNER_TEMP/opentofu-generated-service-project-artifact-9774763580.zip"
+          gh api repos/kimjooyoon/gooo-opentofu-envelope/actions/artifacts/9774763580/zip > "$project_artifact"
+          test "$(wc -c < "$project_artifact" | tr -d ' ')" = 16278
+          test "$(sha256sum "$project_artifact" | awk '{print $1}')" = 8e2bd75365b7e0e92ee8276cadbfc0d03842145a7bf5fd52efd1a33e2973de06
+          project_artifact_dir="$RUNNER_TEMP/opentofu-generated-service-project-artifact-9774763580"
+          mkdir -p "$project_artifact_dir"
+          unzip -q "$project_artifact" -d "$project_artifact_dir"
+          test "$(find "$project_artifact_dir" -type f | wc -l | tr -d ' ')" = 17
+          jq -e '.schema=="gooo/opentofu-envelope/project-observation/v1" and .state=="CLOSED" and (.denominator|{binding_edges,expected_user_path_steps,target_cells})=={binding_edges:14,expected_user_path_steps:6,target_cells:12} and .generated_outputs.count==5 and .generated_outputs.bytes==9019 and .authority.repository_writes==0 and .authority.local_tests==0 and .authority.local_build==0 and .authority.opentofu.validate==1 and .authority.opentofu.init==0 and .authority.opentofu.plan==0 and .authority.opentofu.apply==0 and .authority.opentofu.destroy==0 and .authority.opentofu.provider_install==0 and .test_counts=={executed:6,failed:2,passed:2,reused:0,total:6,unknown:2} and .measurements.compile.wall_ms==106 and .measurements.build.wall_ms==56 and .measurements.test.wall_ms==56 and .measurements.conformance.wall_ms==46 and .measurements.tofu_validate.wall_ms==30 and .measurements.tofu_validate.peak_rss_kib==75304 and .measurements.compile.peak_rss_kib==10952 and .measurements.build.peak_rss_kib==20724 and .measurements.test.peak_rss_kib==20580 and .measurements.conformance.peak_rss_kib==18352' "$project_artifact_dir/observation.json" >/dev/null
+          if gh api repos/kimjooyoon/gooo-opentofu-envelope/releases/tags/v0.2.0 > "$RUNNER_TEMP/opentofu-v0.2.0-release.json"; then
+            echo "historical v0.2.0 release unexpectedly present" >&2
+            exit 1
+          fi
+          jq -e '(.status==404 or .status=="404") and .message=="Not Found"' "$RUNNER_TEMP/opentofu-v0.2.0-release.json" >/dev/null
+          historical_refs=$(git ls-remote https://github.com/kimjooyoon/gooo-opentofu-envelope.git refs/tags/v0.2.0 'refs/tags/v0.2.0^{}')
+          test "$(awk '$2=="refs/tags/v0.2.0" {print $1}' <<< "$historical_refs")" = 9dfdee84d61f3acbe899b5ad57fd8f35f8159210
+          test "$(awk '$2=="refs/tags/v0.2.0^{}" {print $1}' <<< "$historical_refs")" = c9f5de0b33fee1ca8546a627a8a94242b99c0733
+          gh api repos/kimjooyoon/gooo-opentofu-envelope/actions/runs/33435908822 > "$RUNNER_TEMP/opentofu-v0.2.0-failed-run.json"
+          gh api repos/kimjooyoon/gooo-opentofu-envelope/actions/jobs/99632154067 > "$RUNNER_TEMP/opentofu-v0.2.0-failed-job.json"
+          jq -e '.id==33435908822 and .event=="push" and .head_branch=="v0.2.0" and .head_sha=="c9f5de0b33fee1ca8546a627a8a94242b99c0733" and .status=="completed" and .conclusion=="failure"' "$RUNNER_TEMP/opentofu-v0.2.0-failed-run.json" >/dev/null
+          jq -e '.id==99632154067 and .run_id==33435908822 and .name=="release" and .head_sha=="c9f5de0b33fee1ca8546a627a8a94242b99c0733" and .status=="completed" and .conclusion=="failure" and ([.steps[]|select(.name=="Resolve the successful main CI artifact" and .conclusion=="failure")]|length)==1' "$RUNNER_TEMP/opentofu-v0.2.0-failed-job.json" >/dev/null
+          echo "upstream generated OpenTofu service-project release and v0.2.0 counterexample verified"
+
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
         shell: bash
         env:
@@ -275,7 +351,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:32,closed:29,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:33,closed:30,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
