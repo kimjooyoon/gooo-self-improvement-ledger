@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify twenty-seven immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify twenty-eight immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -77,7 +77,7 @@ jobs:
           set -Eeuo pipefail
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:27,verified:27,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:28,verified:28,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           experience_dir="$ARTIFACT_ROOT/releases/experience_memory_release/assets"
           jq -e '.schema=="gooo/experience-memory/release-manifest/v1" and .tag=="v0.1.0" and .commit_sha=="79fd6edc588ea26279dbe735e5f6e250132f7730" and .immutable==true and .assets==[{digest:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",kind:"source",name:"gooo-experience-memory-v0.1.0.tar.gz"},{digest:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6",kind:"ci-evidence",name:"gooo-experience-memory-evidence-v0.1.0.tar.gz"}]' "$experience_dir/release-manifest.json" >/dev/null
@@ -148,6 +148,52 @@ jobs:
           gh api repos/kimjooyoon/gooo-self-repair-example/actions/artifacts/9770678796/zip > "$self_repair_artifact"
           test "$(wc -c < "$self_repair_artifact" | tr -d ' ')" = 14701
           test "$(sha256sum "$self_repair_artifact" | awk '{print $1}')" = 870a731cf484535e2b1218e1d7eee37a0ccdd9c7ad194ff19030ab31e42c7514
+          durable_envelope_dir="$ARTIFACT_ROOT/releases/opentofu_durable_semantic_envelope_release/assets"
+          jq -e '
+            .schema=="gooo/opentofu-envelope/release-manifest/v1" and
+            .version==1 and
+            .source_identity=={main_ci_head_sha:"b482afd68a864400a209cb4f439e727cfdfe2eda",main_ci_observation_source_sha:"65bb41f6de07be262bac79476a749611e96ebc84880920c5e9ec412f82769219",source_sha256:"65bb41f6de07be262bac79476a749611e96ebc84880920c5e9ec412f82769219",tag:"v0.1.9",tag_commit_sha:"b482afd68a864400a209cb4f439e727cfdfe2eda"} and
+            .release.tag=="v0.1.9" and .release.commit_sha=="b482afd68a864400a209cb4f439e727cfdfe2eda" and .release.id==380009987 and .release.immutable_expected==true and .release.asset_count_before==0 and .release.asset_count_after==4 and
+            (.release.predecessor_chain|length)==6 and
+            (.release.predecessor_chain|map(select(.tag=="v0.1.3" and .release_id==379957493 and .release_present==true and .immutable==true and .asset_count==0))|length)==1 and
+            (.release.predecessor_chain|map(select((.tag=="v0.1.4" or .tag=="v0.1.5" or .tag=="v0.1.6" or .tag=="v0.1.7") and .release_id==null and .release_present==false and .asset_count==0 and .failed_trigger_counterexample==true))|length)==4 and
+            (.release.predecessor_chain|map(select(.tag=="v0.1.8" and .release_id==380007644 and .release_present==true and .draft==true and .immutable==false and .asset_count==0 and .failed_trigger_counterexample==true))|length)==1 and
+            .denominator=={target_cells:12,binding_edges:14,expected_user_path_steps:5,proof_counts:{COHERENCE:4,FOUNDATION:4,REGRESSION:4},indicator_counts:{DRIVER:4,GUARDRAIL:4,OUTCOME:4}} and
+            .main_ci=={artifact_digest:"sha256:f04619dbd77314bdf84ba2d5c1b9edd4b9a09b533a8a26c2185ec3b786804157",artifact_id:9773097414,artifact_name:"gooo-opentofu-envelope-evidence-b482afd68a864400a209cb4f439e727cfdfe2eda",observation_sha256:"1214180cc3e710eeff33b9a51c0759a6ef6cf3dfb0ed582664a8c43039351c5d",run_id:33432375475,url:"https://github.com/kimjooyoon/gooo-opentofu-envelope/actions/runs/33432375475"} and
+            .toolchain=={go_requirement:"1.27.x",go_version_evidence:"go version go1.27.0 linux/amd64"} and
+            .authority.global_core_authority_claim=="NOT_MADE" and .authority.semantic_graph_authority.scope=="GOOO_SEMANTIC_GRAPH_ONLY" and .authority.semantic_graph_authority.state=="CLOSED" and .authority.external_utility.state=="UNKNOWN" and
+            .authority.test_counts=={total:9,executed:9,reused:0,skipped:0,not_observed:0} and
+            .pipeline=={evidence_source:"SUCCESSFUL_MAIN_CI_ARTIFACT",reproduced_without_local_execution:true,semantic_path:["RELEASED_GOOO_GRAPH","main.tf.json","PINNED_OPENTOFU_VALIDATE_JSON","INDEPENDENT_SERVICE_ORACLE"]}
+          ' "$durable_envelope_dir/manifest-v0.1.9.json" >/dev/null
+          test "$(wc -c < "$durable_envelope_dir/evidence-v0.1.9.tar.gz" | tr -d ' ')" = 13344
+          test "$(wc -c < "$durable_envelope_dir/manifest-v0.1.9.json" | tr -d ' ')" = 55115
+          test "$(wc -c < "$durable_envelope_dir/SHA256SUMS" | tr -d ' ')" = 263
+          test "$(wc -c < "$durable_envelope_dir/source-v0.1.9.tar.gz" | tr -d ' ')" = 30885
+          test "$(sha256sum "$durable_envelope_dir/evidence-v0.1.9.tar.gz" | awk '{print $1}')" = 79b549e7471f983e1f3a9f8f19ff73b5c759bac532ad86d8c3d2738885223f6d
+          test "$(sha256sum "$durable_envelope_dir/manifest-v0.1.9.json" | awk '{print $1}')" = a1352aa6cdeeefc0112884673ce672e920033b6d13d7d8e69ffbf270632df2e1
+          test "$(sha256sum "$durable_envelope_dir/SHA256SUMS" | awk '{print $1}')" = efb3cebd7bcdf2dcc1a1a2279817be1286def7e7387b33f2afc505b3eb7129c6
+          test "$(sha256sum "$durable_envelope_dir/source-v0.1.9.tar.gz" | awk '{print $1}')" = e33609eee44163d3201d125900d57ea12f183ebb561522e86e930d7f3805338f
+          test "$(cat "$durable_envelope_dir/SHA256SUMS")" = $'79b549e7471f983e1f3a9f8f19ff73b5c759bac532ad86d8c3d2738885223f6d  evidence-v0.1.9.tar.gz\na1352aa6cdeeefc0112884673ce672e920033b6d13d7d8e69ffbf270632df2e1  manifest-v0.1.9.json\ne33609eee44163d3201d125900d57ea12f183ebb561522e86e930d7f3805338f  source-v0.1.9.tar.gz'
+          tar -tzf "$durable_envelope_dir/evidence-v0.1.9.tar.gz" | grep -Fx './observation.json' >/dev/null
+          tar -tzf "$durable_envelope_dir/source-v0.1.9.tar.gz" | grep -Fx 'gooo-opentofu-envelope-v0.1.9/.github/workflows/release-v0.1.9.yml' >/dev/null
+          durable_envelope_artifact="$RUNNER_TEMP/opentofu-envelope-artifact-9773097414.zip"
+          gh api repos/kimjooyoon/gooo-opentofu-envelope/actions/artifacts/9773097414/zip > "$durable_envelope_artifact"
+          test "$(wc -c < "$durable_envelope_artifact" | tr -d ' ')" = 99611
+          test "$(sha256sum "$durable_envelope_artifact" | awk '{print $1}')" = f04619dbd77314bdf84ba2d5c1b9edd4b9a09b533a8a26c2185ec3b786804157
+          durable_envelope_unpacked="$RUNNER_TEMP/opentofu-envelope-artifact-9773097414"
+          mkdir -p "$durable_envelope_unpacked"
+          unzip -q "$durable_envelope_artifact" -d "$durable_envelope_unpacked"
+          jq -e '
+            .schema=="gooo/opentofu-envelope/observation/v2" and .state=="CLOSED" and
+            .semantic_authority.state=="CLOSED" and .utility.state=="UNKNOWN" and
+            .authority.repository_writes==0 and .authority.local_test_executions==0 and .authority.opentofu_validate_executions==1 and
+            .test_counts=={total:9,executed:9,reused:0,skipped:0,not_observed:0} and
+            .repository_inventory=={file_count:15,go_files:0,go_physical_lines:0,gooo_files:1,gooo_physical_lines:39,physical_line_count:2401,subfolder_count:7} and
+            .verification_stages==[{cache_state:"DISABLED",count:2,executed_test_count:0,execution_state:"EXECUTED",not_observed_test_count:0,peak_rss_kib:21524,prior_test_evidence_reuse_state:"NOT_REUSED",reused_test_evidence_count:0,runner_persistence:"EPHEMERAL",skipped_test_count:0,stage:"build",wall_ms:214},{cache_state:"DISABLED",count:9,executed_test_count:9,execution_state:"EXECUTED",not_observed_test_count:0,peak_rss_kib:21652,prior_test_evidence_reuse_state:"NOT_REUSED",reused_test_evidence_count:0,runner_persistence:"EPHEMERAL",skipped_test_count:0,stage:"test",wall_ms:45},{cache_state:"DISABLED",count:4,executed_test_count:0,execution_state:"EXECUTED",not_observed_test_count:0,peak_rss_kib:76084,prior_test_evidence_reuse_state:"NOT_REUSED",reused_test_evidence_count:0,runner_persistence:"EPHEMERAL",skipped_test_count:0,stage:"conformance",wall_ms:324}] and
+            .generated_outputs.file_count==3 and .generated_outputs.bytes==8118 and
+            .replay.comparison_count==2 and (.replay.comparisons|length)==2 and all(.replay.comparisons[]; .byte_equal==true and .first_sha256==.second_sha256) and
+            .validation.official_opentofu.valid==true and .validation.official_opentofu.error_count==0 and .validation.official_opentofu.warning_count==0
+          ' "$durable_envelope_unpacked/observation.json" >/dev/null
 
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
         shell: bash
@@ -188,7 +234,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:30,closed:27,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:31,closed:28,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"

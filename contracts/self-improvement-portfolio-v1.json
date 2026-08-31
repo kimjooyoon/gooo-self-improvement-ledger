@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 30,
+  "total_cells": 31,
   "denominator_migration": {
-    "from": 29,
-    "to": 30,
+    "from": 30,
+    "to": 31,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 21,
+    "COHERENCE": 22,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 21,
+    "OUTCOME": 22,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -510,6 +510,22 @@
       "metric_id": "gooo.metric.self-improvement.self-repair-integration-release.v1",
       "metric_denominator": 1,
       "release_key": "self_repair_integration_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 31,
+      "id": "OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE",
+      "axis": "OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptOpenTofuDurableSemanticEnvelopeRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptOpenTofuDurableSemanticEnvelopeRelease",
+      "ir": "semantic-ir/activity/AdoptOpenTofuDurableSemanticEnvelopeRelease",
+      "generated_artifact": "evidence/cells/OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE.json",
+      "evaluator": "ledger/opentofu-durable-semantic-envelope-release",
+      "metric_id": "gooo.metric.self-improvement.opentofu-durable-semantic-envelope-release.v1",
+      "metric_denominator": 1,
+      "release_key": "opentofu_durable_semantic_envelope_release",
       "depends_on": []
     }
   ]
