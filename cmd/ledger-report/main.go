@@ -126,7 +126,7 @@ type RuntimeInput struct {
 	GoVersion           string              `json:"go_version"`
 	Timing              Timing              `json:"timing"`
 	Authority           Authority           `json:"authority"`
-	LocalExecutionCount  LocalExecutionCount `json:"local_execution_counts"`
+	LocalExecutionCount LocalExecutionCount `json:"local_execution_counts"`
 }
 
 type Measurement struct {
@@ -237,7 +237,7 @@ type BindingSummary struct {
 	SourceBindings    int  `json:"source_bindings"`
 	IRBindings        int  `json:"ir_bindings"`
 	ArtifactBindings  int  `json:"generated_artifact_bindings"`
-	EvaluatorBindings int `json:"evaluator_bindings"`
+	EvaluatorBindings int  `json:"evaluator_bindings"`
 }
 
 func main() {
