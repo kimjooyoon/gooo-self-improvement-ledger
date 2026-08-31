@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for thirty-one specifically named capabilities.
+The portfolio is an evidence ledger for thirty-two specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains thirty-one entries. The v0.25
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-cell
+`cells` array is immutable during a run and contains thirty-two entries. The v0.26
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-one-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/22/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/22/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/23/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/23/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -264,9 +264,29 @@ as failed no-release triggers, and v0.1.8 as a draft with zero assets; none
 are deleted or hidden. The new cell is `CLOSED`, yielding
 `CLOSED28/UNKNOWN1/REFUTED2`.
 
+The v0.26 frontier appends `LANGUAGE_DELTA_FORGE_DURABLE_RELEASE`. It adopts
+immutable `kimjooyoon/gooo-language-delta-forge@v0.1.2` release `380033725`,
+binding annotated tag object `5d68c5f2f699f9d73bcf2e87121204512dfd64fc` to
+target `30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45`. The main verification run
+`33436391757`/job `99633759904` and immutable release run
+`33436456556`/job `99633967202` are successful; their locked artifacts are
+`9774550869` (`27490` bytes, digest
+`sha256:a2f9a55ebb3870f2093e0f3b11439a523c899fac968efb0c449b6c5c6dc486cd`)
+and `9774576485` (`58715` bytes, digest
+`sha256:bcf1519c02234b44b69490378723c82fa9e9f83d64b65c2c24138d9ce341013b`).
+The four immutable release assets are pinned by API identity, size, and
+SHA-256 digest. The fixed upstream denominator is `18`, with cases
+`CLOSED3/UNKNOWN3/REFUTED3`, program proof and indicator totals `6/6/6`,
+case proof and indicator totals `3/3/3`, candidate bundles `10`, generated JSON
+outputs `11`, representative delta `2/1/1`, rollback `2/1/1`, and zero
+repository writes or protected-core adoption. The upstream utility is
+`NOT_CLAIMED` and upstream global core is `NOT_MADE`; the new ledger cell is
+`CLOSED`, while the ledger's global core and development-process states remain
+`REFUTED`, yielding `CLOSED29/UNKNOWN1/REFUTED2`.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-thirty-one-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+thirty-two-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

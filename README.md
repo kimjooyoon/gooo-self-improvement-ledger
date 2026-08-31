@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 31 named cells, each bound one-to-one to
+language. The denominator is exactly 32 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -24,11 +24,12 @@ The fixed axes are:
 `REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE`, and
 `UNKNOWN_RESOLUTION_LATTICE_RELEASE`, and
 `SELF_REPAIR_INTEGRATION_RELEASE`, and
-`OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE`.
+`OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE`, and
+`LANGUAGE_DELTA_FORGE_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `30 -> 31` with
+The denominator migration is explicit and append-only: `31 -> 32` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/22/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/22/5`.
+`4/23/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/23/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -326,6 +327,27 @@ v0.1.4-v0.1.7 as failed no-release triggers, and v0.1.8 as a draft with zero
 assets; none are deleted or hidden. The new cell is `CLOSED`, yielding
 `CLOSED28/UNKNOWN1/REFUTED2`.
 
+The v0.26 frontier appends `LANGUAGE_DELTA_FORGE_DURABLE_RELEASE`. It adopts
+immutable `kimjooyoon/gooo-language-delta-forge@v0.1.2` release `380033725`,
+binding annotated tag object `5d68c5f2f699f9d73bcf2e87121204512dfd64fc` to
+target `30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45`. The main verification run
+`33436391757`/job `99633759904` is successful with artifact `9774550869`
+(`27490` bytes, digest
+`sha256:a2f9a55ebb3870f2093e0f3b11439a523c899fac968efb0c449b6c5c6dc486cd`);
+the immutable release run `33436456556`/job `99633967202` is also successful
+with release artifact `9774576485` (`58715` bytes, digest
+`sha256:bcf1519c02234b44b69490378723c82fa9e9f83d64b65c2c24138d9ce341013b`).
+All four release assets are pinned by API identity, size, and SHA-256 digest.
+The upstream protocol has fixed denominator `18`, cases `CLOSED3/UNKNOWN3/REFUTED3`,
+program proof and indicator buckets `6/6/6`, case proof and indicator buckets
+`3/3/3`, candidate bundles `10`, generated JSON outputs `11`, representative
+delta `2/1/1`, rollback `2/1/1`, and zero repository writes or protected-core
+adoption. Its CI records compile/build/test/conformance `173/199/163/8 ms`,
+peak RSS `95004 KiB`, `27` files, `13` directories, Go `9/1884`, Gooo `1/51`,
+and `25` outputs. The adoption cell is `CLOSED`; upstream utility is
+`NOT_CLAIMED`, upstream global core is `NOT_MADE`, while ledger global core and
+development process remain `REFUTED`, yielding `CLOSED29/UNKNOWN1/REFUTED2`.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -354,7 +376,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the twenty-eight immutable inputs
+commit, and consumer asset identities for the twenty-nine immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

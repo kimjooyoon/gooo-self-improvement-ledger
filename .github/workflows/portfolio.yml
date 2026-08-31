@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify twenty-eight immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify twenty-nine immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,7 +78,7 @@ jobs:
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:28,verified:28,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:29,verified:29,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           experience_dir="$ARTIFACT_ROOT/releases/experience_memory_release/assets"
           jq -e '.schema=="gooo/experience-memory/release-manifest/v1" and .tag=="v0.1.0" and .commit_sha=="79fd6edc588ea26279dbe735e5f6e250132f7730" and .immutable==true and .assets==[{digest:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",kind:"source",name:"gooo-experience-memory-v0.1.0.tar.gz"},{digest:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6",kind:"ci-evidence",name:"gooo-experience-memory-evidence-v0.1.0.tar.gz"}]' "$experience_dir/release-manifest.json" >/dev/null
@@ -207,6 +207,34 @@ jobs:
             .validation.official_opentofu.valid==true and .validation.official_opentofu.error_count==0 and .validation.official_opentofu.warning_count==0
           ' "$durable_envelope_unpacked/observation.json" >/dev/null
           echo "upstream observation payload verified"
+          language_delta_dir="$ARTIFACT_ROOT/releases/language_delta_forge_durable_release/assets"
+          jq -e '. == {schema:"gooo/language-delta-forge/release-manifest/v2",tag:"v0.1.2",commit:"30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45",expected_asset_count:4,expected_asset_names:["checksums.txt","gooo-language-delta-forge-v0.1.2-contracts.tar.gz","gooo-language-delta-forge-v0.1.2.tar.gz","release-manifest-v0.1.2.json"],assets:[{name:"gooo-language-delta-forge-v0.1.2.tar.gz",size:26671,sha256:"77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba"},{name:"gooo-language-delta-forge-v0.1.2-contracts.tar.gz",size:7542,sha256:"e14fc1d338ea85a51f1d6f43997e0e1c74d9be2ddc9eaa97d22d98ebfb5ff2d4"}]}' "$language_delta_dir/release-manifest-v0.1.2.json" >/dev/null
+          test "$(wc -c < "$language_delta_dir/checksums.txt" | tr -d ' ')" = 240
+          test "$(cat "$language_delta_dir/checksums.txt")" = $'77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba  _release/gooo-language-delta-forge-v0.1.2.tar.gz\ne14fc1d338ea85a51f1d6f43997e0e1c74d9be2ddc9eaa97d22d98ebfb5ff2d4  _release/gooo-language-delta-forge-v0.1.2-contracts.tar.gz'
+          test "$(wc -c < "$language_delta_dir/gooo-language-delta-forge-v0.1.2.tar.gz" | tr -d ' ')" = 26671
+          test "$(sha256sum "$language_delta_dir/gooo-language-delta-forge-v0.1.2.tar.gz" | awk '{print $1}')" = 77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba
+          test "$(wc -c < "$language_delta_dir/gooo-language-delta-forge-v0.1.2-contracts.tar.gz" | tr -d ' ')" = 7542
+          test "$(sha256sum "$language_delta_dir/gooo-language-delta-forge-v0.1.2-contracts.tar.gz" | awk '{print $1}')" = e14fc1d338ea85a51f1d6f43997e0e1c74d9be2ddc9eaa97d22d98ebfb5ff2d4
+          test "$(wc -c < "$language_delta_dir/release-manifest-v0.1.2.json" | tr -d ' ')" = 736
+          test "$(sha256sum "$language_delta_dir/release-manifest-v0.1.2.json" | awk '{print $1}')" = 0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a
+          language_delta_release_artifact_metadata="$RUNNER_TEMP/language-delta-forge-release-artifact-9774576485.json"
+          curl --fail --location --retry 3 --retry-all-errors --silent --show-error \
+            https://api.github.com/repos/kimjooyoon/gooo-language-delta-forge/actions/artifacts/9774576485 \
+            -o "$language_delta_release_artifact_metadata"
+          jq -e '.id==9774576485 and .name=="durable-language-delta-forge-v0.1.2" and .size_in_bytes==58715 and .digest=="sha256:bcf1519c02234b44b69490378723c82fa9e9f83d64b65c2c24138d9ce341013b" and .expired==false and .workflow_run.id==33436456556 and .workflow_run.head_sha=="30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45"' "$language_delta_release_artifact_metadata" >/dev/null
+          language_delta_release_artifact="$RUNNER_TEMP/language-delta-forge-release-artifact-9774576485.zip"
+          gh api repos/kimjooyoon/gooo-language-delta-forge/actions/artifacts/9774576485/zip > "$language_delta_release_artifact"
+          test "$(wc -c < "$language_delta_release_artifact" | tr -d ' ')" = 58715
+          test "$(sha256sum "$language_delta_release_artifact" | awk '{print $1}')" = bcf1519c02234b44b69490378723c82fa9e9f83d64b65c2c24138d9ce341013b
+          language_delta_release_unpacked="$RUNNER_TEMP/language-delta-forge-release-artifact-9774576485"
+          mkdir -p "$language_delta_release_unpacked"
+          unzip -q "$language_delta_release_artifact" -d "$language_delta_release_unpacked"
+          language_delta_artifact_dir="$language_delta_release_unpacked/_artifact"
+          jq -e '.schema=="gooo/language-delta-forge/immutable-release-verification/v1" and .repository=="kimjooyoon/gooo-language-delta-forge" and .tag=="v0.1.2" and .release_id==380033725 and .immutable==true and .tag_object_sha=="5d68c5f2f699f9d73bcf2e87121204512dfd64fc" and .target_sha=="30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45" and (.assets|map(.id))==[538495830,538495829,538495828,538495832] and (.assets|map(.size))==[240,7542,26671,736] and (.assets|map(.digest))==["sha256:cd99462d4d6635ba03024ef3e03ea600dbe65f22ad416f379583f86fa6af7876","sha256:e14fc1d338ea85a51f1d6f43997e0e1c74d9be2ddc9eaa97d22d98ebfb5ff2d4","sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba","sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a"]' "$language_delta_artifact_dir/release-verification.json" >/dev/null
+          jq -e '.schema=="gooo/language-delta-forge/conformance-report/v1" and .decision=="CLOSED" and .denominator==18 and .summary=={total:9,closed:3,unknown:3,refuted:3,failures:0} and ([.cases[].proof_choice]|sort)==["COHERENCE","COHERENCE","COHERENCE","FOUNDATION","FOUNDATION","FOUNDATION","REGRESSION","REGRESSION","REGRESSION"] and ([.cases[].indicator_class]|sort)==["DRIVER","DRIVER","DRIVER","GUARDRAIL","GUARDRAIL","GUARDRAIL","OUTCOME","OUTCOME","OUTCOME"] and all(.cases[];.pass==true)' "$language_delta_artifact_dir/conformance/conformance-report.json" >/dev/null
+          jq -e '. == {schema:"gooo/language-delta-forge/inventory/v1",files:27,directories:13,go_files:9,gooo_files:1,physical_lines:2610,go_lines:1884,gooo_lines:51,root_readme_excluded:true}' "$language_delta_artifact_dir/inventory.json" >/dev/null
+          jq -e '.schema=="gooo/language-delta-forge/release-ci-measurements/v2" and .go_version=="go1.27.0" and .tag=="v0.1.2" and .target_sha=="30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45" and .release_id==380033725 and .compile=={status:0,wall_ms:173,peak_rss_kib:31364} and .build=={status:0,wall_ms:199,peak_rss_kib:91268} and .test=={status:0,wall_ms:163,peak_rss_kib:95004} and .conformance=={status:0,wall_ms:8,peak_rss_kib:9356} and .test_execution_count==1 and .reuse_count==0 and .local_test_executions==0 and .repository_writes==0 and .protected_core_mutations==0 and .output_files==25' "$language_delta_artifact_dir/release-ci-measurements.json" >/dev/null
+          echo "upstream language delta forge release and artifact verified"
 
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
         shell: bash
@@ -247,7 +275,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:31,closed:28,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:32,closed:29,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"

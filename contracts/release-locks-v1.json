@@ -1634,6 +1634,99 @@
         {"id":538450816,"name":"SHA256SUMS","size_bytes":263,"sha256":"sha256:efb3cebd7bcdf2dcc1a1a2279817be1286def7e7387b33f2afc505b3eb7129c6","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.1.9/SHA256SUMS"},
         {"id":538450823,"name":"source-v0.1.9.tar.gz","size_bytes":30885,"sha256":"sha256:e33609eee44163d3201d125900d57ea12f183ebb561522e86e930d7f3805338f","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.1.9/source-v0.1.9.tar.gz"}
       ]
+    },
+    "language_delta_forge_durable_release": {
+      "repository": "kimjooyoon/gooo-language-delta-forge",
+      "tag": "v0.1.2",
+      "release_id": 380033725,
+      "release_url": "https://github.com/kimjooyoon/gooo-language-delta-forge/releases/tag/v0.1.2",
+      "target_commit_sha": "30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45",
+      "tag_object_sha": "5d68c5f2f699f9d73bcf2e87121204512dfd64fc",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33436391757,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-language-delta-forge/actions/runs/33436391757",
+        "event": "push",
+        "head_branch": "main",
+        "head_sha": "30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45",
+        "conclusion": "success",
+        "job_id": 99633759904,
+        "job_name": "verify",
+        "job_url": "https://github.com/kimjooyoon/gooo-language-delta-forge/actions/runs/33436391757/job/99633759904",
+        "artifact_ids": [9774550869]
+      },
+      "source_artifact": {
+        "run_id": 33436391757,
+        "artifact_id": 9774550869,
+        "name": "language-delta-forge-30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45",
+        "size_bytes": 27490,
+        "sha256": "sha256:a2f9a55ebb3870f2093e0f3b11439a523c899fac968efb0c449b6c5c6dc486cd"
+      },
+      "release_run": {
+        "run_id": 33436456556,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-language-delta-forge/actions/runs/33436456556",
+        "event": "push",
+        "head_branch": "v0.1.2",
+        "head_sha": "30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45",
+        "conclusion": "success",
+        "job_id": 99633967202,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-language-delta-forge/actions/runs/33436456556/job/99633967202",
+        "artifact_ids": [9774576485]
+      },
+      "release_artifact": {
+        "run_id": 33436456556,
+        "artifact_id": 9774576485,
+        "name": "durable-language-delta-forge-v0.1.2",
+        "size_bytes": 58715,
+        "sha256": "sha256:bcf1519c02234b44b69490378723c82fa9e9f83d64b65c2c24138d9ce341013b"
+      },
+      "release_manifest": {
+        "schema": "gooo/language-delta-forge/release-manifest/v2",
+        "tag": "v0.1.2",
+        "commit": "30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45",
+        "expected_asset_count": 4,
+        "expected_asset_names": [
+          "checksums.txt",
+          "gooo-language-delta-forge-v0.1.2-contracts.tar.gz",
+          "gooo-language-delta-forge-v0.1.2.tar.gz",
+          "release-manifest-v0.1.2.json"
+        ],
+        "assets": [
+          {"name":"gooo-language-delta-forge-v0.1.2.tar.gz","size":26671,"sha256":"77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba"},
+          {"name":"gooo-language-delta-forge-v0.1.2-contracts.tar.gz","size":7542,"sha256":"e14fc1d338ea85a51f1d6f43997e0e1c74d9be2ddc9eaa97d22d98ebfb5ff2d4"}
+        ]
+      },
+      "protocol_observation": {
+        "schema": "gooo/language-delta-forge/conformance-report/v1",
+        "state": "CLOSED",
+        "fixed_denominator": 18,
+        "program": {
+          "proof_totals": {"FOUNDATION":6,"COHERENCE":6,"REGRESSION":6},
+          "indicator_totals": {"DRIVER":6,"OUTCOME":6,"GUARDRAIL":6}
+        },
+        "cases": {
+          "denominator": 9,
+          "state_totals": {"CLOSED":3,"UNKNOWN":3,"REFUTED":3},
+          "proof_totals": {"FOUNDATION":3,"COHERENCE":3,"REGRESSION":3},
+          "indicator_totals": {"DRIVER":3,"OUTCOME":3,"GUARDRAIL":3}
+        },
+        "candidate_bundles": 10,
+        "generated_json": 11,
+        "representative_delta": {"added":2,"retired":1,"split":1},
+        "rollback": {"added":2,"retired":1,"split":1},
+        "runtime": {"go":"1.27.0","compile_wall_ms":173,"build_wall_ms":199,"test_wall_ms":163,"conformance_wall_ms":8,"peak_rss_kib":95004},
+        "tests": {"discovered":3,"executed":3,"reused":0,"skipped":0,"not_observed":0},
+        "inventory": {"files":27,"directories":13,"go_files":9,"go_lines":1884,"gooo_files":1,"gooo_lines":51,"physical_lines":2610,"root_readme_excluded":true},
+        "output_artifacts": 25,
+        "authority": {"repository_writes":0,"protected_core_adoption":0,"automatic_merge":false,"separate_authority_step":true,"external_utility":"NOT_CLAIMED","global_core_authority_claim":"NOT_MADE"}
+      },
+      "assets": [
+        {"id":538495830,"name":"checksums.txt","size_bytes":240,"sha256":"sha256:cd99462d4d6635ba03024ef3e03ea600dbe65f22ad416f379583f86fa6af7876","download_url":"https://github.com/kimjooyoon/gooo-language-delta-forge/releases/download/v0.1.2/checksums.txt"},
+        {"id":538495829,"name":"gooo-language-delta-forge-v0.1.2-contracts.tar.gz","size_bytes":7542,"sha256":"sha256:e14fc1d338ea85a51f1d6f43997e0e1c74d9be2ddc9eaa97d22d98ebfb5ff2d4","download_url":"https://github.com/kimjooyoon/gooo-language-delta-forge/releases/download/v0.1.2/gooo-language-delta-forge-v0.1.2-contracts.tar.gz"},
+        {"id":538495828,"name":"gooo-language-delta-forge-v0.1.2.tar.gz","size_bytes":26671,"sha256":"sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba","download_url":"https://github.com/kimjooyoon/gooo-language-delta-forge/releases/download/v0.1.2/gooo-language-delta-forge-v0.1.2.tar.gz"},
+        {"id":538495832,"name":"release-manifest-v0.1.2.json","size_bytes":736,"sha256":"sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a","download_url":"https://github.com/kimjooyoon/gooo-language-delta-forge/releases/download/v0.1.2/release-manifest-v0.1.2.json"}
+      ]
     }
   },
   "counterexample_runs": [

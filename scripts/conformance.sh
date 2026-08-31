@@ -13,16 +13,16 @@ probe=$(mktemp -d)
 mkdir -p "$probe"
 
 jq -e '
-  .total_cells == 31 and
-  .denominator_migration == {from:30,to:31,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 32 and
+  .denominator_migration == {from:31,to:32,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE","SELF_REPAIR_INTEGRATION_RELEASE","OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE","SELF_REPAIR_INTEGRATION_RELEASE","OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE","LANGUAGE_DELTA_FORGE_DURABLE_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:22,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:22,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:23,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:23,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -41,7 +41,8 @@ jq -e '
   (.cells|map(select(.id=="REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE" and .release_key=="reflexive_learning_drift_cycle_release"))|length)==1 and
   (.cells|map(select(.id=="UNKNOWN_RESOLUTION_LATTICE_RELEASE" and .release_key=="unknown_resolution_lattice_release"))|length)==1 and
   (.cells|map(select(.id=="SELF_REPAIR_INTEGRATION_RELEASE" and .release_key=="self_repair_integration_release"))|length)==1 and
-  (.cells|map(select(.id=="OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE" and .release_key=="opentofu_durable_semantic_envelope_release"))|length)==1
+  (.cells|map(select(.id=="OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE" and .release_key=="opentofu_durable_semantic_envelope_release"))|length)==1 and
+  (.cells|map(select(.id=="LANGUAGE_DELTA_FORGE_DURABLE_RELEASE" and .release_key=="language_delta_forge_durable_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 
 jq -e '
@@ -526,6 +527,26 @@ jq -e '
   .releases.opentofu_durable_semantic_envelope_release.historical_provenance["v0.1.6"] == {release_present:false,asset_count:0,failed:true,failed_trigger_run_ids:[33431118426]} and
   .releases.opentofu_durable_semantic_envelope_release.historical_provenance["v0.1.7"] == {release_present:false,asset_count:0,failed:true,failed_trigger_run_ids:[33431644645]} and
   .releases.opentofu_durable_semantic_envelope_release.historical_provenance["v0.1.8"] == {release_id:380007644,release_present:true,draft:true,immutable:false,asset_count:0,failed:true,failed_trigger_run_ids:[33432034362]} and
+  .releases.language_delta_forge_durable_release.release_id == 380033725 and
+  .releases.language_delta_forge_durable_release.tag_object_sha == "5d68c5f2f699f9d73bcf2e87121204512dfd64fc" and
+  .releases.language_delta_forge_durable_release.target_commit_sha == "30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45" and
+  .releases.language_delta_forge_durable_release.source_run.run_id == 33436391757 and
+  .releases.language_delta_forge_durable_release.source_run.job_id == 99633759904 and
+  .releases.language_delta_forge_durable_release.source_run.head_sha == "30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45" and
+  .releases.language_delta_forge_durable_release.source_run.conclusion == "success" and
+  .releases.language_delta_forge_durable_release.source_run.artifact_ids == [9774550869] and
+  .releases.language_delta_forge_durable_release.source_artifact == {run_id:33436391757,artifact_id:9774550869,name:"language-delta-forge-30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45",size_bytes:27490,sha256:"sha256:a2f9a55ebb3870f2093e0f3b11439a523c899fac968efb0c449b6c5c6dc486cd"} and
+  .releases.language_delta_forge_durable_release.release_run.run_id == 33436456556 and
+  .releases.language_delta_forge_durable_release.release_run.job_id == 99633967202 and
+  .releases.language_delta_forge_durable_release.release_run.head_sha == "30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45" and
+  .releases.language_delta_forge_durable_release.release_run.conclusion == "success" and
+  .releases.language_delta_forge_durable_release.release_run.artifact_ids == [9774576485] and
+  .releases.language_delta_forge_durable_release.release_artifact == {run_id:33436456556,artifact_id:9774576485,name:"durable-language-delta-forge-v0.1.2",size_bytes:58715,sha256:"sha256:bcf1519c02234b44b69490378723c82fa9e9f83d64b65c2c24138d9ce341013b"} and
+  .releases.language_delta_forge_durable_release.release_manifest == {schema:"gooo/language-delta-forge/release-manifest/v2",tag:"v0.1.2",commit:"30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45",expected_asset_count:4,expected_asset_names:["checksums.txt","gooo-language-delta-forge-v0.1.2-contracts.tar.gz","gooo-language-delta-forge-v0.1.2.tar.gz","release-manifest-v0.1.2.json"],assets:[{name:"gooo-language-delta-forge-v0.1.2.tar.gz",size:26671,sha256:"77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba"},{name:"gooo-language-delta-forge-v0.1.2-contracts.tar.gz",size:7542,sha256:"e14fc1d338ea85a51f1d6f43997e0e1c74d9be2ddc9eaa97d22d98ebfb5ff2d4"}]} and
+  .releases.language_delta_forge_durable_release.protocol_observation == {schema:"gooo/language-delta-forge/conformance-report/v1",state:"CLOSED",fixed_denominator:18,program:{proof_totals:{FOUNDATION:6,COHERENCE:6,REGRESSION:6},indicator_totals:{DRIVER:6,OUTCOME:6,GUARDRAIL:6}},cases:{denominator:9,state_totals:{CLOSED:3,UNKNOWN:3,REFUTED:3},proof_totals:{FOUNDATION:3,COHERENCE:3,REGRESSION:3},indicator_totals:{DRIVER:3,OUTCOME:3,GUARDRAIL:3}},candidate_bundles:10,generated_json:11,representative_delta:{added:2,retired:1,split:1},rollback:{added:2,retired:1,split:1},runtime:{go:"1.27.0",compile_wall_ms:173,build_wall_ms:199,test_wall_ms:163,conformance_wall_ms:8,peak_rss_kib:95004},tests:{discovered:3,executed:3,reused:0,skipped:0,not_observed:0},inventory:{files:27,directories:13,go_files:9,go_lines:1884,gooo_files:1,gooo_lines:51,physical_lines:2610,root_readme_excluded:true},output_artifacts:25,authority:{repository_writes:0,protected_core_adoption:0,automatic_merge:false,separate_authority_step:true,external_utility:"NOT_CLAIMED",global_core_authority_claim:"NOT_MADE"}} and
+  (.releases.language_delta_forge_durable_release.assets|map(.id)) == [538495830,538495829,538495828,538495832] and
+  (.releases.language_delta_forge_durable_release.assets|map(.size_bytes)) == [240,7542,26671,736] and
+  (.releases.language_delta_forge_durable_release.assets|map(.sha256)) == ["sha256:cd99462d4d6635ba03024ef3e03ea600dbe65f22ad416f379583f86fa6af7876","sha256:e14fc1d338ea85a51f1d6f43997e0e1c74d9be2ddc9eaa97d22d98ebfb5ff2d4","sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba","sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a"] and
   (.failed_release_triggers|length) == 1 and
   .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
   .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
@@ -808,7 +829,26 @@ jq -e '
     ($durable_envelope.evidence | index("asset:538450816:263:sha256:efb3cebd7bcdf2dcc1a1a2279817be1286def7e7387b33f2afc505b3eb7129c6")) != null and
     ($durable_envelope.evidence | index("asset:538450823:30885:sha256:e33609eee44163d3201d125900d57ea12f183ebb561522e86e930d7f3805338f")) != null and
     ($durable_envelope.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 31 and
+  ((.cells[] | select(.cell_id == "LANGUAGE_DELTA_FORGE_DURABLE_RELEASE")) as $language_delta |
+    $language_delta.state == "CLOSED" and
+    $language_delta.release_key == "language_delta_forge_durable_release" and
+    ($language_delta.evidence | index("release:380033725:immutable=true")) != null and
+    ($language_delta.evidence | index("tag-object:5d68c5f2f699f9d73bcf2e87121204512dfd64fc:target=30ad7a736d5d354a9e0cd998a8a1bd4dd5e11b45")) != null and
+    ($language_delta.evidence | index("main-actions:run=33436391757:job=99633759904:success")) != null and
+    ($language_delta.evidence | index("main-actions-artifact:9774550869:27490:sha256:a2f9a55ebb3870f2093e0f3b11439a523c899fac968efb0c449b6c5c6dc486cd")) != null and
+    ($language_delta.evidence | index("release-actions:run=33436456556:job=99633967202:success")) != null and
+    ($language_delta.evidence | index("release-actions-artifact:9774576485:58715:sha256:bcf1519c02234b44b69490378723c82fa9e9f83d64b65c2c24138d9ce341013b")) != null and
+    ($language_delta.evidence | index("upstream-language-delta-forge:denominator=18:cases=CLOSED=3:UNKNOWN=3:REFUTED=3:proof=6/6/6:indicator=6/6/6")) != null and
+    ($language_delta.evidence | index("upstream-delta:candidate_bundles=10:generated_json=11:representative=2/1/1:rollback=2/1/1")) != null and
+    ($language_delta.evidence | index("upstream-runtime:go=1.27.0:compile=173:build=199:test=163:conformance=8:peak_rss_kib=95004:tests=3/3/0/0/0:outputs=25")) != null and
+    ($language_delta.evidence | index("upstream-inventory:files=27:directories=13:go=9/1884:gooo=1/51:physical_lines=2610:root_readme_excluded=true")) != null and
+    ($language_delta.evidence | index("upstream-authority:repository_writes=0:protected_core_adoption=0:automatic_merge=false:separate_authority_step=true:utility=NOT_CLAIMED:global_core=NOT_MADE")) != null and
+    ($language_delta.evidence | index("asset:538495830:240:sha256:cd99462d4d6635ba03024ef3e03ea600dbe65f22ad416f379583f86fa6af7876")) != null and
+    ($language_delta.evidence | index("asset:538495829:7542:sha256:e14fc1d338ea85a51f1d6f43997e0e1c74d9be2ddc9eaa97d22d98ebfb5ff2d4")) != null and
+    ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
+    ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
+    ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
+  (.cells|length) == 32 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -977,12 +1017,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:31,closed:28,unknown:1,refuted:2} and
+  .summary == {total:32,closed:29,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 31 and
+  (.cells|length) == 32 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 28 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 29 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -1016,16 +1056,17 @@ jq -e '
     REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE:"CLOSED",
     UNKNOWN_RESOLUTION_LATTICE_RELEASE:"CLOSED",
     SELF_REPAIR_INTEGRATION_RELEASE:"CLOSED",
-    OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE:"CLOSED"
+    OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE:"CLOSED",
+    LANGUAGE_DELTA_FORGE_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:31,activities:31,unique_axes:31,unique_metrics:31,source_bindings:31,ir_bindings:31,generated_artifact_bindings:31,evaluator_bindings:31} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 22 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 22 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:28,verified:28,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:32,activities:32,unique_axes:32,unique_metrics:32,source_bindings:32,ir_bindings:32,generated_artifact_bindings:32,evaluator_bindings:32} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 23 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 23 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:29,verified:29,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
