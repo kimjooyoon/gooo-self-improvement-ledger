@@ -41,7 +41,11 @@ jobs:
         shell: bash
         run: |
           set -Eeuo pipefail
-          test -z "$(gofmt -l .)"
+          files=$(gofmt -l .)
+          if test -n "$files"; then
+            gofmt -d $files
+            exit 1
+          fi
           go vet ./...
           go test -json ./... > "$RUNNER_TEMP/go-test.json"
           go build -trimpath -o "$RUNNER_TEMP/ledger-report" ./cmd/ledger-report
