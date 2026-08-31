@@ -12,6 +12,37 @@ artifact=$(realpath "$3")
 probe=$(mktemp -d)
 mkdir -p "$probe"
 
+jq -e '
+  (.state_transition_events|length) == 1 and
+  .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
+  .state_transition_events[0].from_state == "UNKNOWN" and
+  .state_transition_events[0].to_state == "REFUTED" and
+  .state_transition_events[0].append_only == true and
+  .state_transition_events[0].prior_record.state == "UNKNOWN" and
+  .state_transition_events[0].observed_error_digest == "sha256:37dedce852118e15bfe824d15fcb11979e062854c83f1ff22c08534f8a37b34a" and
+  .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.2" and
+  .optional_dependencies[0].status == "UNRELEASED" and
+  .optional_dependencies[0].required == false and
+  .optional_dependencies[0].gate == false and
+  ((.cells[] | select(.cell_id == "CORE_SEMANTIC_AUTHORITY")) as $core |
+    $core.state == "REFUTED" and
+    ($core | has("unknown") | not) and
+    $core.refutation.stage == "GUARDIAN_RUNTIME" and
+    $core.refutation.step == "EXECUTE_BASE_CONTROLLED_FEATURE_PR_GUARDIAN" and
+    $core.refutation.reason == "BEFORE_DIGEST_REFERENCE_ERROR" and
+    $core.refutation.next_operation == "PUBLISH_EXECUTABLE_GUARDIAN_FEATURE_PR_ACCEPTANCE_AND_ADOPT_CORRECTED_SCOPE" and
+    ($core.refutation | has("unknown_class") | not) and
+    $core.refutation.observed_error.message == "ReferenceError: beforeDigest is not defined" and
+    $core.refutation.observed_error.run_id == 33355380192 and
+    $core.refutation.observed_error.check_run_id == 99376387819 and
+    $core.refutation.observed_error.path == ".github" and
+    $core.refutation.observed_error.line == 342 and
+    $core.refutation.observed_digest.guardian_workflow_path == ".github/workflows/ci-guardian.yml" and
+    $core.refutation.observed_digest.guardian_workflow_blob_sha == "eee90d8410efb40c9fca965139cce293eafca895" and
+    $core.refutation.observed_digest.guardian_artifact_id == 9744953729 and
+    $core.refutation.observed_digest.guardian_artifact_sha256 == "sha256:3dfd72e6f5822d3c99116efc7ead8cbeeaf864ed0847dbd4458da41ce8f7d4ee")
+' "$repository/evidence/assessment-v1.json" >/dev/null
+
 start=$(date +%s%N)
 /usr/bin/time -f '%M' -o "$artifact/report-peak-rss" "$binary" \
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
@@ -49,15 +80,16 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:12,closed:10,unknown:2,refuted:0} and
+  .summary == {total:12,closed:10,unknown:1,refuted:1} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
   (.cells|length) == 12 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
   (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 10 and
-  (.cells|map(select(.state == "UNKNOWN"))|length) == 2 and
+  (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
+  (.cells|map(select(.state == "REFUTED"))|length) == 1 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
-    CORE_SEMANTIC_AUTHORITY:"UNKNOWN",
+    CORE_SEMANTIC_AUTHORITY:"REFUTED",
     RESOLUTION_DESCENT:"CLOSED",
     CAUSAL_CI_SELECTION:"CLOSED",
     META_RESOURCE_BUDGET:"CLOSED",
