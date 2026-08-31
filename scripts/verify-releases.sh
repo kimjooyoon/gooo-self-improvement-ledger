@@ -324,7 +324,7 @@ for counterexample_id in $(jq -r '(.failed_release_triggers // [])[] | .countere
   fetch_rss=$(cat "$output/$counterexample_id.fetch-rss")
   result=$(jq -S -n --arg id "$counterexample_id" --arg repository "$repo" --arg tag "$tag" --arg url "$release_url" --arg target "$target" --arg tag_object_sha "$tag_object" --arg reason "$reason" \
     --argjson run_id "$run_id" --arg run_url "$run_url" --arg event "$event" --arg branch "$head_branch" --arg head "$head_sha" --argjson job_id "$job_id" --arg job_name "$job_name" --arg job_url "$job_url" --argjson fetch_rss "$fetch_rss" \
-    '{state:"REFUTED",counterexample:true,verified:true,release_absent:true,repository:$repository,tag:$tag,release_url:$url,target_commit_sha:$target,tag_object_sha:$tag_object,release_api_status:404,failed_run:{run_id:$run_id,run_url:$run_url,event:$event,head_branch:$branch,head_sha:$head,conclusion:"failure",job_id:$job_id,job_name:$job_name,job_url:$job_url},fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},reason:$reason}')
+    '{state:"REFUTED",counterexample:true,verified:true,release_absent:true,repository:$repository,tag:$tag,release_url:$url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,release_api_status:404,failed_run:{run_id:$run_id,run_url:$run_url,event:$event,head_branch:$branch,head_sha:$head,conclusion:"failure",job_id:$job_id,job_name:$job_name,job_url:$job_url},fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},reason:$reason}')
   failed_release_trigger_results=$(jq -c --arg id "$counterexample_id" --argjson result "$result" '. + {($id):$result}' <<< "$failed_release_trigger_results")
 done
 
