@@ -29,7 +29,7 @@ jq -e '
   .entry_count == 10 and (.entries|length) == 10 and
   (.entries|map(.entry_id)|length) == (.entries|map(.entry_id)|unique|length) and
   (.lineage|length) == 4 and
-  (.lineage|map(.historical_entry_id)|sort) == ["counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0"] and
+  (.lineage|map(.historical_entry_id)|sort) == ["counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0","receipt-schema-migration-v0.1.1"] and
   (.["lineage"] | map(select(.historical_entry_id == "receipt-schema-migration-v0.1.1" and .successor_entry_id == "receipt-schema-migration-v0.2.2" and .historical_state == "CLOSED" and .successor_state == "CLOSED" and .transition == "CLOSED_TO_CLOSED_SUCCESSOR")) | length) == 1 and
   ((.lineage | map(select(.transition == "REFUTED_TO_CLOSED")) | length) == 3) and
   (.frontier_additions == ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2"]) and
@@ -42,7 +42,7 @@ jq -e '
   .entry_count == 10 and (.entries|length) == 10 and
   (.entries|map(.entry_id)|length) == (.entries|map(.entry_id)|unique|length) and
   (.lineage|length) == 4 and
-  (.lineage|map(.historical_entry_id)|sort) == ["counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0"] and
+  (.lineage|map(.historical_entry_id)|sort) == ["counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0","receipt-schema-migration-v0.1.1"] and
   (.["lineage"] | map(select(.historical_entry_id == "receipt-schema-migration-v0.1.1" and .successor_entry_id == "receipt-schema-migration-v0.2.2" and .historical_state == "CLOSED" and .successor_state == "CLOSED" and .transition == "CLOSED_TO_CLOSED_SUCCESSOR")) | length) == 1 and
   ((.lineage | map(select(.transition == "REFUTED_TO_CLOSED")) | length) == 3) and
   (.frontier_additions == ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2"]) and
