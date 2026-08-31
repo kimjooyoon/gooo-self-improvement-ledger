@@ -58,9 +58,13 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
       tag_target=$(awk -v direct="refs/tags/$tag" -v peeled="refs/tags/$tag^{}" '$2==peeled {p=$1} $2==direct {d=$1} END {if (p!="") print p; else print d}' <<< "$remote_refs")
       break
     fi
+    echo "tag lookup attempt $attempt failed for $repo@$tag" >&2
     sleep 1
   done
-  test "$tag_target" = "$target"
+  if test "$tag_target" != "$target"; then
+    echo "tag target mismatch for $repo@$tag: expected $target, observed ${tag_target:-<empty>}" >&2
+    exit 1
+  fi
 
   mkdir -p "$output/$key/assets"
   asset_results="$output/$key/assets.ndjson"
