@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify twenty-three immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify twenty-four immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -77,7 +77,7 @@ jobs:
           set -Eeuo pipefail
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:23,verified:23,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:24,verified:24,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           experience_dir="$ARTIFACT_ROOT/releases/experience_memory_release/assets"
           jq -e '.schema=="gooo/experience-memory/release-manifest/v1" and .tag=="v0.1.0" and .commit_sha=="79fd6edc588ea26279dbe735e5f6e250132f7730" and .immutable==true and .assets==[{digest:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",kind:"source",name:"gooo-experience-memory-v0.1.0.tar.gz"},{digest:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6",kind:"ci-evidence",name:"gooo-experience-memory-evidence-v0.1.0.tar.gz"}]' "$experience_dir/release-manifest.json" >/dev/null
@@ -95,6 +95,17 @@ jobs:
           test "$(awk 'NF {print NF}' "$drift_dir/evidence-v0.1.1.tar.gz.sha256" | sort -u)" = 2
           declared=$(awk 'NF {print $1}' "$drift_dir/evidence-v0.1.1.tar.gz.sha256")
           test "${declared#sha256:}" = 83ea0adf7b59b08147eb24ef16483682d8f21d204dc93ed337d39900ae9e09ec
+          census_dir="$ARTIFACT_ROOT/releases/semantic_authority_census_release/assets"
+          jq -e '.schema=="gooo/semantic-authority-release/v1" and .tag=="v0.1.0" and .tag_object=="c81ff9b843dce716c57fe2ab542bde52e922ab2b" and .target=="0451a1f5813e51a2d09145d7516170c7802f9fd5" and .run_id=="33421919840" and .assets=={source:"sha256:3bd78b1b7cb5330dc901003b2d23abee9b95abfe23d1ad0d754d1bdb63471866",evidence:"sha256:e68c93214ef99e65ffd818bf384668c34e8332aa7b4481d6cc70b747afaaf0e3"}' "$census_dir/manifest-v0.1.0.json" >/dev/null
+          test "$(awk 'NF {print NF}' "$census_dir/SHA256SUMS" | sort -u)" = 2
+          test "$(sha256sum "$census_dir/SHA256SUMS" | awk '{print $1}')" = 9ae4216b45722c43f62720a3e3d13048905e3291d7ee595d3fe6ab0f78f11411
+          test "$(sha256sum "$census_dir/manifest-v0.1.0.json" | awk '{print $1}')" = 9c403c7b607c91f1cddced37611875544f047899610be293c96b6475b269b260
+          test "$(sha256sum "$census_dir/source-v0.1.0.tar.gz" | awk '{print $1}')" = 3bd78b1b7cb5330dc901003b2d23abee9b95abfe23d1ad0d754d1bdb63471866
+          test "$(sha256sum "$census_dir/evidence-v0.1.0.tar.gz" | awk '{print $1}')" = e68c93214ef99e65ffd818bf384668c34e8332aa7b4481d6cc70b747afaaf0e3
+          while read -r declared_digest asset_name; do
+            test "$asset_name" = "source-v0.1.0.tar.gz" || test "$asset_name" = "evidence-v0.1.0.tar.gz" || test "$asset_name" = "manifest-v0.1.0.json"
+            test "$(sha256sum "$census_dir/$asset_name" | awk '{print $1}')" = "$declared_digest"
+          done < <(awk '{print $1" "$2}' "$census_dir/SHA256SUMS")
 
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
         shell: bash
@@ -135,7 +146,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:26,closed:23,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:27,closed:24,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"

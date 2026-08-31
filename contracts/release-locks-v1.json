@@ -29,6 +29,127 @@
     }
   ],
   "releases": {
+    "semantic_authority_census_release": {
+      "repository": "kimjooyoon/gooo-semantic-authority-census",
+      "tag": "v0.1.0",
+      "release_id": 379947813,
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-authority-census/releases/tag/v0.1.0",
+      "target_commit_sha": "0451a1f5813e51a2d09145d7516170c7802f9fd5",
+      "tag_object_sha": "c81ff9b843dce716c57fe2ab542bde52e922ab2b",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33421788389,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-semantic-authority-census/actions/runs/33421788389",
+        "head_sha": "0451a1f5813e51a2d09145d7516170c7802f9fd5",
+        "conclusion": "success",
+        "job_id": 99585671364,
+        "job_name": "census",
+        "job_url": "https://github.com/kimjooyoon/gooo-semantic-authority-census/actions/runs/33421788389/job/99585671364",
+        "artifact_ids": [9769198151]
+      },
+      "source_artifact": {
+        "run_id": 33421788389,
+        "artifact_id": 9769198151,
+        "name": "semantic-authority-census",
+        "size_bytes": 2612519,
+        "sha256": "sha256:a77d6e089b61fcb6546385af9e91f47011cfe2d070cadec26f3ad66f35e79d35"
+      },
+      "release_run": {
+        "run_id": 33421919840,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-semantic-authority-census/actions/runs/33421919840",
+        "head_sha": "0451a1f5813e51a2d09145d7516170c7802f9fd5",
+        "conclusion": "success",
+        "job_id": 99586108117,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-semantic-authority-census/actions/runs/33421919840/job/99586108117",
+        "artifact_ids": [9769259042]
+      },
+      "release_artifact": {
+        "run_id": 33421919840,
+        "artifact_id": 9769259042,
+        "name": "semantic-authority-release",
+        "size_bytes": 2577787,
+        "sha256": "sha256:347c8f66d0f69f13244be95ea62116beabadf597e49480138e0b16bb6b0c3472"
+      },
+      "pull_request": {
+        "number": 1,
+        "url": "https://github.com/kimjooyoon/gooo-semantic-authority-census/pull/1",
+        "state": "closed",
+        "merged": true,
+        "head_sha": "438d4e4f05e7c4b7b1f69e04f8ebf98b3a00ec37",
+        "base_sha": "d1d2ce53cfabbdca6a0837f074b6fc0f6d95602f",
+        "merge_commit_sha": "0451a1f5813e51a2d09145d7516170c7802f9fd5",
+        "merged_at": "2026-08-31T17:50:55Z"
+      },
+      "release_manifest": {
+        "schema": "gooo/semantic-authority-release/v1",
+        "tag": "v0.1.0",
+        "tag_object": "c81ff9b843dce716c57fe2ab542bde52e922ab2b",
+        "target": "0451a1f5813e51a2d09145d7516170c7802f9fd5",
+        "run_id": "33421919840",
+        "assets": {
+          "source": "sha256:3bd78b1b7cb5330dc901003b2d23abee9b95abfe23d1ad0d754d1bdb63471866",
+          "evidence": "sha256:e68c93214ef99e65ffd818bf384668c34e8332aa7b4481d6cc70b747afaaf0e3"
+        }
+      },
+      "protocol_observation": {
+        "schema": "gooo/semantic-authority-conformance/v1",
+        "score": "NOT_COMBINED",
+        "denominator": {
+          "cells": 12,
+          "proof": {"FOUNDATION":4,"COHERENCE":4,"REGRESSION":4},
+          "indicator": {"DRIVER":4,"OUTCOME":4,"GUARDRAIL":4}
+        },
+        "cases": {"CLOSED":3,"UNKNOWN":3,"REFUTED":3},
+        "exact_pair": {
+          "obligations": 3,
+          "generated_bound": {"before":2,"after":3,"delta":1},
+          "handwritten_go": {"before":1,"after":0,"delta":-1}
+        },
+        "execution": {
+          "compile_wall_ms": 5184,
+          "build_wall_ms": 751,
+          "test_wall_ms": 2209,
+          "conformance_wall_ms": 8306,
+          "peak_rss_kib": 270708,
+          "tests_total": 4,
+          "tests_executed": 4,
+          "tests_reused": 0,
+          "tests_skipped": 0,
+          "tests_not_observed": 0,
+          "replay_comparisons": 9,
+          "replay_mismatches": 0
+        },
+        "inventory": {
+          "go_files": 6,
+          "go_physical_lines": 817,
+          "gooo_files": 4,
+          "gooo_physical_lines": 28,
+          "regular_files_excluding_root_readme": 29,
+          "descendant_dirs": 12,
+          "output_artifact_files": 58
+        },
+        "authority": {
+          "repository_write_authority": 0,
+          "net_repository_changes": 0,
+          "local_test_executions": 0,
+          "infrastructure_mutations": 0,
+          "provider_install_attempts": 0,
+          "network_mutation_attempts": 0
+        },
+        "bootstrap": {
+          "compiler": "HANDWRITTEN_GO",
+          "evaluator": "HANDWRITTEN_GO",
+          "core_semantic_authority_closed": false
+        }
+      },
+      "assets": [
+        {"id":538335233,"name":"evidence-v0.1.0.tar.gz","size_bytes":2563982,"sha256":"sha256:e68c93214ef99e65ffd818bf384668c34e8332aa7b4481d6cc70b747afaaf0e3","download_url":"https://github.com/kimjooyoon/gooo-semantic-authority-census/releases/download/v0.1.0/evidence-v0.1.0.tar.gz"},
+        {"id":538335235,"name":"manifest-v0.1.0.json","size_bytes":413,"sha256":"sha256:9c403c7b607c91f1cddced37611875544f047899610be293c96b6475b269b260","download_url":"https://github.com/kimjooyoon/gooo-semantic-authority-census/releases/download/v0.1.0/manifest-v0.1.0.json"},
+        {"id":538335234,"name":"SHA256SUMS","size_bytes":263,"sha256":"sha256:9ae4216b45722c43f62720a3e3d13048905e3291d7ee595d3fe6ab0f78f11411","download_url":"https://github.com/kimjooyoon/gooo-semantic-authority-census/releases/download/v0.1.0/SHA256SUMS"},
+        {"id":538335236,"name":"source-v0.1.0.tar.gz","size_bytes":14360,"sha256":"sha256:3bd78b1b7cb5330dc901003b2d23abee9b95abfe23d1ad0d754d1bdb63471866","download_url":"https://github.com/kimjooyoon/gooo-semantic-authority-census/releases/download/v0.1.0/source-v0.1.0.tar.gz"}
+      ]
+    },
     "semantic_drift_guard_release": {
       "repository": "kimjooyoon/gooo-semantic-drift-guard",
       "tag": "v0.1.1",

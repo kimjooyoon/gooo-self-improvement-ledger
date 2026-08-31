@@ -127,6 +127,7 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
   observed_source_run='null'
   observed_source_job='null'
   observed_source_artifact='null'
+  observed_release_artifact='null'
   if jq -e --arg key "$key" '.releases[$key] | has("source_run")' "$lock" >/dev/null; then
     source_run_id=$(jq -r --arg key "$key" '.releases[$key].source_run.run_id' "$lock")
     source_run_url=$(jq -r --arg key "$key" '.releases[$key].source_run.workflow_url' "$lock")
@@ -184,6 +185,19 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     jq -e --argjson run_id "$source_artifact_run_id" --argjson artifact_id "$source_artifact_id" --arg name "$source_artifact_name" --argjson size "$source_artifact_size" --arg sha "$source_artifact_sha" \
       '.id==$artifact_id and .workflow_run.id==$run_id and .name==$name and .size_in_bytes==$size and .digest==$sha and .expired==false' "$source_artifact_json" >/dev/null
     observed_source_artifact=$(jq -S --argjson id "$source_artifact_id" '. | {id,name,size_in_bytes,expired,digest,workflow_run}' "$source_artifact_json")
+  fi
+
+  if jq -e --arg key "$key" '.releases[$key] | has("release_artifact")' "$lock" >/dev/null; then
+    release_artifact_run_id=$(jq -r --arg key "$key" '.releases[$key].release_artifact.run_id' "$lock")
+    release_artifact_id=$(jq -r --arg key "$key" '.releases[$key].release_artifact.artifact_id' "$lock")
+    release_artifact_name=$(jq -r --arg key "$key" '.releases[$key].release_artifact.name' "$lock")
+    release_artifact_size=$(jq -r --arg key "$key" '.releases[$key].release_artifact.size_bytes' "$lock")
+    release_artifact_sha=$(jq -r --arg key "$key" '.releases[$key].release_artifact.sha256' "$lock")
+    release_artifact_json="$output/$key.release-artifact.json"
+    gh api "repos/$repo/actions/artifacts/$release_artifact_id" > "$release_artifact_json"
+    jq -e --argjson run_id "$release_artifact_run_id" --argjson artifact_id "$release_artifact_id" --arg name "$release_artifact_name" --argjson size "$release_artifact_size" --arg sha "$release_artifact_sha" \
+      '.id==$artifact_id and .workflow_run.id==$run_id and .name==$name and .size_in_bytes==$size and .digest==$sha and .expired==false' "$release_artifact_json" >/dev/null
+    observed_release_artifact=$(jq -S --argjson id "$release_artifact_id" '. | {id,name,size_in_bytes,expired,digest,workflow_run}' "$release_artifact_json")
   fi
 
   if jq -e --arg key "$key" '.releases[$key] | has("post_main_validation")' "$lock" >/dev/null; then
@@ -285,8 +299,8 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     --arg state "CLOSED" --arg repository "$repo" --arg tag "$tag" --arg release_url "$release_url" \
     --arg target "$target" --argjson release_id "${release_id:-null}" --arg tag_object_sha "$tag_object" \
     --argjson assets "$assets" --argjson fetch_rss "$fetch_rss" --argjson source_run "$observed_source_run" --argjson source_job "$observed_source_job" \
-    --argjson source_artifact "$observed_source_artifact" --argjson release_run "$observed_release_run" --argjson release_job "$observed_release_job" \
-    '{state:$state,verified:true,repository:$repository,tag:$tag,release_id:$release_id,release_url:$release_url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,source_run:$source_run,source_job:$source_job,source_artifact:$source_artifact,release_run:$release_run,release_job:$release_job,assets:$assets,fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},verify:{wall_ms:0,duration_ns:0,peak_rss_kib:0},reason:""}' \
+    --argjson source_artifact "$observed_source_artifact" --argjson release_artifact "$observed_release_artifact" --argjson release_run "$observed_release_run" --argjson release_job "$observed_release_job" \
+    '{state:$state,verified:true,repository:$repository,tag:$tag,release_id:$release_id,release_url:$release_url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,source_run:$source_run,source_job:$source_job,source_artifact:$source_artifact,release_artifact:$release_artifact,release_run:$release_run,release_job:$release_job,assets:$assets,fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},verify:{wall_ms:0,duration_ns:0,peak_rss_kib:0},reason:""}' \
     > "$output/$key.result.json"
 done
 
