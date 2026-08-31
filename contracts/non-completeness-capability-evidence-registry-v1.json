@@ -2,14 +2,16 @@
   "schema": "gooo/non-completeness/capability-evidence-registry/lock/v1",
   "registry_id": "non-completeness-capability-evidence-registry-v1",
   "purpose": "A separate registry of independently versioned capability evidence inputs; it is not a completeness denominator or score.",
-  "entry_count": 5,
+  "entry_count": 9,
   "policy": {
     "separate_from_portfolio_denominator": true,
     "status_inference_from_missing_evidence": false,
     "closure_requires_exact_release_api": true,
+    "closure_requires_graphql_release_lookup": true,
     "closure_requires_immutable_release": true,
     "closure_requires_resolved_tag_target": true,
     "closure_requires_exact_asset_api_and_download_digest": true,
+    "lineage_preserves_refuted_history": true,
     "status_precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
     "aggregate_percentage": false,
     "aggregate_score": false
@@ -82,6 +84,82 @@
       "release_assets_expected": 0,
       "source_artifact": {"run_id":33351140449,"workflow_url":"https://github.com/kimjooyoon/gooo-semantic-mutation-lab/actions/runs/33351140449","artifact_id":9743650902,"name":"gooo-semantic-mutation-lab-evidence-33351140449","size_bytes":32399,"sha256":"sha256:082062e6395c3c7c8bdbd0aeb8bffc0b770b10d861e6445562d46fc297eff8de","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-semantic-mutation-lab/actions/artifacts/9743650902/zip"},
       "assets": []
+    },
+    {
+      "entry_id": "evaluator-lineage-v0.1.1",
+      "capability": "evaluator-lineage",
+      "repository": "kimjooyoon/gooo-evaluator-lineage",
+      "tag": "v0.1.1",
+      "release_url": "https://github.com/kimjooyoon/gooo-evaluator-lineage/releases/tag/v0.1.1",
+      "target_commit_sha": "19915a992613b3b404df7745c9ab54856a6d39c5",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "successor_of": "evaluator-lineage-v0.1.0",
+      "source_run": {"run_id":33352061227,"workflow_url":"https://github.com/kimjooyoon/gooo-evaluator-lineage/actions/runs/33352061227","conclusion":"success"},
+      "source_artifact": {"run_id":33352061227,"artifact_id":9743949053,"name":"evaluator-lineage-reports","size_bytes":14752,"sha256":"sha256:f30b979ed62decc2cf57b4be2150ce7769f7972b0f66ade71c294550649bf07f","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-evaluator-lineage/actions/artifacts/9743949053/zip"},
+      "assets": [
+        {"name":"gooo-evaluator-lineage-0.1.1.tar.gz","size_bytes":19805,"sha256":"sha256:41d6871ee79d95292e983c308053386cc64ff7affe3ebf3769c7f81df1face45","download_url":"https://github.com/kimjooyoon/gooo-evaluator-lineage/releases/download/v0.1.1/gooo-evaluator-lineage-0.1.1.tar.gz"},
+        {"name":"gooo-evaluator-lineage-0.1.1.tar.gz.sha256","size_bytes":166,"sha256":"sha256:3f3259a0d2a89895e00c1a74609908afd7cbc51acac63d3fa2fb080efc638506","download_url":"https://github.com/kimjooyoon/gooo-evaluator-lineage/releases/download/v0.1.1/gooo-evaluator-lineage-0.1.1.tar.gz.sha256"}
+      ]
+    },
+    {
+      "entry_id": "counterexample-memory-v0.1.1",
+      "capability": "counterexample-memory",
+      "repository": "kimjooyoon/gooo-counterexample-memory",
+      "tag": "v0.1.1",
+      "release_url": "https://github.com/kimjooyoon/gooo-counterexample-memory/releases/tag/v0.1.1",
+      "target_commit_sha": "255a2ecb804d8ad26642bef17a1ff21d8e668940",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "successor_of": "counterexample-memory-v0.1.0",
+      "source_run": {"run_id":33352075333,"workflow_url":"https://github.com/kimjooyoon/gooo-counterexample-memory/actions/runs/33352075333","conclusion":"success"},
+      "source_artifact": {"run_id":33352075333,"artifact_id":9743959074,"name":"gooo-counterexample-memory-evidence-33352075333","size_bytes":23466,"sha256":"sha256:781d37eb80470f20419f504636ca0082d1bdb44eb5cd6242c44f0e6fed39a1b1","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-counterexample-memory/actions/artifacts/9743959074/zip"},
+      "assets": [
+        {"name":"gooo-counterexample-memory-v0.1.1.tar.gz","size_bytes":23753,"sha256":"sha256:dc83d9e0333d30016476ded109db5baee8a9a78a8c7eba9f0997ac30c8358c36","download_url":"https://github.com/kimjooyoon/gooo-counterexample-memory/releases/download/v0.1.1/gooo-counterexample-memory-v0.1.1.tar.gz"},
+        {"name":"release-manifest.json","size_bytes":313,"sha256":"sha256:bab02ccbac7ab4c9492f56bef827281c0e0794367df4c2b708f604f302863f71","download_url":"https://github.com/kimjooyoon/gooo-counterexample-memory/releases/download/v0.1.1/release-manifest.json"},
+        {"name":"SHA256SUMS","size_bytes":114,"sha256":"sha256:441331d35f2863d09cce4c74a74032fc863842032b0e79f5108454c86038b0c0","download_url":"https://github.com/kimjooyoon/gooo-counterexample-memory/releases/download/v0.1.1/SHA256SUMS"}
+      ]
+    },
+    {
+      "entry_id": "improvement-selector-v0.1.1",
+      "capability": "improvement-selector",
+      "repository": "kimjooyoon/gooo-improvement-selector",
+      "tag": "v0.1.1",
+      "release_url": "https://github.com/kimjooyoon/gooo-improvement-selector/releases/tag/v0.1.1",
+      "target_commit_sha": "5dc7686d14bbfc80513772e0c133e69fb99aea9e",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "successor_of": "improvement-selector-v0.1.0",
+      "source_run": {"run_id":33352064373,"workflow_url":"https://github.com/kimjooyoon/gooo-improvement-selector/actions/runs/33352064373","conclusion":"success"},
+      "source_artifact": {"run_id":33352064373,"artifact_id":9743952071,"name":"gooo-improvement-selector-evidence","size_bytes":53809,"sha256":"sha256:3d4eee4293f7c047e0507f9cec5d169632db23b647fb158eea8a38ed9a26f2df","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-improvement-selector/actions/artifacts/9743952071/zip"},
+      "assets": [
+        {"name":"gooo-improvement-selector-v0.1.1-evidence.tar.gz","size_bytes":90069,"sha256":"sha256:076e824371bcf4d4236a3b2db99c3bab6d99cef7b2f69b0c0acca095fc247ed3","download_url":"https://github.com/kimjooyoon/gooo-improvement-selector/releases/download/v0.1.1/gooo-improvement-selector-v0.1.1-evidence.tar.gz"},
+        {"name":"release-lock-v0.1.1.json","size_bytes":985,"sha256":"sha256:6103a397287d426e0f5dd2d623b356af39820ce673d6daedb445d1c34c43bdc8","download_url":"https://github.com/kimjooyoon/gooo-improvement-selector/releases/download/v0.1.1/release-lock-v0.1.1.json"},
+        {"name":"SHA256SUMS","size_bytes":206,"sha256":"sha256:68ac6dfd9b89b455f79ce1d09e38607a758cf2b350ef3e1e59a03d19b7afc6e7","download_url":"https://github.com/kimjooyoon/gooo-improvement-selector/releases/download/v0.1.1/SHA256SUMS"}
+      ]
+    },
+    {
+      "entry_id": "receipt-schema-migration-v0.1.1",
+      "capability": "receipt-schema-migration",
+      "repository": "kimjooyoon/gooo-receipt-schema-migration",
+      "tag": "v0.1.1",
+      "release_url": "https://github.com/kimjooyoon/gooo-receipt-schema-migration/releases/tag/v0.1.1",
+      "target_commit_sha": "69efc70d91dbd39420bbb214d4ae64887bf5e237",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "lineage_role": "NEW_CLOSED_FRONTIER",
+      "source_run": {"run_id":33353396559,"workflow_url":"https://github.com/kimjooyoon/gooo-receipt-schema-migration/actions/runs/33353396559","conclusion":"success"},
+      "source_artifact": {"run_id":33353396559,"artifact_id":9744345755,"name":"receipt-schema-migration-conformance","size_bytes":32262,"sha256":"sha256:eddada2591a81c8480e12f2d508ba89642df4852ad9b76a0de0666aa79063e7c","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-receipt-schema-migration/actions/artifacts/9744345755/zip"},
+      "adoption_proposal": {"asset_name":"gooo-receipt-schema-migration-v0.1.1-conformance.tar.gz","path":"./adoption-proposal.json","sha256":"sha256:7f7edfd4e4e4a8622b20f15868e96d6707f3b44f1fab183f5c2e466f854be106","declared_proposal_digest":"sha256:182d99c99985ad49e5a7365e1f975b9662cf020a44bd335f45cdf6629b7578b0"},
+      "assets": [
+        {"name":"gooo-receipt-schema-migration-v0.1.1-conformance.tar.gz","size_bytes":18371,"sha256":"sha256:5bb52a3da96e8aabad76c27cbc900c71a4fbd3346c0b330804cb55fa2a9d3dd5","download_url":"https://github.com/kimjooyoon/gooo-receipt-schema-migration/releases/download/v0.1.1/gooo-receipt-schema-migration-v0.1.1-conformance.tar.gz"}
+      ]
     }
-  ]
+  ],
+  "lineage": [
+    {"historical_entry_id":"evaluator-lineage-v0.1.0","successor_entry_id":"evaluator-lineage-v0.1.1","historical_state":"REFUTED","successor_state":"CLOSED","transition":"REFUTED_TO_CLOSED"},
+    {"historical_entry_id":"counterexample-memory-v0.1.0","successor_entry_id":"counterexample-memory-v0.1.1","historical_state":"REFUTED","successor_state":"CLOSED","transition":"REFUTED_TO_CLOSED"},
+    {"historical_entry_id":"improvement-selector-v0.1.0","successor_entry_id":"improvement-selector-v0.1.1","historical_state":"REFUTED","successor_state":"CLOSED","transition":"REFUTED_TO_CLOSED"}
+  ],
+  "frontier_additions": ["receipt-schema-migration-v0.1.1"]
 }

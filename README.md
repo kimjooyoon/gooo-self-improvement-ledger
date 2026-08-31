@@ -29,12 +29,21 @@ Each retains exactly `stage`, `step`, `reason`, `unknown_class`,
 `next_operation`, and a minimal non-empty `blocked_by` frontier. A missing or
 contradictory locked release cannot close a cell.
 
-The separate `non-completeness-capability-evidence-registry-v1` records five
+The separate `non-completeness-capability-evidence-registry-v1` records nine
 independent evidence inputs without treating its entry count as the portfolio
-denominator. Current registry disposition is `2 CLOSED / 0 UNKNOWN / 3
-REFUTED`: the three refutations are known upstream release API
-`immutable=false` values, not portfolio-cell changes. It emits no completeness
+denominator. Current registry disposition is `6 CLOSED / 0 UNKNOWN / 3
+REFUTED`: the three historical v0.1.0 refutations remain preserved and are
+linked to immutable v0.1.1 successor locks; the fourth new closed frontier is
+the immutable receipt-schema-migration v0.1.1 input. These capability evidence
+states do not change portfolio cells. The registry emits no completeness
 percentage or score.
+
+Successor closure requires matching REST release metadata, a successful
+GraphQL release/tag lookup, the resolved tag target, every release asset's API
+identity and downloaded SHA-256 digest, and any locked source Actions run and
+artifact. The receipt-schema-migration successor additionally verifies the
+adoption-proposal file digest and its declared proposal digest. Historical
+`REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
 commit, and consumer asset identities for the ten immutable inputs requested
