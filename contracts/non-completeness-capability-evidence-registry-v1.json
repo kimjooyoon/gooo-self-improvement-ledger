@@ -189,7 +189,7 @@
       "source_artifact": {"run_id":33362658147,"artifact_id":9747211896,"name":"receipt-schema-migration-conformance","size_bytes":50699,"sha256":"sha256:cfd0344151b3ce1311b389fe398389b7f68c7252ff79c45c36d7e1fb1d60ffd2","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-receipt-schema-migration/actions/artifacts/9747211896/zip"},
       "development_deviations": {"local_go_commands":{"build":0,"gofmt":0,"test":0,"vet":0},"node_vm_guardian_harness_executions":1,"failed_packaging_attempts":1,"failure_reason":"ARCHIVE_RECURSIVE_SELF_INCLUSION_AND_WRONG_TEMP_PATH","final_archive_source":"POST_MAIN_ACTIONS_ARTIFACT_ONLY"},
       "assets": [
-        {"name":"gooo-receipt-schema-migration-v0.3.1-conformance.tar.gz","size_bytes":36114,"sha256":"sha256:fe00e049fc4f946fef1a6bc3a7c5295d3e3fa2aed630edcae0039dfcee81a76","download_url":"https://github.com/kimjooyoon/gooo-receipt-schema-migration/releases/download/v0.3.1/gooo-receipt-schema-migration-v0.3.1-conformance.tar.gz"}
+        {"name":"gooo-receipt-schema-migration-v0.3.1-conformance.tar.gz","size_bytes":36114,"sha256":"sha256:fe00e049fcf4c946fef1a6bc3a7c5295d3e3fa2aed630edcae0039dfcee81a76","download_url":"https://github.com/kimjooyoon/gooo-receipt-schema-migration/releases/download/v0.3.1/gooo-receipt-schema-migration-v0.3.1-conformance.tar.gz"}
       ]
     },
     {
