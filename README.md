@@ -23,11 +23,20 @@ merge advice, the OpenTofu plan path, and release promotion from immutable
 upstream evidence. Release promotion is closed only by the reflexive-loop
 v0.3 internal lifecycle, promotion, rollback-boundary, and immutable-target
 receipts; it does not imply core semantic authority or external utility.
-It intentionally leaves these two cells `UNKNOWN`: core semantic authority
-and external utility evidence.
-Each retains exactly `stage`, `step`, `reason`, `unknown_class`,
-`next_operation`, and a minimal non-empty `blocked_by` frontier. A missing or
-contradictory locked release cannot close a cell.
+It intentionally leaves only external utility evidence `UNKNOWN`. Core
+semantic authority is now `REFUTED` by a fresh `pull_request_target` Guardian
+runtime contradiction: `ReferenceError: beforeDigest is not defined` on the
+open #609 feature PR. The previous core `UNKNOWN` record is preserved as an
+append-only `UNKNOWN -> REFUTED` transition event. The live `UNKNOWN` cell
+retains exactly `stage`, `step`, `reason`, `unknown_class`, `next_operation`,
+and a minimal non-empty `blocked_by` frontier. A missing or contradictory
+locked release cannot close a cell.
+
+The core refutation binds the merged/admin migration receipt on dev commit
+`7f45792e3c23100cbb10cca8b229132060982a7b`, successful dev CI #3405, the
+`ci-guardian.yml` workflow blob, and the fresh #609 Guardian run, artifact, and
+annotation. The not-yet-released receipt-schema-migration v0.2 work is tracked
+as an optional dependency only; it is not a gate.
 
 The separate `non-completeness-capability-evidence-registry-v1` records nine
 independent evidence inputs without treating its entry count as the portfolio

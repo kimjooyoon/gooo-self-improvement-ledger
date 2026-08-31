@@ -2,8 +2,102 @@
   "schema": "gooo/self-improvement-portfolio/assessment/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "assessment_id": "self-improvement-portfolio-v1-current-frontier",
+  "state_transition_events": [
+    {
+      "event_id": "CORE_SEMANTIC_AUTHORITY-UNKNOWN-TO-REFUTED-v0.7",
+      "cell_id": "CORE_SEMANTIC_AUTHORITY",
+      "from_state": "UNKNOWN",
+      "to_state": "REFUTED",
+      "append_only": true,
+      "prior_record": {
+        "state": "UNKNOWN",
+        "release_key": null,
+        "stage": "GOVERNANCE_SCHEMA_MIGRATION",
+        "step": "VALIDATE_CORRECTION_CHILD_CHAIN",
+        "reason": "PARENT_RECEIPT_SCHEMA_EVOLUTION_UNREPRESENTABLE",
+        "unknown_class": "DEPENDENCY_BLOCKED",
+        "next_operation": "ADOPT_IMMUTABLE_RECEIPT_SCHEMA_MIGRATION_IN_CORE",
+        "blocked_by": [
+          "meta-ontology-go@dev:8bcb771b1d5cd84ee55900e42535d3c2d49545c4",
+          "meta-ontology-go#609:guardian-run:33351376088",
+          "gooo-receipt-schema-migration@v0.1.1:release-asset:sha256:5bb52a3da96e8aabad76c27cbc900c71a4fbd3346c0b330804cb55fa2a9d3dd5",
+          "gooo-receipt-schema-migration@v0.1.1:adoption-proposal-file:sha256:7f7edfd4e4e4a8622b20f15868e96d6707f3b44f1fab183f5c2e466f854be106",
+          "gooo-receipt-schema-migration@v0.1.1:adoption-proposal-digest:sha256:182d99c99985ad49e5a7365e1f975b9662cf020a44bd335f45cdf6629b7578b0"
+        ]
+      },
+      "observed_error_digest": "sha256:37dedce852118e15bfe824d15fcb11979e062854c83f1ff22c08534f8a37b34a"
+    }
+  ],
+  "optional_dependencies": [
+    {
+      "id": "gooo-receipt-schema-migration-v0.2",
+      "status": "UNRELEASED",
+      "release_api": "NOT_FOUND",
+      "tag_api": "NOT_FOUND",
+      "required": false,
+      "gate": false
+    }
+  ],
   "cells": [
-    {"cell_id":"CORE_SEMANTIC_AUTHORITY","state":"UNKNOWN","release_key":null,"evidence":[],"unknown":{"stage":"GOVERNANCE_SCHEMA_MIGRATION","step":"VALIDATE_CORRECTION_CHILD_CHAIN","reason":"PARENT_RECEIPT_SCHEMA_EVOLUTION_UNREPRESENTABLE","unknown_class":"DEPENDENCY_BLOCKED","next_operation":"ADOPT_IMMUTABLE_RECEIPT_SCHEMA_MIGRATION_IN_CORE","blocked_by":["meta-ontology-go@dev:8bcb771b1d5cd84ee55900e42535d3c2d49545c4","meta-ontology-go#609:guardian-run:33351376088","gooo-receipt-schema-migration@v0.1.1:release-asset:sha256:5bb52a3da96e8aabad76c27cbc900c71a4fbd3346c0b330804cb55fa2a9d3dd5","gooo-receipt-schema-migration@v0.1.1:adoption-proposal-file:sha256:7f7edfd4e4e4a8622b20f15868e96d6707f3b44f1fab183f5c2e466f854be106","gooo-receipt-schema-migration@v0.1.1:adoption-proposal-digest:sha256:182d99c99985ad49e5a7365e1f975b9662cf020a44bd335f45cdf6629b7578b0"]}},
+    {
+      "cell_id": "CORE_SEMANTIC_AUTHORITY",
+      "state": "REFUTED",
+      "release_key": null,
+      "evidence": [
+        "meta-ontology-go@dev:7f45792e3c23100cbb10cca8b229132060982a7b:PR613_MERGED_ADMIN_RECEIPT",
+        "meta-ontology-go@dev:CI#3405:run:33354730212",
+        "meta-ontology-go:.github/governance-denominator-v4-schema-coherence.json@7f45792e3c23100cbb10cca8b229132060982a7b:blob:0209602f998666e81f40c89d17143a12d896825c",
+        "meta-ontology-go:.github/workflows/ci-guardian.yml@7f45792e3c23100cbb10cca8b229132060982a7b:blob:eee90d8410efb40c9fca965139cce293eafca895",
+        "meta-ontology-go#609:guardian-run:33355380192",
+        "meta-ontology-go#609:guardian-artifact:9744953729:sha256:3dfd72e6f5822d3c99116efc7ead8cbeeaf864ed0847dbd4458da41ce8f7d4ee",
+        "meta-ontology-go#609:guardian-annotation:99376387819:.github:342",
+        "gooo/receipt-schema-migration/v0.1.1:release-asset:sha256:5bb52a3da96e8aabad76c27cbc900c71a4fbd3346c0b330804cb55fa2a9d3dd5",
+        "gooo/receipt-schema-migration/v0.1.1:adoption-proposal:sha256:7f7edfd4e4e4a8622b20f15868e96d6707f3b44f1fab183f5c2e466f854be106",
+        "gooo/receipt-schema-migration/v0.1.1:proposal:sha256:182d99c99985ad49e5a7365e1f975b9662cf020a44bd335f45cdf6629b7578b0"
+      ],
+      "refutation": {
+        "stage": "GUARDIAN_RUNTIME",
+        "step": "EXECUTE_BASE_CONTROLLED_FEATURE_PR_GUARDIAN",
+        "reason": "BEFORE_DIGEST_REFERENCE_ERROR",
+        "next_operation": "PUBLISH_EXECUTABLE_GUARDIAN_FEATURE_PR_ACCEPTANCE_AND_ADOPT_CORRECTED_SCOPE",
+        "blocked_by": [
+          "meta-ontology-go@dev:7f45792e3c23100cbb10cca8b229132060982a7b",
+          "meta-ontology-go#609:guardian-run:33355380192",
+          "meta-ontology-go:.github/workflows/ci-guardian.yml@7f45792e3c23100cbb10cca8b229132060982a7b:blob:eee90d8410efb40c9fca965139cce293eafca895",
+          "meta-ontology-go#613:SCHEMA_COHERENCE_MIGRATION_ADOPTION:allowed=1:consumed=1:replay=REFUTED:outcome=CLOSED",
+          "gooo/receipt-schema-migration/v0.1.1:release-asset:sha256:5bb52a3da96e8aabad76c27cbc900c71a4fbd3346c0b330804cb55fa2a9d3dd5",
+          "gooo/receipt-schema-migration/v0.1.1:adoption-proposal:sha256:7f7edfd4e4e4a8622b20f15868e96d6707f3b44f1fab183f5c2e466f854be106",
+          "gooo/receipt-schema-migration/v0.1.1:proposal:sha256:182d99c99985ad49e5a7365e1f975b9662cf020a44bd335f45cdf6629b7578b0"
+        ],
+        "counterexample": {
+          "pull_request": 609,
+          "state": "OPEN",
+          "merged": false,
+          "base_ref": "dev",
+          "base_sha": "7f45792e3c23100cbb10cca8b229132060982a7b",
+          "head_ref": "agent/dev-main-sync-20260831-rerun",
+          "head_sha": "8b47db349315c02933296423b0ae7fa80ffeb1dc",
+          "dev_to_main_performed": false
+        },
+        "observed_error": {
+          "message": "ReferenceError: beforeDigest is not defined",
+          "sha256": "sha256:37dedce852118e15bfe824d15fcb11979e062854c83f1ff22c08534f8a37b34a",
+          "run_id": 33355380192,
+          "check_run_id": 99376387819,
+          "path": ".github",
+          "line": 342,
+          "annotation_message": "Unhandled error: ReferenceError: beforeDigest is not defined"
+        },
+        "observed_digest": {
+          "guardian_workflow_path": ".github/workflows/ci-guardian.yml",
+          "guardian_workflow_blob_sha": "eee90d8410efb40c9fca965139cce293eafca895",
+          "guardian_artifact_id": 9744953729,
+          "guardian_artifact_size_bytes": 2744,
+          "guardian_artifact_sha256": "sha256:3dfd72e6f5822d3c99116efc7ead8cbeeaf864ed0847dbd4458da41ce8f7d4ee",
+          "guardian_bundle_sha256": "sha256:08d8807422a157287d937815a9342023925abc925c192b78c5267c119bef3905"
+        }
+      }
+    },
     {"cell_id":"RESOLUTION_DESCENT","state":"CLOSED","release_key":"resolution_lattice","evidence":["consumer-manifest.json","gooo-resolution-lattice-v0.1.0-evidence.zip"]},
     {"cell_id":"CAUSAL_CI_SELECTION","state":"CLOSED","release_key":"causal_ci","evidence":["consumer-manifest-v0.1.0.json","gooo-causal-ci-evidence-v0.1.0.tar.gz"]},
     {"cell_id":"META_RESOURCE_BUDGET","state":"CLOSED","release_key":"meta_budget","evidence":["gooo-meta-budget-v0.1.0-manifest.json","gooo-meta-budget-evidence-v0.1.0.tar.gz"]},
