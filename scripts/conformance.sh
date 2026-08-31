@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-trap 'status=$?; echo "conformance failed at line ${BASH_LINENO[0]}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
 
 if [ "$#" -ne 3 ]; then
   echo "usage: conformance.sh REPORT_BINARY REPOSITORY_ROOT ARTIFACT_ROOT" >&2
@@ -385,7 +384,7 @@ jq -e '
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 
 jq -e '
-  .denominator_migration == {from:25,to:26,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:26,to:27,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
