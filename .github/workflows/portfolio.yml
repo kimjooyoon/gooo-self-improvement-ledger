@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify thirty-one immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify thirty-two immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,7 +78,7 @@ jobs:
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:31,verified:31,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:32,verified:32,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           experience_dir="$ARTIFACT_ROOT/releases/experience_memory_release/assets"
           jq -e '.schema=="gooo/experience-memory/release-manifest/v1" and .tag=="v0.1.0" and .commit_sha=="79fd6edc588ea26279dbe735e5f6e250132f7730" and .immutable==true and .assets==[{digest:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",kind:"source",name:"gooo-experience-memory-v0.1.0.tar.gz"},{digest:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6",kind:"ci-evidence",name:"gooo-experience-memory-evidence-v0.1.0.tar.gz"}]' "$experience_dir/release-manifest.json" >/dev/null
@@ -344,6 +344,66 @@ jobs:
           test "$(awk '$2=="refs/tags/v0.1.0^{}" {print $1}' <<< "$historical_refs")" = 57f5ef6ce407f51cd36da163b2b267e876c31e33
           echo "upstream reflexive compiler phase release and v0.1.0 non-durable predecessor verified"
 
+      - name: Verify causal verification runner release and preserved process counterexamples
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          causal_dir="$ARTIFACT_ROOT/releases/causal_verification_runner_durable_release/assets"
+          jq -e '. == {archive:"gooo-causal-verification-runner-v0.1.1.tar.gz",asset_digest:"sha256:fcf40acd1f09805e526b8e9634cd70b8f308e1f2312b0aac8d3253c4038db7fb",asset_size_bytes:38034,commit_sha:"0c16428762d1d1da1b28fe05c4e051d2cc41967b",external_platform_authority:"github_release_api.immutable",release_class:"first_post_guard_durable_release",schema:"gooo/causal-verification-runner/release-manifest/v1",self_asserted_immutable:true,tag:"v0.1.1",tag_object_sha:"82bb99006232a064725df29a53af5405e222cd42"}' "$causal_dir/release-manifest.json" >/dev/null
+          expected_checksums=$(printf '%s\n' \
+            'sha256:fcf40acd1f09805e526b8e9634cd70b8f308e1f2312b0aac8d3253c4038db7fb  gooo-causal-verification-runner-v0.1.1.tar.gz' \
+            'sha256:36d3f52aeb74f32025d0eaa10767e2a6036b5ad42e0636f92b90339af9615eb8  release-manifest.json')
+          test "$(cat "$causal_dir/SHA256SUMS")" = "$expected_checksums"
+          test "$(wc -c < "$causal_dir/gooo-causal-verification-runner-v0.1.1.tar.gz" | tr -d ' ')" = 38034
+          test "$(sha256sum "$causal_dir/gooo-causal-verification-runner-v0.1.1.tar.gz" | awk '{print $1}')" = fcf40acd1f09805e526b8e9634cd70b8f308e1f2312b0aac8d3253c4038db7fb
+          test "$(wc -c < "$causal_dir/release-manifest.json" | tr -d ' ')" = 552
+          test "$(sha256sum "$causal_dir/release-manifest.json" | awk '{print $1}')" = 36d3f52aeb74f32025d0eaa10767e2a6036b5ad42e0636f92b90339af9615eb8
+          test "$(wc -c < "$causal_dir/SHA256SUMS" | tr -d ' ')" = 214
+          test "$(sha256sum "$causal_dir/SHA256SUMS" | awk '{print $1}')" = 4297c6c933c4892016df45367015094c9d2fe122a950f7effa9276607df6201f
+          source_dir="$RUNNER_TEMP/causal-verification-runner-source"
+          mkdir -p "$source_dir"
+          tar -xzf "$causal_dir/gooo-causal-verification-runner-v0.1.1.tar.gz" -C "$source_dir"
+          source_root="$source_dir/gooo-causal-verification-runner-v0.1.1"
+          jq -e '.schema=="gooo/causal-verification-runner/denominator/v1" and .denominator_id=="causal-verification-runner-v1" and .fixed_denominator==12 and .precedence==["REFUTED","UNKNOWN","CLOSED"] and .proof_totals=={FOUNDATION:4,COHERENCE:4,REGRESSION:4} and .indicator_totals=={DRIVER:4,OUTCOME:4,GUARDRAIL:4} and (.cells|length)==12 and ([.cells[].id]|length)==12 and ([.cells[].activity]|length)==12' "$source_root/contracts/causal-verification-denominator-v1.json" >/dev/null
+          pr_run="$RUNNER_TEMP/causal-verification-runner-pr-run.json"
+          gh api repos/kimjooyoon/gooo-causal-verification-runner/actions/runs/33438798441 > "$pr_run"
+          jq -e '.id==33438798441 and .event=="pull_request" and .head_branch=="process-authority-guard" and .head_sha=="65295c74603e1e8ac418f20ef66b12f2ae935979" and .status=="completed" and .conclusion=="success"' "$pr_run" >/dev/null
+          gh api repos/kimjooyoon/gooo-causal-verification-runner/actions/jobs/99641659758 > "$RUNNER_TEMP/causal-verification-runner-pr-job.json"
+          jq -e '.id==99641659758 and .run_id==33438798441 and .name=="conformance" and .head_sha=="65295c74603e1e8ac418f20ef66b12f2ae935979" and .status=="completed" and .conclusion=="success"' "$RUNNER_TEMP/causal-verification-runner-pr-job.json" >/dev/null
+          main_run="$RUNNER_TEMP/causal-verification-runner-main-run.json"
+          gh api repos/kimjooyoon/gooo-causal-verification-runner/actions/runs/33438900833 > "$main_run"
+          jq -e '.id==33438900833 and .event=="push" and .head_branch=="main" and .head_sha=="0c16428762d1d1da1b28fe05c4e051d2cc41967b" and .status=="completed" and .conclusion=="success"' "$main_run" >/dev/null
+          gh api repos/kimjooyoon/gooo-causal-verification-runner/actions/jobs/99642001168 > "$RUNNER_TEMP/causal-verification-runner-main-job.json"
+          jq -e '.id==99642001168 and .run_id==33438900833 and .name=="conformance" and .head_sha=="0c16428762d1d1da1b28fe05c4e051d2cc41967b" and .status=="completed" and .conclusion=="success"' "$RUNNER_TEMP/causal-verification-runner-main-job.json" >/dev/null
+          main_artifact_metadata="$RUNNER_TEMP/causal-verification-runner-artifact-9775474098.json"
+          gh api repos/kimjooyoon/gooo-causal-verification-runner/actions/artifacts/9775474098 > "$main_artifact_metadata"
+          jq -e '.id==9775474098 and .name=="gooo-causal-verification-runner-33438900833" and .size_in_bytes==3466163 and .digest=="sha256:b3b9b89c820e9aa2f2d48c6686fb4a51bd52ac0b58c2c9ef15bc531191966183" and .expired==false and .workflow_run.id==33438900833 and .workflow_run.head_sha=="0c16428762d1d1da1b28fe05c4e051d2cc41967b"' "$main_artifact_metadata" >/dev/null
+          main_artifact="$RUNNER_TEMP/causal-verification-runner-artifact-9775474098.zip"
+          gh api repos/kimjooyoon/gooo-causal-verification-runner/actions/artifacts/9775474098/zip > "$main_artifact"
+          test "$(wc -c < "$main_artifact" | tr -d ' ')" = 3466163
+          test "$(sha256sum "$main_artifact" | awk '{print $1}')" = b3b9b89c820e9aa2f2d48c6686fb4a51bd52ac0b58c2c9ef15bc531191966183
+          main_dir="$RUNNER_TEMP/causal-verification-runner-artifact-9775474098"
+          mkdir -p "$main_dir"
+          unzip -q "$main_artifact" -d "$main_dir"
+          jq -e '.schema=="gooo/causal-verification-runner/ci-summary/v1" and .artifacts=={bytes:6140304,dirs:15,files:52,outputs:52} and .causal_verifier.activities==12 and .causal_verifier.cases==6 and .causal_verifier.decisions=={CLOSED:2,REFUTED:3,UNKNOWN:1} and .direct_main=={bootstrap_direct_main:1,historical_post_bootstrap_direct_main:2,post_guard_direct_main:0} and .process_guard.cells==8 and .process_guard.cases==3 and .process_guard.current_guard_decision=="CLOSED" and .process_guard.decision=="REFUTED" and .process_guard.counts=={bootstrap_direct_main:1,historical_post_bootstrap_direct_main:2,post_guard_direct_main:0} and .inventory.go_files==8 and .inventory.go_lines==2466 and .inventory.gooo_files==1 and .inventory.gooo_lines==59 and .inventory.root_readme_excluded==true and .runtime.compile_ms==7220 and .runtime.build_ms==6880 and .runtime.test_ms==2020 and .runtime.conformance_ms==12020 and .runtime.peak_rss_kib==268496 and .tests=={executed:10,failed:1,reused:3,unknown:1} and .utility_global_core=={state:"UNKNOWN",status:"NOT_MADE"}' "$main_dir/ci-artifact-summary.json" >/dev/null
+          jq -e '[.causal_verifier.fixture_metrics[] | {case_id,decision,total:.metrics.total_tests,selected:.metrics.selected,executed:.metrics.executed,reused:.metrics.reused,oracle:.metrics.full_oracle_executed,fail:.metrics.failures,unknown:.metrics.unknowns,before_wall_ms:.metrics.before_wall_ms,after_wall_ms:.metrics.after_wall_ms,before_peak_rss_kib:.metrics.before_peak_rss_kib,after_peak_rss_kib:.metrics.after_peak_rss_kib,avoided_executions:.metrics.avoided_executions}] == [{case_id:"safe-reuse",decision:"CLOSED",total:2,selected:1,executed:1,reused:1,oracle:2,fail:0,unknown:0,before_wall_ms:100,after_wall_ms:70,before_peak_rss_kib:200,after_peak_rss_kib:180,avoided_executions:1},{case_id:"transitive-impact",decision:"CLOSED",total:3,selected:2,executed:2,reused:1,oracle:3,fail:0,unknown:0,before_wall_ms:130,after_wall_ms:90,before_peak_rss_kib:220,after_peak_rss_kib:190,avoided_executions:1},{case_id:"unknown-edge-full-fallback",decision:"UNKNOWN",total:2,selected:2,executed:2,reused:0,oracle:2,fail:0,unknown:1,before_wall_ms:120,after_wall_ms:120,before_peak_rss_kib:210,after_peak_rss_kib:210,avoided_executions:0},{case_id:"stale-proof-rejection",decision:"REFUTED",total:2,selected:2,executed:2,reused:0,oracle:2,fail:0,unknown:0,before_wall_ms:110,after_wall_ms:112,before_peak_rss_kib:205,after_peak_rss_kib:208,avoided_executions:0},{case_id:"hidden-counterexample",decision:"REFUTED",total:2,selected:1,executed:1,reused:1,oracle:2,fail:1,unknown:0,before_wall_ms:100,after_wall_ms:65,before_peak_rss_kib:200,after_peak_rss_kib:175,avoided_executions:1},{case_id:"cache-hit-only",decision:"REFUTED",total:2,selected:2,executed:2,reused:0,oracle:2,fail:0,unknown:0,before_wall_ms:100,after_wall_ms:100,before_peak_rss_kib:200,after_peak_rss_kib:200,avoided_executions:0}]' "$main_dir/ci-artifact-summary.json" >/dev/null
+          jq -e '.unknowns == [{stage:"AFFECTED_SEMANTIC_PREDICATES",step:"resolve-impact-edge",reason:"UNKNOWN_IMPACT_EDGE",unknown_class:"CAUSAL_EDGE_UNKNOWN",next_operation:"OBTAIN_SEMANTIC_GRAPH_EDGE_PROOF",blocked_by:["edge:edge-component-secret-unknown"]}]' "$main_dir/cases/unknown-edge-full-fallback/verification-receipt.json" >/dev/null
+          jq -e '.main_head=="0c16428762d1d1da1b28fe05c4e051d2cc41967b" and ([.pull_requests[]|select(.number==2 and .base_ref=="main" and .head_ref=="process-authority-guard" and .head_sha=="65295c74603e1e8ac418f20ef66b12f2ae935979" and .merge_commit_sha=="0c16428762d1d1da1b28fe05c4e051d2cc41967b" and .merged==true)]|length)==1 and ([.main_commits[]|select(.sha=="d5c768735b07a1389676964e3a9288487d724b20" or .sha=="4421ae44596028c1faa99c19407506fb5265fc1f")|.pull_request_numbers]|flatten|length)==0' "$main_dir/cases/process-evidence.json" >/dev/null
+          release_audit="$RUNNER_TEMP/causal-verification-runner-release-audit.json"
+          gh api repos/kimjooyoon/gooo-causal-verification-runner/actions/runs/33439000856 > "$release_audit"
+          jq -e '.id==33439000856 and .event=="push" and .head_branch=="v0.1.1" and .head_sha=="0c16428762d1d1da1b28fe05c4e051d2cc41967b" and .status=="completed" and .conclusion=="success"' "$release_audit" >/dev/null
+          gh api repos/kimjooyoon/gooo-causal-verification-runner/actions/jobs/99642343892 > "$RUNNER_TEMP/causal-verification-runner-release-audit-job.json"
+          jq -e '.id==99642343892 and .run_id==33439000856 and .name=="prepare-assets" and .head_sha=="0c16428762d1d1da1b28fe05c4e051d2cc41967b" and .status=="completed" and .conclusion=="success"' "$RUNNER_TEMP/causal-verification-runner-release-audit-job.json" >/dev/null
+          historical_release="$RUNNER_TEMP/causal-verification-runner-v0.1.0-release.json"
+          gh api repos/kimjooyoon/gooo-causal-verification-runner/releases/tags/v0.1.0 > "$historical_release"
+          jq -e '.id==380027888 and .tag_name=="v0.1.0" and .immutable==true' "$historical_release" >/dev/null
+          historical_refs=$(git ls-remote https://github.com/kimjooyoon/gooo-causal-verification-runner.git refs/tags/v0.1.0 'refs/tags/v0.1.0^{}')
+          test "$(awk '$2=="refs/tags/v0.1.0" {print $1}' <<< "$historical_refs")" = 19c627c8a08af656487b6346854a9e6a9d806e2b
+          test "$(awk '$2=="refs/tags/v0.1.0^{}" {print $1}' <<< "$historical_refs")" = d5c768735b07a1389676964e3a9288487d724b20
+          echo "upstream causal verification runner release and preserved process counterexamples verified"
+
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
         shell: bash
         env:
@@ -383,7 +443,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:34,closed:31,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:35,closed:32,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"

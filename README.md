@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 34 named cells, each bound one-to-one to
+language. The denominator is exactly 35 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -27,11 +27,12 @@ The fixed axes are:
 `OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE`, and
 `LANGUAGE_DELTA_FORGE_DURABLE_RELEASE`, and
 `OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE`, and
-`REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE`.
+`REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE`, and
+`CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `33 -> 34` with
+The denominator migration is explicit and append-only: `34 -> 35` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/25/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/25/5`.
+`4/26/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/26/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -409,6 +410,41 @@ remain `REFUTED`, yielding `CLOSED31/UNKNOWN1/REFUTED2`. The prior local diagnos
 replay count remains exactly one; no additional local schema/conformance replay was
 performed.
 
+The v0.29 frontier appends `CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE`. It
+adopts immutable `kimjooyoon/gooo-causal-verification-runner@v0.1.1` release
+`380048457`, binding annotated tag object
+`82bb99006232a064725df29a53af5405e222cd42` to target
+`0c16428762d1d1da1b28fe05c4e051d2cc41967b`. Upstream PR #2 head
+`65295c74603e1e8ac418f20ef66b12f2ae935979` and merge/main
+`0c16428762d1d1da1b28fe05c4e051d2cc41967b` are retained, with PR run
+`33438798441`, main run `33438900833`, and release audit
+`33439000856`/job `99642343892` successful. The main artifact is `9775474098`,
+named `gooo-causal-verification-runner-33438900833`, `3466163` bytes, digest
+`sha256:b3b9b89c820e9aa2f2d48c6686fb4a51bd52ac0b58c2c9ef15bc531191966183`.
+The three immutable assets are pinned by API identity, size, and SHA-256.
+The upstream denominator is `gooo/causal-verification-runner/denominator/v1`
+with 12 causal activities and `4/4/4` proof and indicator buckets. Cases are
+`CLOSED2/UNKNOWN1/REFUTED3` under `REFUTED>UNKNOWN>CLOSED`; UNKNOWN is
+`CAUSAL_EDGE_UNKNOWN` with all six fields. Safe reuse is `2/1/1/1/2/0/0`,
+transitive impact `3/2/2/1/3/0/0`, unknown edge `2/2/2/0/2/0/1`, stale proof
+`2/2/2/0/2/0/0`, hidden counterexample `2/1/1/1/2/1/0`, and cache-hit-only
+`2/2/2/0/2/0/0` for total/selected/executed/reused/oracle/fail/unknown. Their
+wall transitions and RSS transitions remain exactly
+`100→70/200→180`, `130→90/220→190`, `120→120/210→210`,
+`110→112/205→208`, `100→65/200→175`, and `100→100/200→200 ms/KiB`, with
+avoided executions `1/1/0/0/1/0`. Outputs are `52` files/`6140304` bytes;
+runtime compile/build/test/conformance is `7220/6880/2020/12020 ms` with peak
+RSS `268496 KiB`; tests are `13/10/3/1/1`; inventory is Go `8/2466`, Gooo
+`1/59`, `52` files, and `15` directories with the root README excluded. The
+current process guard is `CLOSED` with bootstrap direct-main `1`, historical
+post-bootstrap direct-main `2`, and post-guard direct-main `0`; overall upstream
+development process remains `REFUTED`. Historical v0.1.0 remains untouched as
+immutable `true`, including the two preserved post-bootstrap direct-main
+counterexamples. Utility is `UNKNOWN` and global core is `NOT_MADE`; the new
+ledger cell is `CLOSED`, yielding `CLOSED32/UNKNOWN1/REFUTED2`. The prior local
+diagnostic replay count remains exactly one; no additional local schema/conformance
+replay was performed.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -437,7 +473,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the thirty-one immutable inputs
+commit, and consumer asset identities for the thirty-two immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

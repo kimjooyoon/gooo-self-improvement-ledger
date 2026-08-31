@@ -1974,6 +1974,137 @@
         {"id":538508367,"name":"SHA256SUMS","size_bytes":506,"sha256":"sha256:1a41949ea027e01ae893dd3872ae32b537a896adaa0df4910628d3a51d73424e","download_url":"https://github.com/kimjooyoon/gooo-reflexive-compiler-slice/releases/download/v0.1.1/SHA256SUMS"},
         {"id":538508361,"name":"version.json","size_bytes":315,"sha256":"sha256:363fc9e1d352091fb8cc79ff0a80ae464a526eb0fe8c055122320e1c0a0f0eef","download_url":"https://github.com/kimjooyoon/gooo-reflexive-compiler-slice/releases/download/v0.1.1/version.json"}
       ]
+    },
+    "causal_verification_runner_durable_release": {
+      "repository": "kimjooyoon/gooo-causal-verification-runner",
+      "tag": "v0.1.1",
+      "release_id": 380048457,
+      "release_url": "https://github.com/kimjooyoon/gooo-causal-verification-runner/releases/tag/v0.1.1",
+      "target_commit_sha": "0c16428762d1d1da1b28fe05c4e051d2cc41967b",
+      "tag_object_sha": "82bb99006232a064725df29a53af5405e222cd42",
+      "immutable": true,
+      "source_pull_request": {
+        "number": 2,
+        "base_ref": "main",
+        "head_ref": "process-authority-guard",
+        "head_sha": "65295c74603e1e8ac418f20ef66b12f2ae935979",
+        "merge_commit_sha": "0c16428762d1d1da1b28fe05c4e051d2cc41967b",
+        "merged": true
+      },
+      "source_pr_run": {
+        "run_id": 33438798441,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-causal-verification-runner/actions/runs/33438798441",
+        "event": "pull_request",
+        "head_branch": "process-authority-guard",
+        "head_sha": "65295c74603e1e8ac418f20ef66b12f2ae935979",
+        "conclusion": "success",
+        "job_id": 99641659758,
+        "job_name": "conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-causal-verification-runner/actions/runs/33438798441/job/99641659758",
+        "artifact_ids": []
+      },
+      "source_run": {
+        "run_id": 33438900833,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-causal-verification-runner/actions/runs/33438900833",
+        "event": "push",
+        "head_branch": "main",
+        "head_sha": "0c16428762d1d1da1b28fe05c4e051d2cc41967b",
+        "conclusion": "success",
+        "job_id": 99642001168,
+        "job_name": "conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-causal-verification-runner/actions/runs/33438900833/job/99642001168",
+        "artifact_ids": [9775474098]
+      },
+      "source_artifact": {
+        "run_id": 33438900833,
+        "artifact_id": 9775474098,
+        "name": "gooo-causal-verification-runner-33438900833",
+        "size_bytes": 3466163,
+        "sha256": "sha256:b3b9b89c820e9aa2f2d48c6686fb4a51bd52ac0b58c2c9ef15bc531191966183"
+      },
+      "release_run": {
+        "run_id": 33439000856,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-causal-verification-runner/actions/runs/33439000856",
+        "event": "push",
+        "head_branch": "v0.1.1",
+        "head_sha": "0c16428762d1d1da1b28fe05c4e051d2cc41967b",
+        "conclusion": "success",
+        "job_id": 99642343892,
+        "job_name": "prepare-assets",
+        "job_url": "https://github.com/kimjooyoon/gooo-causal-verification-runner/actions/runs/33439000856/job/99642343892",
+        "artifact_ids": []
+      },
+      "release_manifest": {
+        "archive": "gooo-causal-verification-runner-v0.1.1.tar.gz",
+        "asset_digest": "sha256:fcf40acd1f09805e526b8e9634cd70b8f308e1f2312b0aac8d3253c4038db7fb",
+        "asset_size_bytes": 38034,
+        "commit_sha": "0c16428762d1d1da1b28fe05c4e051d2cc41967b",
+        "external_platform_authority": "github_release_api.immutable",
+        "release_class": "first_post_guard_durable_release",
+        "schema": "gooo/causal-verification-runner/release-manifest/v1",
+        "self_asserted_immutable": true,
+        "tag": "v0.1.1",
+        "tag_object_sha": "82bb99006232a064725df29a53af5405e222cd42"
+      },
+      "protocol_observation": {
+        "schema": "gooo/causal-verification-runner/denominator/v1",
+        "denominator_id": "causal-verification-runner-v1",
+        "fixed_denominator": 12,
+        "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
+        "proof_totals": {"FOUNDATION": 4, "COHERENCE": 4, "REGRESSION": 4},
+        "indicator_totals": {"DRIVER": 4, "OUTCOME": 4, "GUARDRAIL": 4},
+        "cases": {"denominator": 6, "CLOSED": 2, "UNKNOWN": 1, "REFUTED": 3},
+        "unknown": {
+          "stage": "AFFECTED_SEMANTIC_PREDICATES",
+          "step": "resolve-impact-edge",
+          "reason": "UNKNOWN_IMPACT_EDGE",
+          "unknown_class": "CAUSAL_EDGE_UNKNOWN",
+          "next_operation": "OBTAIN_SEMANTIC_GRAPH_EDGE_PROOF",
+          "blocked_by": ["edge:edge-component-secret-unknown"]
+        },
+        "fixture_metrics": [
+          {"case_id":"safe-reuse","decision":"CLOSED","total":2,"selected":1,"executed":1,"reused":1,"oracle":2,"fail":0,"unknown":0,"before_wall_ms":100,"after_wall_ms":70,"before_peak_rss_kib":200,"after_peak_rss_kib":180,"avoided_executions":1},
+          {"case_id":"transitive-impact","decision":"CLOSED","total":3,"selected":2,"executed":2,"reused":1,"oracle":3,"fail":0,"unknown":0,"before_wall_ms":130,"after_wall_ms":90,"before_peak_rss_kib":220,"after_peak_rss_kib":190,"avoided_executions":1},
+          {"case_id":"unknown-edge-full-fallback","decision":"UNKNOWN","total":2,"selected":2,"executed":2,"reused":0,"oracle":2,"fail":0,"unknown":1,"before_wall_ms":120,"after_wall_ms":120,"before_peak_rss_kib":210,"after_peak_rss_kib":210,"avoided_executions":0},
+          {"case_id":"stale-proof-rejection","decision":"REFUTED","total":2,"selected":2,"executed":2,"reused":0,"oracle":2,"fail":0,"unknown":0,"before_wall_ms":110,"after_wall_ms":112,"before_peak_rss_kib":205,"after_peak_rss_kib":208,"avoided_executions":0},
+          {"case_id":"hidden-counterexample","decision":"REFUTED","total":2,"selected":1,"executed":1,"reused":1,"oracle":2,"fail":1,"unknown":0,"before_wall_ms":100,"after_wall_ms":65,"before_peak_rss_kib":200,"after_peak_rss_kib":175,"avoided_executions":1},
+          {"case_id":"cache-hit-only","decision":"REFUTED","total":2,"selected":2,"executed":2,"reused":0,"oracle":2,"fail":0,"unknown":0,"before_wall_ms":100,"after_wall_ms":100,"before_peak_rss_kib":200,"after_peak_rss_kib":200,"avoided_executions":0}
+        ],
+        "process_guard": {
+          "cells": 8,
+          "cases": 3,
+          "current_guard": "CLOSED",
+          "decision": "REFUTED",
+          "direct_main": {"bootstrap": 1, "historical_post_bootstrap": 2, "post_guard": 0},
+          "historical_counterexamples": ["historical-direct-main-d5c7687", "historical-direct-main-4421ae4"]
+        },
+        "outputs": {"files": 52, "bytes": 6140304},
+        "runtime": {"compile_wall_ms": 7220, "build_wall_ms": 6880, "test_wall_ms": 2020, "conformance_wall_ms": 12020, "peak_rss_kib": 268496},
+        "tests": {"total": 13, "executed": 10, "reused": 3, "failed": 1, "unknown": 1},
+        "inventory": {"files": 52, "directories": 15, "go_files": 8, "go_physical_lines": 2466, "gooo_files": 1, "gooo_physical_lines": 59, "root_readme_excluded": true},
+        "authority": {"repository_writes": 0, "local_test_executions": 0, "local_build": 0, "verification_authority": "GITHUB_ACTIONS"},
+        "state": {"utility": "UNKNOWN", "global_core": "NOT_MADE"}
+      },
+      "historical_provenance": {
+        "v0.1.0": {
+          "state": "REFUTED",
+          "tag": "v0.1.0",
+          "release_id": 380027888,
+          "immutable": true,
+          "tag_object_sha": "19c627c8a08af656487b6346854a9e6a9d806e2b",
+          "target_commit_sha": "d5c768735b07a1389676964e3a9288487d724b20",
+          "post_bootstrap_direct_main_commits": [
+            {"commit_sha":"d5c768735b07a1389676964e3a9288487d724b20","pull_requests":[]},
+            {"commit_sha":"4421ae44596028c1faa99c19407506fb5265fc1f","pull_requests":[]}
+          ],
+          "process_state": "REFUTED"
+        }
+      },
+      "assets": [
+        {"id":538521941,"name":"gooo-causal-verification-runner-v0.1.1.tar.gz","size_bytes":38034,"sha256":"sha256:fcf40acd1f09805e526b8e9634cd70b8f308e1f2312b0aac8d3253c4038db7fb","download_url":"https://github.com/kimjooyoon/gooo-causal-verification-runner/releases/download/v0.1.1/gooo-causal-verification-runner-v0.1.1.tar.gz"},
+        {"id":538521943,"name":"release-manifest.json","size_bytes":552,"sha256":"sha256:36d3f52aeb74f32025d0eaa10767e2a6036b5ad42e0636f92b90339af9615eb8","download_url":"https://github.com/kimjooyoon/gooo-causal-verification-runner/releases/download/v0.1.1/release-manifest.json"},
+        {"id":538521942,"name":"SHA256SUMS","size_bytes":214,"sha256":"sha256:4297c6c933c4892016df45367015094c9d2fe122a950f7effa9276607df6201f","download_url":"https://github.com/kimjooyoon/gooo-causal-verification-runner/releases/download/v0.1.1/SHA256SUMS"}
+      ]
     }
   },
   "counterexample_runs": [

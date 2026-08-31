@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for thirty-four specifically named capabilities.
+The portfolio is an evidence ledger for thirty-five specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains thirty-four entries. The v0.28
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-three-cell
+`cells` array is immutable during a run and contains thirty-five entries. The v0.29
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-four-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/25/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/25/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/26/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/26/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -336,9 +336,40 @@ The new ledger cell is `CLOSED`, while ledger global core and development proces
 remain `REFUTED`, yielding `CLOSED31/UNKNOWN1/REFUTED2`. The prior local diagnostic
 replay count remains one, with no additional local schema/conformance replay.
 
+The v0.29 frontier appends `CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE`. It
+adopts immutable `kimjooyoon/gooo-causal-verification-runner@v0.1.1` release
+`380048457`, binding annotated tag object
+`82bb99006232a064725df29a53af5405e222cd42` to target
+`0c16428762d1d1da1b28fe05c4e051d2cc41967b`. Upstream PR #2 head
+`65295c74603e1e8ac418f20ef66b12f2ae935979` and merge/main
+`0c16428762d1d1da1b28fe05c4e051d2cc41967b` are retained, with PR run
+`33438798441`, main run `33438900833`, and release audit
+`33439000856`/job `99642343892` successful. The main artifact is `9775474098`,
+named `gooo-causal-verification-runner-33438900833`, `3466163` bytes, digest
+`sha256:b3b9b89c820e9aa2f2d48c6686fb4a51bd52ac0b58c2c9ef15bc531191966183`.
+The three immutable assets are pinned by API identity, size, and SHA-256. The
+upstream denominator is `gooo/causal-verification-runner/denominator/v1` with
+12 causal activities and `4/4/4` proof and indicator buckets. Cases are
+`CLOSED2/UNKNOWN1/REFUTED3` under `REFUTED>UNKNOWN>CLOSED`; UNKNOWN is
+`CAUSAL_EDGE_UNKNOWN` with all six fields. Safe reuse is `2/1/1/1/2/0/0`,
+transitive impact `3/2/2/1/3/0/0`, unknown edge `2/2/2/0/2/0/1`, stale proof
+`2/2/2/0/2/0/0`, hidden counterexample `2/1/1/1/2/1/0`, and cache-hit-only
+`2/2/2/0/2/0/0`; avoided executions are `1/1/0/0/1/0`. Outputs are `52`
+files/`6140304` bytes, runtime compile/build/test/conformance is
+`7220/6880/2020/12020 ms` with peak RSS `268496 KiB`, tests are `13/10/3/1/1`,
+and inventory is Go `8/2466`, Gooo `1/59`, `52` files, and `15` directories
+with the root README excluded. The current process guard is `CLOSED` with
+bootstrap direct-main `1`, historical post-bootstrap direct-main `2`, and
+post-guard direct-main `0`; overall upstream development process remains
+`REFUTED`. Historical v0.1.0 remains untouched and immutable `true`, including
+the two preserved post-bootstrap direct-main counterexamples. Utility is
+`UNKNOWN` and global core is `NOT_MADE`; the new ledger cell is `CLOSED`,
+yielding `CLOSED32/UNKNOWN1/REFUTED2`. The prior local diagnostic replay count
+remains one, with no additional local schema/conformance replay.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-thirty-four-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+thirty-five-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
