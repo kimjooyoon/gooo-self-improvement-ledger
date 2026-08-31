@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for thirty-three specifically named capabilities.
+The portfolio is an evidence ledger for thirty-four specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains thirty-three entries. The v0.27
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-two-cell
+`cells` array is immutable during a run and contains thirty-four entries. The v0.28
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-three-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/24/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/24/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/25/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/25/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -311,9 +311,34 @@ local artifact-schema assertion replay; this was not a local Go
 test/build/vet/conformance execution, and the ledger development process
 remains `REFUTED`. The portfolio is `CLOSED30/UNKNOWN1/REFUTED2`.
 
+The v0.28 frontier appends `REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE`. It adopts
+immutable `kimjooyoon/gooo-reflexive-compiler-slice@v0.1.1` release `380040917`,
+binding annotated tag object `8db85557f66d4bb61a4fc1816b3a20dab2c40f0c` to target
+`dabbe38badebefdf2979d8862c26a647b0dd15c0`. Upstream main CI
+`33437644781`/job `99637878450`, release CI `33437664492`/job `99637944818`, and
+main artifact `9775010906` (`19269921` bytes,
+`sha256:99934e633fc823b236077fb02f2dee2e0447c40686243cd6e647ca9e30be874c`) are
+locked. The six release assets are pinned by API identity, size, and SHA-256.
+The scope is `ONE_COMPILER_PHASE_ONLY`, denominator schema
+`gooo/reflexive-compiler-denominator/v1`, and phase `reflexive.normalize.v1`, with
+exact operations `NormalizeSource→SemanticIR`, `EmitBackend→GeneratedBackend`, and
+`VerifyReplay→Evidence`. Cases are `CLOSED1/UNKNOWN1/REFUTED1` under
+`REFUTED>UNKNOWN>CLOSED`; UNKNOWN is `DIRECT_MISSING` with all six fields and the
+duplicate stable ID is REFUTED. Decision matches are `3`, digest/IR/generated
+mismatches are `0/0/0`, rollback is `3/3/3`, outputs are `21` files/`32273` bytes,
+runtime is compile/build/test/conformance `58/5388/2093/2614 ms` with peak RSS
+`7221248` bytes, tests are `3/3/0/0/1`, and inventory is Go `8/1096`, Gooo
+`4/33`, `24` regular files, and `14` directories. Local tests are zero; repository
+writes and external mutations are not observed; proof and indicator are not observed;
+global self-hosting, external utility, and whole-language improvement remain
+`UNKNOWN`. Upstream v0.1.0 remains untouched and `NON_DURABLE` (`immutable=false`).
+The new ledger cell is `CLOSED`, while ledger global core and development process
+remain `REFUTED`, yielding `CLOSED31/UNKNOWN1/REFUTED2`. The prior local diagnostic
+replay count remains one, with no additional local schema/conformance replay.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-thirty-three-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+thirty-four-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
