@@ -306,7 +306,10 @@ Historical v0.2.0 remains `REFUTED` with release API `404`, tag object
 `9dfdee84d61f3acbe899b5ad57fd8f35f8159210`, target
 `c9f5de0b33fee1ca8546a627a8a94242b99c0733`, failed run/job
 `33435908822/99632154067`, and the malformed historical target preserved as
-the failure reason. The portfolio is `CLOSED30/UNKNOWN1/REFUTED2`.
+the failure reason. During CI diagnosis, the ledger consumer performed one
+local artifact-schema assertion replay; this was not a local Go
+test/build/vet/conformance execution, and the ledger development process
+remains `REFUTED`. The portfolio is `CLOSED30/UNKNOWN1/REFUTED2`.
 
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed

@@ -375,7 +375,10 @@ v0.2.0 remains an append-only `REFUTED` no-release record: release API `404`,
 tag object `9dfdee84d61f3acbe899b5ad57fd8f35f8159210`, target
 `c9f5de0b33fee1ca8546a627a8a94242b99c0733`, and failed release run/job
 `33435908822/99632154067` caused by the malformed historical target. The
-portfolio is now `CLOSED30/UNKNOWN1/REFUTED2`.
+portfolio is now `CLOSED30/UNKNOWN1/REFUTED2`. During CI diagnosis, the ledger
+consumer performed one local artifact-schema assertion replay; this was not a
+local Go test/build/vet/conformance execution, and the ledger development
+process remains `REFUTED`.
 
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio

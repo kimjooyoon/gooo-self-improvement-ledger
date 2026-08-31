@@ -1865,6 +1865,18 @@
           "failure_reason": "v0.1.5 target in the v0.2.0 release contract contained one extra trailing character"
         }
       },
+      "ledger_consumer_observation": {
+        "append_only": true,
+        "local_validation_executions": 1,
+        "inspection_only": false,
+        "artifact_schema_assertion_replays": 1,
+        "local_go_test": 0,
+        "local_go_build": 0,
+        "local_go_vet": 0,
+        "local_go_conformance": 0,
+        "process_state": "REFUTED",
+        "reason": "one diagnostic replay of the artifact assertion step after CI failures; no local Go execution"
+      },
       "assets": [
         {"id":538501631,"name":"evidence-v0.2.1.tar.gz","size_bytes":10011,"sha256":"sha256:9f45cf78ef9339d3d694a30fb21131151d8ec61e4eb62455f2848e0d78180832","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.2.1/evidence-v0.2.1.tar.gz"},
         {"id":538501634,"name":"manifest-v0.2.1.json","size_bytes":15336,"sha256":"sha256:f17271a11b98c48114a740faea96efc3c89f2a5c2746f8efe52d76688ea7ac9f","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.2.1/manifest-v0.2.1.json"},
