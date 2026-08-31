@@ -755,6 +755,72 @@
         {"id":538178108,"name":"gooo-utility-trial-0.1.1-evidence.zip","size_bytes":24089,"sha256":"sha256:5e2cf1eb96debfe0540a950ebf4975cbff8ab9ead4695b27493b5d6362ce5edf","download_url":"https://github.com/kimjooyoon/gooo-utility-trial/releases/download/v0.1.1/gooo-utility-trial-0.1.1-evidence.zip"},
         {"id":538178107,"name":"SHA256SUMS","size_bytes":104,"sha256":"sha256:4983b05ca18df365c41255969729cdff9cfe3c11b08257a20203908ada7cb490","download_url":"https://github.com/kimjooyoon/gooo-utility-trial/releases/download/v0.1.1/SHA256SUMS"}
       ]
+    },
+    "reflexive_modern_cycle_release": {
+      "repository": "kimjooyoon/gooo-reflexive-loop",
+      "tag": "v0.3.1",
+      "release_id": 379879740,
+      "release_url": "https://github.com/kimjooyoon/gooo-reflexive-loop/releases/tag/v0.3.1",
+      "target_commit_sha": "ed8ff02c7d8f56d8d9474b68036ea80cdc105261",
+      "tag_object_sha": "e54e08feacb3ea4da67b5aa5e404a4ce0b605895",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33410813438,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-reflexive-loop/actions/runs/33410813438",
+        "head_sha": "ed8ff02c7d8f56d8d9474b68036ea80cdc105261",
+        "conclusion": "success",
+        "job_id": 99549616696,
+        "job_name": "conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-reflexive-loop/actions/runs/33410813438/job/99549616696",
+        "artifact_ids": [9765064827]
+      },
+      "source_artifact": {
+        "run_id": 33410813438,
+        "artifact_id": 9765064827,
+        "name": "gooo-reflexive-loop-evidence",
+        "size_bytes": 2122874,
+        "sha256": "sha256:9a800498dca302d6cf9b2c9574d8adc69075f88c6c112db36d25aab34caa04c5"
+      },
+      "release_manifest": {
+        "schema": "gooo/reflexive-loop/release-manifest/v1",
+        "version": "v0.3.1",
+        "tag": {"kind":"annotated","name":"v0.3.1","tag_object_sha":"e54e08feacb3ea4da67b5aa5e404a4ce0b605895","target_commit_sha":"ed8ff02c7d8f56d8d9474b68036ea80cdc105261"},
+        "post_main": {"artifact_name":"gooo-reflexive-loop-evidence","commit_sha":"ed8ff02c7d8f56d8d9474b68036ea80cdc105261","conformance_run_id":33410813438,"conformance_run_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/actions/runs/33410813438","source":"origin/main"},
+        "preserved_prior_release": {
+          "release_id": 379458203,
+          "tag": "v0.3.0",
+          "tag_kind": "lightweight",
+          "immutable": true,
+          "target_commit_sha": "75d655f04a0833b8cf40afa76f4a9703a3ba04fa",
+          "assets": [
+            {"id":537284602,"name":"gooo-reflexive-loop-v0.3.0-evidence.zip","size_bytes":913988,"sha256":"sha256:b91641199575f1d04a42d7c2c0e705248817d5c00c34108aa579f31a88bc58db"},
+            {"id":537284605,"name":"gooo-reflexive-loop-v0.3.0-manifest.json","size_bytes":19878,"sha256":"sha256:0a7f10e6e192b673c611c45e7a3846efaca4ae7cb4243de35efd2011627eb812"},
+            {"id":537284604,"name":"SHA256SUMS","size_bytes":213,"sha256":"sha256:33057331f4ba04455ee43f3782e697c9ff19355c272514589a3f90a7aefa0169"}
+          ]
+        }
+      },
+      "protocol_observation": {
+        "schema": "gooo/reflexive-loop/modern-cycle/conformance/v1",
+        "version": "v0.3.0",
+        "fixed_denominator": 12,
+        "activities": 12,
+        "cells": 12,
+        "proof_totals": {"FOUNDATION":4,"COHERENCE":4,"REGRESSION":4},
+        "indicator_totals": {"DRIVER":4,"OUTCOME":4,"GUARDRAIL":4},
+        "case_totals": {"normal":3,"unknown":3,"refuted":4,"CLOSED":3,"UNKNOWN":3,"REFUTED":4},
+        "precedence": ["REFUTED","UNKNOWN","CLOSED"],
+        "normal_candidate_metrics": {"after_oracle_failures":0,"before_oracle_failures":1,"candidate_count":1,"causal_edges":1,"frontier_count":3,"patch_bytes":1063,"patch_hunks":1,"patch_paths":1,"replay_comparisons":19,"replay_mismatches":0,"rollback_comparisons":1,"rollback_mismatches":0,"tests_executed":2,"tests_not_observed":0,"tests_reused":1,"tests_skipped":1,"tests_total":4},
+        "performance": {"build_wall_ms":7436,"build_peak_rss_kib":270260,"conformance_wall_ms":8844,"conformance_peak_rss_kib":14524},
+        "tests": {"total":4,"executed":2,"reused":1,"skipped":1,"not_observed":0},
+        "inventory": {"directories":16,"files":44,"go_physical_lines":0,"gooo_physical_lines":93,"root_readme_excluded":true},
+        "authority": {"apply_authorized":false,"commit_authorized":false,"cross_project_required_gates":0,"local_test_executions":0,"merge_authorized":false,"pull_request_authorized":false,"push_authorized":false,"repository_writes":0}
+      },
+      "assets": [
+        {"id":538205028,"name":"gooo-reflexive-loop-v0.3.1-evidence.tar.gz","size_bytes":1391362,"sha256":"sha256:76bb2dab68bdaf8926a8a7489aa2cc60545d7165ae4a1c5a86ce407dacee0739","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.3.1/gooo-reflexive-loop-v0.3.1-evidence.tar.gz"},
+        {"id":538205030,"name":"gooo-reflexive-loop-v0.3.1-manifest.json","size_bytes":3490,"sha256":"sha256:853b02ea5be25873db7e77f65ea0341715a360599064d4fe5abffd0364d07f5d","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.3.1/gooo-reflexive-loop-v0.3.1-manifest.json"},
+        {"id":538205039,"name":"gooo-reflexive-loop-v0.3.1-source.tar.gz","size_bytes":81187,"sha256":"sha256:6e4757b752756502c99e358cdfc9071fe4950b83f49e9e02651a0b3afee16797","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.3.1/gooo-reflexive-loop-v0.3.1-source.tar.gz"},
+        {"id":538205026,"name":"SHA256SUMS","size_bytes":431,"sha256":"sha256:85ed7f91b12e4e33d9cd5868ce6459de7cfbb717fc9d7aa823c8d721d4fe7d2c","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.3.1/SHA256SUMS"}
+      ]
     }
   },
   "counterexample_runs": [

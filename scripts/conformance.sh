@@ -13,16 +13,16 @@ probe=$(mktemp -d)
 mkdir -p "$probe"
 
 jq -e '
-  .total_cells == 23 and
-  .denominator_migration == {from:22,to:23,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 24 and
+  .denominator_migration == {from:23,to:24,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:14,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:14,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:15,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:15,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -33,7 +33,8 @@ jq -e '
   (.cells|map(select(.id=="IMPROVEMENT_PROPOSER_RELEASE" and .release_key=="improvement_proposer_release"))|length)==1 and
   (.cells|map(select(.id=="TEST_FRONTIER_RELEASE" and .release_key=="test_frontier_release"))|length)==1 and
   (.cells|map(select(.id=="CHANGE_BUNDLE_RELEASE" and .release_key=="change_bundle_release"))|length)==1 and
-  (.cells|map(select(.id=="UTILITY_TRIAL_PROTOCOL_RELEASE" and .release_key=="utility_trial_protocol_release"))|length)==1
+  (.cells|map(select(.id=="UTILITY_TRIAL_PROTOCOL_RELEASE" and .release_key=="utility_trial_protocol_release"))|length)==1 and
+  (.cells|map(select(.id=="REFLEXIVE_MODERN_CYCLE_RELEASE" and .release_key=="reflexive_modern_cycle_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 
 jq -e '
@@ -184,6 +185,43 @@ jq -e '
   (.releases.utility_trial_protocol_release.assets|map(.id)) == [538178108,538178107] and
   (.releases.utility_trial_protocol_release.pull_requests|map(.number)) == [3] and
   all(.releases.utility_trial_protocol_release.pull_requests[]; .merged==true) and
+  .releases.reflexive_modern_cycle_release.release_id == 379879740 and .releases.reflexive_modern_cycle_release.tag_object_sha == "e54e08feacb3ea4da67b5aa5e404a4ce0b605895" and
+  .releases.reflexive_modern_cycle_release.target_commit_sha == "ed8ff02c7d8f56d8d9474b68036ea80cdc105261" and
+  .releases.reflexive_modern_cycle_release.source_run.run_id == 33410813438 and .releases.reflexive_modern_cycle_release.source_run.job_id == 99549616696 and
+  .releases.reflexive_modern_cycle_release.source_run.job_name == "conformance" and .releases.reflexive_modern_cycle_release.source_run.artifact_ids == [9765064827] and
+  .releases.reflexive_modern_cycle_release.source_artifact.artifact_id == 9765064827 and .releases.reflexive_modern_cycle_release.source_artifact.size_bytes == 2122874 and
+  .releases.reflexive_modern_cycle_release.source_artifact.sha256 == "sha256:9a800498dca302d6cf9b2c9574d8adc69075f88c6c112db36d25aab34caa04c5" and
+  .releases.reflexive_modern_cycle_release.release_manifest.schema == "gooo/reflexive-loop/release-manifest/v1" and
+  .releases.reflexive_modern_cycle_release.release_manifest.version == "v0.3.1" and
+  .releases.reflexive_modern_cycle_release.release_manifest.tag.kind == "annotated" and
+  .releases.reflexive_modern_cycle_release.release_manifest.tag.tag_object_sha == "e54e08feacb3ea4da67b5aa5e404a4ce0b605895" and
+  .releases.reflexive_modern_cycle_release.release_manifest.tag.target_commit_sha == "ed8ff02c7d8f56d8d9474b68036ea80cdc105261" and
+  .releases.reflexive_modern_cycle_release.release_manifest.post_main.conformance_run_id == 33410813438 and
+  .releases.reflexive_modern_cycle_release.release_manifest.preserved_prior_release.release_id == 379458203 and
+  .releases.reflexive_modern_cycle_release.release_manifest.preserved_prior_release.immutable == true and
+  .releases.reflexive_modern_cycle_release.release_manifest.preserved_prior_release.target_commit_sha == "75d655f04a0833b8cf40afa76f4a9703a3ba04fa" and
+  .releases.reflexive_modern_cycle_release.protocol_observation.fixed_denominator == 12 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.activities == 12 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.cells == 12 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.proof_totals == {FOUNDATION:4,COHERENCE:4,REGRESSION:4} and
+  .releases.reflexive_modern_cycle_release.protocol_observation.indicator_totals == {DRIVER:4,OUTCOME:4,GUARDRAIL:4} and
+  .releases.reflexive_modern_cycle_release.protocol_observation.case_totals == {normal:3,unknown:3,refuted:4,CLOSED:3,UNKNOWN:3,REFUTED:4} and
+  .releases.reflexive_modern_cycle_release.protocol_observation.precedence == ["REFUTED","UNKNOWN","CLOSED"] and
+  .releases.reflexive_modern_cycle_release.protocol_observation.normal_candidate_metrics.after_oracle_failures == 0 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.normal_candidate_metrics.before_oracle_failures == 1 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.normal_candidate_metrics.tests_total == 4 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.normal_candidate_metrics.tests_executed == 2 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.normal_candidate_metrics.tests_reused == 1 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.normal_candidate_metrics.tests_skipped == 1 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.normal_candidate_metrics.tests_not_observed == 0 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.normal_candidate_metrics.replay_comparisons == 19 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.normal_candidate_metrics.replay_mismatches == 0 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.normal_candidate_metrics.rollback_comparisons == 1 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.normal_candidate_metrics.rollback_mismatches == 0 and
+  .releases.reflexive_modern_cycle_release.protocol_observation.performance == {build_wall_ms:7436,build_peak_rss_kib:270260,conformance_wall_ms:8844,conformance_peak_rss_kib:14524} and
+  .releases.reflexive_modern_cycle_release.protocol_observation.inventory == {directories:16,files:44,go_physical_lines:0,gooo_physical_lines:93,root_readme_excluded:true} and
+  .releases.reflexive_modern_cycle_release.protocol_observation.authority == {apply_authorized:false,commit_authorized:false,cross_project_required_gates:0,local_test_executions:0,merge_authorized:false,pull_request_authorized:false,push_authorized:false,repository_writes:0} and
+  (.releases.reflexive_modern_cycle_release.assets|map(.id)) == [538205028,538205030,538205039,538205026] and
   (.failed_release_triggers|length) == 1 and
   .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
   .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
@@ -222,7 +260,7 @@ jq -e '
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 
 jq -e '
-  .denominator_migration == {from:22,to:23,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:23,to:24,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -323,7 +361,7 @@ jq -e '
     $utility_process.observed.initial_immutable == false and $utility_process.observed.failed_run_id == 33407273856 and
     $utility_process.observed.failed_artifact_id == 9763659711 and $utility_process.observed.current_release_id == 379850805 and
     $utility_process.observed.current_immutable == true and ($utility_process.blocked_by|length) == 3) and
-  (.cells|length) == 23 and
+  (.cells|length) == 24 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -409,6 +447,18 @@ jq -e '
     ($utility.evidence | index("v0.1.0-history-rewrite:initial-release=379848683:immutable=false:failed-run=33407273856:artifact=9763659711:current-release=379850805:immutable=true")) != null and
     ($utility.evidence | index("v0.1.0-history-assets:initial=538154567,538154571:current=538157619,538157605:tag-object=e30bca521d127d929043557198557710d35afcd2:target=6521e699f1e1180b7e942ae18d0948383c3d544e")) != null and
     ($utility.evidence | index("process:RELEASE_HISTORY_REWRITE_PROCESS=REFUTED:score_included=false")) != null) and
+  ((.cells[] | select(.cell_id == "REFLEXIVE_MODERN_CYCLE_RELEASE")) as $modern_cycle |
+    $modern_cycle.state == "CLOSED" and $modern_cycle.release_key == "reflexive_modern_cycle_release" and
+    ($modern_cycle.evidence | index("release:379879740:immutable=true")) != null and
+    ($modern_cycle.evidence | index("tag-object:e54e08feacb3ea4da67b5aa5e404a4ce0b605895:target=ed8ff02c7d8f56d8d9474b68036ea80cdc105261")) != null and
+    ($modern_cycle.evidence | index("source-actions:run=33410813438:job=99549616696:success")) != null and
+    ($modern_cycle.evidence | index("source-actions-artifact:9765064827:2122874:sha256:9a800498dca302d6cf9b2c9574d8adc69075f88c6c112db36d25aab34caa04c5")) != null and
+    ($modern_cycle.evidence | index("upstream-metrics:oracle_failures=1->0:tests=4/2/1/1/0:replay=19/0:rollback=1/0:build=7436/270260:conformance=8844/14524:gooo=93-lines/44-files/16-dirs:authority=0/0/0/0/0/0/0/0")) != null and
+    ($modern_cycle.evidence | index("asset:538205028:1391362:sha256:76bb2dab68bdaf8926a8a7489aa2cc60545d7165ae4a1c5a86ce407dacee0739")) != null and
+    ($modern_cycle.evidence | index("asset:538205030:3490:sha256:853b02ea5be25873db7e77f65ea0341715a360599064d4fe5abffd0364d07f5d")) != null and
+    ($modern_cycle.evidence | index("asset:538205039:81187:sha256:6e4757b752756502c99e358cdfc9071fe4950b83f49e9e02651a0b3afee16797")) != null and
+    ($modern_cycle.evidence | index("asset:538205026:431:sha256:85ed7f91b12e4e33d9cd5868ce6459de7cfbb717fc9d7aa823c8d721d4fe7d2c")) != null and
+    ($modern_cycle.evidence | index("preserved-prior-release:v0.3.0:release=379458203:immutable=true:target=75d655f04a0833b8cf40afa76f4a9703a3ba04fa:tag_kind=lightweight")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -480,12 +530,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:23,closed:20,unknown:1,refuted:2} and
+  .summary == {total:24,closed:21,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 23 and
+  (.cells|length) == 24 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 20 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 21 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -511,16 +561,17 @@ jq -e '
     IMPROVEMENT_PROPOSER_RELEASE:"CLOSED",
     TEST_FRONTIER_RELEASE:"CLOSED",
     CHANGE_BUNDLE_RELEASE:"CLOSED",
-    UTILITY_TRIAL_PROTOCOL_RELEASE:"CLOSED"
+    UTILITY_TRIAL_PROTOCOL_RELEASE:"CLOSED",
+    REFLEXIVE_MODERN_CYCLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:23,activities:23,unique_axes:23,unique_metrics:23,source_bindings:23,ir_bindings:23,generated_artifact_bindings:23,evaluator_bindings:23} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 14 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 14 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:20,verified:20,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:24,activities:24,unique_axes:24,unique_metrics:24,source_bindings:24,ir_bindings:24,generated_artifact_bindings:24,evaluator_bindings:24} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 15 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 15 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:21,verified:21,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
