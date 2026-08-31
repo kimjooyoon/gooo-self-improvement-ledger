@@ -24,14 +24,14 @@ const (
 )
 
 type Profile struct {
-	Schema         string         `json:"schema"`
-	ProfileID      string         `json:"profile_id"`
-	TotalCells     int            `json:"total_cells"`
-	ProofTotals    map[string]int `json:"proof_totals"`
+	Schema          string         `json:"schema"`
+	ProfileID       string         `json:"profile_id"`
+	TotalCells      int            `json:"total_cells"`
+	ProofTotals     map[string]int `json:"proof_totals"`
 	IndicatorTotals map[string]int `json:"indicator_totals"`
-	Precedence     []string       `json:"precedence"`
-	Policy         Policy         `json:"policy"`
-	Cells          []Cell         `json:"cells"`
+	Precedence      []string       `json:"precedence"`
+	Policy          Policy         `json:"policy"`
+	Cells           []Cell         `json:"cells"`
 }
 
 type Policy struct {
@@ -62,9 +62,9 @@ type Cell struct {
 }
 
 type Assessment struct {
-	Schema       string            `json:"schema"`
-	ProfileID    string            `json:"profile_id"`
-	AssessmentID string            `json:"assessment_id"`
+	Schema       string           `json:"schema"`
+	ProfileID    string           `json:"profile_id"`
+	AssessmentID string           `json:"assessment_id"`
 	Cells        []AssessmentCell `json:"cells"`
 }
 
@@ -121,12 +121,12 @@ type ReleaseSummary struct {
 }
 
 type RuntimeInput struct {
-	Schema               string              `json:"schema"`
-	SubjectSHA           string              `json:"subject_sha"`
-	GoVersion            string              `json:"go_version"`
-	Timing               Timing              `json:"timing"`
-	Authority            Authority           `json:"authority"`
-	LocalExecutionCount  LocalExecutionCount `json:"local_execution_counts"`
+	Schema              string              `json:"schema"`
+	SubjectSHA          string              `json:"subject_sha"`
+	GoVersion           string              `json:"go_version"`
+	Timing              Timing              `json:"timing"`
+	Authority           Authority           `json:"authority"`
+	LocalExecutionCount LocalExecutionCount `json:"local_execution_counts"`
 }
 
 type Measurement struct {
@@ -166,8 +166,8 @@ type Inventory struct {
 }
 
 type ArtifactStats struct {
-	Files int   `json:"files"`
-	Bytes int64 `json:"bytes"`
+	Files int    `json:"files"`
+	Bytes int64  `json:"bytes"`
 	Scope string `json:"scope"`
 }
 
@@ -229,15 +229,15 @@ type PortfolioReport struct {
 }
 
 type BindingSummary struct {
-	OneToOne           bool `json:"one_to_one"`
-	Cells              int  `json:"cells"`
-	Activities         int  `json:"activities"`
-	UniqueAxes         int  `json:"unique_axes"`
-	UniqueMetrics      int  `json:"unique_metrics"`
-	SourceBindings     int  `json:"source_bindings"`
-	IRBindings         int  `json:"ir_bindings"`
-	ArtifactBindings   int  `json:"generated_artifact_bindings"`
-	EvaluatorBindings int `json:"evaluator_bindings"`
+	OneToOne          bool `json:"one_to_one"`
+	Cells             int  `json:"cells"`
+	Activities        int  `json:"activities"`
+	UniqueAxes        int  `json:"unique_axes"`
+	UniqueMetrics     int  `json:"unique_metrics"`
+	SourceBindings    int  `json:"source_bindings"`
+	IRBindings        int  `json:"ir_bindings"`
+	ArtifactBindings  int  `json:"generated_artifact_bindings"`
+	EvaluatorBindings int  `json:"evaluator_bindings"`
 }
 
 func main() {
@@ -518,8 +518,12 @@ func buildReport(profile Profile, assessment Assessment, verification ReleaseVer
 			Unknown: unknown, Refutation: refutation,
 		}
 		reportedCells = append(reportedCells, reported)
-		addState(&proofCounts[cell.Proof], state)
-		addState(&indicatorCounts[cell.Indicator], state)
+		proofSummary := proofCounts[cell.Proof]
+		addState(&proofSummary, state)
+		proofCounts[cell.Proof] = proofSummary
+		indicatorSummary := indicatorCounts[cell.Indicator]
+		addState(&indicatorSummary, state)
+		indicatorCounts[cell.Indicator] = indicatorSummary
 	}
 
 	counts := StatusCounts{Total: len(reportedCells)}
@@ -542,7 +546,7 @@ func buildReport(profile Profile, assessment Assessment, verification ReleaseVer
 		Schema: reportSchema, ProfileID: profile.ProfileID, AssessmentID: assessment.AssessmentID,
 		SubjectSHA: runtime.SubjectSHA, GoVersion: runtime.GoVersion, Decision: "REPORT_ONLY", Precedence: profile.Precedence,
 		Summary: counts, ProofCounts: proofCounts, IndicatorCounts: indicatorCounts, Cells: reportedCells,
-		Bindings: BindingSummary{OneToOne: true, Cells: len(profile.Cells), Activities: len(profile.Cells), UniqueAxes: len(profile.Cells), UniqueMetrics: len(profile.Cells), SourceBindings: len(profile.Cells), IRBindings: len(profile.Cells), ArtifactBindings: len(profile.Cells), EvaluatorBindings: len(profile.Cells)},
+		Bindings:  BindingSummary{OneToOne: true, Cells: len(profile.Cells), Activities: len(profile.Cells), UniqueAxes: len(profile.Cells), UniqueMetrics: len(profile.Cells), SourceBindings: len(profile.Cells), IRBindings: len(profile.Cells), ArtifactBindings: len(profile.Cells), EvaluatorBindings: len(profile.Cells)},
 		Inventory: inventory, Performance: runtime.Timing, Artifact: artifact, ReleaseSummary: releaseSummary,
 		Authority: runtime.Authority, LocalExecutionCount: runtime.LocalExecutionCount, Policy: profile.Policy,
 	}

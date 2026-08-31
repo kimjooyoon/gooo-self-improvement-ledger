@@ -2,23 +2,20 @@ name: Self-improvement portfolio evidence
 
 on:
   pull_request:
-  push:
     branches: [main]
+  push:
+    branches: [main, 'agent/**']
   workflow_dispatch:
 
 permissions:
   contents: read
 
-concurrency:
-  group: self-improvement-portfolio-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
-
 jobs:
   evidence:
     runs-on: ubuntu-latest
     env:
-      SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      ARTIFACT_ROOT: ${{ runner.temp }}/gooo-self-improvement-ledger
+      SUBJECT_SHA: ${{ github.sha }}
+      ARTIFACT_ROOT: /tmp/gooo-self-improvement-ledger
     steps:
       - name: Check out the reviewed subject
         uses: actions/checkout@v5
@@ -28,7 +25,7 @@ jobs:
       - name: Install Go 1.27
         uses: actions/setup-go@v6
         with:
-          go-version: 1.27.0
+          go-version: '1.27.0'
           cache: false
 
       - name: Verify toolchain and clean checkout
@@ -44,7 +41,11 @@ jobs:
         shell: bash
         run: |
           set -Eeuo pipefail
-          test -z "$(gofmt -l .)"
+          files=$(gofmt -l .)
+          if test -n "$files"; then
+            gofmt -d $files
+            exit 1
+          fi
           go vet ./...
           go test -json ./... > "$RUNNER_TEMP/go-test.json"
           go build -trimpath -o "$RUNNER_TEMP/ledger-report" ./cmd/ledger-report
