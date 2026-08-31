@@ -58,10 +58,11 @@ for counterexample_id in $(jq -r '(.failed_release_triggers // [])[] | .countere
   tag=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .tag' "$lock")
   run_id=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.run_id' "$lock")
   job_id=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.job_id' "$lock")
-  set +e
-  gh api "repos/$repo/releases/tags/$tag" > "$output/$counterexample_id.release.json"
-  release_exit=$?
-  set -e
+  if gh api "repos/$repo/releases/tags/$tag" > "$output/$counterexample_id.release.json"; then
+    release_exit=0
+  else
+    release_exit=$?
+  fi
   test "$release_exit" -ne 0
   gh api "repos/$repo/actions/runs/$run_id" > "$output/$counterexample_id.failed-run.json"
   gh api "repos/$repo/actions/jobs/$job_id" > "$output/$counterexample_id.failed-job.json"
