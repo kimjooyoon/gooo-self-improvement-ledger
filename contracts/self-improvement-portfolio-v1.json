@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 32,
+  "total_cells": 33,
   "denominator_migration": {
-    "from": 31,
-    "to": 32,
+    "from": 32,
+    "to": 33,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 23,
+    "COHERENCE": 24,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 23,
+    "OUTCOME": 24,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -542,6 +542,22 @@
       "metric_id": "gooo.metric.self-improvement.language-delta-forge-durable-release.v1",
       "metric_denominator": 1,
       "release_key": "language_delta_forge_durable_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 33,
+      "id": "OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE",
+      "axis": "OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptOpenTofuGeneratedServiceProjectDurableRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptOpenTofuGeneratedServiceProjectDurableRelease",
+      "ir": "semantic-ir/activity/AdoptOpenTofuGeneratedServiceProjectDurableRelease",
+      "generated_artifact": "evidence/cells/OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE.json",
+      "evaluator": "ledger/opentofu-generated-service-project-durable-release",
+      "metric_id": "gooo.metric.self-improvement.opentofu-generated-service-project-durable-release.v1",
+      "metric_denominator": 1,
+      "release_key": "opentofu_generated_service_project_durable_release",
       "depends_on": []
     }
   ]

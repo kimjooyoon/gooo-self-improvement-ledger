@@ -1727,6 +1727,150 @@
         {"id":538495828,"name":"gooo-language-delta-forge-v0.1.2.tar.gz","size_bytes":26671,"sha256":"sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba","download_url":"https://github.com/kimjooyoon/gooo-language-delta-forge/releases/download/v0.1.2/gooo-language-delta-forge-v0.1.2.tar.gz"},
         {"id":538495832,"name":"release-manifest-v0.1.2.json","size_bytes":736,"sha256":"sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a","download_url":"https://github.com/kimjooyoon/gooo-language-delta-forge/releases/download/v0.1.2/release-manifest-v0.1.2.json"}
       ]
+    },
+    "opentofu_generated_service_project_durable_release": {
+      "repository": "kimjooyoon/gooo-opentofu-envelope",
+      "tag": "v0.2.1",
+      "release_id": 380037012,
+      "release_url": "https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/tag/v0.2.1",
+      "target_commit_sha": "bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787",
+      "tag_object_sha": "06ab6ccc2f75cf0602715811f51a7a3097d23277",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33436975864,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-opentofu-envelope/actions/runs/33436975864",
+        "event": "push",
+        "head_branch": "main",
+        "head_sha": "bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787",
+        "conclusion": "success",
+        "job_id": 99635653831,
+        "job_name": "project",
+        "job_url": "https://github.com/kimjooyoon/gooo-opentofu-envelope/actions/runs/33436975864/job/99635653831",
+        "artifact_ids": [9774763580]
+      },
+      "source_artifact": {
+        "run_id": 33436975864,
+        "artifact_id": 9774763580,
+        "name": "gooo-generated-service-project-evidence-bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787",
+        "size_bytes": 16278,
+        "sha256": "sha256:8e2bd75365b7e0e92ee8276cadbfc0d03842145a7bf5fd52efd1a33e2973de06"
+      },
+      "release_run": {
+        "run_id": 33437056751,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-opentofu-envelope/actions/runs/33437056751",
+        "event": "push",
+        "head_branch": "v0.2.1",
+        "head_sha": "bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787",
+        "conclusion": "success",
+        "job_id": 99635914331,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-opentofu-envelope/actions/runs/33437056751/job/99635914331",
+        "artifact_ids": []
+      },
+      "release_manifest": {
+        "schema": "gooo/opentofu-envelope/release-manifest/v2",
+        "version": 2,
+        "source_identity": {
+          "all_checks": true,
+          "main_ci_head_sha": "bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787",
+          "main_ci_observation_source_sha": "a4e5fb7f93e0d2df065cda3d2a4ba177db8cae6049ad2de06b4a42b97c8089fd",
+          "service_contract_source_sha": "a4e5fb7f93e0d2df065cda3d2a4ba177db8cae6049ad2de06b4a42b97c8089fd",
+          "source_sha256": "a4e5fb7f93e0d2df065cda3d2a4ba177db8cae6049ad2de06b4a42b97c8089fd",
+          "tag_commit_sha": "bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787"
+        },
+        "release": {
+          "tag": "v0.2.1",
+          "commit_sha": "bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787",
+          "id": 380037012,
+          "immutable_expected": true,
+          "asset_count_before": 0,
+          "asset_count_after": 4,
+          "url": "https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/tag/v0.2.1",
+          "required_assets": ["evidence-v0.2.1.tar.gz", "manifest-v0.2.1.json", "SHA256SUMS", "source-v0.2.1.tar.gz"]
+        },
+        "denominator": {"target_cells": 12, "binding_edges": 14, "expected_user_path_steps": 6},
+        "main_ci": {
+          "artifact_digest": "sha256:8e2bd75365b7e0e92ee8276cadbfc0d03842145a7bf5fd52efd1a33e2973de06",
+          "artifact_id": 9774763580,
+          "artifact_name": "gooo-generated-service-project-evidence-bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787",
+          "consumer_sha256": "d44b7a561e40ef8ecd8d330ad0e685b2baa1d6ba936c7e8cdcaa74b134dd3802",
+          "observation_sha256": "285de6f94b65081bfd4006afada7320e24ec7103c49345b6c283a06011e0edb8",
+          "run_id": 33436975864,
+          "url": "https://github.com/kimjooyoon/gooo-opentofu-envelope/actions/runs/33436975864"
+        },
+        "toolchain": {"go_requirement": "1.27.x", "opentofu_engine": "OPENTOFU", "opentofu_version": "1.12.6"},
+        "pipeline": {
+          "evidence_source": "SUCCESSFUL_MAIN_CI_ARTIFACT",
+          "post_bootstrap_direct_main_mutations": 0,
+          "release_local_execution_count": 0,
+          "semantic_path": ["GOOO_SOURCE", "SEMANTIC_GRAPH", "GENERATED_OPENTOFU_TF_JSON", "GENERATED_SERVICE_CONTRACT_JSON", "PINNED_OPENTOFU_VALIDATE_JSON", "RELATION_EVIDENCE"]
+        },
+        "authority": {
+          "scope": "GENERATED_OPENTOFU_SERVICE_PROJECT_ONLY",
+          "semantic_graph_state": "CLOSED",
+          "global_core_authority_claim": "NOT_MADE",
+          "external_utility": {"state": "UNKNOWN", "reason": "exact user utility before and after observations are not available"},
+          "handwritten_go_physical_files": 0,
+          "mutation_counts": {"external_mutations": 0, "infrastructure": 0, "network": 0, "provider_install": 0, "repository_writes": 0, "state": 0},
+          "test_counts": {"total": 6, "executed": 6, "reused": 0, "passed": 2, "unknown": 2, "refuted": 2}
+        },
+        "generated_outputs": {
+          "count": 5,
+          "bytes": 9019,
+          "files": ["contract-receipt.json", "dossier.md", "main.tf.json", "relation-report.md", "service-contract.json"],
+          "digests": {
+            "contract-receipt.json": {"bytes": 1940, "sha256": "d917919e877bad1b0258a41e88f6b935263e157a49855d36c44e3243388cf324"},
+            "dossier.md": {"bytes": 1035, "sha256": "bf9d431ec311f424c264a55135b3e5423b15c06b2efb017d187955185dc52e4c"},
+            "main.tf.json": {"bytes": 2092, "sha256": "0d6afd48ac1bc7a1fa666514da037939bfb51a901f0cd861e3ba1b359c3c7b98"},
+            "relation-report.md": {"bytes": 1253, "sha256": "7e133a66fb940121be8806268a66ed0603f0be2327cd8885f4b17df45472cf0b"},
+            "service-contract.json": {"bytes": 2699, "sha256": "e32df06439bd8dbd35283b3998314d36fde97761e85f9cfb3793670be3f09c48"}
+          }
+        },
+        "inventory": {"regular_files": 22, "subfolders": 7, "go_physical_files": 0, "go_physical_lines": 0, "gooo_physical_files": 1, "gooo_physical_lines": 46, "root_readme_excluded": true},
+        "project": {"name": "checkout-api", "opentofu_resources": 3, "opentofu_modules": 0, "service_capabilities": 1, "service_endpoints": 2, "bound_relations": 2, "unbound_relations": 2, "refuted_relations": 2},
+        "validation": {"state": "CLOSED", "official_opentofu_valid": true, "error_count": 0, "warning_count": 0},
+        "utility": {"state": "UNKNOWN", "reason": "exact user utility before and after observations are not available"},
+        "improvement": {"state": "UNKNOWN", "reason": "exact before and after observations are not available"}
+      },
+      "protocol_observation": {
+        "schema": "gooo/opentofu-envelope/project-observation/v1",
+        "state": "CLOSED",
+        "fixed_denominator": 12,
+        "activities": 12,
+        "paths": 6,
+        "edges": 14,
+        "proof_totals": {"FOUNDATION": 4, "COHERENCE": 4, "REGRESSION": 4},
+        "indicator_totals": {"DRIVER": 4, "OUTCOME": 4, "GUARDRAIL": 4},
+        "cases": {"denominator": 6, "normal": 2, "unknown": 2, "refuted": 2, "precedence": ["REFUTED", "UNKNOWN", "CLOSED"]},
+        "generated_outputs": {"files": 5, "bytes": 9019},
+        "project": {"resources": 3, "modules": 0, "capabilities": 1, "endpoints": 2, "relations": {"bound": 2, "unbound": 2, "refuted": 2}},
+        "runtime": {"compile_wall_ms": 106, "build_wall_ms": 56, "test_wall_ms": 56, "conformance_wall_ms": 46, "tofu_validate_wall_ms": 30, "peak_rss_kib": 75304},
+        "tests": {"total": 6, "executed": 6, "reused": 0, "unknown": 2, "refuted": 2},
+        "tofu": {"validate": 1, "init": 0, "plan": 0, "apply": 0, "destroy": 0, "provider_install": 0},
+        "inventory": {"files": 22, "directories": 7, "go_files": 0, "go_lines": 0, "gooo_files": 1, "gooo_lines": 46, "root_readme_excluded": true},
+        "authority": {"repository_writes": 0, "local_tests": 0, "local_build": 0, "direct_main_writes": 0, "tag_mutations": 0, "scope": "GENERATED_OPENTOFU_SERVICE_PROJECT_ONLY", "utility": "UNKNOWN", "improvement": "UNKNOWN", "global_core": "NOT_MADE"}
+      },
+      "historical_provenance": {
+        "v0.2.0": {
+          "state": "REFUTED",
+          "tag": "v0.2.0",
+          "release_present": false,
+          "release_api_endpoint": "repos/kimjooyoon/gooo-opentofu-envelope/releases/tags/v0.2.0",
+          "release_api_status": 404,
+          "asset_count": 0,
+          "tag_object_sha": "9dfdee84d61f3acbe899b5ad57fd8f35f8159210",
+          "target_commit_sha": "c9f5de0b33fee1ca8546a627a8a94242b99c0733",
+          "failed_release_run_id": 33435908822,
+          "failed_release_job_id": 99632154067,
+          "failure_reason": "v0.1.5 target in the v0.2.0 release contract contained one extra trailing character"
+        }
+      },
+      "assets": [
+        {"id":538501631,"name":"evidence-v0.2.1.tar.gz","size_bytes":10011,"sha256":"sha256:9f45cf78ef9339d3d694a30fb21131151d8ec61e4eb62455f2848e0d78180832","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.2.1/evidence-v0.2.1.tar.gz"},
+        {"id":538501634,"name":"manifest-v0.2.1.json","size_bytes":15336,"sha256":"sha256:f17271a11b98c48114a740faea96efc3c89f2a5c2746f8efe52d76688ea7ac9f","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.2.1/manifest-v0.2.1.json"},
+        {"id":538501658,"name":"SHA256SUMS","size_bytes":263,"sha256":"sha256:bba568c5f8bbba841976d1f6b9b6c9118e9049d3ed014323770456851e8906e1","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.2.1/SHA256SUMS"},
+        {"id":538501664,"name":"source-v0.2.1.tar.gz","size_bytes":26719,"sha256":"sha256:cdab3d87acf7aad4889ee41027df75f4fbcfd9dc4afe8e23a5a66504ed35dd70","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.2.1/source-v0.2.1.tar.gz"}
+      ]
     }
   },
   "counterexample_runs": [

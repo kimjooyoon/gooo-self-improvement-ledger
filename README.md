@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 32 named cells, each bound one-to-one to
+language. The denominator is exactly 33 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -25,11 +25,12 @@ The fixed axes are:
 `UNKNOWN_RESOLUTION_LATTICE_RELEASE`, and
 `SELF_REPAIR_INTEGRATION_RELEASE`, and
 `OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE`, and
-`LANGUAGE_DELTA_FORGE_DURABLE_RELEASE`.
+`LANGUAGE_DELTA_FORGE_DURABLE_RELEASE`, and
+`OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `31 -> 32` with
+The denominator migration is explicit and append-only: `32 -> 33` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/23/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/23/5`.
+`4/24/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/24/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -348,6 +349,34 @@ and `25` outputs. The adoption cell is `CLOSED`; upstream utility is
 `NOT_CLAIMED`, upstream global core is `NOT_MADE`, while ledger global core and
 development process remain `REFUTED`, yielding `CLOSED29/UNKNOWN1/REFUTED2`.
 
+The v0.27 frontier appends `OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE`.
+It adopts immutable `kimjooyoon/gooo-opentofu-envelope@v0.2.1` release
+`380037012`, binding annotated tag object
+`06ab6ccc2f75cf0602715811f51a7a3097d23277` to target
+`bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787`. Upstream main CI
+`33436975864`/job `99635653831` and release CI `33437056751`/job
+`99635914331` are successful. The main artifact is `9774763580`, named
+`gooo-generated-service-project-evidence-bdc5c2cdacb5865f59efd2eb496d58eeb0bd2787`,
+`16278` bytes, digest
+`sha256:8e2bd75365b7e0e92ee8276cadbfc0d03842145a7bf5fd52efd1a33e2973de06`.
+The four immutable release assets are pinned by API identity, size, and
+SHA-256: evidence `538501631` (`10011`), manifest `538501634` (`15336`),
+checksums `538501658` (`263`), and source `538501664` (`26719`). The generated
+service-project observation fixes a 12-cell denominator, 6 user-path steps,
+14 causal edges, `4/4/4` proof and indicator buckets, cases
+`NORMAL2/UNKNOWN2/REFUTED2`, 5 generated outputs/9019 bytes, resources `3`,
+capabilities `1`, endpoints `2`, relations `2/2/2`, and Go/OpenTofu
+compile/build/test/conformance/validate `106/56/56/46/30 ms` with peak RSS
+`75304 KiB`. Tests are `6/6/0/2/2`; OpenTofu validate is `1` and all
+repository/local/direct-main/tag mutation counts are zero. Upstream utility
+and improvement remain `UNKNOWN`, the scoped semantic graph is `CLOSED`,
+and global core is `NOT_MADE`; the new ledger cell is `CLOSED`. Historical
+v0.2.0 remains an append-only `REFUTED` no-release record: release API `404`,
+tag object `9dfdee84d61f3acbe899b5ad57fd8f35f8159210`, target
+`c9f5de0b33fee1ca8546a627a8a94242b99c0733`, and failed release run/job
+`33435908822/99632154067` caused by the malformed historical target. The
+portfolio is now `CLOSED30/UNKNOWN1/REFUTED2`.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -376,7 +405,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the twenty-nine immutable inputs
+commit, and consumer asset identities for the thirty immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

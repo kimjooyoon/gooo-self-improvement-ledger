@@ -36,3 +36,4 @@ activity AdoptUnknownResolutionLatticeRelease(PortfolioInput) -> PortfolioEviden
 activity AdoptSelfRepairIntegrationRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SELF_REPAIR_INTEGRATION_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptOpenTofuDurableSemanticEnvelopeRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptLanguageDeltaForgeDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=LANGUAGE_DELTA_FORGE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptOpenTofuGeneratedServiceProjectDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
