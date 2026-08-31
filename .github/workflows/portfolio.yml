@@ -177,7 +177,9 @@ jobs:
           tar -tzf "$durable_envelope_dir/evidence-v0.1.9.tar.gz" | grep -Fx './observation.json' >/dev/null
           tar -tzf "$durable_envelope_dir/source-v0.1.9.tar.gz" | grep -Fx 'gooo-opentofu-envelope-v0.1.9/.github/workflows/release-v0.1.9.yml' >/dev/null
           durable_envelope_artifact_metadata="$RUNNER_TEMP/opentofu-envelope-artifact-9773097414.json"
-          gh api repos/kimjooyoon/gooo-opentofu-envelope/actions/artifacts/9773097414 > "$durable_envelope_artifact_metadata"
+          curl --fail --location --retry 3 --retry-all-errors --silent --show-error \
+            https://api.github.com/repos/kimjooyoon/gooo-opentofu-envelope/actions/artifacts/9773097414 \
+            -o "$durable_envelope_artifact_metadata"
           jq -e '
             .id==9773097414 and
             .name=="gooo-opentofu-envelope-evidence-b482afd68a864400a209cb4f439e727cfdfe2eda" and
@@ -187,6 +189,7 @@ jobs:
             .workflow_run.id==33432375475 and
             .workflow_run.head_sha=="b482afd68a864400a209cb4f439e727cfdfe2eda"
           ' "$durable_envelope_artifact_metadata" >/dev/null
+          echo "upstream artifact API identity verified"
           durable_envelope_unpacked="$RUNNER_TEMP/opentofu-envelope-artifact-9773097414"
           mkdir -p "$durable_envelope_unpacked"
           tar -xzf "$durable_envelope_dir/evidence-v0.1.9.tar.gz" -C "$durable_envelope_unpacked"
@@ -202,6 +205,7 @@ jobs:
             .replay.comparison_count==2 and (.replay.comparisons|length)==2 and all(.replay.comparisons[]; .byte_equal==true and .first_sha256==.second_sha256) and
             .validation.official_opentofu.valid==true and .validation.official_opentofu.error_count==0 and .validation.official_opentofu.warning_count==0
           ' "$durable_envelope_unpacked/observation.json" >/dev/null
+          echo "upstream observation payload verified"
 
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
         shell: bash
