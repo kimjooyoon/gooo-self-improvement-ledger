@@ -29,6 +29,170 @@
     }
   ],
   "releases": {
+    "experience_memory_release": {
+      "repository": "kimjooyoon/gooo-experience-memory",
+      "tag": "v0.1.0",
+      "release_id": 379896833,
+      "release_url": "https://github.com/kimjooyoon/gooo-experience-memory/releases/tag/v0.1.0",
+      "target_commit_sha": "79fd6edc588ea26279dbe735e5f6e250132f7730",
+      "tag_object_sha": "9b889fc3dd5b663b5ac1ce7cd975fc89030c4a46",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33414536312,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-experience-memory/actions/runs/33414536312",
+        "head_sha": "10210e2a1d7bf803ed5be5c187ead9300e88d5e6",
+        "conclusion": "success",
+        "job_id": 99561917616,
+        "job_name": "conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-experience-memory/actions/runs/33414536312/job/99561917616",
+        "artifact_ids": [9766475762]
+      },
+      "source_artifact": {
+        "run_id": 33414536312,
+        "artifact_id": 9766475762,
+        "name": "gooo-experience-memory-evidence-33414536312",
+        "size_bytes": 15798,
+        "sha256": "sha256:0aaec4dc2f9a3822c8c3f275f178dde929c7abb87b733544b1f36e2d3b9f26fb"
+      },
+      "release_run": {
+        "run_id": 33414620023,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-experience-memory/actions/runs/33414620023",
+        "head_sha": "10210e2a1d7bf803ed5be5c187ead9300e88d5e6",
+        "conclusion": "success",
+        "job_id": 99562201563,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-experience-memory/actions/runs/33414620023/job/99562201563"
+      },
+      "manifest_file": {
+        "asset_id": 538237752,
+        "name": "release-manifest.json",
+        "size_bytes": 555,
+        "sha256": "sha256:34e97b1cb9fd2ee520cea5b82acd9ee44272abb7392c8a32ce51a144f397ada1",
+        "content": {
+          "schema": "gooo/experience-memory/release-manifest/v1",
+          "tag": "v0.1.0",
+          "commit_sha": "79fd6edc588ea26279dbe735e5f6e250132f7730",
+          "immutable": true,
+          "assets": [
+            {"digest":"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d","kind":"source","name":"gooo-experience-memory-v0.1.0.tar.gz"},
+            {"digest":"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6","kind":"ci-evidence","name":"gooo-experience-memory-evidence-v0.1.0.tar.gz"}
+          ]
+        }
+      },
+      "checksum_file": {
+        "asset_id": 538237754,
+        "name": "SHA256SUMS",
+        "size_bytes": 229,
+        "sha256": "sha256:237c96b9bd3eed13676f0a8a4f0de37c71d75646b6a51a762ba5ca9aa1afb6ca",
+        "bindings": {
+          "gooo-experience-memory-v0.1.0.tar.gz": "sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",
+          "gooo-experience-memory-evidence-v0.1.0.tar.gz": "sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6"
+        }
+      },
+      "evidence_manifest": {
+        "schema": "gooo/experience-memory/evidence-manifest/v1",
+        "subject_sha": "10210e2a1d7bf803ed5be5c187ead9300e88d5e6",
+        "bytes": 1565,
+        "sha256": "sha256:f9105286cdd402372dfe4a65abde56c74d36b6246f5f3b60ce535cb2a35ec0be",
+        "files": [
+          {"name":"evaluation.json","bytes":27778,"sha256":"sha256:2a31e5eb0eca14843199c90d697c533650c67f820d22e65e473e78b3f7be2665"},
+          {"name":"fixed-fixture.json","bytes":2839,"sha256":"sha256:8659407f1174dcf404eb5153537a33e911deac90ad68c37ca84d1080c15e216a"},
+          {"name":"generated/semantic.gooo.go","bytes":4423,"sha256":"sha256:40931a576f147265cb9309f6dadca05c08205a1f1d4d4f648c3188787acff4ae"},
+          {"name":"human-report.md","bytes":5427,"sha256":"sha256:6fda9ebb0a56a595dc9503d197a7525c9bb6b522b97dc6bf57d64412f6ebd6a0"},
+          {"name":"memory.ndjson","bytes":1182,"sha256":"sha256:db80eb416a11a2faa7ceb10eb2aed5634da50608db5f32574e48142371e28c79"},
+          {"name":"outcome-receipt.json","bytes":654,"sha256":"sha256:b013ea186daeb0517d208630dc523ede4180f986cf8265258400f46963b49e33"},
+          {"name":"runtime.json","bytes":567,"sha256":"sha256:e93d7e26873be5969b52c0f6edc0a85f8654b166a654a55871e6a6fa788309e2"},
+          {"name":"semantic-ir.json","bytes":5079,"sha256":"sha256:11c6aaee3853a67fb446fff669bb3384f6221936da6c55224cb2328921f260e1"},
+          {"name":"summary.json","bytes":27778,"sha256":"sha256:2a31e5eb0eca14843199c90d697c533650c67f820d22e65e473e78b3f7be2665"}
+        ]
+      },
+      "protocol_observation": {
+        "schema": "gooo/experience-memory/report/v1",
+        "decision": "EXPERIENCE_MEMORY_CONFORMANCE_CLOSED",
+        "state": "CLOSED",
+        "fixed_denominator": 12,
+        "proof_totals": {"FOUNDATION":4,"COHERENCE":4,"REGRESSION":4},
+        "indicator_totals": {"DRIVER":4,"OUTCOME":4,"GUARDRAIL":4},
+        "case_totals": {"normal":4,"unknown":4,"refuted":4,"CLOSED":4,"UNKNOWN":4,"REFUTED":4},
+        "precedence": ["REFUTED","UNKNOWN","CLOSED"],
+        "metrics": {
+          "attempts_observed": 2,
+          "memory_records": 1,
+          "candidate_count": 5,
+          "known_refuted_recurrences_before": 1,
+          "known_refuted_recurrences_after": 0,
+          "avoided_refuted_candidates": 1,
+          "new_unknown_candidates": 2,
+          "replay_comparisons": 2,
+          "replay_mismatches": 0,
+          "peak_rss_kib": 7256,
+          "wall_ms": 1,
+          "go_physical_lines": 1578,
+          "go_files": 9,
+          "gooo_physical_lines": 16,
+          "gooo_files": 1,
+          "descendant_dirs": 13,
+          "tests": {"total":2,"executed":2,"reused":0,"skipped":0,"not_observed":0}
+        },
+        "inventory": {"go_physical_lines":1578,"go_files":9,"gooo_physical_lines":16,"gooo_files":1,"descendant_dirs":13,"regular_files_root_readme_excluded":34},
+        "authority": {"repository_writes":0,"local_test_executions":0,"cross_project_required_gates":0},
+        "append_only": true,
+        "external_inputs_read_only": true,
+        "root_readme_excluded": true
+      },
+      "process_observations": {
+        "append_only": true,
+        "score_included": false,
+        "failed_release_workflow": {
+          "run_id": 33413752929,
+          "run_url": "https://github.com/kimjooyoon/gooo-experience-memory/actions/runs/33413752929",
+          "event": "push",
+          "head_sha": "79fd6edc588ea26279dbe735e5f6e250132f7730",
+          "conclusion": "failure",
+          "job_id": 99559373690,
+          "job_name": "release",
+          "job_url": "https://github.com/kimjooyoon/gooo-experience-memory/actions/runs/33413752929/job/99559373690",
+          "failed_step": "Confirm tag is annotated and build source asset",
+          "failed_exit_code": 1,
+          "publish_step": "Publish release without overwrite",
+          "publish_step_conclusion": "skipped"
+        },
+        "operational_pull_requests": [
+          {
+            "number": 2,
+            "title": "fix: make immutable release verification idempotent",
+            "state": "closed",
+            "merged": true,
+            "head_ref": "fix/release-workflow",
+            "head_sha": "91d046ebcf12ac6baf6a43dfb9f88c404f0be711",
+            "base_ref": "main",
+            "base_sha": "79fd6edc588ea26279dbe735e5f6e250132f7730",
+            "merge_commit_sha": "6bf9ca277478bab5e47393e4b0fbcbe07d847296",
+            "merged_at": "2026-08-31T16:26:51Z",
+            "url": "https://github.com/kimjooyoon/gooo-experience-memory/pull/2"
+          },
+          {
+            "number": 3,
+            "title": "fix: dispatch release verification for explicit tag",
+            "state": "closed",
+            "merged": true,
+            "head_ref": "fix/release-dispatch",
+            "head_sha": "79921641afc2742634a473bf77f0656da50cb9fb",
+            "base_ref": "main",
+            "base_sha": "6bf9ca277478bab5e47393e4b0fbcbe07d847296",
+            "merge_commit_sha": "10210e2a1d7bf803ed5be5c187ead9300e88d5e6",
+            "merged_at": "2026-08-31T16:31:01Z",
+            "url": "https://github.com/kimjooyoon/gooo-experience-memory/pull/3"
+          }
+        ]
+      },
+      "assets": [
+        {"id":538237751,"name":"gooo-experience-memory-evidence-v0.1.0.tar.gz","size_bytes":11528,"sha256":"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6","download_url":"https://github.com/kimjooyoon/gooo-experience-memory/releases/download/v0.1.0/gooo-experience-memory-evidence-v0.1.0.tar.gz"},
+        {"id":538237753,"name":"gooo-experience-memory-v0.1.0.tar.gz","size_bytes":25993,"sha256":"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d","download_url":"https://github.com/kimjooyoon/gooo-experience-memory/releases/download/v0.1.0/gooo-experience-memory-v0.1.0.tar.gz"},
+        {"id":538237752,"name":"release-manifest.json","size_bytes":555,"sha256":"sha256:34e97b1cb9fd2ee520cea5b82acd9ee44272abb7392c8a32ce51a144f397ada1","download_url":"https://github.com/kimjooyoon/gooo-experience-memory/releases/download/v0.1.0/release-manifest.json"},
+        {"id":538237754,"name":"SHA256SUMS","size_bytes":229,"sha256":"sha256:237c96b9bd3eed13676f0a8a4f0de37c71d75646b6a51a762ba5ca9aa1afb6ca","download_url":"https://github.com/kimjooyoon/gooo-experience-memory/releases/download/v0.1.0/SHA256SUMS"}
+      ]
+    },
     "meta_budget": {
       "repository": "kimjooyoon/gooo-meta-budget",
       "tag": "v0.1.0",

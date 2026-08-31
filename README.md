@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 24 named cells, each bound one-to-one to
+language. The denominator is exactly 25 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -18,11 +18,11 @@ The fixed axes are:
 `AUTHORITY_BOOTSTRAP_RELEASE`, `OPENTOFU_ENVELOPE_RELEASE`, and
 `IMPROVEMENT_PROPOSER_RELEASE`, `TEST_FRONTIER_RELEASE`, and
 `CHANGE_BUNDLE_RELEASE`, `UTILITY_TRIAL_PROTOCOL_RELEASE`, and
-`REFLEXIVE_MODERN_CYCLE_RELEASE`.
+`REFLEXIVE_MODERN_CYCLE_RELEASE`, and `EXPERIENCE_MEMORY_RELEASE`.
 
-The denominator migration is explicit and append-only: `23 -> 24` with
+The denominator migration is explicit and append-only: `24 -> 25` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/15/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/15/5`.
+`4/16/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/16/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -173,6 +173,24 @@ directories, with all eight authority fields zero. Upstream v0.3.0 release
 `379458203` and its target are preserved only as a separate historical fact;
 legacy `REFLEXIVE_LOOP` v0.2 remains unchanged and is not retired or replaced.
 
+The v0.19 frontier appends `EXPERIENCE_MEMORY_RELEASE`. It adopts immutable
+upstream `gooo-experience-memory@v0.1.0`, release `379896833`, binding annotated
+tag object `9b889fc3dd5b663b5ac1ce7cd975fc89030c4a46` to target
+`79fd6edc588ea26279dbe735e5f6e250132f7730`, successful main CI run
+`33414536312`/job `99561917616`, artifact `9766475762`, and successful release
+recheck `33414620023`/job `99562201563`. Its fixed denominator is `12`, with
+`4/4/4` proof and indicator buckets, case outcomes `4 CLOSED / 4 UNKNOWN /
+4 REFUTED`, and precedence `REFUTED > UNKNOWN > CLOSED`. The authoritative
+main CI metrics are recurrence `1 -> 0`, avoided `1`, new unknown `2`, replay
+`2/0`, attempts `2`, memory records `1`, candidates `5`, peak RSS `7256 KiB`,
+`1578` Go lines across `9` files, `16` Gooo lines in `1` file, and `13`
+descendant directories; all authority counts are zero. The Go implementation
+remains semantically authoritative over the `16`-line Gooo source, so
+`CORE_SEMANTIC_AUTHORITY` remains `REFUTED`; the utility cell remains `UNKNOWN`
+and the existing two refuted cells remain unchanged. The failed release workflow
+and operational upstream PRs #2 and #3 are retained as append-only, non-score
+process evidence.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -201,7 +219,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the twenty-one immutable inputs
+commit, and consumer asset identities for the twenty-two immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope
