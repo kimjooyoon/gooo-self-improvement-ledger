@@ -38,3 +38,4 @@ activity AdoptOpenTofuDurableSemanticEnvelopeRelease(PortfolioInput) -> Portfoli
 activity AdoptLanguageDeltaForgeDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=LANGUAGE_DELTA_FORGE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptOpenTofuGeneratedServiceProjectDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptReflexiveCompilerPhaseDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptCausalVerificationRunnerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"

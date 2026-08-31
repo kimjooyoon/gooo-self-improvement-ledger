@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 34,
+  "total_cells": 35,
   "denominator_migration": {
-    "from": 33,
-    "to": 34,
+    "from": 34,
+    "to": 35,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 25,
+    "COHERENCE": 26,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 25,
+    "OUTCOME": 26,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -574,6 +574,22 @@
       "metric_id": "gooo.metric.self-improvement.reflexive-compiler-phase-durable-release.v1",
       "metric_denominator": 1,
       "release_key": "reflexive_compiler_phase_durable_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 35,
+      "id": "CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE",
+      "axis": "CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptCausalVerificationRunnerDurableRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptCausalVerificationRunnerDurableRelease",
+      "ir": "semantic-ir/activity/AdoptCausalVerificationRunnerDurableRelease",
+      "generated_artifact": "evidence/cells/CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE.json",
+      "evaluator": "ledger/causal-verification-runner-durable-release",
+      "metric_id": "gooo.metric.self-improvement.causal-verification-runner-durable-release.v1",
+      "metric_denominator": 1,
+      "release_key": "causal_verification_runner_durable_release",
       "depends_on": []
     }
   ]
