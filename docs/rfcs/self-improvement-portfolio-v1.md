@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for twenty specifically named capabilities.
+The portfolio is an evidence ledger for twenty-one specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains twenty entries. The v0.14
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior nineteen-cell
+`cells` array is immutable during a run and contains twenty-one entries. The v0.15
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/11/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/11/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/12/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/12/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -69,9 +69,24 @@ failed run `33396465907`/job `99502048200` are retained as a separate
 `FAILED_RELEASE_TRIGGER` with no release and cannot close the cell. Earlier
 failed runs are not success evidence.
 
+The v0.15 frontier appends `TEST_FRONTIER_RELEASE`. It closes only when the
+immutable `gooo-test-frontier@v0.1.1` release binds tag object
+`398577621c42eb7450416bdf086b9304c8c1e42a` to target
+`f8e1f8aebb67abbda237073893a4a855a8659df5`, successful release/audit run
+`33398545885`/job `99508911340`, post-main run `33398482775`/job
+`99508698139`, artifact `9760281954`, and all three release assets. The
+upstream protocol has 12 activities/cells, `4/4/4` proof and indicator totals,
+10 cases (`3 CLOSED / 3 UNKNOWN / 4 REFUTED`), exact test totals
+`40/9/16/10/5`, invalidated frontier 20, and zero product-authority writes,
+local test executions, and cross-project gates. Its v0.1.0 release ID
+`379770450` remains an append-only `REFUTED`
+`SELF_ASSERTED_IMMUTABILITY_CONTRADICTED_BY_PLATFORM` counterexample because
+the GitHub API reports `immutable=false`; the direct-main `7281ead` observation
+is workflow-only with no pull request and is not confused with product state.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-twenty-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+twenty-one-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

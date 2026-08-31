@@ -487,6 +487,94 @@
         {"id":538032346,"name":"release-manifest.json","size_bytes":679,"sha256":"sha256:a55b06f0658afe4b4b7d875ff6ea00689aeabe4ccf236aa1c0f4be415160f3eb","download_url":"https://github.com/kimjooyoon/gooo-improvement-proposer/releases/download/v0.1.1/release-manifest.json"},
         {"id":538032343,"name":"SHA256SUMS","size_bytes":309,"sha256":"sha256:822341ef6ab41c6c8e4f10fc4f93db3b29bf3ad4d1c9abe208a249ea24945c34","download_url":"https://github.com/kimjooyoon/gooo-improvement-proposer/releases/download/v0.1.1/SHA256SUMS"}
       ]
+    },
+    "test_frontier_release": {
+      "repository": "kimjooyoon/gooo-test-frontier",
+      "tag": "v0.1.1",
+      "release_id": 379783807,
+      "release_url": "https://github.com/kimjooyoon/gooo-test-frontier/releases/tag/v0.1.1",
+      "target_commit_sha": "f8e1f8aebb67abbda237073893a4a855a8659df5",
+      "tag_object_sha": "398577621c42eb7450416bdf086b9304c8c1e42a",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33398482775,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-test-frontier/actions/runs/33398482775",
+        "head_sha": "4b8c06a32c40db70c4b634d78c6f8103325e6464",
+        "conclusion": "success",
+        "job_id": 99508698139,
+        "job_name": "conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-test-frontier/actions/runs/33398482775/job/99508698139",
+        "artifact_ids": [9760281954]
+      },
+      "release_run": {
+        "run_id": 33398545885,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-test-frontier/actions/runs/33398545885",
+        "head_sha": "4b8c06a32c40db70c4b634d78c6f8103325e6464",
+        "conclusion": "success",
+        "job_id": 99508911340,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-test-frontier/actions/runs/33398545885/job/99508911340",
+        "artifact_ids": []
+      },
+      "source_artifact": {
+        "run_id": 33398482775,
+        "artifact_id": 9760281954,
+        "name": "gooo-test-frontier-ci-33398482775",
+        "size_bytes": 2777788,
+        "sha256": "sha256:91f33f285012e6a95861b30f2f7fb259f80165dba99d6087cc261d891619d614"
+      },
+      "release_manifest": {
+        "schema": "gooo/test-frontier/release-manifest/v1",
+        "tag": "v0.1.1",
+        "tag_object_sha": "398577621c42eb7450416bdf086b9304c8c1e42a",
+        "commit_sha": "f8e1f8aebb67abbda237073893a4a855a8659df5",
+        "source_asset": "gooo-test-frontier-v0.1.1.tar.gz",
+        "source_asset_size_bytes": 30719,
+        "source_asset_digest": "sha256:1ef4c6a13288cb8198734e8fde252d470169b2b4f0d09006fdf467d5317917f8",
+        "immutable": true,
+        "manifest_asset": {"name":"release-manifest.json","size_bytes":392,"sha256":"sha256:fbeec8e847b185078fca004d22749de29c1363459cf1eb28fa74a0c601f3429b"}
+      },
+      "pull_requests": [
+        {"number":1,"title":"feat: add semantic test frontier evidence protocol","url":"https://github.com/kimjooyoon/gooo-test-frontier/pull/1","merged":true,"merge_commit_sha":"434776a02bef579cd175e8f1e29be027a9c289cc","merged_at":"2026-08-31T13:16:33Z"},
+        {"number":2,"title":"fix: honor external release immutability authority","url":"https://github.com/kimjooyoon/gooo-test-frontier/pull/2","merged":true,"merge_commit_sha":"f8e1f8aebb67abbda237073893a4a855a8659df5","merged_at":"2026-08-31T13:37:11Z"},
+        {"number":3,"title":"fix(ci): download immutable release assets publicly","url":"https://github.com/kimjooyoon/gooo-test-frontier/pull/3","merged":true,"merge_commit_sha":"aad74d32b8db182aafb98cc95207207b99464fbc","merged_at":"2026-08-31T13:40:01Z"},
+        {"number":4,"title":"fix(ci): use release API as external authority","url":"https://github.com/kimjooyoon/gooo-test-frontier/pull/4","merged":true,"merge_commit_sha":"4b8c06a32c40db70c4b634d78c6f8103325e6464","merged_at":"2026-08-31T13:42:54Z"}
+      ],
+      "protocol_observation": {
+        "schema": "gooo/test-frontier/conformance/v1",
+        "denominator_id": "test-frontier-v1",
+        "fixed_denominator": 12,
+        "activities": 12,
+        "cells": 12,
+        "proof_totals": {"FOUNDATION":4,"COHERENCE":4,"REGRESSION":4},
+        "indicator_totals": {"DRIVER":4,"OUTCOME":4,"GUARDRAIL":4},
+        "precedence": ["REFUTED","UNKNOWN","CLOSED"],
+        "case_facts": [
+          {"ordinal":1,"case_id":"normal-alpha","state":"CLOSED","total_tests":4,"executed":1,"reused":2,"skipped":1,"not_observed":0,"invalidated_edge_count":2,"economy_state":"CLOSED"},
+          {"ordinal":2,"case_id":"normal-beta","state":"CLOSED","total_tests":4,"executed":1,"reused":2,"skipped":1,"not_observed":0,"invalidated_edge_count":2,"economy_state":"CLOSED"},
+          {"ordinal":3,"case_id":"normal-gamma","state":"CLOSED","total_tests":4,"executed":1,"reused":2,"skipped":1,"not_observed":0,"invalidated_edge_count":2,"economy_state":"CLOSED"},
+          {"ordinal":4,"case_id":"unknown-missing-pair","state":"UNKNOWN","total_tests":4,"executed":1,"reused":1,"skipped":1,"not_observed":1,"invalidated_edge_count":2,"economy_state":"UNKNOWN"},
+          {"ordinal":5,"case_id":"unknown-cache-hit-only","state":"UNKNOWN","total_tests":4,"executed":1,"reused":0,"skipped":1,"not_observed":2,"invalidated_edge_count":2,"economy_state":"UNKNOWN"},
+          {"ordinal":6,"case_id":"unknown-unobserved-execution","state":"UNKNOWN","total_tests":4,"executed":0,"reused":1,"skipped":1,"not_observed":2,"invalidated_edge_count":2,"economy_state":"UNKNOWN"},
+          {"ordinal":7,"case_id":"refuted-false-negative","state":"REFUTED","total_tests":4,"executed":1,"reused":2,"skipped":1,"not_observed":0,"invalidated_edge_count":2,"economy_state":"REFUTED"},
+          {"ordinal":8,"case_id":"refuted-counterexample-replay","state":"REFUTED","total_tests":4,"executed":1,"reused":2,"skipped":1,"not_observed":0,"invalidated_edge_count":2,"economy_state":"REFUTED"},
+          {"ordinal":9,"case_id":"refuted-priority","state":"REFUTED","total_tests":4,"executed":1,"reused":2,"skipped":1,"not_observed":0,"invalidated_edge_count":2,"economy_state":"REFUTED"},
+          {"ordinal":10,"case_id":"refuted-platform-immutability","state":"REFUTED","total_tests":4,"executed":1,"reused":2,"skipped":1,"not_observed":0,"invalidated_edge_count":2,"economy_state":"REFUTED"}
+        ],
+        "case_totals": {"normal":3,"unknown":3,"refuted":4,"CLOSED":3,"UNKNOWN":3,"REFUTED":4},
+        "tests": {"total":40,"executed":9,"reused":16,"skipped":10,"not_observed":5,"sum_is_exactly_total":true},
+        "invalidated_edge_count": 20,
+        "output_artifacts": 31,
+        "runtime": {"go":"1.27.0","build_wall_ms":5820,"test_wall_ms":7680,"conformance_wall_ms":0,"peak_rss_kib":274908},
+        "inventory": {"directories":14,"files":33,"physical_lines":2563,"go_files":8,"go_lines":1637,"gooo_files":1,"gooo_lines":15,"root_readme_excluded":true},
+        "authority": {"repository_writes":0,"local_test_executions":0,"cross_project_required_gates":0},
+        "improvement": null
+      },
+      "assets": [
+        {"id":538036992,"name":"gooo-test-frontier-v0.1.1.tar.gz","size_bytes":30719,"sha256":"sha256:1ef4c6a13288cb8198734e8fde252d470169b2b4f0d09006fdf467d5317917f8","download_url":"https://github.com/kimjooyoon/gooo-test-frontier/releases/download/v0.1.1/gooo-test-frontier-v0.1.1.tar.gz"},
+        {"id":538036991,"name":"release-manifest.json","size_bytes":392,"sha256":"sha256:fbeec8e847b185078fca004d22749de29c1363459cf1eb28fa74a0c601f3429b","download_url":"https://github.com/kimjooyoon/gooo-test-frontier/releases/download/v0.1.1/release-manifest.json"},
+        {"id":538036990,"name":"SHA256SUMS","size_bytes":106,"sha256":"sha256:6bb2bddc43250a84a56c9dd0f039ea2bf06eb7b9777c6efc728610f5355bbf85","download_url":"https://github.com/kimjooyoon/gooo-test-frontier/releases/download/v0.1.1/SHA256SUMS"}
+      ]
     }
   },
   "counterexample_runs": [
@@ -728,6 +816,46 @@
       "assets": [
         {"id":537998764,"name":"gooo-opentofu-envelope-v0.1.0-evidence.zip","size_bytes":17424,"sha256":"sha256:60ede272fbc38a88ef1b73ec77b10ac8af5ae38e6a80144ab4d412960d2ac8c1","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.1.0/gooo-opentofu-envelope-v0.1.0-evidence.zip"},
         {"id":537998767,"name":"SHA256SUMS","size_bytes":152,"sha256":"sha256:6b0333a1e7938a5acefed37c8dcc932e2c0c7c70692edc945643f38361b9ae60","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.1.0/SHA256SUMS"}
+      ]
+    },
+    {
+      "counterexample_id": "test_frontier_v0.1.0_platform_immutability",
+      "capability": "TEST_FRONTIER_RELEASE",
+      "repository": "kimjooyoon/gooo-test-frontier",
+      "tag": "v0.1.0",
+      "release_id": 379770450,
+      "release_url": "https://github.com/kimjooyoon/gooo-test-frontier/releases/tag/v0.1.0",
+      "target_commit_sha": "434776a02bef579cd175e8f1e29be027a9c289cc",
+      "tag_object_sha": "648a114a98db27d61e70f2063586deb8e1cf0d7a",
+      "immutable": false,
+      "self_asserted_immutable": true,
+      "platform_immutable": false,
+      "reason": "SELF_ASSERTED_IMMUTABILITY_CONTRADICTED_BY_PLATFORM",
+      "successor_release_key": "test_frontier_release",
+      "append_only": true,
+      "direct_main_observation": {
+        "commit_sha": "7281ead57069050b73538fa247953a4d1d6d1822",
+        "commit_url": "https://github.com/kimjooyoon/gooo-test-frontier/commit/7281ead57069050b73538fa247953a4d1d6d1822",
+        "changed_paths": [".github/workflows/release.yml"],
+        "pull_requests": [],
+        "scope": "workflow-only"
+      },
+      "failed_release_audit": {
+        "run_id": 33396179603,
+        "run_url": "https://github.com/kimjooyoon/gooo-test-frontier/actions/runs/33396179603",
+        "event": "push",
+        "head_branch": "v0.1.0",
+        "head_sha": "434776a02bef579cd175e8f1e29be027a9c289cc",
+        "conclusion": "failure",
+        "job_id": 99501127520,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-test-frontier/actions/runs/33396179603/job/99501127520",
+        "failed_step": "Audit release identity and digests"
+      },
+      "assets": [
+        {"id":538014107,"name":"gooo-test-frontier-v0.1.0.tar.gz","size_bytes":27813,"sha256":"sha256:93ce04a14df4578e8711d2b22b86ed04287a47cb9e933cf3a8b79fe0923a90d2","download_url":"https://github.com/kimjooyoon/gooo-test-frontier/releases/download/v0.1.0/gooo-test-frontier-v0.1.0.tar.gz"},
+        {"id":538014106,"name":"release-manifest.json","size_bytes":392,"sha256":"sha256:d6323fa42598ce35ba4347ecd05fd83cb7dc728e092aeea155938266687c4ceb","download_url":"https://github.com/kimjooyoon/gooo-test-frontier/releases/download/v0.1.0/release-manifest.json"},
+        {"id":538014109,"name":"SHA256SUMS","size_bytes":106,"sha256":"sha256:47ea537d5d1e9bc4ccf49485aec1c94ecada310c616c81cff54818a9d7983988","download_url":"https://github.com/kimjooyoon/gooo-test-frontier/releases/download/v0.1.0/SHA256SUMS"}
       ]
     }
   ]
