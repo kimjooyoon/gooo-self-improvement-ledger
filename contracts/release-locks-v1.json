@@ -81,6 +81,22 @@
         {"name":"SHA256SUMS","size_bytes":213,"sha256":"sha256:fed0e4645cccc50fd8033166259d5dda23c4b30716a43f175f55c8f54697fc06","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.2.0/SHA256SUMS"}
       ]
     },
+    "reflexive_loop_v0_3": {
+      "repository": "kimjooyoon/gooo-reflexive-loop",
+      "tag": "v0.3.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-reflexive-loop/releases/tag/v0.3.0",
+      "target_commit_sha": "75d655f04a0833b8cf40afa76f4a9703a3ba04fa",
+      "immutable": true,
+      "source_artifact": {"run_id":33347751465,"artifact_id":9742568117,"name":"gooo-reflexive-loop-evidence","size_bytes":913988,"sha256":"sha256:b91641199575f1d04a42d7c2c0e705248817d5c00c34108aa579f31a88bc58db","download_url":"https://api.github.com/repos/kimjooyoon/gooo-reflexive-loop/actions/artifacts/9742568117"},
+      "release_manifest_lock": {"path":"contracts/causal-denominator-release-locks-v1.json","sha256":"sha256:cd66aac4214eb2413dd4ca70fa62e56e5047c0f758aeed5ddc37c94cb031180b"},
+      "manifest": {"name":"gooo-reflexive-loop-v0.3.0-manifest.json","size_bytes":19878,"sha256":"sha256:0a7f10e6e192b673c611c45e7a3846efaca4ae7cb4243de35efd2011627eb812","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.3.0/gooo-reflexive-loop-v0.3.0-manifest.json"},
+      "evidence": {"name":"gooo-reflexive-loop-v0.3.0-evidence.zip","size_bytes":913988,"sha256":"sha256:b91641199575f1d04a42d7c2c0e705248817d5c00c34108aa579f31a88bc58db","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.3.0/gooo-reflexive-loop-v0.3.0-evidence.zip"},
+      "assets": [
+        {"name":"gooo-reflexive-loop-v0.3.0-evidence.zip","size_bytes":913988,"sha256":"sha256:b91641199575f1d04a42d7c2c0e705248817d5c00c34108aa579f31a88bc58db","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.3.0/gooo-reflexive-loop-v0.3.0-evidence.zip"},
+        {"name":"gooo-reflexive-loop-v0.3.0-manifest.json","size_bytes":19878,"sha256":"sha256:0a7f10e6e192b673c611c45e7a3846efaca4ae7cb4243de35efd2011627eb812","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.3.0/gooo-reflexive-loop-v0.3.0-manifest.json"},
+        {"name":"SHA256SUMS","size_bytes":213,"sha256":"sha256:33057331f4ba04455ee43f3782e697c9ff19355c272514589a3f90a7aefa0169","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.3.0/SHA256SUMS"}
+      ]
+    },
     "semantic_merge_advisor": {
       "repository": "kimjooyoon/gooo-semantic-merge-advisor",
       "tag": "v0.1.0",

@@ -76,6 +76,30 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     jq -S -n --arg name "$name" --argjson size "$size" --arg sha "$sha" --arg url "$download_url" \
       '{name:$name,size_bytes:$size,sha256:$sha,download_url:$url,verified:true}' >> "$asset_results"
   done
+  manifest_name=$(jq -r --arg key "$key" '.releases[$key].manifest.name // empty' "$lock")
+  if [ -n "$manifest_name" ]; then
+    manifest_path="$output/$key/assets/$manifest_name"
+    if jq -e --arg key "$key" '.releases[$key] | has("source_artifact")' "$lock" >/dev/null; then
+      source_run_id=$(jq -r --arg key "$key" '.releases[$key].source_artifact.run_id' "$lock")
+      source_artifact_id=$(jq -r --arg key "$key" '.releases[$key].source_artifact.artifact_id' "$lock")
+      source_artifact_name=$(jq -r --arg key "$key" '.releases[$key].source_artifact.name' "$lock")
+      source_artifact_size=$(jq -r --arg key "$key" '.releases[$key].source_artifact.size_bytes' "$lock")
+      source_artifact_sha=$(jq -r --arg key "$key" '.releases[$key].source_artifact.sha256' "$lock")
+      jq -e --arg target "$target" --argjson run_id "$source_run_id" --argjson artifact_id "$source_artifact_id" \
+        --arg name "$source_artifact_name" --argjson size "$source_artifact_size" --arg sha "$source_artifact_sha" \
+        '.provenance.merge_commit_sha==$target and .provenance.post_main_workflow_run_id==$run_id and
+         .provenance.actions_artifact_id==$artifact_id and .provenance.actions_artifact_name==$name and
+         .provenance.actions_artifact_size_bytes==$size and .provenance.actions_artifact_digest==$sha' \
+        "$manifest_path" >/dev/null
+    fi
+    if jq -e --arg key "$key" '.releases[$key] | has("release_manifest_lock")' "$lock" >/dev/null; then
+      lock_path=$(jq -r --arg key "$key" '.releases[$key].release_manifest_lock.path' "$lock")
+      lock_sha=$(jq -r --arg key "$key" '.releases[$key].release_manifest_lock.sha256' "$lock")
+      jq -e --arg path "$lock_path" --arg sha "$lock_sha" \
+        '.external_inputs.lock.path==$path and .external_inputs.lock.sha256==$sha' \
+        "$manifest_path" >/dev/null
+    fi
+  fi
   assets=$(jq -s . "$asset_results")
   fetch_rss=$(cat "$output/$key.fetch-rss")
   jq -S -n \

@@ -49,13 +49,13 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:12,closed:9,unknown:3,refuted:0} and
+  .summary == {total:12,closed:10,unknown:2,refuted:0} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
   (.cells|length) == 12 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 9 and
-  (.cells|map(select(.state == "UNKNOWN"))|length) == 3 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 10 and
+  (.cells|map(select(.state == "UNKNOWN"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
     CORE_SEMANTIC_AUTHORITY:"UNKNOWN",
     RESOLUTION_DESCENT:"CLOSED",
@@ -67,7 +67,7 @@ jq -e '
     SEMANTIC_MERGE_ADVICE:"CLOSED",
     DESIGN_CONSUMER_PATH:"CLOSED",
     OPENTOFU_PLAN_PATH:"CLOSED",
-    RELEASE_PROMOTION:"UNKNOWN",
+    RELEASE_PROMOTION:"CLOSED",
     EXTERNAL_UTILITY_EVIDENCE:"UNKNOWN"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
@@ -77,7 +77,7 @@ jq -e '
   .bindings == {one_to_one:true,cells:12,activities:12,unique_axes:12,unique_metrics:12,source_bindings:12,ir_bindings:12,generated_artifact_bindings:12,evaluator_bindings:12} and
   .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 4 and .proof_counts.REGRESSION.denominator == 4 and
   .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 4 and .indicator_counts.GUARDRAIL.denominator == 4 and
-  .releases == {total:9,verified:9,unknown:0,refuted:0} and
+  .releases == {total:10,verified:10,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

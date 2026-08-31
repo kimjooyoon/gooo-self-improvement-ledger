@@ -197,7 +197,7 @@
       "evaluator": "ledger/release-promotion",
       "metric_id": "gooo.metric.self-improvement.release-promotion.v1",
       "metric_denominator": 1,
-      "release_key": null,
+      "release_key": "reflexive_loop_v0_3",
       "depends_on": ["CORE_SEMANTIC_AUTHORITY"]
     },
     {
