@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-trap 'status=$?; echo "conformance command failed: $BASH_COMMAND (status=$status)" >&2' ERR
 
 if [ "$#" -ne 3 ]; then
   echo "usage: conformance.sh REPORT_BINARY REPOSITORY_ROOT ARTIFACT_ROOT" >&2
@@ -342,8 +341,8 @@ jq -e '
   .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.precedence == ["REFUTED","UNKNOWN","CLOSED"] and
   .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.normal_report_digest == "sha256:c1c8686b4e9c96acfe665ead2fd176b2314642f93de428039b0b4a32a59bd6fd" and
   .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.normal == {decision:"CLOSED",repository_unchanged:true,external_utility_state:"UNKNOWN",metrics:{cycles:2,candidate_count:5,known_refuted_recurrences_before:1,known_refuted_recurrences_after:0,attempts_observed:2,avoided_refuted_candidates:1,refuted_candidates:1,unknown_candidates:2,replay_comparisons:16,replay_mismatches:0,rollback_comparisons:1,rollback_mismatches:0,tests_total:4,tests_executed:2,tests_reused:1,tests_skipped:1,tests_not_observed:0,build_wall_ms:520,build_peak_rss_kib:91448,test_wall_ms:0,test_peak_rss_kib:7116,conformance_wall_ms:4291,conformance_peak_rss_kib:14300,go_files:0,go_physical_lines:0,gooo_files:8,gooo_physical_lines:136,directories:18,files:56,output_artifact_files:375,output_artifact_bytes:1327231,patch_paths:1,patch_hunks:1,patch_bytes:1119,repository_writes:0,local_test_executions:0,cross_project_required_gates:0}} and
-  .releases.reflexive_learning_drift_cycle_release.release_manifest.authority == {repository_writes:0,pull_request_authorized:false,push_authorized:false,commit_authorized:false,merge_authorized:false,apply_authorized:false,local_test_executions:0,cross_project_required_gates:0} and
-  .releases.reflexive_learning_drift_cycle_release.release_manifest.utility_inference == false and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.authority == {repository_writes:0,pull_request_authorized:false,push_authorized:false,commit_authorized:false,merge_authorized:false,apply_authorized:false,local_test_executions:0,cross_project_required_gates:0} and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.utility_inference == false and
   .releases.reflexive_learning_drift_cycle_release.protocol_observation.schema == "gooo/reflexive-loop/learning-drift-gated/conformance/v1" and
   .releases.reflexive_learning_drift_cycle_release.protocol_observation.version == "v0.4.0" and
   .releases.reflexive_learning_drift_cycle_release.protocol_observation.denominator == {cells:12,fixed:true} and
