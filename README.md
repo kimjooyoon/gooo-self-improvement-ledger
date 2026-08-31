@@ -29,6 +29,13 @@ Each retains exactly `stage`, `step`, `reason`, `unknown_class`,
 `next_operation`, and a minimal non-empty `blocked_by` frontier. A missing or
 contradictory locked release cannot close a cell.
 
+The separate `non-completeness-capability-evidence-registry-v1` records five
+independent evidence inputs without treating its entry count as the portfolio
+denominator. Current registry disposition is `2 CLOSED / 0 UNKNOWN / 3
+REFUTED`: the three refutations are known upstream release API
+`immutable=false` values, not portfolio-cell changes. It emits no completeness
+percentage or score.
+
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
 commit, and consumer asset identities for the ten immutable inputs requested
 by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
