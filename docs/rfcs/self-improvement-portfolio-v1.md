@@ -30,10 +30,12 @@ An `UNKNOWN` record contains exactly these six fields:
 
 `stage`, `step`, `reason`, `unknown_class`, `next_operation`, and `blocked_by`.
 
-The current frontier closes reflexive-loop v0.2 integration and semantic merge
+The current frontier closes reflexive-loop v0.2 integration, semantic merge
 advice, and the OpenTofu plan path only after their immutable release evidence
-passes the evaluator. It does not infer success for core promotion, release
-promotion, or independent external utility evidence.
+passes the evaluator. It also closes release promotion only when the immutable
+reflexive-loop v0.3 release carries internal lifecycle-final `PROMOTED`,
+promotion, rollback-boundary, and immutable-target receipts. This does not
+infer core semantic authority or independent external utility evidence.
 
 ## Authority and measurements
 

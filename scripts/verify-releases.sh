@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
+trap 'status=$?; echo "release verification failed at line ${BASH_LINENO[0]}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
 
 if [ "$#" -ne 2 ]; then
   echo "usage: verify-releases.sh LOCK_JSON OUTPUT_DIR" >&2
@@ -48,13 +49,27 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
   target=$(jq -r --arg key "$key" '.releases[$key].target_commit_sha' "$lock")
   release_json="$output/$key.release.json"
 
-  jq -e --arg tag "$tag" --arg url "$release_url" \
+  if ! jq -e --arg tag "$tag" --arg url "$release_url" \
     '.tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==true' \
-    "$release_json" >/dev/null
+    "$release_json" >/dev/null; then
+    echo "release metadata mismatch for $repo@$tag" >&2
+    jq -c '{tag_name,html_url,draft,prerelease,immutable}' "$release_json" >&2
+    exit 1
+  fi
 
-  tag_target=$(git ls-remote "https://github.com/$repo.git" "refs/tags/$tag" "refs/tags/$tag^{}" | \
-    awk -v direct="refs/tags/$tag" -v peeled="refs/tags/$tag^{}" '$2==peeled {p=$1} $2==direct {d=$1} END {if (p!="") print p; else print d}')
-  test "$tag_target" = "$target"
+  tag_target=""
+  for attempt in 1 2 3; do
+    if remote_refs=$(git ls-remote "https://github.com/$repo.git" "refs/tags/$tag" "refs/tags/$tag^{}"); then
+      tag_target=$(awk -v direct="refs/tags/$tag" -v peeled="refs/tags/$tag^{}" '$2==peeled {p=$1} $2==direct {d=$1} END {if (p!="") print p; else print d}' <<< "$remote_refs")
+      break
+    fi
+    echo "tag lookup attempt $attempt failed for $repo@$tag" >&2
+    sleep 1
+  done
+  if test "$tag_target" != "$target"; then
+    echo "tag target mismatch for $repo@$tag: expected $target, observed ${tag_target:-<empty>}" >&2
+    exit 1
+  fi
 
   mkdir -p "$output/$key/assets"
   asset_results="$output/$key/assets.ndjson"
@@ -76,6 +91,30 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     jq -S -n --arg name "$name" --argjson size "$size" --arg sha "$sha" --arg url "$download_url" \
       '{name:$name,size_bytes:$size,sha256:$sha,download_url:$url,verified:true}' >> "$asset_results"
   done
+  manifest_name=$(jq -r --arg key "$key" '.releases[$key].manifest.name // empty' "$lock")
+  if [ -n "$manifest_name" ]; then
+    manifest_path="$output/$key/assets/$manifest_name"
+    if jq -e --arg key "$key" '.releases[$key] | has("source_artifact") and has("release_manifest_lock")' "$lock" >/dev/null; then
+      source_run_id=$(jq -r --arg key "$key" '.releases[$key].source_artifact.run_id' "$lock")
+      source_artifact_id=$(jq -r --arg key "$key" '.releases[$key].source_artifact.artifact_id' "$lock")
+      source_artifact_name=$(jq -r --arg key "$key" '.releases[$key].source_artifact.name' "$lock")
+      source_artifact_size=$(jq -r --arg key "$key" '.releases[$key].source_artifact.size_bytes' "$lock")
+      source_artifact_sha=$(jq -r --arg key "$key" '.releases[$key].source_artifact.sha256' "$lock")
+      jq -e --arg target "$target" --argjson run_id "$source_run_id" --argjson artifact_id "$source_artifact_id" \
+        --arg name "$source_artifact_name" --argjson size "$source_artifact_size" --arg sha "$source_artifact_sha" \
+        '.provenance.merge_commit_sha==$target and .provenance.post_main_workflow_run_id==$run_id and
+         .provenance.actions_artifact_id==$artifact_id and .provenance.actions_artifact_name==$name and
+         .provenance.actions_artifact_size_bytes==$size and .provenance.actions_artifact_digest==$sha' \
+        "$manifest_path" >/dev/null
+    fi
+    if jq -e --arg key "$key" '.releases[$key] | has("release_manifest_lock")' "$lock" >/dev/null; then
+      lock_path=$(jq -r --arg key "$key" '.releases[$key].release_manifest_lock.path' "$lock")
+      lock_sha=$(jq -r --arg key "$key" '.releases[$key].release_manifest_lock.sha256' "$lock")
+      jq -e --arg path "$lock_path" --arg sha "$lock_sha" \
+        '.external_inputs.lock.path==$path and .external_inputs.lock.sha256==$sha' \
+        "$manifest_path" >/dev/null
+    fi
+  fi
   assets=$(jq -s . "$asset_results")
   fetch_rss=$(cat "$output/$key.fetch-rss")
   jq -S -n \
