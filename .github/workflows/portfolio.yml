@@ -176,13 +176,21 @@ jobs:
           test "$(cat "$durable_envelope_dir/SHA256SUMS")" = $'79b549e7471f983e1f3a9f8f19ff73b5c759bac532ad86d8c3d2738885223f6d  evidence-v0.1.9.tar.gz\na1352aa6cdeeefc0112884673ce672e920033b6d13d7d8e69ffbf270632df2e1  manifest-v0.1.9.json\ne33609eee44163d3201d125900d57ea12f183ebb561522e86e930d7f3805338f  source-v0.1.9.tar.gz'
           tar -tzf "$durable_envelope_dir/evidence-v0.1.9.tar.gz" | grep -Fx './observation.json' >/dev/null
           tar -tzf "$durable_envelope_dir/source-v0.1.9.tar.gz" | grep -Fx 'gooo-opentofu-envelope-v0.1.9/.github/workflows/release-v0.1.9.yml' >/dev/null
-          durable_envelope_artifact="$RUNNER_TEMP/opentofu-envelope-artifact-9773097414.zip"
-          gh api repos/kimjooyoon/gooo-opentofu-envelope/actions/artifacts/9773097414/zip > "$durable_envelope_artifact"
-          test "$(wc -c < "$durable_envelope_artifact" | tr -d ' ')" = 99611
-          test "$(sha256sum "$durable_envelope_artifact" | awk '{print $1}')" = f04619dbd77314bdf84ba2d5c1b9edd4b9a09b533a8a26c2185ec3b786804157
+          durable_envelope_artifact_metadata="$RUNNER_TEMP/opentofu-envelope-artifact-9773097414.json"
+          gh api repos/kimjooyoon/gooo-opentofu-envelope/actions/artifacts/9773097414 > "$durable_envelope_artifact_metadata"
+          jq -e '
+            .id==9773097414 and
+            .name=="gooo-opentofu-envelope-evidence-b482afd68a864400a209cb4f439e727cfdfe2eda" and
+            .size_in_bytes==99611 and
+            .digest=="sha256:f04619dbd77314bdf84ba2d5c1b9edd4b9a09b533a8a26c2185ec3b786804157" and
+            .expired==false and
+            .workflow_run.id==33432375475 and
+            .workflow_run.head_sha=="b482afd68a864400a209cb4f439e727cfdfe2eda"
+          ' "$durable_envelope_artifact_metadata" >/dev/null
           durable_envelope_unpacked="$RUNNER_TEMP/opentofu-envelope-artifact-9773097414"
           mkdir -p "$durable_envelope_unpacked"
-          unzip -q "$durable_envelope_artifact" -d "$durable_envelope_unpacked"
+          tar -xzf "$durable_envelope_dir/evidence-v0.1.9.tar.gz" -C "$durable_envelope_unpacked"
+          test "$(sha256sum "$durable_envelope_unpacked/observation.json" | awk '{print $1}')" = 1214180cc3e710eeff33b9a51c0759a6ef6cf3dfb0ed582664a8c43039351c5d
           jq -e '
             .schema=="gooo/opentofu-envelope/observation/v2" and .state=="CLOSED" and
             .semantic_authority.state=="CLOSED" and .utility.state=="UNKNOWN" and
