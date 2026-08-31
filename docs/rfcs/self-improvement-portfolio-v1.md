@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for eighteen specifically named capabilities.
+The portfolio is an evidence ledger for nineteen specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains eighteen entries. The v0.12
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior seventeen-cell
+`cells` array is immutable during a run and contains nineteen entries. The v0.13
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior eighteen-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/9/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/9/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/10/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/10/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -52,9 +52,16 @@ six downloaded release assets, and the exact bootstrap receipt. The upstream
 receipt's own `UNKNOWN` and `immutable=false` fields are preserved as source
 data; the ledger cell records only the immutable release-adoption boundary.
 
+The v0.13 frontier appends `OPENTOFU_ENVELOPE_RELEASE`. It closes only when
+the immutable `gooo-opentofu-envelope@v0.1.1` release binds its annotated tag
+target, successful PR and post-main Actions runs, post-main artifact, both
+release assets, and the source envelope's exact 12-cell observation. The
+mutable v0.1.0 release and its two failed CI runs remain append-only
+`FAILED_RELEASE_IMMUTABILITY` and `FAILED_CI_VALIDATION` counterexamples.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-eighteen-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+nineteen-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
