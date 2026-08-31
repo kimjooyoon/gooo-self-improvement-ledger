@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 18,
+  "total_cells": 19,
   "denominator_migration": {
-    "from": 17,
-    "to": 18,
+    "from": 18,
+    "to": 19,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 9,
+    "COHERENCE": 10,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 9,
+    "OUTCOME": 10,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -318,6 +318,22 @@
       "metric_id": "gooo.metric.self-improvement.authority-bootstrap-release.v1",
       "metric_denominator": 1,
       "release_key": "authority_bootstrap_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 19,
+      "id": "OPENTOFU_ENVELOPE_RELEASE",
+      "axis": "OPENTOFU_ENVELOPE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptOpenTofuEnvelopeRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptOpenTofuEnvelopeRelease",
+      "ir": "semantic-ir/activity/AdoptOpenTofuEnvelopeRelease",
+      "generated_artifact": "evidence/cells/OPENTOFU_ENVELOPE_RELEASE.json",
+      "evaluator": "ledger/opentofu-envelope-release",
+      "metric_id": "gooo.metric.self-improvement.opentofu-envelope-release.v1",
+      "metric_denominator": 1,
+      "release_key": "opentofu_envelope_release",
       "depends_on": []
     }
   ]

@@ -101,6 +101,7 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
 
   observed_source_run='null'
   observed_source_job='null'
+  observed_source_artifact='null'
   if jq -e --arg key "$key" '.releases[$key] | has("source_run")' "$lock" >/dev/null; then
     source_run_id=$(jq -r --arg key "$key" '.releases[$key].source_run.run_id' "$lock")
     source_run_url=$(jq -r --arg key "$key" '.releases[$key].source_run.workflow_url' "$lock")
@@ -125,6 +126,19 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     observed_source_job=$(jq -S --argjson id "$source_job_id" '. | {id,run_id,name,status,conclusion,head_sha,html_url}' "$source_job_json")
   fi
 
+  if jq -e --arg key "$key" '.releases[$key] | has("source_artifact")' "$lock" >/dev/null; then
+    source_artifact_run_id=$(jq -r --arg key "$key" '.releases[$key].source_artifact.run_id' "$lock")
+    source_artifact_id=$(jq -r --arg key "$key" '.releases[$key].source_artifact.artifact_id' "$lock")
+    source_artifact_name=$(jq -r --arg key "$key" '.releases[$key].source_artifact.name' "$lock")
+    source_artifact_size=$(jq -r --arg key "$key" '.releases[$key].source_artifact.size_bytes' "$lock")
+    source_artifact_sha=$(jq -r --arg key "$key" '.releases[$key].source_artifact.sha256' "$lock")
+    source_artifact_json="$output/$key.source-artifact.json"
+    gh api "repos/$repo/actions/artifacts/$source_artifact_id" > "$source_artifact_json"
+    jq -e --argjson run_id "$source_artifact_run_id" --argjson artifact_id "$source_artifact_id" --arg name "$source_artifact_name" --argjson size "$source_artifact_size" --arg sha "$source_artifact_sha" \
+      '.id==$artifact_id and .workflow_run.id==$run_id and .name==$name and .size_in_bytes==$size and .digest==$sha and .expired==false' "$source_artifact_json" >/dev/null
+    observed_source_artifact=$(jq -S --argjson id "$source_artifact_id" '. | {id,name,size_in_bytes,expired,digest,workflow_run}' "$source_artifact_json")
+  fi
+
   if jq -e --arg key "$key" '.releases[$key] | has("post_main_validation")' "$lock" >/dev/null; then
     post_run_id=$(jq -r --arg key "$key" '.releases[$key].post_main_validation.run_id' "$lock")
     post_run_url=$(jq -r --arg key "$key" '.releases[$key].post_main_validation.workflow_url' "$lock")
@@ -141,6 +155,24 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
       '.id==$run_id and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion==$conclusion' "$post_run_json" >/dev/null
     jq -e --argjson job_id "$post_job_id" --argjson run_id "$post_run_id" --arg name "$post_job_name" --arg url "$post_job_url" --arg head "$post_run_head" \
       '.id==$job_id and .run_id==$run_id and .name==$name and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion=="success"' "$post_job_json" >/dev/null
+  fi
+
+  if jq -e --arg key "$key" '.releases[$key] | has("pre_merge_validation")' "$lock" >/dev/null; then
+    pre_run_id=$(jq -r --arg key "$key" '.releases[$key].pre_merge_validation.run_id' "$lock")
+    pre_run_url=$(jq -r --arg key "$key" '.releases[$key].pre_merge_validation.workflow_url' "$lock")
+    pre_run_head=$(jq -r --arg key "$key" '.releases[$key].pre_merge_validation.head_sha' "$lock")
+    pre_run_conclusion=$(jq -r --arg key "$key" '.releases[$key].pre_merge_validation.conclusion' "$lock")
+    pre_job_id=$(jq -r --arg key "$key" '.releases[$key].pre_merge_validation.job_id' "$lock")
+    pre_job_name=$(jq -r --arg key "$key" '.releases[$key].pre_merge_validation.job_name' "$lock")
+    pre_job_url=$(jq -r --arg key "$key" '.releases[$key].pre_merge_validation.job_url' "$lock")
+    pre_run_json="$output/$key.pre-merge-run.json"
+    pre_job_json="$output/$key.pre-merge-job.json"
+    gh api "repos/$repo/actions/runs/$pre_run_id" > "$pre_run_json"
+    gh api "repos/$repo/actions/jobs/$pre_job_id" > "$pre_job_json"
+    jq -e --argjson run_id "$pre_run_id" --arg url "$pre_run_url" --arg head "$pre_run_head" --arg conclusion "$pre_run_conclusion" \
+      '.id==$run_id and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion==$conclusion' "$pre_run_json" >/dev/null
+    jq -e --argjson job_id "$pre_job_id" --argjson run_id "$pre_run_id" --arg name "$pre_job_name" --arg url "$pre_job_url" --arg head "$pre_run_head" \
+      '.id==$job_id and .run_id==$run_id and .name==$name and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion=="success"' "$pre_job_json" >/dev/null
   fi
 
   mkdir -p "$output/$key/assets"
@@ -206,7 +238,8 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     --arg state "CLOSED" --arg repository "$repo" --arg tag "$tag" --arg release_url "$release_url" \
     --arg target "$target" --argjson release_id "${release_id:-null}" --arg tag_object_sha "$tag_object" \
     --argjson assets "$assets" --argjson fetch_rss "$fetch_rss" --argjson source_run "$observed_source_run" --argjson source_job "$observed_source_job" \
-    '{state:$state,verified:true,repository:$repository,tag:$tag,release_id:$release_id,release_url:$release_url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,source_run:$source_run,source_job:$source_job,assets:$assets,fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},verify:{wall_ms:0,duration_ns:0,peak_rss_kib:0},reason:""}' \
+    --argjson source_artifact "$observed_source_artifact" \
+    '{state:$state,verified:true,repository:$repository,tag:$tag,release_id:$release_id,release_url:$release_url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,source_run:$source_run,source_job:$source_job,source_artifact:$source_artifact,assets:$assets,fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},verify:{wall_ms:0,duration_ns:0,peak_rss_kib:0},reason:""}' \
     > "$output/$key.result.json"
 done
 
@@ -220,7 +253,7 @@ for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_i
   release_id=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .release_id' "$lock")
   reason=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .reason' "$lock")
   release_json="$output/$counterexample_id.release.json"
-  jq -e --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .immutable==false and .append_only==true and .reason=="RELEASE_API_IMMUTABLE_FALSE"' "$lock" >/dev/null
+  jq -e --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .immutable==false and .append_only==true and (.reason=="RELEASE_API_IMMUTABLE_FALSE" or .reason=="FAILED_RELEASE_IMMUTABILITY")' "$lock" >/dev/null
   jq -e --arg tag "$tag" --arg url "$release_url" --argjson release_id "$release_id" \
     '.id==$release_id and .tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==false' \
     "$release_json" >/dev/null
