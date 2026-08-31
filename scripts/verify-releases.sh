@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
+trap 'status=$?; echo "release verification failed at line ${BASH_LINENO[0]}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
 
 if [ "$#" -ne 2 ]; then
   echo "usage: verify-releases.sh LOCK_JSON OUTPUT_DIR" >&2
