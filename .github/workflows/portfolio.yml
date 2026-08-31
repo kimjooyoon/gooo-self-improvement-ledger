@@ -50,7 +50,7 @@ jobs:
           go test -json ./... > "$RUNNER_TEMP/go-test.json"
           go build -trimpath -o "$RUNNER_TEMP/ledger-report" ./cmd/ledger-report
 
-      - name: Fetch and verify eight immutable release locks
+      - name: Fetch and verify nine immutable release locks
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -84,7 +84,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:12,closed:8,unknown:4,refuted:0}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:12,closed:9,unknown:3,refuted:0}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
 
