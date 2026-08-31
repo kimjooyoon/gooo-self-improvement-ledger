@@ -413,12 +413,11 @@ jobs:
           trial_dir="$ARTIFACT_ROOT/releases/executable_evolution_trial_counterexample_durable_release/assets"
           jq -e '. == {schema:"gooo/evolution-trial/release-manifest/v1",version:"0.1.0",tag:"v0.1.0",commit:"d917eec6344f2eaa9a6fb0069f7fe0aaafeb6982",assets:[{name:"gooo-evolution-trial-source-v0.1.0.tar.gz",digest:"sha256:b22d716111c7bcbe5dab18a1bb8caee03388579ac394f93a15798ebca5c43bfc"},{name:"upstream-lock-v0.1.0.json",digest:"sha256:b7cff57d0a300af2876cc6da1a2ccf6aad51f1a153ac794761eb76763c1e8330"},{name:"experiment-dossier-v0.1.0.md",digest:"sha256:6d72387f9ee60cc994166595d1cd1c2abc3d72863f05c857bcb1470352b73b5e"},{name:"version.json",digest:"sha256:b5475730a3726c2e2ff89457e8e976d8f5aada46bfcee6218e99cf6689b51b07"}]}' "$trial_dir/release-manifest-v0.1.0.json" >/dev/null
           expected_checksums=$(printf '%s\n' \
-            '6d72387f9ee60cc994166595d1cd1c2abc3d72863f05c857bcb1470352b73b5e  experiment-dossier-v0.1.0.md' \
             'b22d716111c7bcbe5dab18a1bb8caee03388579ac394f93a15798ebca5c43bfc  gooo-evolution-trial-source-v0.1.0.tar.gz' \
-            '16d908073ae49566fd7186a8d042758a79d30274e94fe5c5ca7ca20773fc9839  release-manifest-v0.1.0.json' \
-            'e1431e654fe65bdb9a325b1da797b0da613e8712ad32c55854d78610f14380b4  SHA256SUMS' \
             'b7cff57d0a300af2876cc6da1a2ccf6aad51f1a153ac794761eb76763c1e8330  upstream-lock-v0.1.0.json' \
-            'b5475730a3726c2e2ff89457e8e976d8f5aada46bfcee6218e99cf6689b51b07  version.json')
+            '6d72387f9ee60cc994166595d1cd1c2abc3d72863f05c857bcb1470352b73b5e  experiment-dossier-v0.1.0.md' \
+            'b5475730a3726c2e2ff89457e8e976d8f5aada46bfcee6218e99cf6689b51b07  version.json' \
+            '16d908073ae49566fd7186a8d042758a79d30274e94fe5c5ca7ca20773fc9839  release-manifest-v0.1.0.json')
           test "$(cat "$trial_dir/SHA256SUMS")" = "$expected_checksums"
           test "$(wc -c < "$trial_dir/experiment-dossier-v0.1.0.md" | tr -d ' ')" = 2077
           test "$(sha256sum "$trial_dir/experiment-dossier-v0.1.0.md" | awk '{print $1}')" = 6d72387f9ee60cc994166595d1cd1c2abc3d72863f05c857bcb1470352b73b5e
