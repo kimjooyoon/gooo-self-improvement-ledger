@@ -60,7 +60,7 @@
         "repository": "kimjooyoon/gooo-reflexive-loop",
         "release": {"tag":"v0.4.0","target_commit_sha":"134d9043e8808147ed2f7252527e809d3eafad44","annotated":true,"immutable_required":true},
         "implementation": {"pull_request":7,"correction_pull_request":8,"merged_main_commit":"134d9043e8808147ed2f7252527e809d3eafad44"},
-        "workflow": {"run_id":33420406673,"job_id":99581097777,"branch":"main","go_version":"go1.27.0","conformance":"passed"},
+        "workflow": {"run_id":33420406673,"job_id":99581097777,"url":"https://github.com/kimjooyoon/gooo-reflexive-loop/actions/runs/33420406673","branch":"main","go_version":"go1.27.0","conformance":"passed"},
         "evidence_artifact": {"name":"gooo-reflexive-loop-evidence","id":9768699219,"size_bytes":3624947,"digest":"sha256:11f3fffb4c6ee93307e46b5c1fdb8013fe5829983e069d823d896dc77e84a6c2"},
         "assets": {
           "source": {"name":"gooo-reflexive-loop-v0.4.0-source.tar.gz","size_bytes":96363,"digest":"sha256:fc8f5e551bb335d0a9133623c2fdc4549f634a93645b41b8fbb7c0acc98ab957"},
