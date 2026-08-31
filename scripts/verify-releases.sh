@@ -94,7 +94,7 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
   manifest_name=$(jq -r --arg key "$key" '.releases[$key].manifest.name // empty' "$lock")
   if [ -n "$manifest_name" ]; then
     manifest_path="$output/$key/assets/$manifest_name"
-    if jq -e --arg key "$key" '.releases[$key] | has("source_artifact")' "$lock" >/dev/null; then
+    if jq -e --arg key "$key" '.releases[$key] | has("source_artifact") and has("release_manifest_lock")' "$lock" >/dev/null; then
       source_run_id=$(jq -r --arg key "$key" '.releases[$key].source_artifact.run_id' "$lock")
       source_artifact_id=$(jq -r --arg key "$key" '.releases[$key].source_artifact.artifact_id' "$lock")
       source_artifact_name=$(jq -r --arg key "$key" '.releases[$key].source_artifact.name' "$lock")
