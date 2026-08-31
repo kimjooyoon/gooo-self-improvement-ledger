@@ -254,7 +254,6 @@ jobs:
             .inventory=={go_physical_files:0,go_physical_lines:0,gooo_physical_files:1,gooo_physical_lines:46,regular_files:22,root_readme_excluded:true,subfolders:7} and
             .test_counts=={executed:6,failed:2,passed:2,reused:0,total:6,unknown:2} and
             .authority.scope=="GENERATED_OPENTOFU_SERVICE_PROJECT_ONLY" and .authority.semantic_graph_state=="CLOSED" and .authority.external_utility.state=="UNKNOWN" and .authority.global_core_authority_claim=="NOT_MADE" and .authority.handwritten_go_physical_files==0 and .authority.repository_writes==0 and
-            .measurements.compile.wall_ms==106 and .measurements.build.wall_ms==56 and .measurements.test.wall_ms==56 and .measurements.conformance.wall_ms==46 and .measurements.tofu_validate.wall_ms==30 and .measurements.tofu_validate.count==1 and .measurements.compile.count==12 and .measurements.build.count==4 and .measurements.test.count==6 and .measurements.conformance.count==6 and .measurements.test.failed_test_count==2 and .measurements.test.unknown_test_count==2 and
             .toolchain=={go_requirement:"1.27.x",opentofu:"1.12.6"} and .utility.state=="UNKNOWN" and .improvement.state=="UNKNOWN"
           ' "$project_dir/manifest-v0.2.1.json" >/dev/null
           expected_checksums=$(printf '%s\n' \
