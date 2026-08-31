@@ -235,8 +235,8 @@
       "protocol_receipt": {
         "asset_name": "ci-runtime-receipt-v0.1.0.json",
         "schema": "gooo/improvement-frontier/ci-runtime/v1",
-        "ci_run_id": 33390644439,
-        "ci_job_id": 99483229767,
+        "ci_run_id": "33390644439",
+        "ci_job_id": "99483229767",
         "build_wall_ms": 3950,
         "test_wall_ms": 1770,
         "peak_rss_kib": 282632,
