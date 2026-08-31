@@ -290,7 +290,7 @@ for counterexample_id in $(jq -r '(.failed_release_triggers // [])[] | .countere
   reason=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .reason' "$lock")
   release_json="$output/$counterexample_id.release.json"
   jq -e --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .append_only==true and .release_absent==true and .release_api_status==404 and .reason=="FAILED_RELEASE_TRIGGER"' "$lock" >/dev/null
-  jq -e --arg url "$release_url" '.status==404 and (.message=="Not Found" or .message=="Not Found")' "$release_json" >/dev/null
+  jq -e --arg url "$release_url" '(.status==404 or .status=="404") and .message=="Not Found"' "$release_json" >/dev/null
 
   remote_refs=""
   for attempt in 1 2 3; do
