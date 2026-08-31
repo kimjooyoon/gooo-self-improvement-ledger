@@ -14,16 +14,16 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 36 and
-  .denominator_migration == {from:35,to:36,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 37 and
+  .denominator_migration == {from:36,to:37,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE","SELF_REPAIR_INTEGRATION_RELEASE","OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE","LANGUAGE_DELTA_FORGE_DURABLE_RELEASE","OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE","REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE","CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE","EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE","SELF_REPAIR_INTEGRATION_RELEASE","OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE","LANGUAGE_DELTA_FORGE_DURABLE_RELEASE","OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE","REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE","CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE","EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE","REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:27,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:27,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:28,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:28,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -47,7 +47,8 @@ jq -e '
   (.cells|map(select(.id=="OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE" and .release_key=="opentofu_generated_service_project_durable_release"))|length)==1 and
   (.cells|map(select(.id=="REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE" and .release_key=="reflexive_compiler_phase_durable_release"))|length)==1 and
   (.cells|map(select(.id=="CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE" and .release_key=="causal_verification_runner_durable_release"))|length)==1 and
-  (.cells|map(select(.id=="EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE" and .release_key=="executable_evolution_trial_counterexample_durable_release"))|length)==1
+  (.cells|map(select(.id=="EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE" and .release_key=="executable_evolution_trial_counterexample_durable_release"))|length)==1 and
+  (.cells|map(select(.id=="REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE" and .release_key=="reflexive_compiler_graph_topology_self_improvement_durable_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -655,6 +656,37 @@ jq -e '
   (.releases.executable_evolution_trial_counterexample_durable_release.assets|map(.id)) == [538589631,538589629,538589628,538589633,538589630,538589627] and
   (.releases.executable_evolution_trial_counterexample_durable_release.assets|map(.size_bytes)) == [2077,28486,764,469,3888,319] and
   (.releases.executable_evolution_trial_counterexample_durable_release.assets|map(.sha256)) == ["sha256:6d72387f9ee60cc994166595d1cd1c2abc3d72863f05c857bcb1470352b73b5e","sha256:b22d716111c7bcbe5dab18a1bb8caee03388579ac394f93a15798ebca5c43bfc","sha256:16d908073ae49566fd7186a8d042758a79d30274e94fe5c5ca7ca20773fc9839","sha256:e1431e654fe65bdb9a325b1da797b0da613e8712ad32c55854d78610f14380b4","sha256:b7cff57d0a300af2876cc6da1a2ccf6aad51f1a153ac794761eb76763c1e8330","sha256:b5475730a3726c2e2ff89457e8e976d8f5aada46bfcee6218e99cf6689b51b07"] and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.release_id == 380102097 and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.tag == "v0.2.0" and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.immutable == true and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.target_commit_sha == "7bdba0c353a73a40111747dbf55512939f6841a0" and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.tag_object_sha == "5852cc52f4ecec7fc835fdb6ed7adc1108459d6a" and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.source_pull_request == {number:8,base_ref:"main",head_ref:"agent/reflexive-phase-self-improvement",head_sha:"69727313308f5143319b4bb2b95e67b6bdd2735d",merge_commit_sha:"7bdba0c353a73a40111747dbf55512939f6841a0",merged:true} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.source_pr_run.run_id == 33447973294 and .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.source_pr_run.job_id == 99671224008 and .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.source_pr_run.artifact_ids == [9778718602] and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.source_pr_artifact == {run_id:33447973294,artifact_id:9778718602,name:"reflexive-conformance-8e0f45ce97fad9da11e7bbcf1ef5ad8b129fa1d6",size_bytes:24954557,sha256:"sha256:596a6042d1682097df78e237c7b60541fc05dcc359c05dff749a4bc77debbb75"} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.source_run.run_id == 33448048024 and .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.source_run.job_id == 99671456387 and .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.source_run.artifact_ids == [9778748463] and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.source_artifact == {run_id:33448048024,artifact_id:9778748463,name:"reflexive-conformance-7bdba0c353a73a40111747dbf55512939f6841a0",size_bytes:24954565,sha256:"sha256:be15de0147fb86e12e0ccf1432dfab7628e64fe6ac2201f5739fc7e017da98f7"} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.release_run.run_id == 33448121915 and .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.release_run.job_id == 99671691260 and .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.release_run.artifact_ids == [] and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.release_manifest == {schema:"gooo/reflexive-release-manifest/v1",version:"0.2.0",tag:"v0.2.0",commit:"7bdba0c353a73a40111747dbf55512939f6841a0",assets:[{name:"gooo-reflexive-compiler-slice-source-v0.2.0.tar.gz",digest:"sha256:3ced5c624b50afddf6906c093b80a3a83eebfc52ed2c59051ec427b28931eeba"},{name:"gooo-reflexive-compiler-slice-linux-amd64-v0.2.0.tar.gz",digest:"sha256:039d8db0457cb8ff9d439ac52234c23de6c19b38212d8c32242155d276bd483b"},{name:"release-report-v0.2.0.json",digest:"sha256:6d80a3941a55d4199f6fc3fae4ed2c2429f45d1fd24fb2e3aafecc1125ca2fc7"},{name:"version.json",digest:"sha256:cd55a20257e61a0603bbdc32c47667bf107d3d4dffe31518477ebb9c67a64214"}]} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.historical_provenance["v0.1.0"] == {state:"NON_DURABLE",tag:"v0.1.0",release_id:380032434,immutable:false,tag_object_sha:"f89b47fedab983b9c3cef0b9be03da65eadff3de",target_commit_sha:"57f5ef6ce407f51cd36da163b2b267e876c31e33"} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.schema == "gooo/reflexive-compiler-graph-topology/v1" and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.scope == "ONE_COMPILER_PHASE" and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.topology.before == {id:"reflexive.normalize.v1",digest:"sha256:8a557cb3b7445f5186f0619b14c82dd215f1950a2d298bafe2cbdc7e54768220",activity_roles:["NormalizeSource","EmitBackend","VerifyReplay"],activity_count:3,typed_edge_count:2,valid:true,localization_stages:1} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.topology.after == {id:"reflexive.normalize.v1",digest:"sha256:30b38ad566a350a3d0107f48f79ff43db467a94ce4aaf464ad1970e872b862b3",topology:"reflexive.normalize.v2",activity_roles:["ParseSource","ValidateStableIDs","EmitBackend","VerifyReplay"],activity_count:4,typed_edge_count:3,valid:true,localization_stages:2} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.topology.semantics == "ROLE_EDGE_STAGE_TOPOLOGY_NOT_COUNT" and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.direct_corpus == {before:{CLOSED:1,UNKNOWN:1,REFUTED:1},after:{CLOSED:1,UNKNOWN:1,REFUTED:1},after_cases:3,all_independently_verified:true} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.resolution_pairs == {supported_valid_topology_cardinalities:{before:1,after:2,unit:"valid-topology-cardinalities"},accepted_trial_candidate_cases:{before:0,after:3,unit:"cases"},coarse_localization_stages:{before:1,after:2,unit:"phase-localization-stages"}} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.trial_refutation == {state:"REFUTED",error:"phase graph must declare exactly three executable activities",delta:{added_cells:2,retired_cells:1,split_cells:1},rollback_exact_pair:true,baseline_distribution:{CLOSED:1,UNKNOWN:1,REFUTED:1},candidate_distribution:{CLOSED:0,UNKNOWN:0,REFUTED:3},causal:{total:2,selected:1,executed:1,reused:1,full_oracle:2,failures:1}} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.applied_bundle == {sha256:"sha256:49244a778d6e80c67bb5fb0b99342873ba987916b14febb500524a26a5af3490",candidate:"sha256:4edd900ea94b1cb461b27d61fb06e72993424eb8ad424b82ac19b78b59318bdb",delta:"sha256:826a90daaf19fb0f0b0b51af89c53150219ca624331905a4c913e329b085a6e6",applied_root_phase:"sha256:30b38ad566a350a3d0107f48f79ff43db467a94ce4aaf464ad1970e872b862b3",root_match:true} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.same_digest_conditions == {source_tree:"sha256:09fef83853c981cb5d77f31a31e8d424523fec4eb730423b8b27167c1c5db477",contract:"sha256:a15ac998e85d7fe7a62d112260024da08e433b603af03360f348a194c22d03d2",toolchain:"sha256:76227025cc0bc2be7067aa45d11e09cacfd49c58f498f4c2e4f6a9872a607bf9"} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.closure == {state:"CLOSED",stage:"IMPROVEMENT",step:"RESOLVE_TRIAL_COUNTEREXAMPLE",reason:"GRAPH_SEMANTICS_ACCEPT_SPLIT_CANDIDATE",trial_refutation:"REFUTED",protected_core_adoption:0} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.metrics == {go_files:8,go_lines:1775,gooo_files:4,gooo_lines:48,regular_files:29,directories:14,root_readme_excluded:true,outputs_files:21,outputs_bytes:32289,peak_rss_bytes:7008256,peak_rss_kib:7072,compile_wall_ms:59,build_wall_ms:5248,test_wall_ms:2096,conformance_wall_ms:2538,integration_wall_ms:8228} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.tests == {total:3,executed:3,reused:0,failed:0,unknown:1} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.protocol_observation.authority == {repository_writes:0,upstream_writes:0,local_test_executions:0,verification_authority:"GITHUB_ACTIONS"} and
+  .releases.reflexive_compiler_graph_topology_self_improvement_durable_release.ledger_consumer_observation == {append_only:true,local_validation_executions:1,artifact_schema_assertion_replays:1,local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,process_state:"REFUTED"} and
+  (.releases.reflexive_compiler_graph_topology_self_improvement_durable_release.assets|map(.id)) == [538621864,538621862,538621865,538621866,538621870,538621863] and
+  (.releases.reflexive_compiler_graph_topology_self_improvement_durable_release.assets|map(.size_bytes)) == [2628138,31726,795,10167,506,315] and
+  (.releases.reflexive_compiler_graph_topology_self_improvement_durable_release.assets|map(.sha256)) == ["sha256:039d8db0457cb8ff9d439ac52234c23de6c19b38212d8c32242155d276bd483b","sha256:3ced5c624b50afddf6906c093b80a3a83eebfc52ed2c59051ec427b28931eeba","sha256:3e9a6b8d409725a1b8e99a387ebd33045e64677364df783c083b32472c3ba171","sha256:6d80a3941a55d4199f6fc3fae4ed2c2429f45d1fd24fb2e3aafecc1125ca2fc7","sha256:e7554da06237c2b52eaa15f4a5fa4e16b1edbf6240eacffdaea6000fc73d7464","sha256:cd55a20257e61a0603bbdc32c47667bf107d3d4dffe31518477ebb9c67a64214"] and
   (.failed_release_triggers|length) == 1 and
   .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
   .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
@@ -695,7 +727,7 @@ echo "conformance: release lock contract passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:35,to:36,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:36,to:37,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -958,7 +990,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 36 and
+  (.cells|length) == 37 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1085,6 +1117,30 @@ jq -e '
     ($trial.evidence | index("asset:538589630:3888:sha256:b7cff57d0a300af2876cc6da1a2ccf6aad51f1a153ac794761eb76763c1e8330")) != null and
     ($trial.evidence | index("asset:538589627:319:sha256:b5475730a3726c2e2ff89457e8e976d8f5aada46bfcee6218e99cf6689b51b07")) != null and
     ($trial.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
+  ((.cells[] | select(.cell_id == "REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE")) as $topology |
+    $topology.state == "CLOSED" and
+    $topology.release_key == "reflexive_compiler_graph_topology_self_improvement_durable_release" and
+    ($topology.evidence | index("release:380102097:immutable=true")) != null and
+    ($topology.evidence | index("tag-object:5852cc52f4ecec7fc835fdb6ed7adc1108459d6a:target=7bdba0c353a73a40111747dbf55512939f6841a0")) != null and
+    ($topology.evidence | index("pr-merge:8:head=69727313308f5143319b4bb2b95e67b6bdd2735d:merge=7bdba0c353a73a40111747dbf55512939f6841a0:merged=true")) != null and
+    ($topology.evidence | index("pr-actions:run=33447973294:job=99671224008:head=69727313308f5143319b4bb2b95e67b6bdd2735d:success")) != null and
+    ($topology.evidence | index("pr-actions-artifact:9778718602:24954557:sha256:596a6042d1682097df78e237c7b60541fc05dcc359c05dff749a4bc77debbb75")) != null and
+    ($topology.evidence | index("main-actions:run=33448048024:job=99671456387:head=7bdba0c353a73a40111747dbf55512939f6841a0:success")) != null and
+    ($topology.evidence | index("main-actions-artifact:9778748463:24954565:sha256:be15de0147fb86e12e0ccf1432dfab7628e64fe6ac2201f5739fc7e017da98f7")) != null and
+    ($topology.evidence | index("release-actions:run=33448121915:job=99671691260:head=7bdba0c353a73a40111747dbf55512939f6841a0:success")) != null and
+    ($topology.evidence | index("upstream-release-assets:538621864:2628138:sha256:039d8db0457cb8ff9d439ac52234c23de6c19b38212d8c32242155d276bd483b,538621862:31726:sha256:3ced5c624b50afddf6906c093b80a3a83eebfc52ed2c59051ec427b28931eeba,538621865:795:sha256:3e9a6b8d409725a1b8e99a387ebd33045e64677364df783c083b32472c3ba171,538621866:10167:sha256:6d80a3941a55d4199f6fc3fae4ed2c2429f45d1fd24fb2e3aafecc1125ca2fc7,538621870:506:sha256:e7554da06237c2b52eaa15f4a5fa4e16b1edbf6240eacffdaea6000fc73d7464,538621863:315:sha256:cd55a20257e61a0603bbdc32c47667bf107d3d4dffe31518477ebb9c67a64214")) != null and
+    ($topology.evidence | index("compiler-v0.1.0-historical:release=380032434:immutable=false:tag-object=f89b47fedab983b9c3cef0b9be03da65eadff3de:target=57f5ef6ce407f51cd36da163b2b267e876c31e33:state=NON_DURABLE")) != null and
+    ($topology.evidence | index("upstream-protocol:schema=gooo/reflexive-compiler-graph-topology/v1:scope=ONE_COMPILER_PHASE:old_roles=3:old_edges=2:old_stages=1:new_roles=4:new_typed_edges=3:new_stages=2:semantics=ROLE_EDGE_STAGE_TOPOLOGY_NOT_COUNT")) != null and
+    ($topology.evidence | index("exact-pairs:supported_topology_cardinality=1->2:accepted_trial_candidate_cases=0->3:localization_stages=1->2")) != null and
+    ($topology.evidence | index("applied-bundle:sha256:49244a778d6e80c67bb5fb0b99342873ba987916b14febb500524a26a5af3490:candidate=sha256:4edd900ea94b1cb461b27d61fb06e72993424eb8ad424b82ac19b78b59318bdb:delta=sha256:826a90daaf19fb0f0b0b51af89c53150219ca624331905a4c913e329b085a6e6:applied-root-phase=sha256:30b38ad566a350a3d0107f48f79ff43db467a94ce4aaf464ad1970e872b862b3:root_match=true")) != null and
+    ($topology.evidence | index("matched-source-tree:sha256:09fef83853c981cb5d77f31a31e8d424523fec4eb730423b8b27167c1c5db477:contract=sha256:a15ac998e85d7fe7a62d112260024da08e433b603af03360f348a194c22d03d2:toolchain=sha256:76227025cc0bc2be7067aa45d11e09cacfd49c58f498f4c2e4f6a9872a607bf9")) != null and
+    ($topology.evidence | index("closure:state=CLOSED:stage=IMPROVEMENT:step=RESOLVE_TRIAL_COUNTEREXAMPLE:reason=GRAPH_SEMANTICS_ACCEPT_SPLIT_CANDIDATE:trial_refutation=REFUTED:protected_core_adoption=0")) != null and
+    ($topology.evidence | index("direct-corpus:before=CLOSED1/UNKNOWN1/REFUTED1:after=CLOSED1/UNKNOWN1/REFUTED1:after_cases=3:all_independently_verified=true")) != null and
+    ($topology.evidence | index("metrics:go_files=8:go_lines=1775:gooo_files=4:gooo_lines=48:regular_files=29:directories=14:root_readme_excluded=true:outputs=21/32289:peak_rss_bytes=7008256:peak_rss_kib=7072:compile=59:build=5248:test=2096:conformance=2538:integration=8228:tests=3/3/0/0/1")) != null and
+    ($topology.evidence | index("authority:repository_writes=0:upstream_writes=0:local_test_executions=0:verification_authority=GITHUB_ACTIONS")) != null and
+    ($topology.evidence | index("state:global_self_hosting=UNKNOWN:external_utility=UNKNOWN:scope=ONE_COMPILER_PHASE")) != null and
+    ($topology.evidence | index("prior-ledger-consumer-observation:local_validation_executions=1:process=REFUTED:local_schema_replays=0:local_conformance_replays=0")) != null and
+    ($topology.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -1156,12 +1212,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:36,closed:33,unknown:1,refuted:2} and
+  .summary == {total:37,closed:34,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 36 and
+  (.cells|length) == 37 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 33 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 34 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -1200,16 +1256,17 @@ jq -e '
     OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE:"CLOSED",
     REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE:"CLOSED",
     CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE:"CLOSED",
-    EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE:"CLOSED"
+    EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE:"CLOSED",
+    REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:36,activities:36,unique_axes:36,unique_metrics:36,source_bindings:36,ir_bindings:36,generated_artifact_bindings:36,evaluator_bindings:36} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 27 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 27 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:33,verified:33,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:37,activities:37,unique_axes:37,unique_metrics:37,source_bindings:37,ir_bindings:37,generated_artifact_bindings:37,evaluator_bindings:37} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 28 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 28 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:34,verified:34,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

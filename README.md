@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 36 named cells, each bound one-to-one to
+language. The denominator is exactly 37 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -29,11 +29,12 @@ The fixed axes are:
 `OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE`, and
 `REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE`, and
 `CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE`, and
-`EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE`.
+`EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE`, and
+`REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `35 -> 36` with
+The denominator migration is explicit and append-only: `36 -> 37` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/27/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/27/5`.
+`4/28/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/28/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -468,6 +469,21 @@ The ledger adoption cell is `CLOSED`, yielding `CLOSED33/UNKNOWN1/REFUTED2`.
 The prior `local_validation_executions=1`, artifact-schema replay count `1`,
 zero local Go executions, and process state `REFUTED` remain unchanged.
 
+The v0.31 frontier appends `REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE`.
+It adopts immutable `kimjooyoon/gooo-reflexive-compiler-slice@v0.2.0` release
+`380102097`, binding annotated tag object `5852cc52f4ecec7fc835fdb6ed7adc1108459d6a`
+to target `7bdba0c353a73a40111747dbf55512939f6841a0`. The source PR validation,
+post-merge main validation, and release audit are pinned in the release lock,
+including all six release assets and their SHA-256 digests. The compiler now
+accepts both the prior three-role/two-edge/stage-one topology and the
+four-role/three-typed-edge/stage-two split based on role, edge, and stage
+semantics rather than raw activity count. The direct corpus remains
+`CLOSED1/UNKNOWN1/REFUTED1` before and after, while the trial candidate cases
+are accepted `0 -> 3`; the historical trial refutation remains `REFUTED`.
+The ledger adoption cell is `CLOSED`, yielding `CLOSED34/UNKNOWN1/REFUTED2`.
+The prior `local_validation_executions=1`, process state `REFUTED`, and zero
+additional local schema/conformance replays remain preserved.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -496,7 +512,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the thirty-three immutable inputs
+commit, and consumer asset identities for the thirty-four immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope
