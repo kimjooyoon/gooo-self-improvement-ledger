@@ -38,10 +38,43 @@ jq -e '
   .refutation_resolution_events[0].resolved_by.receipt_schema_migration.release_asset_sha256 == "sha256:e4a2cb8acd608141bdcdb66db6f6369a9480fc691d8a67b3572dd711d02dadf3" and
   .refutation_resolution_events[0].resolved_by.receipt_schema_migration.source_artifact_id == 9745614408 and
   .refutation_resolution_events[0].resolved_by.receipt_schema_migration.adoption_proposal_sha256 == "sha256:f55a204da6e258f1345a52e5e9f164226eff4b6cafa8ba3a65daf97f2247e451" and
+  (.core_refutation_observation_events|length) == 1 and
+  .core_refutation_observation_events[0].event_id == "CORE_SEMANTIC_AUTHORITY-CI-TIME-CONTRADICTION-v0.9" and
+  .core_refutation_observation_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
+  .core_refutation_observation_events[0].append_only == true and
+  .core_refutation_observation_events[0].state == "REFUTED" and
+  .core_refutation_observation_events[0].classification == "KNOWN_VERIFICATION_CONTRADICTION" and
+  .core_refutation_observation_events[0].candidate.pull_request == 615 and
+  .core_refutation_observation_events[0].candidate.state == "OPEN" and
+  .core_refutation_observation_events[0].candidate.merged == false and
+  .core_refutation_observation_events[0].candidate.head_sha == "7087f0c" and
+  .core_refutation_observation_events[0].candidate.checks == {success:85,skipped:13,failure:2} and
+  .core_refutation_observation_events[0].candidate.dev_main_unchanged == true and
+  .core_refutation_observation_events[0].expected_guardian.code == "CI-ROOT-OF-TRUST-001" and
+  .core_refutation_observation_events[0].expected_guardian.run_id == 33365728402 and
+  .core_refutation_observation_events[0].expected_guardian.job_id == 99405865143 and
+  .core_refutation_observation_events[0].expected_guardian.artifact_id == 9748206947 and
+  .core_refutation_observation_events[0].unexpected_time_contradiction.decision == "KNOWN_VERIFICATION_CONTRADICTION" and
+  .core_refutation_observation_events[0].unexpected_time_contradiction.reason == "OPERATION_DURATION_NEGATIVE" and
+  .core_refutation_observation_events[0].unexpected_time_contradiction.attempts == [{attempt:1,job_id:99405870188,artifact_id:9748462083,head_sha:"7087f0c"},{attempt:2,job_id:99408612206,artifact_id:9748520364,head_sha:"7087f0c"}] and
+  .core_refutation_observation_events[0].source_observations.ci_run_id == 33365730047 and
+  .core_refutation_observation_events[0].source_observations.ci_completed == true and
+  .core_refutation_observation_events[0].source_observations.opentofu_run_id == 33365730033 and
+  .core_refutation_observation_events[0].source_observations.opentofu_completed == true and
+  .core_refutation_observation_events[0].source_observations.contradiction_reproduced == true and
+  .core_refutation_observation_events[0].refutation.stage == "CI_EFFORT_OBSERVATION" and
+  .core_refutation_observation_events[0].refutation.step == "DERIVE_OPERATION_DURATION" and
+  .core_refutation_observation_events[0].refutation.reason == "OPERATION_DURATION_NEGATIVE" and
+  .core_refutation_observation_events[0].refutation.next_operation == "PUBLISH_CI_TIME_CAUSALITY_PROTOCOL_AND_ADOPT_EXACT_CLOCK_DOMAIN_SEMANTICS" and
+  .core_refutation_observation_events[0].refutation.unknown_class == null and
+  .core_refutation_observation_events[0].preservation.pull_request_unmerged == true and
+  .core_refutation_observation_events[0].preservation.dev_main_unchanged == true and
+  .core_refutation_observation_events[0].preservation.prior_protected_path_event_preserved == true and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
   .optional_dependencies[0].gate == false and
+  (.optional_dependencies | map(select(.id == "gooo-ci-time-protocol-v0.1.0" and .status == "UNRELEASED" and .release_api == "NOT_FOUND" and .tag_api == "NOT_FOUND" and .required == false and .gate == false)) | length) == 1 and
   ((.cells[] | select(.cell_id == "CORE_SEMANTIC_AUTHORITY")) as $core |
     $core.state == "REFUTED" and
     ($core | has("unknown") | not) and

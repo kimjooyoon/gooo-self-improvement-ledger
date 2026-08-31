@@ -2,7 +2,7 @@
   "schema": "gooo/non-completeness/capability-evidence-registry/lock/v1",
   "registry_id": "non-completeness-capability-evidence-registry-v1",
   "purpose": "A separate registry of independently versioned capability evidence inputs; it is not a completeness denominator or score.",
-  "entry_count": 10,
+  "entry_count": 17,
   "policy": {
     "separate_from_portfolio_denominator": true,
     "status_inference_from_missing_evidence": false,
@@ -172,13 +172,146 @@
       "assets": [
         {"name":"gooo-receipt-schema-migration-v0.2.2-conformance.tar.gz","size_bytes":28877,"sha256":"sha256:e4a2cb8acd608141bdcdb66db6f6369a9480fc691d8a67b3572dd711d02dadf3","download_url":"https://github.com/kimjooyoon/gooo-receipt-schema-migration/releases/download/v0.2.2/gooo-receipt-schema-migration-v0.2.2-conformance.tar.gz"}
       ]
+    },
+    {
+      "entry_id": "receipt-schema-migration-v0.3.1",
+      "capability": "receipt-schema-migration",
+      "repository": "kimjooyoon/gooo-receipt-schema-migration",
+      "tag": "v0.3.1",
+      "release_url": "https://github.com/kimjooyoon/gooo-receipt-schema-migration/releases/tag/v0.3.1",
+      "target_commit_sha": "7f651f45f548fb38357649578d9984fd77c5a451",
+      "tag_object_sha": "d98ea5f2a88bbc3e3bafa573a94a2058aba96e54",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "successor_of": "receipt-schema-migration-v0.2.2",
+      "lineage_role": "CLOSED_SUCCESSOR_FRONTIER",
+      "source_run": {"run_id":33362658147,"workflow_url":"https://github.com/kimjooyoon/gooo-receipt-schema-migration/actions/runs/33362658147","conclusion":"success"},
+      "source_artifact": {"run_id":33362658147,"artifact_id":9747211896,"name":"receipt-schema-migration-conformance","size_bytes":50699,"sha256":"sha256:cfd0344151b3ce1311b389fe398389b7f68c7252ff79c45c36d7e1fb1d60ffd2","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-receipt-schema-migration/actions/artifacts/9747211896/zip"},
+      "development_deviations": {"local_go_commands":{"build":0,"gofmt":0,"test":0,"vet":0},"node_vm_guardian_harness_executions":1,"failed_packaging_attempts":1,"failure_reason":"ARCHIVE_RECURSIVE_SELF_INCLUSION_AND_WRONG_TEMP_PATH","final_archive_source":"POST_MAIN_ACTIONS_ARTIFACT_ONLY"},
+      "assets": [
+        {"name":"gooo-receipt-schema-migration-v0.3.1-conformance.tar.gz","size_bytes":36114,"sha256":"sha256:fe00e049fcf4c946fef1a6bc3a7c5295d3e3fa2aed630edcae0039dfcee81a76","download_url":"https://github.com/kimjooyoon/gooo-receipt-schema-migration/releases/download/v0.3.1/gooo-receipt-schema-migration-v0.3.1-conformance.tar.gz"}
+      ]
+    },
+    {
+      "entry_id": "adoption-transaction-v0.1.0",
+      "capability": "adoption-transaction",
+      "repository": "kimjooyoon/gooo-adoption-transaction",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-adoption-transaction/releases/tag/v0.1.0",
+      "target_commit_sha": "ae68e4678c37836f6d4e971501811d674833e9a0",
+      "tag_object_sha": "71377651b5a5095940ceabc1c97ad45faeda3e96",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "lineage_role": "NEW_CLOSED_FRONTIER",
+      "source_run": {"run_id":33361277657,"workflow_url":"https://github.com/kimjooyoon/gooo-adoption-transaction/actions/runs/33361277657","conclusion":"success"},
+      "source_artifact": {"run_id":33361277657,"artifact_id":9746766170,"name":"gooo-adoption-transaction-evidence-33361277657","size_bytes":12696,"sha256":"sha256:cc3c3f2083354c641af5391d8cc7971dae1244bdfe2ca40935b300f644378f27","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-adoption-transaction/actions/artifacts/9746766170/zip"},
+      "assets": [
+        {"name":"consumer-manifest-v1.json","size_bytes":1174,"sha256":"sha256:37ae610fabadef7193fca3259ae4a74049a8e38ba1e084191638ed25c43bcede","download_url":"https://github.com/kimjooyoon/gooo-adoption-transaction/releases/download/v0.1.0/consumer-manifest-v1.json"},
+        {"name":"gooo-adoption-transaction-evidence-v0.1.0.tar.gz","size_bytes":6181,"sha256":"sha256:936b8007322465ec902a9d7f63724182ad2e582a5d0eeb0f4fefd6c74abea11e","download_url":"https://github.com/kimjooyoon/gooo-adoption-transaction/releases/download/v0.1.0/gooo-adoption-transaction-evidence-v0.1.0.tar.gz"},
+        {"name":"gooo-adoption-transaction-v0.1.0.tar.gz","size_bytes":14238,"sha256":"sha256:58b4e068305d3e0e0a048974c587bf2154835195c5d3dce66fabebac6a9b2f92","download_url":"https://github.com/kimjooyoon/gooo-adoption-transaction/releases/download/v0.1.0/gooo-adoption-transaction-v0.1.0.tar.gz"},
+        {"name":"SHA256SUMS","size_bytes":313,"sha256":"sha256:b3b3b7021da67dba513d87b8bce228e1b42a7b8b9b9e37b6618a20f1f9493fdb","download_url":"https://github.com/kimjooyoon/gooo-adoption-transaction/releases/download/v0.1.0/SHA256SUMS"}
+      ]
+    },
+    {
+      "entry_id": "self-repair-example-v0.1.0",
+      "capability": "self-repair-example",
+      "repository": "kimjooyoon/gooo-self-repair-example",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-self-repair-example/releases/tag/v0.1.0",
+      "target_commit_sha": "cb3a6145ac5dbf1999f955495229032202892b89",
+      "tag_object_sha": "3f291964b345902033a7935388f55d1d6e7d9bee",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "lineage_role": "NEW_CLOSED_FRONTIER",
+      "source_run": {"run_id":33361612275,"workflow_url":"https://github.com/kimjooyoon/gooo-self-repair-example/actions/runs/33361612275","conclusion":"success","expected_head_sha":"8d2ed757e6df2d90e1e1ce9e85f91921707e7b10","provenance_note":"Supporting post-main evidence run; release target remains the immutable v0.1.0 tag target."},
+      "source_artifact": {"run_id":33361612275,"artifact_id":9746868213,"name":"self-repair-artifacts-8d2ed757e6df2d90e1e1ce9e85f91921707e7b10","size_bytes":7955,"sha256":"sha256:a7c2cc236a8c7286184e92f9012f0a3d49012a7d1048471e97fff9adcf8f65b8","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-self-repair-example/actions/artifacts/9746868213/zip","expected_workflow_head_sha":"8d2ed757e6df2d90e1e1ce9e85f91921707e7b10","provenance_note":"Supporting post-main evidence artifact; it is intentionally not substituted for the release target."},
+      "assessment_summary": {"closed":9,"refuted":3,"unknown":0},
+      "assets": [
+        {"name":"gooo-self-repair-example-0.1.0.tar.gz","size_bytes":14327,"sha256":"sha256:7e4619180c450d2ec319ddf6b6e7f91576829afe571115fd1de6660dbdbde53f","download_url":"https://github.com/kimjooyoon/gooo-self-repair-example/releases/download/v0.1.0/gooo-self-repair-example-0.1.0.tar.gz"},
+        {"name":"release-manifest.json","size_bytes":134,"sha256":"sha256:31a0fa528bc9a5dd72d194e83ec6f5f555289dc95f10d0d532384dbb2e9ad151","download_url":"https://github.com/kimjooyoon/gooo-self-repair-example/releases/download/v0.1.0/release-manifest.json"},
+        {"name":"SHA256SUMS","size_bytes":168,"sha256":"sha256:45bfcac5c89a6c4a8d8ea873cbb606c8546a47a9da6f36a417537f68aa045441","download_url":"https://github.com/kimjooyoon/gooo-self-repair-example/releases/download/v0.1.0/SHA256SUMS"}
+      ]
+    },
+    {
+      "entry_id": "semantic-observer-v0.1.0",
+      "capability": "semantic-observer",
+      "repository": "kimjooyoon/gooo-semantic-observer",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-observer/releases/tag/v0.1.0",
+      "target_commit_sha": "091764a433400dbd0c31a2f48e257ac300a99d4f",
+      "tag_object_sha": "8fbce29f46e13b9e489a2ba49012046eddecf25e",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "lineage_role": "HISTORICAL_REFUTED_BASELINE",
+      "known_refutation": {"code":"REFUTED_RECEIPT_DIGEST_UNBOUND","case":"closed-github-run","path":"closed-github-run/observer-receipt.json#/authority_chain/observer_receipt/digest","observed_value":"","reason":"receipt digest not bound in observation-manifest.json","append_only":true,"delete":false,"recreate":false},
+      "assets": [
+        {"name":"gooo-semantic-observer-0.1.0.tar.gz","size_bytes":23133,"sha256":"sha256:34fb06f127bb6bffd64f07dc59916205963bffbf051f1e504cb64ea886731034","download_url":"https://github.com/kimjooyoon/gooo-semantic-observer/releases/download/v0.1.0/gooo-semantic-observer-0.1.0.tar.gz"},
+        {"name":"gooo-semantic-observer-0.1.0.tar.gz.sha256","size_bytes":145,"sha256":"sha256:eaece00f7c878e22f1003f761893f60c8d47ee3e2c39ee74d276fb237969e36d","download_url":"https://github.com/kimjooyoon/gooo-semantic-observer/releases/download/v0.1.0/gooo-semantic-observer-0.1.0.tar.gz.sha256"}
+      ]
+    },
+    {
+      "entry_id": "semantic-observer-v0.1.1",
+      "capability": "semantic-observer",
+      "repository": "kimjooyoon/gooo-semantic-observer",
+      "tag": "v0.1.1",
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-observer/releases/tag/v0.1.1",
+      "target_commit_sha": "50c6915f8ebdf68a56c50479e0044d5edee58ac0",
+      "tag_object_sha": "a93b85ff82faf1403846f5e9d3ca3a90bc84bf83",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "successor_of": "semantic-observer-v0.1.0",
+      "lineage_role": "CLOSED_SUCCESSOR_FRONTIER",
+      "source_run": {"run_id":33362362604,"workflow_url":"https://github.com/kimjooyoon/gooo-semantic-observer/actions/runs/33362362604","conclusion":"success"},
+      "source_artifact": {"run_id":33362362604,"artifact_id":9747115261,"name":"semantic-observer-conformance","size_bytes":49026,"sha256":"sha256:2a95d0e5a93cbdc87ecb8694a8fe88dceeaf324e01eedee68569a3ff9c8f0b4d","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-semantic-observer/actions/artifacts/9747115261/zip"},
+      "detached_receipt": {"total":12,"closed":12,"verified":true},
+      "assets": [
+        {"name":"gooo-semantic-observer-0.1.1.tar.gz","size_bytes":24459,"sha256":"sha256:f42ca5fc9d63251d522b6b652cb807a40187a9baefb4b3f3b58286435af03740","download_url":"https://github.com/kimjooyoon/gooo-semantic-observer/releases/download/v0.1.1/gooo-semantic-observer-0.1.1.tar.gz"},
+        {"name":"gooo-semantic-observer-0.1.1.tar.gz.sha256","size_bytes":145,"sha256":"sha256:a1468fb9e986918edebf78f36e1dfa52f21f529dad167a12ec143dab9304ebd3","download_url":"https://github.com/kimjooyoon/gooo-semantic-observer/releases/download/v0.1.1/gooo-semantic-observer-0.1.1.tar.gz.sha256"}
+      ]
+    },
+    {
+      "entry_id": "adoption-regression-v0.1.0",
+      "capability": "adoption-regression",
+      "repository": "kimjooyoon/gooo-adoption-regression",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-adoption-regression/releases/tag/v0.1.0",
+      "target_commit_sha": "0d74f4dbb7bd943215444e5fcb551a44e8691386",
+      "tag_object_sha": "6ab64567883cb5ae3e46c1ab66c39f439861827f",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "lineage_role": "NEW_CLOSED_FRONTIER",
+      "baseline_observation": {"fixed_denominator":16,"case_count":12,"artifact_count":7,"run_id":33360974539,"job_id":99392113197,"closed":3,"unknown":4,"refuted":5,"repository_writes":0,"local_test_executions":0},
+      "assets": [
+        {"name":"adoption-regression-v0.1.0-receipts.zip","size_bytes":9945,"sha256":"sha256:ddbe85d30a7cf8467422157898c6bbf2ce7e672508a161f2e0714c475a75ed95","download_url":"https://github.com/kimjooyoon/gooo-adoption-regression/releases/download/v0.1.0/adoption-regression-v0.1.0-receipts.zip"}
+      ]
+    },
+    {
+      "entry_id": "adoption-regression-v0.1.1",
+      "capability": "adoption-regression",
+      "repository": "kimjooyoon/gooo-adoption-regression",
+      "tag": "v0.1.1",
+      "release_url": "https://github.com/kimjooyoon/gooo-adoption-regression/releases/tag/v0.1.1",
+      "target_commit_sha": "a2526412ea9131f0e4a3b9b32dde5d5f255c69c0",
+      "tag_object_sha": "6794a668f2568ddce622e9c8e8ac5e2e96174745",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "successor_of": "adoption-regression-v0.1.0",
+      "lineage_role": "CLOSED_SUCCESSOR_FRONTIER",
+      "source_run": {"run_id":33362100684,"workflow_url":"https://github.com/kimjooyoon/gooo-adoption-regression/actions/runs/33362100684","conclusion":"success"},
+      "source_artifact": {"run_id":33362100684,"artifact_id":9747030184,"name":"adoption-regression-receipts-a2526412ea9131f0e4a3b9b32dde5d5f255c69c0","size_bytes":9656,"sha256":"sha256:e68fbbec138e378ebf66ac91a4b1e493c3f881301954131a3d8bfa53143ee149","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-adoption-regression/actions/artifacts/9747030184/zip"},
+      "assets": [
+        {"name":"adoption-regression-v0.1.1-receipts.zip","size_bytes":9852,"sha256":"sha256:d717fdfe54484665468b2df2078f3dd47c3e22cbb8c03bd2d485b502cd328e2f","download_url":"https://github.com/kimjooyoon/gooo-adoption-regression/releases/download/v0.1.1/adoption-regression-v0.1.1-receipts.zip"}
+      ]
     }
   ],
   "lineage": [
     {"historical_entry_id":"evaluator-lineage-v0.1.0","successor_entry_id":"evaluator-lineage-v0.1.1","historical_state":"REFUTED","successor_state":"CLOSED","transition":"REFUTED_TO_CLOSED"},
     {"historical_entry_id":"counterexample-memory-v0.1.0","successor_entry_id":"counterexample-memory-v0.1.1","historical_state":"REFUTED","successor_state":"CLOSED","transition":"REFUTED_TO_CLOSED"},
     {"historical_entry_id":"improvement-selector-v0.1.0","successor_entry_id":"improvement-selector-v0.1.1","historical_state":"REFUTED","successor_state":"CLOSED","transition":"REFUTED_TO_CLOSED"},
-    {"historical_entry_id":"receipt-schema-migration-v0.1.1","successor_entry_id":"receipt-schema-migration-v0.2.2","historical_state":"CLOSED","successor_state":"CLOSED","transition":"CLOSED_TO_CLOSED_SUCCESSOR"}
+    {"historical_entry_id":"receipt-schema-migration-v0.1.1","successor_entry_id":"receipt-schema-migration-v0.2.2","historical_state":"CLOSED","successor_state":"CLOSED","transition":"CLOSED_TO_CLOSED_SUCCESSOR"},
+    {"historical_entry_id":"receipt-schema-migration-v0.2.2","successor_entry_id":"receipt-schema-migration-v0.3.1","historical_state":"CLOSED","successor_state":"CLOSED","transition":"CLOSED_TO_CLOSED_SUCCESSOR"},
+    {"historical_entry_id":"semantic-observer-v0.1.0","successor_entry_id":"semantic-observer-v0.1.1","historical_state":"REFUTED","successor_state":"CLOSED","transition":"REFUTED_TO_CLOSED"},
+    {"historical_entry_id":"adoption-regression-v0.1.0","successor_entry_id":"adoption-regression-v0.1.1","historical_state":"CLOSED","successor_state":"CLOSED","transition":"CLOSED_TO_CLOSED_SUCCESSOR"}
   ],
-  "frontier_additions": ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2"]
+  "frontier_additions": ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2","receipt-schema-migration-v0.3.1","adoption-transaction-v0.1.0","self-repair-example-v0.1.0","semantic-observer-v0.1.0","semantic-observer-v0.1.1","adoption-regression-v0.1.0","adoption-regression-v0.1.1"]
 }
