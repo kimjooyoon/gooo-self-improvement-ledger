@@ -181,7 +181,7 @@
       "evaluator": "ledger/opentofu-plan-path",
       "metric_id": "gooo.metric.self-improvement.opentofu-plan-path.v1",
       "metric_denominator": 1,
-      "release_key": null,
+      "release_key": "opentofu_bridge",
       "depends_on": ["CORE_SEMANTIC_AUTHORITY"]
     },
     {

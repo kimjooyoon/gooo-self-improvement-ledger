@@ -106,6 +106,27 @@
         {"name":"actions.json","size_bytes":18279,"sha256":"sha256:629903b1695a3b7337038c893c5f1b11c1c97316c1bded4c054ee0f066a9f3df","download_url":"https://github.com/kimjooyoon/gooo-design-contract-bridge/releases/download/v0.2.0/actions.json"},
         {"name":"dossier.md","size_bytes":3042,"sha256":"sha256:62e2faae0f16555651f1d47331ac401fe48afded1f21e9fbccf1ee3ab30be602","download_url":"https://github.com/kimjooyoon/gooo-design-contract-bridge/releases/download/v0.2.0/dossier.md"}
       ]
+    },
+    "opentofu_bridge": {
+      "repository": "kimjooyoon/gooo-opentofu-bridge",
+      "tag": "v0.2.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/tag/v0.2.0",
+      "target_commit_sha": "5444c1f9967ee42af05bf06094473e2950f6a366",
+      "immutable": true,
+      "source_artifact": {"run_id":33345178464,"artifact_id":9741768051,"name":"gooo-opentofu-bridge-evidence-5444c1f9967ee42af05bf06094473e2950f6a366","size_bytes":108328,"sha256":"sha256:851b60544d782f6d6a894664ab30ef2f5a85c7ca0734784b1995a97123620b76","download_url":"https://api.github.com/repos/kimjooyoon/gooo-opentofu-bridge/actions/artifacts/9741768051"},
+      "manifest": {"name":"release-manifest.json","size_bytes":1776,"sha256":"sha256:915acca56d1f8c82a6722681feb349aab0b9fc76948d682e07e7aead64e0cc24","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/release-manifest.json"},
+      "evidence": {"name":"gooo-opentofu-bridge-evidence-5444c1f9967ee42af05bf06094473e2950f6a366.zip","size_bytes":11507,"sha256":"sha256:2ed14afd1490c5dfbf74f9897828dfc39e94426241cc8410a38105329b30c447","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/gooo-opentofu-bridge-evidence-5444c1f9967ee42af05bf06094473e2950f6a366.zip"},
+      "assets": [
+        {"name":"bridge-observation.json","size_bytes":59221,"sha256":"sha256:1298c6d8d946402bf9bd5151c576f44f0b1774c508c03f46d3e1dfa89e02d711","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/bridge-observation.json"},
+        {"name":"dossier.md","size_bytes":2683,"sha256":"sha256:7396b6ca364ff25b52b192759bded8b3a7f0c7ef93743e20209ae66d9c20c75e","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/dossier.md"},
+        {"name":"gooo-opentofu-bridge-evidence-5444c1f9967ee42af05bf06094473e2950f6a366.zip","size_bytes":11507,"sha256":"sha256:2ed14afd1490c5dfbf74f9897828dfc39e94426241cc8410a38105329b30c447","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/gooo-opentofu-bridge-evidence-5444c1f9967ee42af05bf06094473e2950f6a366.zip"},
+        {"name":"intent.tf.json","size_bytes":299,"sha256":"sha256:51270344c6bc13fceab1e7b9d9e27abf6e65860a3501163053274775328bdb73","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/intent.tf.json"},
+        {"name":"plan-oracle-v1.json","size_bytes":653,"sha256":"sha256:5e3df015b069e18bb3151c7fb5266bf15c01ce76bcd51fd03993409c9f250e24","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/plan-oracle-v1.json"},
+        {"name":"plan-receipt.json","size_bytes":3974,"sha256":"sha256:50f4f37e832bbd71e139205c9321aebee46db207137affa28e33401124d7450a","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/plan-receipt.json"},
+        {"name":"release-manifest.json","size_bytes":1776,"sha256":"sha256:915acca56d1f8c82a6722681feb349aab0b9fc76948d682e07e7aead64e0cc24","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/release-manifest.json"},
+        {"name":"SHA256SUMS","size_bytes":729,"sha256":"sha256:9e59948ebe9daf5c9cfcb17269f53d16fb240af9e66e9a8451eade9eb1f6d20b","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/SHA256SUMS"},
+        {"name":"validation.json","size_bytes":1776,"sha256":"sha256:885c62ce390bfc799f1ebb81277dd7a79a4ea3a421e82adede0fa35c88cfe041","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/validation.json"}
+      ]
     }
   }
 }
