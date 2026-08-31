@@ -254,7 +254,7 @@ jobs:
             .inventory=={go_physical_files:0,go_physical_lines:0,gooo_physical_files:1,gooo_physical_lines:46,regular_files:22,root_readme_excluded:true,subfolders:7} and
             .test_counts=={executed:6,failed:2,passed:2,reused:0,total:6,unknown:2} and
             .authority.scope=="GENERATED_OPENTOFU_SERVICE_PROJECT_ONLY" and .authority.semantic_graph_state=="CLOSED" and .authority.external_utility.state=="UNKNOWN" and .authority.global_core_authority_claim=="NOT_MADE" and .authority.handwritten_go_physical_files==0 and .authority.repository_writes==0 and
-            .toolchain=={go_requirement:"1.27.x",opentofu:"1.12.6"} and .utility.state=="UNKNOWN" and .improvement.state=="UNKNOWN"
+            .toolchain=={go_requirement:"1.27.x",opentofu_engine:"OPENTOFU",opentofu_version:"1.12.6"} and .utility.state=="UNKNOWN" and .improvement.state=="UNKNOWN"
           ' "$project_dir/manifest-v0.2.1.json" >/dev/null
           expected_checksums=$(printf '%s\n' \
             '9f45cf78ef9339d3d694a30fb21131151d8ec61e4eb62455f2848e0d78180832  evidence-v0.2.1.tar.gz' \
