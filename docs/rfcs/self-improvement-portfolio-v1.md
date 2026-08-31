@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for twenty-nine specifically named capabilities.
+The portfolio is an evidence ledger for thirty specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains twenty-nine entries. The v0.23
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-eight-cell
+`cells` array is immutable during a run and contains thirty entries. The v0.24
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-nine-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/20/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/20/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/21/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/21/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -218,9 +218,30 @@ accepted closure; the top unknown decision is `FAIL_CLOSED`, contradictions have
 are `4 -> 2` and `5 -> 3`. The upstream release closes only the new ledger cell;
 the portfolio becomes `CLOSED26/UNKNOWN1/REFUTED2`.
 
+The v0.24 frontier appends `SELF_REPAIR_INTEGRATION_RELEASE`. It adopts
+immutable `kimjooyoon/gooo-self-repair-example@v0.2.1`, release `379971030`,
+binding annotated tag object
+`b8318c1645bc76286eb5c404b771118b6ce1e07b` to target
+`28f3589d69796b4630b2e066c6a5c45ac8468096`. PRs #3 and #4 are merged; the
+historical direct-main workflow commit
+`5dca56d238751739beba3fafe9a9018c0bb18ce4` is preserved as
+`DEVELOPMENT_PROCESS_DIRECT_MAIN` `REFUTED`, while the current guard is
+`CLOSED`. Post-main Actions run/job `33425759488/99598796427` and release
+run/job `33425908089/99599283424` are successful; artifact `9770678796` is
+locked at `14701` bytes and
+`sha256:870a731cf484535e2b1218e1d7eee37a0ccdd9c7ad194ff19030ab31e42c7514`.
+The 12-activity protocol records claims `3/3/3`, proof and indicator buckets
+`4/4/4`, cycles `attempts=2/candidates=5/recurrence=1->0/avoided=1/unknown=2/replay=2/0`,
+tests `3/3/0/0/0`, build/test/conformance `250/240/13757 ms`, peak RSS
+`90856 KiB`, inventory `Go 8/1547`, `Gooo 2/16`, `15` directories, `25`
+files, outputs `12/38440`, and zero repository writes, local test executions,
+and cross-project required gates. Core semantic authority is `CLOSED`,
+external utility is `UNKNOWN` because the exact pair axes cross, and the new
+cell is `CLOSED`; the portfolio becomes `CLOSED27/UNKNOWN1/REFUTED2`.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-twenty-nine-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+thirty-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
