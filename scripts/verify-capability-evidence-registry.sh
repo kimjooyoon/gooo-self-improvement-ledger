@@ -26,16 +26,24 @@ command -v sha256sum >/dev/null
 jq -e '
   .schema == "gooo/non-completeness/capability-evidence-registry/lock/v1" and
   .registry_id == "non-completeness-capability-evidence-registry-v1" and
-  .entry_count == 5 and (.entries|length) == 5 and
+  .entry_count == 9 and (.entries|length) == 9 and
   (.entries|map(.entry_id)|length) == (.entries|map(.entry_id)|unique|length) and
+  (.lineage|length) == 3 and
+  (.lineage|map(.historical_entry_id)|sort) == ["counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0"] and
+  all(.lineage[]; .historical_state == "REFUTED" and .successor_state == "CLOSED" and .transition == "REFUTED_TO_CLOSED") and
+  (.frontier_additions == ["receipt-schema-migration-v0.1.1"]) and
   .policy.separate_from_portfolio_denominator == true and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false
 ' "$lock" >/dev/null
 jq -e '
   .schema == "gooo/non-completeness/capability-evidence-registry/assessment/v1" and
   .registry_id == "non-completeness-capability-evidence-registry-v1" and
-  .entry_count == 5 and (.entries|length) == 5 and
+  .entry_count == 9 and (.entries|length) == 9 and
   (.entries|map(.entry_id)|length) == (.entries|map(.entry_id)|unique|length) and
+  (.lineage|length) == 3 and
+  (.lineage|map(.historical_entry_id)|sort) == ["counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0"] and
+  all(.lineage[]; .historical_state == "REFUTED" and .successor_state == "CLOSED" and .transition == "REFUTED_TO_CLOSED") and
+  (.frontier_additions == ["receipt-schema-migration-v0.1.1"]) and
   all(.entries[]; .state == "CLOSED" or .state == "UNKNOWN" or .state == "REFUTED")
 ' "$assessment" >/dev/null
 
@@ -68,9 +76,11 @@ for entry_id in $(jq -r '.entries[].entry_id' "$lock"); do
   state="CLOSED"
   reason=""
   observed_release='{}'
+  observed_graphql='{}'
   observed_target='null'
   observed_source_run='null'
   observed_source_artifact='null'
+  observed_adoption_proposal='null'
   asset_results="$output/$entry_id.assets.ndjson"
   : > "$asset_results"
 
@@ -89,6 +99,24 @@ for entry_id in $(jq -r '.entries[].entry_id' "$lock"); do
     '.tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==$immutable' \
     "$release_json" >/dev/null; then
     mark_refuted "RELEASE_API_METADATA_MISMATCH"
+  fi
+
+  if jq -e --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | (.api_surfaces.graphql // false) == true' "$lock" >/dev/null; then
+    graphql_owner="${repo%%/*}"
+    graphql_name="${repo#*/}"
+    graphql_json="$output/$entry_id.graphql.json"
+    if ! gh api graphql -F owner="$graphql_owner" -F name="$graphql_name" -F tag="$tag" \
+      -f query='query($owner:String!,$name:String!,$tag:String!){repository(owner:$owner,name:$name){release(tagName:$tag){tagName,isDraft,isPrerelease,url,tagCommit{oid}}}}' \
+      > "$graphql_json" 2> "$output/$entry_id.graphql.error"; then
+      mark_unknown "GRAPHQL_RELEASE_API_UNAVAILABLE"
+    else
+      observed_graphql=$(jq -S '.data.repository.release // {} | {tag_name:.tagName,is_draft:.isDraft,is_prerelease:.isPrerelease,url:.url,tag_commit_sha:(.tagCommit.oid // null)}' "$graphql_json")
+      if ! jq -e --arg tag "$tag" --arg url "$release_url" --arg target "$target" \
+        '.data.repository.release != null and .data.repository.release.tagName==$tag and .data.repository.release.url==$url and .data.repository.release.isDraft==false and .data.repository.release.isPrerelease==false and .data.repository.release.tagCommit.oid==$target' \
+        "$graphql_json" >/dev/null; then
+        mark_refuted "GRAPHQL_RELEASE_METADATA_MISMATCH"
+      fi
+    fi
   fi
 
   tag_ref="$output/$entry_id.tag-ref.json"
@@ -156,6 +184,32 @@ for entry_id in $(jq -r '.entries[].entry_id' "$lock"); do
     done
   fi
 
+  if jq -e --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | has("adoption_proposal")' "$lock" >/dev/null; then
+    proposal_asset_name=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .adoption_proposal.asset_name' "$lock")
+    proposal_path=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .adoption_proposal.path' "$lock")
+    proposal_sha=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .adoption_proposal.sha256' "$lock")
+    proposal_declared_digest=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .adoption_proposal.declared_proposal_digest' "$lock")
+    proposal_index=$(jq -r --arg id "$entry_id" --arg name "$proposal_asset_name" '.entries[] | select(.entry_id==$id) | .assets | to_entries[] | select(.value.name==$name) | .key' "$lock")
+    if [ -z "$proposal_index" ] || [ ! -f "$output/$entry_id/assets/$proposal_index.bin" ]; then
+      mark_unknown "ADOPTION_PROPOSAL_ASSET_UNAVAILABLE"
+    else
+      proposal_asset_path="$output/$entry_id/assets/$proposal_index.bin"
+      proposal_json="$output/$entry_id.adoption-proposal.json"
+      if ! tar -xOzf "$proposal_asset_path" "$proposal_path" > "$proposal_json" 2> "$output/$entry_id.adoption-proposal.error"; then
+        mark_refuted "ADOPTION_PROPOSAL_CONTENT_UNAVAILABLE"
+      else
+        actual_proposal_sha="sha256:$(sha256sum "$proposal_json" | awk '{print $1}')"
+        observed_adoption_proposal=$(jq -S -n --arg path "$proposal_path" --arg sha "$actual_proposal_sha" \
+          --arg declared "$(jq -r '.proposal_digest // empty' "$proposal_json")" \
+          '{path:$path,sha256:$sha,declared_proposal_digest:$declared}')
+        if [ "$actual_proposal_sha" != "$proposal_sha" ] || \
+          ! jq -e --arg digest "$proposal_declared_digest" '.proposal_digest==$digest' "$proposal_json" >/dev/null; then
+          mark_refuted "ADOPTION_PROPOSAL_DIGEST_MISMATCH"
+        fi
+      fi
+    fi
+  fi
+
   if jq -e --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | has("source_run")' "$lock" >/dev/null; then
     source_run_id=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .source_run.run_id' "$lock")
     source_run_json="$output/$entry_id.source-run.json"
@@ -163,8 +217,9 @@ for entry_id in $(jq -r '.entries[].entry_id' "$lock"); do
       mark_unknown "SOURCE_RUN_API_UNAVAILABLE"
     else
       observed_source_run=$(jq -S '{id,head_sha,conclusion,html_url}' "$source_run_json")
-      if ! jq -e --arg sha "$target" --argjson id "$source_run_id" \
-        '.id==$id and .head_sha==$sha and .conclusion=="success"' "$source_run_json" >/dev/null; then
+      source_run_url=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .source_run.workflow_url' "$lock")
+      if ! jq -e --arg sha "$target" --argjson id "$source_run_id" --arg url "$source_run_url" \
+        '.id==$id and .head_sha==$sha and .html_url==$url and .conclusion=="success"' "$source_run_json" >/dev/null; then
         mark_refuted "SOURCE_RUN_PROVENANCE_MISMATCH"
       fi
     fi
@@ -181,11 +236,12 @@ for entry_id in $(jq -r '.entries[].entry_id' "$lock"); do
       source_artifact_name=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .source_artifact.name' "$lock")
       source_artifact_size=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .source_artifact.size_bytes' "$lock")
       source_artifact_sha=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .source_artifact.sha256' "$lock")
+      source_artifact_url=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .source_artifact.archive_download_url' "$lock")
       source_run_id=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .source_artifact.run_id' "$lock")
       observed_source_artifact=$(jq -S --argjson id "$source_artifact_id" '.artifacts[] | select(.id==$id) | {id,name,size_in_bytes,digest,expired,workflow_run}' "$source_artifact_json")
       if ! jq -e --arg target "$target" --argjson id "$source_artifact_id" --arg name "$source_artifact_name" \
-        --argjson size "$source_artifact_size" --arg sha "$source_artifact_sha" --argjson run_id "$source_run_id" \
-        '.artifacts[] | select(.id==$id) | .name==$name and .size_in_bytes==$size and .digest==$sha and .expired==false and .workflow_run.id==$run_id and .workflow_run.head_sha==$target' \
+        --argjson size "$source_artifact_size" --arg sha "$source_artifact_sha" --arg url "$source_artifact_url" --argjson run_id "$source_run_id" \
+        '.artifacts[] | select(.id==$id) | .name==$name and .size_in_bytes==$size and .digest==$sha and .archive_download_url==$url and .expired==false and .workflow_run.id==$run_id and .workflow_run.head_sha==$target' \
         "$source_artifact_json" >/dev/null; then
         mark_refuted "SOURCE_ARTIFACT_METADATA_MISMATCH"
       fi
@@ -197,8 +253,9 @@ for entry_id in $(jq -r '.entries[].entry_id' "$lock"); do
     --arg id "$entry_id" --arg state "$state" --arg reason "$reason" \
     --argjson release "$observed_release" --argjson target "$observed_target" \
     --argjson assets "$assets" --argjson source_run "$observed_source_run" \
-    --argjson source_artifact "$observed_source_artifact" \
-    '{entry_id:$id,state:$state,observed:{release:$release,resolved_tag:$target,source_run:$source_run,source_artifact:$source_artifact},verified_assets:$assets,reason:(if $reason=="" then null else $reason end)}' \
+    --argjson source_artifact "$observed_source_artifact" --argjson graphql "$observed_graphql" \
+    --argjson adoption_proposal "$observed_adoption_proposal" \
+    '{entry_id:$id,state:$state,observed:{release:$release,graphql:$graphql,resolved_tag:$target,source_run:$source_run,source_artifact:$source_artifact,adoption_proposal:$adoption_proposal},verified_assets:$assets,reason:(if $reason=="" then null else $reason end)}' \
     > "$output/$entry_id.result.json"
 done
 verification_end=$(date +%s%N)
@@ -220,13 +277,15 @@ for entry_id in $(jq -r '.entries[].entry_id' "$lock"); do
 done
 
 summary=$(jq -c '{entry_count:length,closed:([.[]|select(.state=="CLOSED")]|length),unknown:([.[]|select(.state=="UNKNOWN")]|length),refuted:([.[]|select(.state=="REFUTED")]|length)}' <<< "$results")
+lineage=$(jq -c '.lineage' "$lock")
+frontier_additions=$(jq -c '.frontier_additions' "$lock")
 jq -S -n \
   --arg schema "gooo/non-completeness/capability-evidence-registry/verification/v1" \
   --arg registry "non-completeness-capability-evidence-registry-v1" \
   --arg source_lock "contracts/non-completeness-capability-evidence-registry-v1.json" \
-  --argjson entries "$results" --argjson summary "$summary" \
+  --argjson entries "$results" --argjson summary "$summary" --argjson lineage "$lineage" --argjson frontier_additions "$frontier_additions" \
   --argjson timing "$(measurement "$verification_start" "$verification_end")" \
-  '{schema:$schema,registry_id:$registry,source_lock:$source_lock,entry_count:$summary.entry_count,summary:{closed:$summary.closed,unknown:$summary.unknown,refuted:$summary.refuted},entries:$entries,timing:{verification:$timing}}' \
+  '{schema:$schema,registry_id:$registry,source_lock:$source_lock,entry_count:$summary.entry_count,summary:{closed:$summary.closed,unknown:$summary.unknown,refuted:$summary.refuted},entries:$entries,lineage:$lineage,frontier_additions:$frontier_additions,timing:{verification:$timing}}' \
   > "$output/verification.json"
 
 if [ "$assessment_mismatches" -ne 0 ]; then
