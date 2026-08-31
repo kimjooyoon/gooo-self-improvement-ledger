@@ -173,7 +173,7 @@ jq -e '
     $process.refutation.reason == "SUBSTANTIVE_IMPLEMENTATION_LANDED_DIRECTLY_ON_MAIN" and
     $process.refutation.next_operation == "REQUIRE_PULL_REQUEST_FOR_SUBSTANTIVE_IMPLEMENTATION" and
     ($process.refutation.blocked_by|length) == 3) and
-  (.cells|length) == 18 and
+  (.cells|length) == 19 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
