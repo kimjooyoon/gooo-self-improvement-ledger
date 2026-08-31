@@ -518,8 +518,12 @@ func buildReport(profile Profile, assessment Assessment, verification ReleaseVer
 			Unknown: unknown, Refutation: refutation,
 		}
 		reportedCells = append(reportedCells, reported)
-		addState(&proofCounts[cell.Proof], state)
-		addState(&indicatorCounts[cell.Indicator], state)
+		proofSummary := proofCounts[cell.Proof]
+		addState(&proofSummary, state)
+		proofCounts[cell.Proof] = proofSummary
+		indicatorSummary := indicatorCounts[cell.Indicator]
+		addState(&indicatorSummary, state)
+		indicatorCounts[cell.Indicator] = indicatorSummary
 	}
 
 	counts := StatusCounts{Total: len(reportedCells)}
