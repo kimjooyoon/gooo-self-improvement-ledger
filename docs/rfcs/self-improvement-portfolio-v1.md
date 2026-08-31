@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for twenty-five specifically named capabilities.
+The portfolio is an evidence ledger for twenty-six specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains twenty-five entries. The v0.19
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-four-cell
+`cells` array is immutable during a run and contains twenty-six entries. The v0.20
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-five-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/16/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/16/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/17/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/17/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -143,9 +143,30 @@ directories. Because the Go implementation remains larger than the Gooo source,
 `CORE_SEMANTIC_AUTHORITY` stays `REFUTED`; utility remains `UNKNOWN`, and prior
 refutations and upstream release-process observations remain append-only.
 
+The v0.20 frontier appends `SEMANTIC_DRIFT_GUARD_RELEASE`. It adopts
+immutable `gooo-semantic-drift-guard@v0.1.1` release `379915376`, binding
+annotated tag object `1e1cf4882347ccd69c14c4aa96e63c096709d512` to target
+`15b6c1dcce26feb5f64d562140708f7cb27390aa`, successful PR #2 conformance
+run `33416441475`/job `99568101328`, artifact `9767194212`, and successful
+release run `33416657453`/job `99568816492`. The independent protocol has
+denominator `12`, ten cases (`1 CLOSED / 4 UNKNOWN / 5 REFUTED`), precedence
+`REFUTED > UNKNOWN > CLOSED`, and canonical `source -> IR -> generated Go`
+binding. Its normal metrics are releases `2`, source files `2`, IR nodes `24`,
+generated files `2`, relations `12 -> 12`, equivalent `1`, drift `0`, unknown
+bindings `0`, replay `1/0`, RSS `12246 KiB`, wall `1 ms`, build `4654 ms`, test
+`1993 ms`, tests `12/12/0/0/0`, Go `1772` lines/`13` files, Gooo `85`
+lines/`6` files, `24` directories, and `45` files; all three authority counts
+are zero. The v0.1.0 release `379905110` remains an append-only non-score
+process observation with `immutable=false` and the literal
+`tag_object=v0.1.0^{tag}` defect, together with its faulty assets and
+annotated correction assets. This independent release does not close or alter
+`SEMANTIC_DRIFT_DEVELOPMENT_PROCESS=REFUTED`; Go `1772` versus Gooo `85`
+keeps `CORE_SEMANTIC_AUTHORITY=REFUTED`. Utility remains `UNKNOWN`, yielding
+`CLOSED23/UNKNOWN1/REFUTED2`.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-twenty-five-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+twenty-six-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

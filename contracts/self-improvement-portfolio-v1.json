@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 25,
+  "total_cells": 26,
   "denominator_migration": {
-    "from": 24,
-    "to": 25,
+    "from": 25,
+    "to": 26,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 16,
+    "COHERENCE": 17,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 16,
+    "OUTCOME": 17,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -430,6 +430,22 @@
       "metric_id": "gooo.metric.self-improvement.experience-memory-release.v1",
       "metric_denominator": 1,
       "release_key": "experience_memory_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 26,
+      "id": "SEMANTIC_DRIFT_GUARD_RELEASE",
+      "axis": "SEMANTIC_DRIFT_GUARD_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptSemanticDriftGuardRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptSemanticDriftGuardRelease",
+      "ir": "semantic-ir/activity/AdoptSemanticDriftGuardRelease",
+      "generated_artifact": "evidence/cells/SEMANTIC_DRIFT_GUARD_RELEASE.json",
+      "evaluator": "ledger/semantic-drift-guard-release",
+      "metric_id": "gooo.metric.self-improvement.semantic-drift-guard-release.v1",
+      "metric_denominator": 1,
+      "release_key": "semantic_drift_guard_release",
       "depends_on": []
     }
   ]
