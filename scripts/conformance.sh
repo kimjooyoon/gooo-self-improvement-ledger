@@ -239,7 +239,7 @@ jq -e '
   .releases.experience_memory_release.manifest_file.asset_id == 538237752 and
   .releases.experience_memory_release.manifest_file.size_bytes == 555 and
   .releases.experience_memory_release.manifest_file.sha256 == "sha256:34e97b1cb9fd2ee520cea5b82acd9ee44272abb7392c8a32ce51a144f397ada1" and
-  .releases.experience_memory_release.manifest_file.content == {schema:"gooo/experience-memory/release-manifest/v1",tag:"v0.1.0",commit_sha:"79fd6edc588ea26279dbe735e5f6e250132f7730",immutable:true,assets:{source:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",evidence:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6"}} and
+  .releases.experience_memory_release.manifest_file.content == {schema:"gooo/experience-memory/release-manifest/v1",tag:"v0.1.0",commit_sha:"79fd6edc588ea26279dbe735e5f6e250132f7730",immutable:true,assets:[{digest:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",kind:"source",name:"gooo-experience-memory-v0.1.0.tar.gz"},{digest:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6",kind:"ci-evidence",name:"gooo-experience-memory-evidence-v0.1.0.tar.gz"}]} and
   .releases.experience_memory_release.checksum_file.asset_id == 538237754 and
   .releases.experience_memory_release.checksum_file.size_bytes == 229 and
   .releases.experience_memory_release.checksum_file.sha256 == "sha256:237c96b9bd3eed13676f0a8a4f0de37c71d75646b6a51a762ba5ca9aa1afb6ca" and

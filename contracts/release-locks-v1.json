@@ -73,10 +73,10 @@
           "tag": "v0.1.0",
           "commit_sha": "79fd6edc588ea26279dbe735e5f6e250132f7730",
           "immutable": true,
-          "assets": {
-            "source": "sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",
-            "evidence": "sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6"
-          }
+          "assets": [
+            {"digest":"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d","kind":"source","name":"gooo-experience-memory-v0.1.0.tar.gz"},
+            {"digest":"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6","kind":"ci-evidence","name":"gooo-experience-memory-evidence-v0.1.0.tar.gz"}
+          ]
         }
       },
       "checksum_file": {
