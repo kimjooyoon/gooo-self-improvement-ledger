@@ -1,0 +1,18 @@
+package selfimprovementportfolio
+namespace selfimprovementportfolio
+
+entity PortfolioInput id "gooo://self-improvement-portfolio/input"
+entity PortfolioEvidence id "gooo://self-improvement-portfolio/evidence"
+
+activity DeclareCoreSemanticAuthority(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CORE_SEMANTIC_AUTHORITY;proof=FOUNDATION;indicator=DRIVER"
+activity ResolveResolutionDescent(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=RESOLUTION_DESCENT;proof=FOUNDATION;indicator=DRIVER"
+activity SelectCausalCITests(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CAUSAL_CI_SELECTION;proof=FOUNDATION;indicator=DRIVER"
+activity BudgetMetaResource(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=META_RESOURCE_BUDGET;proof=FOUNDATION;indicator=DRIVER"
+activity EvolveFixedDenominator(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=DENOMINATOR_EVOLUTION;proof=COHERENCE;indicator=OUTCOME"
+activity IntegrateReflexiveLoop(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=REFLEXIVE_LOOP;proof=COHERENCE;indicator=OUTCOME"
+activity IntegrateImmutableInput(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=IMMUTABLE_INPUT_INTEGRATION;proof=COHERENCE;indicator=OUTCOME"
+activity AdviseSemanticMerge(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_MERGE_ADVICE;proof=COHERENCE;indicator=OUTCOME"
+activity TraceDesignConsumerPath(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=DESIGN_CONSUMER_PATH;proof=REGRESSION;indicator=GUARDRAIL"
+activity TraceOpenTofuPlanPath(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=OPENTOFU_PLAN_PATH;proof=REGRESSION;indicator=GUARDRAIL"
+activity AuthorizeReleasePromotion(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=RELEASE_PROMOTION;proof=REGRESSION;indicator=GUARDRAIL"
+activity ObserveExternalUtility(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=EXTERNAL_UTILITY_EVIDENCE;proof=REGRESSION;indicator=GUARDRAIL"

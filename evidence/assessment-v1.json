@@ -1,0 +1,19 @@
+{
+  "schema": "gooo/self-improvement-portfolio/assessment/v1",
+  "profile_id": "self-improvement-portfolio-v1",
+  "assessment_id": "self-improvement-portfolio-v1-current-frontier",
+  "cells": [
+    {"cell_id":"CORE_SEMANTIC_AUTHORITY","state":"UNKNOWN","release_key":null,"evidence":[],"unknown":{"stage":"CORE_PROMOTION","step":"VERIFY_IMMUTABLE_CORE_PROMOTION","reason":"IMMUTABLE_CORE_PROMOTION_NOT_AVAILABLE","unknown_class":"DIRECT_MISSING","next_operation":"PROVIDE_IMMUTABLE_CORE_PROMOTION","blocked_by":["core-immutable-promotion"]}},
+    {"cell_id":"RESOLUTION_DESCENT","state":"CLOSED","release_key":"resolution_lattice","evidence":["consumer-manifest.json","gooo-resolution-lattice-v0.1.0-evidence.zip"]},
+    {"cell_id":"CAUSAL_CI_SELECTION","state":"CLOSED","release_key":"causal_ci","evidence":["consumer-manifest-v0.1.0.json","gooo-causal-ci-evidence-v0.1.0.tar.gz"]},
+    {"cell_id":"META_RESOURCE_BUDGET","state":"CLOSED","release_key":"meta_budget","evidence":["gooo-meta-budget-v0.1.0-manifest.json","gooo-meta-budget-evidence-v0.1.0.tar.gz"]},
+    {"cell_id":"DENOMINATOR_EVOLUTION","state":"CLOSED","release_key":"denominator_protocol","evidence":["gooo-denominator-protocol-v0.1.0-consumer-manifest.json","gooo-denominator-protocol-v0.1.0-evidence.tar.gz"]},
+    {"cell_id":"REFLEXIVE_LOOP","state":"UNKNOWN","release_key":"reflexive_loop","evidence":["consumer-manifest-v1.json","gooo-reflexive-loop-evidence.zip"],"unknown":{"stage":"REFLEXIVE_INTEGRATION","step":"VERIFY_V0_2_INTEGRATION","reason":"REFLEXIVE_LOOP_V0_2_NOT_IMMUTABLY_RELEASED","unknown_class":"DIRECT_MISSING","next_operation":"PROVIDE_IMMUTABLE_REFLEXIVE_LOOP_V0_2","blocked_by":["gooo-reflexive-loop-v0.2-integration"]}},
+    {"cell_id":"IMMUTABLE_INPUT_INTEGRATION","state":"CLOSED","release_key":"reflexive_loop","evidence":["consumer-manifest-v1.json","gooo-reflexive-loop-evidence.zip"]},
+    {"cell_id":"SEMANTIC_MERGE_ADVICE","state":"UNKNOWN","release_key":null,"evidence":[],"unknown":{"stage":"MERGE_ADVICE","step":"VERIFY_SEMANTIC_MERGE_ADVISOR_RELEASE","reason":"SEMANTIC_MERGE_ADVISOR_NOT_IMMUTABLY_RELEASED","unknown_class":"DIRECT_MISSING","next_operation":"PROVIDE_IMMUTABLE_SEMANTIC_MERGE_ADVISOR","blocked_by":["gooo-semantic-merge-advisor-v0.1.0"]}},
+    {"cell_id":"DESIGN_CONSUMER_PATH","state":"CLOSED","release_key":"design_contract_bridge","evidence":["actions.json","dossier.md"]},
+    {"cell_id":"OPENTOFU_PLAN_PATH","state":"UNKNOWN","release_key":null,"evidence":[],"unknown":{"stage":"OPENTOFU_PATH","step":"VERIFY_IMMUTABLE_PLAN_EVIDENCE","reason":"OPENTOFU_PLAN_PATH_NOT_IMMUTABLY_RELEASED","unknown_class":"DIRECT_MISSING","next_operation":"PROVIDE_IMMUTABLE_OPENTOFU_PLAN_EVIDENCE","blocked_by":["gooo-opentofu-plan-path"]}},
+    {"cell_id":"RELEASE_PROMOTION","state":"UNKNOWN","release_key":null,"evidence":[],"unknown":{"stage":"RELEASE_PROMOTION","step":"VERIFY_CORE_PROMOTION_AUTHORIZATION","reason":"CORE_PROMOTION_NOT_IMMUTABLY_RELEASED","unknown_class":"DIRECT_MISSING","next_operation":"PROVIDE_IMMUTABLE_CORE_PROMOTION","blocked_by":["core-immutable-promotion"]}},
+    {"cell_id":"EXTERNAL_UTILITY_EVIDENCE","state":"UNKNOWN","release_key":"resolution_lattice","evidence":["consumer-manifest.json","gooo-resolution-lattice-v0.1.0-evidence.zip"],"unknown":{"stage":"EXTERNAL_UTILITY","step":"REQUIRE_INDEPENDENT_EXTERNAL_UTILITY_EVIDENCE","reason":"EXTERNAL_UTILITY_NOT_OBSERVED","unknown_class":"CAUSALITY_UNPROVEN","next_operation":"PROVIDE_INDEPENDENT_EXTERNAL_UTILITY_EVIDENCE","blocked_by":["exact-before-after-utility-pair"]}}
+  ]
+}

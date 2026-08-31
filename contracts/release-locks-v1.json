@@ -1,0 +1,82 @@
+{
+  "schema": "gooo/self-improvement-portfolio/release-locks/v1",
+  "purpose": "Exact immutable release and asset inputs for the portfolio evidence cells.",
+  "releases": {
+    "meta_budget": {
+      "repository": "kimjooyoon/gooo-meta-budget",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-meta-budget/releases/tag/v0.1.0",
+      "target_commit_sha": "e71f024d2fdb69866e6c8f4e0e170b64ed6f7ee5",
+      "immutable": true,
+      "manifest": {"name":"gooo-meta-budget-v0.1.0-manifest.json","size_bytes":1502,"sha256":"sha256:7ea5ab709f1daf8d130bd7d7813d5a436a613b8774b537dad9865eafb4e6ed15","download_url":"https://github.com/kimjooyoon/gooo-meta-budget/releases/download/v0.1.0/gooo-meta-budget-v0.1.0-manifest.json"},
+      "evidence": {"name":"gooo-meta-budget-evidence-v0.1.0.tar.gz","size_bytes":2772405,"sha256":"sha256:fa4b9e992048ddbd4c84a9c7d8e17a6b283655f0da0b324488470944f318eee6","download_url":"https://github.com/kimjooyoon/gooo-meta-budget/releases/download/v0.1.0/gooo-meta-budget-evidence-v0.1.0.tar.gz"},
+      "assets": [
+        {"name":"gooo-meta-budget-v0.1.0-manifest.json","size_bytes":1502,"sha256":"sha256:7ea5ab709f1daf8d130bd7d7813d5a436a613b8774b537dad9865eafb4e6ed15","download_url":"https://github.com/kimjooyoon/gooo-meta-budget/releases/download/v0.1.0/gooo-meta-budget-v0.1.0-manifest.json"},
+        {"name":"gooo-meta-budget-evidence-v0.1.0.tar.gz","size_bytes":2772405,"sha256":"sha256:fa4b9e992048ddbd4c84a9c7d8e17a6b283655f0da0b324488470944f318eee6","download_url":"https://github.com/kimjooyoon/gooo-meta-budget/releases/download/v0.1.0/gooo-meta-budget-evidence-v0.1.0.tar.gz"}
+      ]
+    },
+    "resolution_lattice": {
+      "repository": "kimjooyoon/gooo-resolution-lattice",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-resolution-lattice/releases/tag/v0.1.0",
+      "target_commit_sha": "7182d0ff5a054fe93ef17cf96386a440b4080323",
+      "immutable": true,
+      "manifest": {"name":"consumer-manifest.json","size_bytes":2196,"sha256":"sha256:1ae585501de77ff281c1a510d72174f220fee019c4f1811ed295a89627ef7b69","download_url":"https://github.com/kimjooyoon/gooo-resolution-lattice/releases/download/v0.1.0/consumer-manifest.json"},
+      "evidence": {"name":"gooo-resolution-lattice-v0.1.0-evidence.zip","size_bytes":16944,"sha256":"sha256:1c66149af448cd23af8a76f0fc67e23cd4a0ae015f7e10565fe45b425221e571","download_url":"https://github.com/kimjooyoon/gooo-resolution-lattice/releases/download/v0.1.0/gooo-resolution-lattice-v0.1.0-evidence.zip"},
+      "assets": [
+        {"name":"consumer-manifest.json","size_bytes":2196,"sha256":"sha256:1ae585501de77ff281c1a510d72174f220fee019c4f1811ed295a89627ef7b69","download_url":"https://github.com/kimjooyoon/gooo-resolution-lattice/releases/download/v0.1.0/consumer-manifest.json"},
+        {"name":"gooo-resolution-lattice-v0.1.0-evidence.zip","size_bytes":16944,"sha256":"sha256:1c66149af448cd23af8a76f0fc67e23cd4a0ae015f7e10565fe45b425221e571","download_url":"https://github.com/kimjooyoon/gooo-resolution-lattice/releases/download/v0.1.0/gooo-resolution-lattice-v0.1.0-evidence.zip"}
+      ]
+    },
+    "causal_ci": {
+      "repository": "kimjooyoon/gooo-causal-ci",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-causal-ci/releases/tag/v0.1.0",
+      "target_commit_sha": "c7156aa98fb16f4cbd61592a85851a0c9480f96d",
+      "immutable": true,
+      "manifest": {"name":"consumer-manifest-v0.1.0.json","size_bytes":3535,"sha256":"sha256:0bcbec393e13272965d41756888afcb608b03884ca4544e0e617a57b9e194818","download_url":"https://github.com/kimjooyoon/gooo-causal-ci/releases/download/v0.1.0/consumer-manifest-v0.1.0.json"},
+      "evidence": {"name":"gooo-causal-ci-evidence-v0.1.0.tar.gz","size_bytes":4910,"sha256":"sha256:edb4148322da926b181468a98b4fd717499ba6f04763d934ebed3d59eebce29b","download_url":"https://github.com/kimjooyoon/gooo-causal-ci/releases/download/v0.1.0/gooo-causal-ci-evidence-v0.1.0.tar.gz"},
+      "assets": [
+        {"name":"consumer-manifest-v0.1.0.json","size_bytes":3535,"sha256":"sha256:0bcbec393e13272965d41756888afcb608b03884ca4544e0e617a57b9e194818","download_url":"https://github.com/kimjooyoon/gooo-causal-ci/releases/download/v0.1.0/consumer-manifest-v0.1.0.json"},
+        {"name":"gooo-causal-ci-evidence-v0.1.0.tar.gz","size_bytes":4910,"sha256":"sha256:edb4148322da926b181468a98b4fd717499ba6f04763d934ebed3d59eebce29b","download_url":"https://github.com/kimjooyoon/gooo-causal-ci/releases/download/v0.1.0/gooo-causal-ci-evidence-v0.1.0.tar.gz"}
+      ]
+    },
+    "denominator_protocol": {
+      "repository": "kimjooyoon/gooo-denominator-protocol",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-denominator-protocol/releases/tag/v0.1.0",
+      "target_commit_sha": "388fcee03b0d77a6b7a16116d1df91381dbe3dcc",
+      "immutable": true,
+      "manifest": {"name":"gooo-denominator-protocol-v0.1.0-consumer-manifest.json","size_bytes":1655,"sha256":"sha256:7bd4c814ddac9c964867931c206c98f0702488833d6791d26bac229535882bda","download_url":"https://github.com/kimjooyoon/gooo-denominator-protocol/releases/download/v0.1.0/gooo-denominator-protocol-v0.1.0-consumer-manifest.json"},
+      "evidence": {"name":"gooo-denominator-protocol-v0.1.0-evidence.tar.gz","size_bytes":10825,"sha256":"sha256:0933dfeec57a785ec29271bca51cd129cbdd50bc202ed5a5b40d65753e85bcbd","download_url":"https://github.com/kimjooyoon/gooo-denominator-protocol/releases/download/v0.1.0/gooo-denominator-protocol-v0.1.0-evidence.tar.gz"},
+      "assets": [
+        {"name":"gooo-denominator-protocol-v0.1.0-consumer-manifest.json","size_bytes":1655,"sha256":"sha256:7bd4c814ddac9c964867931c206c98f0702488833d6791d26bac229535882bda","download_url":"https://github.com/kimjooyoon/gooo-denominator-protocol/releases/download/v0.1.0/gooo-denominator-protocol-v0.1.0-consumer-manifest.json"},
+        {"name":"gooo-denominator-protocol-v0.1.0-evidence.tar.gz","size_bytes":10825,"sha256":"sha256:0933dfeec57a785ec29271bca51cd129cbdd50bc202ed5a5b40d65753e85bcbd","download_url":"https://github.com/kimjooyoon/gooo-denominator-protocol/releases/download/v0.1.0/gooo-denominator-protocol-v0.1.0-evidence.tar.gz"}
+      ]
+    },
+    "reflexive_loop": {
+      "repository": "kimjooyoon/gooo-reflexive-loop",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-reflexive-loop/releases/tag/v0.1.0",
+      "target_commit_sha": "e1ed9e9b0a92f9b8af639546e14414b3346ed0e1",
+      "immutable": true,
+      "manifest": {"name":"consumer-manifest-v1.json","size_bytes":1917,"sha256":"sha256:df82d9503a04ec4ca077e0cb3f56c061c911e234f0c23f616da1289f7b0400c2","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.1.0/consumer-manifest-v1.json"},
+      "evidence": {"name":"gooo-reflexive-loop-evidence.zip","size_bytes":423918,"sha256":"sha256:89ff0bbf5d1fc946b0f07d6eaf9c77e09636b41e3ed9f1699c0036ce336106a1","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.1.0/gooo-reflexive-loop-evidence.zip"},
+      "assets": [
+        {"name":"consumer-manifest-v1.json","size_bytes":1917,"sha256":"sha256:df82d9503a04ec4ca077e0cb3f56c061c911e234f0c23f616da1289f7b0400c2","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.1.0/consumer-manifest-v1.json"},
+        {"name":"gooo-reflexive-loop-evidence.zip","size_bytes":423918,"sha256":"sha256:89ff0bbf5d1fc946b0f07d6eaf9c77e09636b41e3ed9f1699c0036ce336106a1","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.1.0/gooo-reflexive-loop-evidence.zip"}
+      ]
+    },
+    "design_contract_bridge": {
+      "repository": "kimjooyoon/gooo-design-contract-bridge",
+      "tag": "v0.2.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-design-contract-bridge/releases/tag/v0.2.0",
+      "target_commit_sha": "f0002c4379be75530bfb61808fab52d017191e4b",
+      "immutable": true,
+      "assets": [
+        {"name":"actions.json","size_bytes":18279,"sha256":"sha256:629903b1695a3b7337038c893c5f1b11c1c97316c1bded4c054ee0f066a9f3df","download_url":"https://github.com/kimjooyoon/gooo-design-contract-bridge/releases/download/v0.2.0/actions.json"},
+        {"name":"dossier.md","size_bytes":3042,"sha256":"sha256:62e2faae0f16555651f1d47331ac401fe48afded1f21e9fbccf1ee3ab30be602","download_url":"https://github.com/kimjooyoon/gooo-design-contract-bridge/releases/download/v0.2.0/dossier.md"}
+      ]
+    }
+  }
+}

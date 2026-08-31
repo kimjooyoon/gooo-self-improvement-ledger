@@ -1,0 +1,107 @@
+name: Self-improvement portfolio evidence
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: self-improvement-portfolio-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    env:
+      SUBJECT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      ARTIFACT_ROOT: ${{ runner.temp }}/gooo-self-improvement-ledger
+    steps:
+      - name: Check out the reviewed subject
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ env.SUBJECT_SHA }}
+
+      - name: Install Go 1.27
+        uses: actions/setup-go@v6
+        with:
+          go-version: 1.27.0
+          cache: false
+
+      - name: Verify toolchain and clean checkout
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          test "$(git rev-parse HEAD)" = "$SUBJECT_SHA"
+          test "$(go env GOVERSION)" = go1.27.0
+          mkdir -p "$ARTIFACT_ROOT"
+          git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-before"
+
+      - name: Verify formatting, vet, tests, and build in CI
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          test -z "$(gofmt -l .)"
+          go vet ./...
+          go test -json ./... > "$RUNNER_TEMP/go-test.json"
+          go build -trimpath -o "$RUNNER_TEMP/ledger-report" ./cmd/ledger-report
+
+      - name: Fetch and verify six immutable release locks
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
+            bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
+
+      - name: Materialize runtime measurements
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          before=$(cat "$RUNNER_TEMP/repository-before")
+          git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-after"
+          test "$before" = "$(cat "$RUNNER_TEMP/repository-after")"
+          fetch=$(jq '.timing.fetch' "$ARTIFACT_ROOT/releases/verification.json")
+          verify=$(jq '.timing.verify' "$ARTIFACT_ROOT/releases/verification.json")
+          verify_rss=$(cat "$ARTIFACT_ROOT/release-verify-peak-rss")
+          jq -n \
+            --arg schema "gooo/self-improvement-portfolio/runtime/v1" \
+            --arg subject "$SUBJECT_SHA" --arg go_version "$(go env GOVERSION)" \
+            --argjson fetch "$fetch" --argjson verify "$verify" --argjson verify_rss "$verify_rss" \
+            '{schema:$schema,subject_sha:$subject,go_version:$go_version,timing:{fetch:$fetch,verify:($verify|.peak_rss_kib=$verify_rss),report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}},authority:{runtime_repository_writes:0,caller_owned_temp_output:true,cross_project_required_gates:0},local_execution_counts:{gofmt:0,build:0,test:0,vet:0,conformance:0}}' \
+            > "$ARTIFACT_ROOT/runtime.json"
+
+      - name: Run fixed-denominator conformance and emit human report
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          bash scripts/conformance.sh "$RUNNER_TEMP/ledger-report" "$GITHUB_WORKSPACE" "$ARTIFACT_ROOT"
+          final_before=$(cat "$RUNNER_TEMP/repository-after")
+          git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
+          test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
+          jq -e '.repository_writes==0 and .summary=={total:12,closed:6,unknown:6,refuted:0}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
+          cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload human-readable evidence
+        if: always()
+        id: evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: gooo-self-improvement-ledger-${{ env.SUBJECT_SHA }}
+          path: ${{ env.ARTIFACT_ROOT }}
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Record artifact identity
+        if: always()
+        run: |
+          {
+            echo "### Evidence artifact"
+            echo "artifact_id: ${{ steps.evidence.outputs.artifact-id }}"
+            echo "artifact_digest: ${{ steps.evidence.outputs.artifact-digest }}"
+          } >> "$GITHUB_STEP_SUMMARY"
