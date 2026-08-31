@@ -26,26 +26,32 @@ command -v sha256sum >/dev/null
 jq -e '
   .schema == "gooo/non-completeness/capability-evidence-registry/lock/v1" and
   .registry_id == "non-completeness-capability-evidence-registry-v1" and
-  .entry_count == 10 and (.entries|length) == 10 and
+  .entry_count == 17 and (.entries|length) == 17 and
   (.entries|map(.entry_id)|length) == (.entries|map(.entry_id)|unique|length) and
-  (.lineage|length) == 4 and
-  (.lineage|map(.historical_entry_id)|sort) == ["counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0","receipt-schema-migration-v0.1.1"] and
+  (.lineage|length) == 7 and
+  (.lineage|map(.historical_entry_id)|sort) == ["adoption-regression-v0.1.0","counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0","receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2","semantic-observer-v0.1.0"] and
   (.["lineage"] | map(select(.historical_entry_id == "receipt-schema-migration-v0.1.1" and .successor_entry_id == "receipt-schema-migration-v0.2.2" and .historical_state == "CLOSED" and .successor_state == "CLOSED" and .transition == "CLOSED_TO_CLOSED_SUCCESSOR")) | length) == 1 and
-  ((.lineage | map(select(.transition == "REFUTED_TO_CLOSED")) | length) == 3) and
-  (.frontier_additions == ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2"]) and
+  (.lineage | map(select(.historical_entry_id == "receipt-schema-migration-v0.2.2" and .successor_entry_id == "receipt-schema-migration-v0.3.1" and .historical_state == "CLOSED" and .successor_state == "CLOSED" and .transition == "CLOSED_TO_CLOSED_SUCCESSOR")) | length) == 1 and
+  (.lineage | map(select(.historical_entry_id == "semantic-observer-v0.1.0" and .successor_entry_id == "semantic-observer-v0.1.1" and .historical_state == "REFUTED" and .successor_state == "CLOSED" and .transition == "REFUTED_TO_CLOSED")) | length) == 1 and
+  (.lineage | map(select(.historical_entry_id == "adoption-regression-v0.1.0" and .successor_entry_id == "adoption-regression-v0.1.1" and .historical_state == "CLOSED" and .successor_state == "CLOSED" and .transition == "CLOSED_TO_CLOSED_SUCCESSOR")) | length) == 1 and
+  ((.lineage | map(select(.transition == "REFUTED_TO_CLOSED")) | length) == 4) and
+  (.frontier_additions == ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2","receipt-schema-migration-v0.3.1","adoption-transaction-v0.1.0","self-repair-example-v0.1.0","semantic-observer-v0.1.0","semantic-observer-v0.1.1","adoption-regression-v0.1.0","adoption-regression-v0.1.1"]) and
   .policy.separate_from_portfolio_denominator == true and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false
 ' "$lock" >/dev/null
 jq -e '
   .schema == "gooo/non-completeness/capability-evidence-registry/assessment/v1" and
   .registry_id == "non-completeness-capability-evidence-registry-v1" and
-  .entry_count == 10 and (.entries|length) == 10 and
+  .entry_count == 17 and (.entries|length) == 17 and
   (.entries|map(.entry_id)|length) == (.entries|map(.entry_id)|unique|length) and
-  (.lineage|length) == 4 and
-  (.lineage|map(.historical_entry_id)|sort) == ["counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0","receipt-schema-migration-v0.1.1"] and
+  (.lineage|length) == 7 and
+  (.lineage|map(.historical_entry_id)|sort) == ["adoption-regression-v0.1.0","counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0","receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2","semantic-observer-v0.1.0"] and
   (.["lineage"] | map(select(.historical_entry_id == "receipt-schema-migration-v0.1.1" and .successor_entry_id == "receipt-schema-migration-v0.2.2" and .historical_state == "CLOSED" and .successor_state == "CLOSED" and .transition == "CLOSED_TO_CLOSED_SUCCESSOR")) | length) == 1 and
-  ((.lineage | map(select(.transition == "REFUTED_TO_CLOSED")) | length) == 3) and
-  (.frontier_additions == ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2"]) and
+  (.lineage | map(select(.historical_entry_id == "receipt-schema-migration-v0.2.2" and .successor_entry_id == "receipt-schema-migration-v0.3.1" and .historical_state == "CLOSED" and .successor_state == "CLOSED" and .transition == "CLOSED_TO_CLOSED_SUCCESSOR")) | length) == 1 and
+  (.lineage | map(select(.historical_entry_id == "semantic-observer-v0.1.0" and .successor_entry_id == "semantic-observer-v0.1.1" and .historical_state == "REFUTED" and .successor_state == "CLOSED" and .transition == "REFUTED_TO_CLOSED")) | length) == 1 and
+  (.lineage | map(select(.historical_entry_id == "adoption-regression-v0.1.0" and .successor_entry_id == "adoption-regression-v0.1.1" and .historical_state == "CLOSED" and .successor_state == "CLOSED" and .transition == "CLOSED_TO_CLOSED_SUCCESSOR")) | length) == 1 and
+  ((.lineage | map(select(.transition == "REFUTED_TO_CLOSED")) | length) == 4) and
+  (.frontier_additions == ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2","receipt-schema-migration-v0.3.1","adoption-transaction-v0.1.0","self-repair-example-v0.1.0","semantic-observer-v0.1.0","semantic-observer-v0.1.1","adoption-regression-v0.1.0","adoption-regression-v0.1.1"]) and
   all(.entries[]; .state == "CLOSED" or .state == "UNKNOWN" or .state == "REFUTED")
 ' "$assessment" >/dev/null
 
@@ -231,7 +237,8 @@ for entry_id in $(jq -r '.entries[].entry_id' "$lock"); do
     else
       observed_source_run=$(jq -S '{id,head_sha,conclusion,html_url}' "$source_run_json")
       source_run_url=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .source_run.workflow_url' "$lock")
-      if ! jq -e --arg sha "$target" --argjson id "$source_run_id" --arg url "$source_run_url" \
+      source_run_expected_head=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | (.source_run.expected_head_sha // .target_commit_sha)' "$lock")
+      if ! jq -e --arg sha "$source_run_expected_head" --argjson id "$source_run_id" --arg url "$source_run_url" \
         '.id==$id and .head_sha==$sha and .html_url==$url and .conclusion=="success"' "$source_run_json" >/dev/null; then
         mark_refuted "SOURCE_RUN_PROVENANCE_MISMATCH"
       fi
@@ -251,14 +258,20 @@ for entry_id in $(jq -r '.entries[].entry_id' "$lock"); do
       source_artifact_sha=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .source_artifact.sha256' "$lock")
       source_artifact_url=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .source_artifact.archive_download_url' "$lock")
       source_run_id=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .source_artifact.run_id' "$lock")
+      source_artifact_expected_head=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | (.source_artifact.expected_workflow_head_sha // .target_commit_sha)' "$lock")
       observed_source_artifact=$(jq -S --argjson id "$source_artifact_id" '.artifacts[] | select(.id==$id) | {id,name,size_in_bytes,digest,expired,workflow_run}' "$source_artifact_json")
-      if ! jq -e --arg target "$target" --argjson id "$source_artifact_id" --arg name "$source_artifact_name" \
+      if ! jq -e --arg expected_head "$source_artifact_expected_head" --argjson id "$source_artifact_id" --arg name "$source_artifact_name" \
         --argjson size "$source_artifact_size" --arg sha "$source_artifact_sha" --arg url "$source_artifact_url" --argjson run_id "$source_run_id" \
-        '.artifacts[] | select(.id==$id) | .name==$name and .size_in_bytes==$size and .digest==$sha and .archive_download_url==$url and .expired==false and .workflow_run.id==$run_id and .workflow_run.head_sha==$target' \
+        '.artifacts[] | select(.id==$id) | .name==$name and .size_in_bytes==$size and .digest==$sha and .archive_download_url==$url and .expired==false and .workflow_run.id==$run_id and .workflow_run.head_sha==$expected_head' \
         "$source_artifact_json" >/dev/null; then
         mark_refuted "SOURCE_ARTIFACT_METADATA_MISMATCH"
       fi
     fi
+  fi
+
+  if jq -e --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | has("known_refutation")' "$lock" >/dev/null; then
+    known_refutation_code=$(jq -r --arg id "$entry_id" '.entries[] | select(.entry_id==$id) | .known_refutation.code' "$lock")
+    mark_refuted "$known_refutation_code"
   fi
 
   assets=$(jq -s . "$asset_results")

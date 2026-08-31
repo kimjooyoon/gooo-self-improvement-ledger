@@ -37,7 +37,7 @@ reflexive-loop v0.3 release carries internal lifecycle-final `PROMOTED`,
 promotion, rollback-boundary, and immutable-target receipts. This does not
 infer core semantic authority or independent external utility evidence.
 
-The non-completeness capability evidence registry is a separate five-entry
+The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
 twelve-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.

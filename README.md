@@ -28,7 +28,16 @@ semantic authority remains `REFUTED` by a fresh `pull_request_target` Guardian
 runtime observation on the open #609 feature PR: the protected-path gate
 preempted foundation authorization. The prior `ReferenceError: beforeDigest is
 not defined` refutation is preserved in an append-only
-`RESOLVED_BY_EXECUTABLE_GUARDIAN_SCOPE_ADOPTION` event. The live external
+`RESOLVED_BY_EXECUTABLE_GUARDIAN_SCOPE_ADOPTION` event. v0.9 appends a second
+CORE observation without replacing either prior event: candidate PR #615 is
+still open and unmerged, while two same-head CI attempts reproduce the known
+`KNOWN_VERIFICATION_CONTRADICTION` `OPERATION_DURATION_NEGATIVE` result. This
+is a `REFUTED` verification contradiction, not an `UNKNOWN` state. The
+append-only frontier records `CI_EFFORT_OBSERVATION` /
+`DERIVE_OPERATION_DURATION` and the next operation is to publish the CI time
+causality protocol with exact clock-domain semantics. The new protocol is
+tracked only as an unreleased, non-required optional dependency.
+The live external
 `UNKNOWN` cell
 retains exactly `stage`, `step`, `reason`, `unknown_class`, `next_operation`,
 and a minimal non-empty `blocked_by` frontier. A missing or contradictory
@@ -44,13 +53,16 @@ receipt-schema-migration v0.2.2 immutable release is locked as supporting
 evidence, while the not-yet-released v0.3 work is tracked as an optional
 dependency only and is not a gate.
 
-The separate `non-completeness-capability-evidence-registry-v1` records ten
-independent evidence inputs without treating its entry count as the portfolio
-denominator. Current registry disposition is `7 CLOSED / 0 UNKNOWN / 3
+The separate `non-completeness-capability-evidence-registry-v1` records
+seventeen independent evidence inputs without treating its entry count as the portfolio
+denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
 REFUTED`: the three historical v0.1.0 refutations remain preserved and are
-linked to immutable v0.1.1 successor locks; the fourth new closed frontier is
-the immutable receipt-schema-migration v0.1.1 input, followed by its immutable
-v0.2.2 closed successor. These capability evidence states do not change
+linked to immutable v0.1.1 successor locks; the immutable receipt-schema-
+migration v0.1.1 input is followed by v0.2.2 and v0.3.1 closed successors; and
+the semantic-observer v0.1.0 receipt-digest defect remains a preserved
+refuted baseline linked to corrected v0.1.1 evidence. The registry also
+records immutable adoption-transaction, self-repair-example, and
+adoption-regression inputs. These capability evidence states do not change
 portfolio cells. The registry emits no completeness percentage or score.
 
 Successor closure requires matching REST release metadata, a successful

@@ -106,9 +106,67 @@
       }
     }
   ],
+  "core_refutation_observation_events": [
+    {
+      "event_id": "CORE_SEMANTIC_AUTHORITY-CI-TIME-CONTRADICTION-v0.9",
+      "cell_id": "CORE_SEMANTIC_AUTHORITY",
+      "append_only": true,
+      "state": "REFUTED",
+      "classification": "KNOWN_VERIFICATION_CONTRADICTION",
+      "candidate": {
+        "pull_request": 615,
+        "state": "OPEN",
+        "merged": false,
+        "head_sha": "7087f0c",
+        "checks": {"success":85,"skipped":13,"failure":2},
+        "dev_main_unchanged": true
+      },
+      "expected_guardian": {
+        "code": "CI-ROOT-OF-TRUST-001",
+        "run_id": 33365728402,
+        "job_id": 99405865143,
+        "artifact_id": 9748206947
+      },
+      "unexpected_time_contradiction": {
+        "decision": "KNOWN_VERIFICATION_CONTRADICTION",
+        "reason": "OPERATION_DURATION_NEGATIVE",
+        "attempts": [
+          {"attempt":1,"job_id":99405870188,"artifact_id":9748462083,"head_sha":"7087f0c"},
+          {"attempt":2,"job_id":99408612206,"artifact_id":9748520364,"head_sha":"7087f0c"}
+        ]
+      },
+      "source_observations": {
+        "ci_run_id": 33365730047,
+        "ci_completed": true,
+        "opentofu_run_id": 33365730033,
+        "opentofu_completed": true,
+        "contradiction_reproduced": true
+      },
+      "refutation": {
+        "stage": "CI_EFFORT_OBSERVATION",
+        "step": "DERIVE_OPERATION_DURATION",
+        "reason": "OPERATION_DURATION_NEGATIVE",
+        "next_operation": "PUBLISH_CI_TIME_CAUSALITY_PROTOCOL_AND_ADOPT_EXACT_CLOCK_DOMAIN_SEMANTICS",
+        "unknown_class": null
+      },
+      "preservation": {
+        "pull_request_unmerged": true,
+        "dev_main_unchanged": true,
+        "prior_protected_path_event_preserved": true
+      }
+    }
+  ],
   "optional_dependencies": [
     {
       "id": "gooo-receipt-schema-migration-v0.3",
+      "status": "UNRELEASED",
+      "release_api": "NOT_FOUND",
+      "tag_api": "NOT_FOUND",
+      "required": false,
+      "gate": false
+    },
+    {
+      "id": "gooo-ci-time-protocol-v0.1.0",
       "status": "UNRELEASED",
       "release_api": "NOT_FOUND",
       "tag_api": "NOT_FOUND",
