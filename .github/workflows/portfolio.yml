@@ -69,7 +69,7 @@ jobs:
             contracts/non-completeness-capability-evidence-registry-v1.json \
             evidence/non-completeness-capability-evidence-registry-v1.json \
             "$ARTIFACT_ROOT/capability-registry"
-          jq -e '.entry_count==9 and .summary=={closed:6,unknown:0,refuted:3} and (has("percentage")|not) and (has("score")|not)' \
+          jq -e '.entry_count==10 and .summary=={closed:7,unknown:0,refuted:3} and (has("percentage")|not) and (has("score")|not)' \
             "$ARTIFACT_ROOT/capability-registry/verification.json" >/dev/null
 
       - name: Materialize runtime measurements

@@ -24,28 +24,34 @@ upstream evidence. Release promotion is closed only by the reflexive-loop
 v0.3 internal lifecycle, promotion, rollback-boundary, and immutable-target
 receipts; it does not imply core semantic authority or external utility.
 It intentionally leaves only external utility evidence `UNKNOWN`. Core
-semantic authority is now `REFUTED` by a fresh `pull_request_target` Guardian
-runtime contradiction: `ReferenceError: beforeDigest is not defined` on the
-open #609 feature PR. The previous core `UNKNOWN` record is preserved as an
-append-only `UNKNOWN -> REFUTED` transition event. The live `UNKNOWN` cell
+semantic authority remains `REFUTED` by a fresh `pull_request_target` Guardian
+runtime observation on the open #609 feature PR: the protected-path gate
+preempted foundation authorization. The prior `ReferenceError: beforeDigest is
+not defined` refutation is preserved in an append-only
+`RESOLVED_BY_EXECUTABLE_GUARDIAN_SCOPE_ADOPTION` event. The live external
+`UNKNOWN` cell
 retains exactly `stage`, `step`, `reason`, `unknown_class`, `next_operation`,
 and a minimal non-empty `blocked_by` frontier. A missing or contradictory
 locked release cannot close a cell.
 
-The core refutation binds the merged/admin migration receipt on dev commit
-`7f45792e3c23100cbb10cca8b229132060982a7b`, successful dev CI #3405, the
-`ci-guardian.yml` workflow blob, and the fresh #609 Guardian run, artifact, and
-annotation. The not-yet-released receipt-schema-migration v0.2 work is tracked
-as an optional dependency only; it is not a gate.
+The resolved event binds merged/admin PR #614, dev commit
+`e440cbc99f24ceb8385f1b89c70f8cdada10cdbb`, successful dev CI #3408, and its
+proof artifact. The current refutation binds the fresh #609 Guardian run
+`33359548617`, job `99388126433`, exact base/head/merge-base tuple, 92 changed
+files, and 26 protected kernel paths; its foundation, digest, and stage
+observations are null because dispatch stopped at the protected-path gate. The
+receipt-schema-migration v0.2.2 immutable release is locked as supporting
+evidence, while the not-yet-released v0.3 work is tracked as an optional
+dependency only and is not a gate.
 
-The separate `non-completeness-capability-evidence-registry-v1` records nine
+The separate `non-completeness-capability-evidence-registry-v1` records ten
 independent evidence inputs without treating its entry count as the portfolio
-denominator. Current registry disposition is `6 CLOSED / 0 UNKNOWN / 3
+denominator. Current registry disposition is `7 CLOSED / 0 UNKNOWN / 3
 REFUTED`: the three historical v0.1.0 refutations remain preserved and are
 linked to immutable v0.1.1 successor locks; the fourth new closed frontier is
-the immutable receipt-schema-migration v0.1.1 input. These capability evidence
-states do not change portfolio cells. The registry emits no completeness
-percentage or score.
+the immutable receipt-schema-migration v0.1.1 input, followed by its immutable
+v0.2.2 closed successor. These capability evidence states do not change
+portfolio cells. The registry emits no completeness percentage or score.
 
 Successor closure requires matching REST release metadata, a successful
 GraphQL release/tag lookup, the resolved tag target, every release asset's API
