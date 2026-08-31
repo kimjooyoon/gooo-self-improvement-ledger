@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for twenty-one specifically named capabilities.
+The portfolio is an evidence ledger for twenty-two specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains twenty-one entries. The v0.15
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-cell
+`cells` array is immutable during a run and contains twenty-two entries. The v0.16
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-one-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/12/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/12/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/13/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/13/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -84,9 +84,22 @@ local test executions, and cross-project gates. Its v0.1.0 release ID
 the GitHub API reports `immutable=false`; the direct-main `7281ead` observation
 is workflow-only with no pull request and is not confused with product state.
 
+The v0.16 frontier appends `CHANGE_BUNDLE_RELEASE`. It closes only when the
+immutable `gooo-change-bundle@v0.1.1` release binds tag object
+`09885ac7480d1ee2e350e907f5dc408b35188f47` to target
+`a93c41a28b5718f110b8679556b169f2b11c75b5`, successful release run
+`33398653367`/job `99509268842`, audit job `99509422788`, and audit artifact
+`9760351466` with size `735` and digest
+`sha256:30b54d122e4e32f47fecc74f93345e7f9a04a15c1c757f4f83cad36e2ba5f762`.
+The source protocol has 12 cells/activities, `4/4/4` proof and indicator
+totals, `3 CLOSED / 3 UNKNOWN / 6 REFUTED` cases, exact replay/rollback
+comparisons, and zero authority. Release v0.1.0 remains a platform-immutability
+`REFUTED` counterexample, while the three post-PR #1 direct-main commits are
+preserved as `DEVELOPMENT_PROCESS_DIRECT_MAIN` REFUTED process observations.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-twenty-one-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+twenty-two-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

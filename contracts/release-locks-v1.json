@@ -575,6 +575,84 @@
         {"id":538036991,"name":"release-manifest.json","size_bytes":392,"sha256":"sha256:fbeec8e847b185078fca004d22749de29c1363459cf1eb28fa74a0c601f3429b","download_url":"https://github.com/kimjooyoon/gooo-test-frontier/releases/download/v0.1.1/release-manifest.json"},
         {"id":538036990,"name":"SHA256SUMS","size_bytes":106,"sha256":"sha256:6bb2bddc43250a84a56c9dd0f039ea2bf06eb7b9777c6efc728610f5355bbf85","download_url":"https://github.com/kimjooyoon/gooo-test-frontier/releases/download/v0.1.1/SHA256SUMS"}
       ]
+    },
+    "change_bundle_release": {
+      "repository": "kimjooyoon/gooo-change-bundle",
+      "tag": "v0.1.1",
+      "release_id": 379788730,
+      "release_url": "https://github.com/kimjooyoon/gooo-change-bundle/releases/tag/v0.1.1",
+      "target_commit_sha": "a93c41a28b5718f110b8679556b169f2b11c75b5",
+      "tag_object_sha": "09885ac7480d1ee2e350e907f5dc408b35188f47",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33398653367,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-change-bundle/actions/runs/33398653367",
+        "head_sha": "a93c41a28b5718f110b8679556b169f2b11c75b5",
+        "conclusion": "success",
+        "job_id": 99509422788,
+        "job_name": "audit",
+        "job_url": "https://github.com/kimjooyoon/gooo-change-bundle/actions/runs/33398653367/job/99509422788",
+        "artifact_ids": [9760351466]
+      },
+      "release_run": {
+        "run_id": 33398653367,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-change-bundle/actions/runs/33398653367",
+        "head_sha": "a93c41a28b5718f110b8679556b169f2b11c75b5",
+        "conclusion": "success",
+        "job_id": 99509268842,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-change-bundle/actions/runs/33398653367/job/99509268842",
+        "artifact_ids": []
+      },
+      "source_artifact": {
+        "run_id": 33398653367,
+        "artifact_id": 9760351466,
+        "name": "gooo-change-bundle-release-audit-33398653367",
+        "size_bytes": 735,
+        "sha256": "sha256:30b54d122e4e32f47fecc74f93345e7f9a04a15c1c757f4f83cad36e2ba5f762"
+      },
+      "release_manifest": {
+        "schema": "gooo/change-bundle/release-manifest/v1",
+        "tag": "v0.1.1",
+        "commit_sha": "a93c41a28b5718f110b8679556b169f2b11c75b5",
+        "tag_object_sha": "09885ac7480d1ee2e350e907f5dc408b35188f47",
+        "authority": {"repository_writes":0,"local_test_executions":0,"cross_project_required_gates":0},
+        "assets": {
+          "gooo-change-bundle-v0.1.1.tar.gz": {"size_bytes":30148,"sha256":"sha256:60f6fbedb897467bbf499097a2abebe56e047c9f1da920000daa34f2f675fb5b"},
+          "gooo-change-bundle-ci-v0.1.1.tar.gz": {"size_bytes":6267,"sha256":"sha256:42dd203bd20438db7cc15abbbfe6fa19542cc2bf0de26cbe6db056150e1bb2f6"},
+          "ci-metrics.json": {"size_bytes":641,"sha256":"sha256:1fb8dcd44e0758555acefc75a4e9aabe83806cbe41d69f0e43d38cc5fadd0e03"}
+        }
+      },
+      "pull_requests": [
+        {"number":1,"title":"feat: add fail-closed deterministic change bundles","url":"https://github.com/kimjooyoon/gooo-change-bundle/pull/1","merged":true,"merge_commit_sha":"2d98537d1d6d4ff96fc70c98247660990b78191c","merged_at":"2026-08-31T13:21:24Z"},
+        {"number":2,"title":"Refute self-authored release immutability claims","url":"https://github.com/kimjooyoon/gooo-change-bundle/pull/2","merged":true,"merge_commit_sha":"a93c41a28b5718f110b8679556b169f2b11c75b5","merged_at":"2026-08-31T13:43:57Z"}
+      ],
+      "protocol_observation": {
+        "schema": "gooo/change-bundle/denominator/v1",
+        "denominator_id": "change-bundle-v1",
+        "fixed_denominator": 12,
+        "activities": 12,
+        "cells": 12,
+        "proof_totals": {"FOUNDATION":4,"COHERENCE":4,"REGRESSION":4},
+        "indicator_totals": {"DRIVER":4,"OUTCOME":4,"GUARDRAIL":4},
+        "precedence": ["REFUTED","UNKNOWN","CLOSED"],
+        "case_totals": {"CLOSED":3,"UNKNOWN":3,"REFUTED":6},
+        "bundle": {"files":15,"bytes":17527},
+        "change": {"changed_paths":1,"changed_hunks":1},
+        "replay": {"comparisons":13,"mismatches":0},
+        "rollback": {"comparisons":1,"mismatches":0},
+        "runtime": {"go":"1.27.0","build_wall_ms":224,"test_wall_ms":2414,"conformance_wall_ms":5,"peak_rss_kib":112032},
+        "tests": {"executed":16,"reused":0,"skipped":0,"not_observed":0},
+        "inventory": {"files":22,"directories":14,"go_lines":2049,"gooo_lines":18,"root_readme_excluded":true},
+        "authority": {"repository_writes":0,"local_test_executions":0,"cross_project_required_gates":0}
+      },
+      "assets": [
+        {"id":538044874,"name":"ci-metrics.json","size_bytes":641,"sha256":"sha256:1fb8dcd44e0758555acefc75a4e9aabe83806cbe41d69f0e43d38cc5fadd0e03","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.1/ci-metrics.json"},
+        {"id":538044878,"name":"gooo-change-bundle-ci-v0.1.1.tar.gz","size_bytes":6267,"sha256":"sha256:42dd203bd20438db7cc15abbbfe6fa19542cc2bf0de26cbe6db056150e1bb2f6","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.1/gooo-change-bundle-ci-v0.1.1.tar.gz"},
+        {"id":538044876,"name":"gooo-change-bundle-v0.1.1.tar.gz","size_bytes":30148,"sha256":"sha256:60f6fbedb897467bbf499097a2abebe56e047c9f1da920000daa34f2f675fb5b","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.1/gooo-change-bundle-v0.1.1.tar.gz"},
+        {"id":538044877,"name":"release-manifest.json","size_bytes":848,"sha256":"sha256:1920afc524309326cba26109c93d764b4effb5dd4bf717340db654131ecbfc15","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.1/release-manifest.json"},
+        {"id":538044875,"name":"SHA256SUMS","size_bytes":371,"sha256":"sha256:82b7d8c1f177bc36806f5678d27f1db50114b49d279fb14c673ffdc5fe59a196","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.1/SHA256SUMS"}
+      ]
     }
   },
   "counterexample_runs": [
@@ -856,6 +934,39 @@
         {"id":538014107,"name":"gooo-test-frontier-v0.1.0.tar.gz","size_bytes":27813,"sha256":"sha256:93ce04a14df4578e8711d2b22b86ed04287a47cb9e933cf3a8b79fe0923a90d2","download_url":"https://github.com/kimjooyoon/gooo-test-frontier/releases/download/v0.1.0/gooo-test-frontier-v0.1.0.tar.gz"},
         {"id":538014106,"name":"release-manifest.json","size_bytes":392,"sha256":"sha256:d6323fa42598ce35ba4347ecd05fd83cb7dc728e092aeea155938266687c4ceb","download_url":"https://github.com/kimjooyoon/gooo-test-frontier/releases/download/v0.1.0/release-manifest.json"},
         {"id":538014109,"name":"SHA256SUMS","size_bytes":106,"sha256":"sha256:47ea537d5d1e9bc4ccf49485aec1c94ecada310c616c81cff54818a9d7983988","download_url":"https://github.com/kimjooyoon/gooo-test-frontier/releases/download/v0.1.0/SHA256SUMS"}
+      ]
+    },
+    {
+      "counterexample_id": "change_bundle_v0.1.0_platform_immutability",
+      "capability": "CHANGE_BUNDLE_RELEASE",
+      "repository": "kimjooyoon/gooo-change-bundle",
+      "tag": "v0.1.0",
+      "release_id": 379775534,
+      "release_url": "https://github.com/kimjooyoon/gooo-change-bundle/releases/tag/v0.1.0",
+      "target_commit_sha": "2d98537d1d6d4ff96fc70c98247660990b78191c",
+      "tag_object_sha": "ea288b0f07b89faca3ba3725a54c316771ccd9cf",
+      "immutable": false,
+      "self_asserted_immutable": true,
+      "platform_immutable": false,
+      "reason": "SELF_ASSERTED_IMMUTABILITY_CONTRADICTED_BY_PLATFORM",
+      "successor_release_key": "change_bundle_release",
+      "append_only": true,
+      "development_process": {
+        "state": "REFUTED",
+        "classification": "DEVELOPMENT_PROCESS_DIRECT_MAIN",
+        "after_pull_request": 1,
+        "commits": [
+          {"commit_sha":"5e370da7a36ac1cae339825a6c4c9cc52c3e76b6","commit_url":"https://github.com/kimjooyoon/gooo-change-bundle/commit/5e370da7a36ac1cae339825a6c4c9cc52c3e76b6","commit_message":"fix: dispatch immutable release from annotated tag","parent_sha":"2d98537d1d6d4ff96fc70c98247660990b78191c","changed_paths":[".github/workflows/release.yml"],"pull_requests":[]},
+          {"commit_sha":"51600eac0abc92edb0883b5cff15b31d27a006d6","commit_url":"https://github.com/kimjooyoon/gooo-change-bundle/commit/51600eac0abc92edb0883b5cff15b31d27a006d6","commit_message":"fix: bind release manifest and portable asset checksums","parent_sha":"5e370da7a36ac1cae339825a6c4c9cc52c3e76b6","changed_paths":[".github/workflows/release.yml"],"pull_requests":[]},
+          {"commit_sha":"3d53c9ada1371b8c97eb0ca582715f0d47486bc9","commit_url":"https://github.com/kimjooyoon/gooo-change-bundle/commit/3d53c9ada1371b8c97eb0ca582715f0d47486bc9","commit_message":"docs: preserve failed CI and release counterexamples","parent_sha":"51600eac0abc92edb0883b5cff15b31d27a006d6","changed_paths":["README.md","docs/counterexamples/release-failures-v1.json"],"pull_requests":[]}
+        ]
+      },
+      "assets": [
+        {"id":538025186,"name":"ci-metrics.json","size_bytes":641,"sha256":"sha256:a8fb6c30aa14c8d8b4187fd093c95aad2321ed4be4ec26e556b21b09125387c8","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.0/ci-metrics.json"},
+        {"id":538025184,"name":"gooo-change-bundle-ci-v0.1.0.tar.gz","size_bytes":4675,"sha256":"sha256:9722538ad2f71b429c7c857fb3ad18c909c6b9acfb0353b56e4c8c3f15775a51","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.0/gooo-change-bundle-ci-v0.1.0.tar.gz"},
+        {"id":538025183,"name":"gooo-change-bundle-v0.1.0.tar.gz","size_bytes":25093,"sha256":"sha256:064d58cf42437651b1210c81f184909d0cfb8d352d62f335fe4c4ae1a66c1685","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.0/gooo-change-bundle-v0.1.0.tar.gz"},
+        {"id":538025185,"name":"release-manifest.json","size_bytes":848,"sha256":"sha256:5dabb48804a52e4d03cfe98cf8b230db62252da3a534e108efd992d15c2e1a68","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.0/release-manifest.json"},
+        {"id":538025187,"name":"SHA256SUMS","size_bytes":371,"sha256":"sha256:447d3d48b3dd33e185b51f4b48b24696848a5a233505c1d608636275b4f2998a","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.0/SHA256SUMS"}
       ]
     }
   ]
