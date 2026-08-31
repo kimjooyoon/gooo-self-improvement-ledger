@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 33 named cells, each bound one-to-one to
+language. The denominator is exactly 34 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -26,11 +26,12 @@ The fixed axes are:
 `SELF_REPAIR_INTEGRATION_RELEASE`, and
 `OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE`, and
 `LANGUAGE_DELTA_FORGE_DURABLE_RELEASE`, and
-`OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE`.
+`OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE`, and
+`REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `32 -> 33` with
+The denominator migration is explicit and append-only: `33 -> 34` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/24/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/24/5`.
+`4/25/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/25/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -380,6 +381,34 @@ consumer performed one local artifact-schema assertion replay; this was not a
 local Go test/build/vet/conformance execution, and the ledger development
 process remains `REFUTED`.
 
+The v0.28 frontier appends `REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE`. It adopts
+immutable `kimjooyoon/gooo-reflexive-compiler-slice@v0.1.1` release `380040917`,
+binding annotated tag object `8db85557f66d4bb61a4fc1816b3a20dab2c40f0c` to target
+`dabbe38badebefdf2979d8862c26a647b0dd15c0`. The upstream main CI
+`33437644781`/job `99637878450` and release CI `33437664492`/job
+`99637944818` are successful. Its main artifact is `9775010906`, named
+`reflexive-conformance-dabbe38badebefdf2979d8862c26a647b0dd15c0`, `19269921`
+bytes, digest `sha256:99934e633fc823b236077fb02f2dee2e0447c40686243cd6e647ca9e30be874c`.
+The six immutable release assets are pinned by API identity, size, and SHA-256.
+The scope is `ONE_COMPILER_PHASE_ONLY`, denominator schema
+`gooo/reflexive-compiler-denominator/v1`, and phase `reflexive.normalize.v1`,
+with exactly `NormalizeSource→SemanticIR`, `EmitBackend→GeneratedBackend`, and
+`VerifyReplay→Evidence`. Cases are `CLOSED1/UNKNOWN1/REFUTED1` with precedence
+`REFUTED>UNKNOWN>CLOSED`; the UNKNOWN is `DIRECT_MISSING` with all six fields,
+and the duplicate stable ID is REFUTED. Baseline/candidate decisions match `3`,
+digest/IR/generated mismatches are `0/0/0`, and rollback possible/baseline
+retained/candidate separate are `3/3/3`. Outputs are `21` files/`32273` bytes;
+runtime compile/build/test/conformance is `58/5388/2093/2614 ms` with peak RSS
+`7221248` bytes; tests are `3/3/0/0/1`; inventory is Go `8/1096`, Gooo `4/33`,
+`24` regular files, and `14` subdirectories. Local tests are zero, repository
+writes and external mutations are not observed, proof/indicator are not observed,
+and global self-hosting, external utility, and whole-language improvement remain
+`UNKNOWN`. The new ledger cell is `CLOSED`; upstream v0.1.0 remains untouched as
+`NON_DURABLE` (`immutable=false`), while ledger global core and development process
+remain `REFUTED`, yielding `CLOSED31/UNKNOWN1/REFUTED2`. The prior local diagnostic
+replay count remains exactly one; no additional local schema/conformance replay was
+performed.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -408,7 +437,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the thirty immutable inputs
+commit, and consumer asset identities for the thirty-one immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

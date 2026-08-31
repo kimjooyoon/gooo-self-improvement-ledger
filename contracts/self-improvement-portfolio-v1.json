@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 33,
+  "total_cells": 34,
   "denominator_migration": {
-    "from": 32,
-    "to": 33,
+    "from": 33,
+    "to": 34,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 24,
+    "COHERENCE": 25,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 24,
+    "OUTCOME": 25,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -558,6 +558,22 @@
       "metric_id": "gooo.metric.self-improvement.opentofu-generated-service-project-durable-release.v1",
       "metric_denominator": 1,
       "release_key": "opentofu_generated_service_project_durable_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 34,
+      "id": "REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE",
+      "axis": "REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptReflexiveCompilerPhaseDurableRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptReflexiveCompilerPhaseDurableRelease",
+      "ir": "semantic-ir/activity/AdoptReflexiveCompilerPhaseDurableRelease",
+      "generated_artifact": "evidence/cells/REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE.json",
+      "evaluator": "ledger/reflexive-compiler-phase-durable-release",
+      "metric_id": "gooo.metric.self-improvement.reflexive-compiler-phase-durable-release.v1",
+      "metric_denominator": 1,
+      "release_key": "reflexive_compiler_phase_durable_release",
       "depends_on": []
     }
   ]

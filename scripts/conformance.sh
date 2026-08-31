@@ -14,16 +14,16 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 33 and
-  .denominator_migration == {from:32,to:33,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 34 and
+  .denominator_migration == {from:33,to:34,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE","SELF_REPAIR_INTEGRATION_RELEASE","OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE","LANGUAGE_DELTA_FORGE_DURABLE_RELEASE","OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE","SELF_REPAIR_INTEGRATION_RELEASE","OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE","LANGUAGE_DELTA_FORGE_DURABLE_RELEASE","OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE","REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:24,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:24,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:25,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:25,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -44,7 +44,8 @@ jq -e '
   (.cells|map(select(.id=="SELF_REPAIR_INTEGRATION_RELEASE" and .release_key=="self_repair_integration_release"))|length)==1 and
   (.cells|map(select(.id=="OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE" and .release_key=="opentofu_durable_semantic_envelope_release"))|length)==1 and
   (.cells|map(select(.id=="LANGUAGE_DELTA_FORGE_DURABLE_RELEASE" and .release_key=="language_delta_forge_durable_release"))|length)==1 and
-  (.cells|map(select(.id=="OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE" and .release_key=="opentofu_generated_service_project_durable_release"))|length)==1
+  (.cells|map(select(.id=="OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE" and .release_key=="opentofu_generated_service_project_durable_release"))|length)==1 and
+  (.cells|map(select(.id=="REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE" and .release_key=="reflexive_compiler_phase_durable_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -579,6 +580,27 @@ jq -e '
   (.releases.opentofu_generated_service_project_durable_release.assets|map(.id)) == [538501631,538501634,538501658,538501664] and
   (.releases.opentofu_generated_service_project_durable_release.assets|map(.size_bytes)) == [10011,15336,263,26719] and
   (.releases.opentofu_generated_service_project_durable_release.assets|map(.sha256)) == ["sha256:9f45cf78ef9339d3d694a30fb21131151d8ec61e4eb62455f2848e0d78180832","sha256:f17271a11b98c48114a740faea96efc3c89f2a5c2746f8efe52d76688ea7ac9f","sha256:bba568c5f8bbba841976d1f6b9b6c9118e9049d3ed014323770456851e8906e1","sha256:cdab3d87acf7aad4889ee41027df75f4fbcfd9dc4afe8e23a5a66504ed35dd70"] and
+  .releases.reflexive_compiler_phase_durable_release.release_id == 380040917 and
+  .releases.reflexive_compiler_phase_durable_release.tag_object_sha == "8db85557f66d4bb61a4fc1816b3a20dab2c40f0c" and
+  .releases.reflexive_compiler_phase_durable_release.target_commit_sha == "dabbe38badebefdf2979d8862c26a647b0dd15c0" and
+  .releases.reflexive_compiler_phase_durable_release.source_run.run_id == 33437644781 and
+  .releases.reflexive_compiler_phase_durable_release.source_run.job_id == 99637878450 and
+  .releases.reflexive_compiler_phase_durable_release.source_run.head_sha == "dabbe38badebefdf2979d8862c26a647b0dd15c0" and
+  .releases.reflexive_compiler_phase_durable_release.source_run.conclusion == "success" and
+  .releases.reflexive_compiler_phase_durable_release.source_run.artifact_ids == [9775010906] and
+  .releases.reflexive_compiler_phase_durable_release.source_artifact == {run_id:33437644781,artifact_id:9775010906,name:"reflexive-conformance-dabbe38badebefdf2979d8862c26a647b0dd15c0",size_bytes:19269921,sha256:"sha256:99934e633fc823b236077fb02f2dee2e0447c40686243cd6e647ca9e30be874c"} and
+  .releases.reflexive_compiler_phase_durable_release.release_run.run_id == 33437664492 and
+  .releases.reflexive_compiler_phase_durable_release.release_run.job_id == 99637944818 and
+  .releases.reflexive_compiler_phase_durable_release.release_run.head_sha == "dabbe38badebefdf2979d8862c26a647b0dd15c0" and
+  .releases.reflexive_compiler_phase_durable_release.release_run.event == "workflow_dispatch" and
+  .releases.reflexive_compiler_phase_durable_release.release_run.conclusion == "success" and
+  .releases.reflexive_compiler_phase_durable_release.release_run.artifact_ids == [] and
+  .releases.reflexive_compiler_phase_durable_release.release_manifest == {schema:"gooo/reflexive-release-manifest/v1",version:"0.1.1",tag:"v0.1.1",commit:"dabbe38badebefdf2979d8862c26a647b0dd15c0",assets:[{name:"gooo-reflexive-compiler-slice-source-v0.1.1.tar.gz",digest:"sha256:ae6fef819ab034eb614e7a9e8b54ba18afab399ad2e730085ea221c2363fc38c"},{name:"gooo-reflexive-compiler-slice-linux-amd64-v0.1.1.tar.gz",digest:"sha256:c4ad5900be6a479ab55e18a1bd939cc09389f305f6e6941064c1c6a229399387"},{name:"release-report-v0.1.1.json",digest:"sha256:cce11611c7ca561a0ba97004db610808ab924dfc465fd49371a7314cc57e963d"},{name:"version.json",digest:"sha256:363fc9e1d352091fb8cc79ff0a80ae464a526eb0fe8c055122320e1c0a0f0eef"}]} and
+  .releases.reflexive_compiler_phase_durable_release.protocol_observation == {schema:"gooo/reflexive-compiler-denominator/v1",scope:"ONE_COMPILER_PHASE_ONLY",phase:"reflexive.normalize.v1",operations:[{name:"NormalizeSource",input:"Source",output:"SemanticIR"},{name:"EmitBackend",input:"SemanticIR",output:"GeneratedBackend"},{name:"VerifyReplay",input:"Evidence",output:"Evidence"}],cases:{denominator:3,CLOSED:1,UNKNOWN:1,REFUTED:1,precedence:["REFUTED","UNKNOWN","CLOSED"]},unknown:{stage:"NORMALIZE",step:"REQUIRE_DECLARED_ENTITY",reason:"REQUIRED_ENTITY_MISSING",unknown_class:"DIRECT_MISSING",next_operation:"ADD_REQUIRED_ENTITY",blocked_by:["gooo://reflexive/input/required"]},refutation:{stage:"NORMALIZE",step:"CHECK_STABLE_ID_UNIQUENESS",reason:"DUPLICATE_STABLE_ID",counterexample:"gooo://reflexive/input/duplicate"},replay:{decision_matches:3,digest_mismatches:0,ir_mismatches:0,generated_mismatches:0},rollback:{possible:3,baseline_retained:3,candidate_separate:3},outputs:{files:21,bytes:32273},runtime:{peak_rss_bytes:7221248,compile_wall_ms:58,build_wall_ms:5388,test_wall_ms:2093,conformance_wall_ms:2614},tests:{total:3,executed:3,reused:0,failed:0,unknown:1},inventory:{go_files:8,go_physical_lines:1096,gooo_files:4,gooo_physical_lines:33,regular_files:24,subdirectories:14,root_readme_excluded:true},authority:{local_test_executions:0,repository_writes:0,external_mutations:"NOT_OBSERVED",proof_choice:"NOT_OBSERVED",indicator:"NOT_OBSERVED"},state:{global_self_hosting:"UNKNOWN",external_utility:"UNKNOWN",whole_language_improvement:"UNKNOWN"}} and
+  .releases.reflexive_compiler_phase_durable_release.historical_provenance["v0.1.0"] == {state:"NON_DURABLE",tag:"v0.1.0",release_id:380032434,immutable:false,tag_object_sha:"f89b47fedab983b9c3cef0b9be03da65eadff3de",target_commit_sha:"57f5ef6ce407f51cd36da163b2b267e876c31e33"} and
+  (.releases.reflexive_compiler_phase_durable_release.assets|map(.id)) == [538508362,538508360,538508364,538508363,538508367,538508361] and
+  (.releases.reflexive_compiler_phase_durable_release.assets|map(.size_bytes)) == [2589271,19475,795,2898,506,315] and
+  (.releases.reflexive_compiler_phase_durable_release.assets|map(.sha256)) == ["sha256:c4ad5900be6a479ab55e18a1bd939cc09389f305f6e6941064c1c6a229399387","sha256:ae6fef819ab034eb614e7a9e8b54ba18afab399ad2e730085ea221c2363fc38c","sha256:cdd3d3f0cb426c1d26ebc83c2b998151301fd6dade7f7b3bde77202ac9a7e0ad","sha256:cce11611c7ca561a0ba97004db610808ab924dfc465fd49371a7314cc57e963d","sha256:1a41949ea027e01ae893dd3872ae32b537a896adaa0df4910628d3a51d73424e","sha256:363fc9e1d352091fb8cc79ff0a80ae464a526eb0fe8c055122320e1c0a0f0eef"] and
   (.failed_release_triggers|length) == 1 and
   .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
   .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
@@ -619,7 +641,7 @@ echo "conformance: release lock contract passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:32,to:33,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:33,to:34,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -882,7 +904,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 33 and
+  (.cells|length) == 34 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1051,12 +1073,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:33,closed:30,unknown:1,refuted:2} and
+  .summary == {total:34,closed:31,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 33 and
+  (.cells|length) == 34 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 30 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 31 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -1092,16 +1114,17 @@ jq -e '
     SELF_REPAIR_INTEGRATION_RELEASE:"CLOSED",
     OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE:"CLOSED",
     LANGUAGE_DELTA_FORGE_DURABLE_RELEASE:"CLOSED",
-    OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE:"CLOSED"
+    OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE:"CLOSED",
+    REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:33,activities:33,unique_axes:33,unique_metrics:33,source_bindings:33,ir_bindings:33,generated_artifact_bindings:33,evaluator_bindings:33} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 24 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 24 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:30,verified:30,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:34,activities:34,unique_axes:34,unique_metrics:34,source_bindings:34,ir_bindings:34,generated_artifact_bindings:34,evaluator_bindings:34} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 25 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 25 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:31,verified:31,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

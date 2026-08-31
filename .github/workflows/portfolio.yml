@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify thirty immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify thirty-one immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,7 +78,7 @@ jobs:
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:30,verified:30,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:31,verified:31,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           experience_dir="$ARTIFACT_ROOT/releases/experience_memory_release/assets"
           jq -e '.schema=="gooo/experience-memory/release-manifest/v1" and .tag=="v0.1.0" and .commit_sha=="79fd6edc588ea26279dbe735e5f6e250132f7730" and .immutable==true and .assets==[{digest:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",kind:"source",name:"gooo-experience-memory-v0.1.0.tar.gz"},{digest:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6",kind:"ci-evidence",name:"gooo-experience-memory-evidence-v0.1.0.tar.gz"}]' "$experience_dir/release-manifest.json" >/dev/null
@@ -312,6 +312,38 @@ jobs:
           jq -e '.id==99632154067 and .run_id==33435908822 and .name=="release" and .head_sha=="c9f5de0b33fee1ca8546a627a8a94242b99c0733" and .status=="completed" and .conclusion=="failure" and ([.steps[]|select(.name=="Resolve the successful main CI artifact" and .conclusion=="failure")]|length)==1' "$RUNNER_TEMP/opentofu-v0.2.0-failed-job.json" >/dev/null
           echo "upstream generated OpenTofu service-project release and v0.2.0 counterexample verified"
 
+      - name: Verify reflexive compiler phase release and preserved v0.1.0 non-durable predecessor
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          compiler_dir="$ARTIFACT_ROOT/releases/reflexive_compiler_phase_durable_release/assets"
+          jq -e '. == {schema:"gooo/reflexive-release-manifest/v1",version:"0.1.1",tag:"v0.1.1",commit:"dabbe38badebefdf2979d8862c26a647b0dd15c0",assets:[{name:"gooo-reflexive-compiler-slice-source-v0.1.1.tar.gz",digest:"sha256:ae6fef819ab034eb614e7a9e8b54ba18afab399ad2e730085ea221c2363fc38c"},{name:"gooo-reflexive-compiler-slice-linux-amd64-v0.1.1.tar.gz",digest:"sha256:c4ad5900be6a479ab55e18a1bd939cc09389f305f6e6941064c1c6a229399387"},{name:"release-report-v0.1.1.json",digest:"sha256:cce11611c7ca561a0ba97004db610808ab924dfc465fd49371a7314cc57e963d"},{name:"version.json",digest:"sha256:363fc9e1d352091fb8cc79ff0a80ae464a526eb0fe8c055122320e1c0a0f0eef"}]}' "$compiler_dir/release-manifest-v0.1.1.json" >/dev/null
+          jq -e '. == {schema:"gooo/reflexive-release/v1",version:"0.1.1",tag:"v0.1.1",commit:"dabbe38badebefdf2979d8862c26a647b0dd15c0",phase:"reflexive.normalize.v1",scope:"ONE_COMPILER_PHASE_ONLY",self_hosting:"NOT_MADE",external_utility:"UNKNOWN",global_self_hosting:"UNKNOWN"}' "$compiler_dir/version.json" >/dev/null
+          jq -e '.schema=="gooo/reflexive-release-report/v1" and .version=="0.1.1" and .tag=="v0.1.1" and .commit=="dabbe38badebefdf2979d8862c26a647b0dd15c0" and .scope=="ONE_COMPILER_PHASE_ONLY" and .conformance=={schema:"gooo/reflexive-conformance/v1",decision:"CLOSED/UNKNOWN/REFUTED_CASES_CLOSED",tests:{total:3,executed:3,reused:0,failed:0,unknown:1},cases:{closed:1,unknown:1,refuted:1},compile_wall_ms:58,conformance_wall_ms:2614,peak_rss_bytes:7221248,output_files:21,output_bytes:32273} and .metrics=={schema:"gooo/reflexive-ci-metrics/v1",inventory:{go_files:8,gooo_files:4,go_physical_lines:1096,gooo_physical_lines:33,files_total:24,subdirectories:14,root_readme_inventory_excluded:1},outputs:{count:21,bytes:32273},resources:{peak_rss_bytes:7221248},wall_ms:{compile:58,build:5388,test:2093,conformance:2614},tests:{total:3,executed:3,reused:0,failed:0,unknown:1}}' "$compiler_dir/release-report-v0.1.1.json" >/dev/null
+          expected_checksums=$(printf '%s\n' \
+            'ae6fef819ab034eb614e7a9e8b54ba18afab399ad2e730085ea221c2363fc38c  gooo-reflexive-compiler-slice-source-v0.1.1.tar.gz' \
+            'c4ad5900be6a479ab55e18a1bd939cc09389f305f6e6941064c1c6a229399387  gooo-reflexive-compiler-slice-linux-amd64-v0.1.1.tar.gz' \
+            'cce11611c7ca561a0ba97004db610808ab924dfc465fd49371a7314cc57e963d  release-report-v0.1.1.json' \
+            '363fc9e1d352091fb8cc79ff0a80ae464a526eb0fe8c055122320e1c0a0f0eef  version.json' \
+            'cdd3d3f0cb426c1d26ebc83c2b998151301fd6dade7f7b3bde77202ac9a7e0ad  release-manifest-v0.1.1.json')
+          test "$(cat "$compiler_dir/SHA256SUMS")" = "$expected_checksums"
+          compiler_artifact_metadata="$RUNNER_TEMP/reflexive-compiler-phase-artifact-9775010906.json"
+          gh api repos/kimjooyoon/gooo-reflexive-compiler-slice/actions/artifacts/9775010906 > "$compiler_artifact_metadata"
+          jq -e '.id==9775010906 and .name=="reflexive-conformance-dabbe38badebefdf2979d8862c26a647b0dd15c0" and .size_in_bytes==19269921 and .digest=="sha256:99934e633fc823b236077fb02f2dee2e0447c40686243cd6e647ca9e30be874c" and .expired==false and .workflow_run.id==33437644781 and .workflow_run.head_sha=="dabbe38badebefdf2979d8862c26a647b0dd15c0"' "$compiler_artifact_metadata" >/dev/null
+          compiler_artifact="$RUNNER_TEMP/reflexive-compiler-phase-artifact-9775010906.zip"
+          gh api repos/kimjooyoon/gooo-reflexive-compiler-slice/actions/artifacts/9775010906/zip > "$compiler_artifact"
+          test "$(wc -c < "$compiler_artifact" | tr -d ' ')" = 19269921
+          test "$(sha256sum "$compiler_artifact" | awk '{print $1}')" = 99934e633fc823b236077fb02f2dee2e0447c40686243cd6e647ca9e30be874c
+          historical_release="$RUNNER_TEMP/reflexive-compiler-v0.1.0-release.json"
+          gh api repos/kimjooyoon/gooo-reflexive-compiler-slice/releases/tags/v0.1.0 > "$historical_release"
+          jq -e '.id==380032434 and .tag_name=="v0.1.0" and .immutable==false' "$historical_release" >/dev/null
+          historical_refs=$(git ls-remote https://github.com/kimjooyoon/gooo-reflexive-compiler-slice.git refs/tags/v0.1.0 'refs/tags/v0.1.0^{}')
+          test "$(awk '$2=="refs/tags/v0.1.0" {print $1}' <<< "$historical_refs")" = f89b47fedab983b9c3cef0b9be03da65eadff3de
+          test "$(awk '$2=="refs/tags/v0.1.0^{}" {print $1}' <<< "$historical_refs")" = 57f5ef6ce407f51cd36da163b2b267e876c31e33
+          echo "upstream reflexive compiler phase release and v0.1.0 non-durable predecessor verified"
+
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
         shell: bash
         env:
@@ -351,7 +383,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:33,closed:30,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:34,closed:31,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
