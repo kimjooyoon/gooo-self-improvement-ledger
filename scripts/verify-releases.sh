@@ -45,6 +45,14 @@ for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_i
   /usr/bin/time -f '%M' -o "$output/$counterexample_id.fetch-rss" \
     gh api "repos/$repo/releases/tags/$tag" > "$output/$counterexample_id.release.json"
 done
+for counterexample_id in $(jq -r '(.counterexample_runs // [])[] | .counterexample_id' "$lock"); do
+  repo=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .repository' "$lock")
+  run_id=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .run_id' "$lock")
+  job_id=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .job_id' "$lock")
+  /usr/bin/time -f '%M' -o "$output/$counterexample_id.fetch-rss" \
+    gh api "repos/$repo/actions/runs/$run_id" > "$output/$counterexample_id.run.json"
+  gh api "repos/$repo/actions/jobs/$job_id" > "$output/$counterexample_id.job.json"
+done
 fetch_end=$(date +%s%N)
 
 verify_start=$(date +%s%N)
@@ -168,6 +176,12 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
         "$manifest_path" >/dev/null
     fi
   fi
+  receipt_name=$(jq -r --arg key "$key" '.releases[$key].protocol_receipt.asset_name // empty' "$lock")
+  if [ -n "$receipt_name" ]; then
+    receipt_path="$output/$key/assets/$receipt_name"
+    receipt_expected=$(jq -c --arg key "$key" '.releases[$key].protocol_receipt | del(.asset_name)' "$lock")
+    jq -e --argjson expected "$receipt_expected" '. == $expected' "$receipt_path" >/dev/null
+  fi
   assets=$(jq -s . "$asset_results")
   fetch_rss=$(cat "$output/$key.fetch-rss")
   jq -S -n \
@@ -236,6 +250,32 @@ for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_i
     '{state:"REFUTED",counterexample:true,verified:true,repository:$repository,tag:$tag,release_id:$release_id,release_url:$release_url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,assets:$assets,fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},reason:$reason}')
   counterexample_results=$(jq -c --arg id "$counterexample_id" --argjson result "$result" '. + {($id):$result}' <<< "$counterexample_results")
 done
+
+counterexample_run_results='{}'
+for counterexample_id in $(jq -r '(.counterexample_runs // [])[] | .counterexample_id' "$lock"); do
+  repo=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .repository' "$lock")
+  run_id=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .run_id' "$lock")
+  run_url=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .run_url' "$lock")
+  event=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .event' "$lock")
+  head_branch=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .head_branch' "$lock")
+  head_sha=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .head_sha' "$lock")
+  job_id=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .job_id' "$lock")
+  job_name=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .job_name' "$lock")
+  job_url=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .job_url' "$lock")
+  run_json="$output/$counterexample_id.run.json"
+  job_json="$output/$counterexample_id.job.json"
+  jq -e --argjson run_id "$run_id" --arg url "$run_url" --arg event "$event" --arg branch "$head_branch" --arg head "$head_sha" \
+    '.id==$run_id and .html_url==$url and .event==$event and .head_branch==$branch and .head_sha==$head and .status=="completed" and .conclusion=="failure"' \
+    "$run_json" >/dev/null
+  jq -e --argjson job_id "$job_id" --argjson run_id "$run_id" --arg name "$job_name" --arg url "$job_url" --arg head "$head_sha" \
+    '.id==$job_id and .run_id==$run_id and .name==$name and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion=="failure"' \
+    "$job_json" >/dev/null
+  fetch_rss=$(cat "$output/$counterexample_id.fetch-rss")
+  result=$(jq -S -n --arg repository "$repo" --argjson run_id "$run_id" --arg run_url "$run_url" \
+    --arg event "$event" --arg branch "$head_branch" --arg head "$head_sha" --argjson job_id "$job_id" --arg job_name "$job_name" --arg job_url "$job_url" --argjson fetch_rss "$fetch_rss" \
+    '{counterexample:true,verified:true,repository:$repository,run_id:$run_id,run_url:$run_url,event:$event,head_branch:$branch,head_sha:$head,conclusion:"failure",job_id:$job_id,job_name:$job_name,job_url:$job_url,fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss}}')
+  counterexample_run_results=$(jq -c --arg id "$counterexample_id" --argjson result "$result" '. + {($id):$result}' <<< "$counterexample_run_results")
+done
 verify_end=$(date +%s%N)
 
 releases='{}'
@@ -249,6 +289,6 @@ fetch_timing=$(measurement "$fetch_start" "$fetch_end" "$fetch_peak")
 verify_timing=$(measurement "$verify_start" "$verify_end")
 jq -S -n \
   --arg schema "gooo/self-improvement-portfolio/release-verification/v1" \
-  --argjson releases "$releases" --argjson counterexamples "$counterexample_results" --argjson fetch "$fetch_timing" --argjson verify "$verify_timing" \
-  '{schema:$schema,releases:$releases,counterexamples:$counterexamples,summary:{total:($releases|length),verified:([ $releases[] | select(.state=="CLOSED") ]|length),unknown:([ $releases[] | select(.state=="UNKNOWN") ]|length),refuted:([ $releases[] | select(.state=="REFUTED") ]|length)},timing:{fetch:$fetch,verify:$verify,report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}}}' \
+  --argjson releases "$releases" --argjson counterexamples "$counterexample_results" --argjson counterexample_runs "$counterexample_run_results" --argjson fetch "$fetch_timing" --argjson verify "$verify_timing" \
+  '{schema:$schema,releases:$releases,counterexamples:$counterexamples,counterexample_runs:$counterexample_runs,summary:{total:($releases|length),verified:([ $releases[] | select(.state=="CLOSED") ]|length),unknown:([ $releases[] | select(.state=="UNKNOWN") ]|length),refuted:([ $releases[] | select(.state=="REFUTED") ]|length)},timing:{fetch:$fetch,verify:$verify,report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}}}' \
   > "$output/verification.json"
