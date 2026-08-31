@@ -203,7 +203,7 @@ drift development process; utility remains `UNKNOWN`, yielding
 The v0.23 frontier appends `UNKNOWN_RESOLUTION_LATTICE_RELEASE`. It adopts
 immutable upstream `kimjooyoon/gooo-resolution-lattice@v0.2.0`, release
 `379967493`, binding annotated tag object
-`2f452efe6b05b50760500da1a4bea7d323e9c11d2` to target
+`2f452efe6b05b50760500da1a4bea7d323e9c11d` to target
 `fac2f5c0688c62fd31912a310e0fae77bc198258`. Source conformance, post-main
 conformance, and release Actions are locked to runs/jobs
 `33424634161/99595118419`, `33425091977/99596614819`, and

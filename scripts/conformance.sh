@@ -394,7 +394,7 @@ jq -e '
   .releases.unknown_resolution_lattice_release.release_id == 379967493 and
   .releases.unknown_resolution_lattice_release.immutable == true and
   .releases.unknown_resolution_lattice_release.target_commit_sha == "fac2f5c0688c62fd31912a310e0fae77bc198258" and
-  .releases.unknown_resolution_lattice_release.tag_object_sha == "2f452efe6b05b50760500da1a4bea7d323e9c11d2" and
+  .releases.unknown_resolution_lattice_release.tag_object_sha == "2f452efe6b05b50760500da1a4bea7d323e9c11d" and
   .releases.unknown_resolution_lattice_release.source_run.run_id == 33424634161 and
   .releases.unknown_resolution_lattice_release.source_run.job_id == 99595118419 and
   .releases.unknown_resolution_lattice_release.source_run.head_sha == "8c169cc8d821fb0b68ce28cc519d49935a241b8e" and
@@ -654,7 +654,7 @@ jq -e '
     $resolution_lattice.state == "CLOSED" and
     $resolution_lattice.release_key == "unknown_resolution_lattice_release" and
     ($resolution_lattice.evidence | index("release:379967493:immutable=true")) != null and
-    ($resolution_lattice.evidence | index("tag-object:2f452efe6b05b50760500da1a4bea7d323e9c11d2:target=fac2f5c0688c62fd31912a310e0fae77bc198258")) != null and
+    ($resolution_lattice.evidence | index("tag-object:2f452efe6b05b50760500da1a4bea7d323e9c11d:target=fac2f5c0688c62fd31912a310e0fae77bc198258")) != null and
     ($resolution_lattice.evidence | index("source-actions:run=33424634161:job=99595118419:success")) != null and
     ($resolution_lattice.evidence | index("source-actions-artifact:9770260397:23723:sha256:f80e798ca1893937ba49b86e40ad1ac7f2035e9d666acacb71c28fa6109bb294")) != null and
     ($resolution_lattice.evidence | index("post-main-actions:run=33425091977:job=99596614819:success")) != null and

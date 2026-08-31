@@ -260,7 +260,7 @@ semantic-drift development process, and utility remains `UNKNOWN`, yielding
 The v0.23 frontier appends `UNKNOWN_RESOLUTION_LATTICE_RELEASE`. It adopts
 immutable `kimjooyoon/gooo-resolution-lattice@v0.2.0` release `379967493`,
 binding annotated tag object
-`2f452efe6b05b50760500da1a4bea7d323e9c11d2` to target
+`2f452efe6b05b50760500da1a4bea7d323e9c11d` to target
 `fac2f5c0688c62fd31912a310e0fae77bc198258`, successful source and post-main
 conformance runs `33424634161`/job `99595118419` and
 `33425091977`/job `99596614819`, and successful release run

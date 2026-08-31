@@ -1333,7 +1333,7 @@
       "release_id": 379967493,
       "release_url": "https://github.com/kimjooyoon/gooo-resolution-lattice/releases/tag/v0.2.0",
       "target_commit_sha": "fac2f5c0688c62fd31912a310e0fae77bc198258",
-      "tag_object_sha": "2f452efe6b05b50760500da1a4bea7d323e9c11d2",
+      "tag_object_sha": "2f452efe6b05b50760500da1a4bea7d323e9c11d",
       "immutable": true,
       "source_run": {
         "run_id": 33424634161,
