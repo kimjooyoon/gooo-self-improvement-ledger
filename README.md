@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 12 named cells, each bound one-to-one to
+language. The denominator is exactly 16 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -11,12 +11,16 @@ The fixed axes are:
 `CORE_SEMANTIC_AUTHORITY`, `RESOLUTION_DESCENT`, `CAUSAL_CI_SELECTION`,
 `META_RESOURCE_BUDGET`, `DENOMINATOR_EVOLUTION`, `REFLEXIVE_LOOP`,
 `IMMUTABLE_INPUT_INTEGRATION`, `SEMANTIC_MERGE_ADVICE`,
-`DESIGN_CONSUMER_PATH`, `OPENTOFU_PLAN_PATH`, `RELEASE_PROMOTION`, and
-`EXTERNAL_UTILITY_EVIDENCE`.
+`DESIGN_CONSUMER_PATH`, `OPENTOFU_PLAN_PATH`, `RELEASE_PROMOTION`,
+`EXTERNAL_UTILITY_EVIDENCE`, `COUNTERFACTUAL_CHANGE_RELEASE`,
+`VERIFICATION_REUSE_RELEASE`, `SEMANTIC_DRIFT_RELEASE`, and
+`SEMANTIC_DRIFT_DEVELOPMENT_PROCESS`.
 
-The profile keeps `FOUNDATION`, `COHERENCE`, and `REGRESSION` at `4/4/4`, and
-`DRIVER`, `OUTCOME`, and `GUARDRAIL` at `4/4/4`. Every physical metric has a
-denominator of `1`. Status precedence is `REFUTED > UNKNOWN > CLOSED`.
+The denominator migration is explicit and append-only: `12 -> 16` with
+`ADD4/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
+`4/7/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/7/5`.
+Every physical metric has a denominator of `1`. Status precedence is
+`REFUTED > UNKNOWN > CLOSED`.
 
 The checked-in assessment closes reflexive-loop v0.2 integration, semantic-
 merge advice, the OpenTofu plan path, and release promotion from immutable
@@ -37,6 +41,19 @@ append-only frontier records `CI_EFFORT_OBSERVATION` /
 `DERIVE_OPERATION_DURATION` and the next operation is to publish the CI time
 causality protocol with exact clock-domain semantics. The new protocol is
 tracked only as an unreleased, non-required optional dependency.
+The three new adoption cells close only from exact immutable release evidence:
+`gooo-counterfactual-change@v0.1.2` release `379663025`,
+`gooo-verification-reuse@v0.1.2` release `379662322`, and
+`gooo-semantic-drift@v0.1.1` release `379664434`. Their full release IDs,
+annotated tag objects, targets, source Actions runs/jobs, asset IDs, sizes,
+URLs, and SHA-256 digests are locked in
+`contracts/release-locks-v1.json` and re-fetched by CI.
+
+`SEMANTIC_DRIFT_DEVELOPMENT_PROCESS` remains `REFUTED` independently of the
+successful product release: substantive commit
+`e83e42611eeed30100018a98c1f1835e1f17b821` landed directly on the upstream
+`main` line without a pull request. This process deviation is preserved in a
+separate `process_deviations` record and is not erased by release success.
 The live external
 `UNKNOWN` cell
 retains exactly `stage`, `step`, `reason`, `unknown_class`, `next_operation`,
@@ -65,6 +82,11 @@ records immutable adoption-transaction, self-repair-example, and
 adoption-regression inputs. These capability evidence states do not change
 portfolio cells. The registry emits no completeness percentage or score.
 
+The release lock also preserves four mutable predecessor releases as exact,
+append-only counterexamples: counterfactual-change v0.1.0 and v0.1.1,
+verification-reuse v0.1.1, and semantic-drift v0.1.0. They remain refuted by
+`immutable=false` and are never used as closure evidence.
+
 Successor closure requires matching REST release metadata, a successful
 GraphQL release/tag lookup, the resolved tag target, every release asset's API
 identity and downloaded SHA-256 digest, and any locked source Actions run and
@@ -73,18 +95,20 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the ten immutable inputs requested
-by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
+commit, and consumer asset identities for the thirteen immutable inputs
+requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. The reflexive-loop v0.3 lock also
 binds its source Actions artifact and upstream release-manifest lock digest.
 A later immutable release updates the evidence lock and assessment input; it
-does not change the 12-cell denominator.
+does not change the 16-cell denominator.
 
 GitHub Actions is the verification authority. The workflow uses Go 1.27 and
 records integer directory/file counts, Go/Gooo physical files and lines (root
 README excluded from line accounting), fetch/verify/report `wall_ms` plus raw
 nanosecond durations, peak RSS, caller-owned artifact files/bytes, release
 verified/unknown/refuted counts, zero runtime repository writes, and zero
-developer-local gofmt/build/test/vet/conformance executions. It emits exact
+developer-local gofmt/build/test/vet/conformance executions. It also uploads
+exact CI build/test commands, durations, test-event counts, and peak-RSS
+observations in `ci-observations.json`. It emits exact
 closed/unknown/refuted counts and the complete human-readable cell table; it
 does not emit a percentage or score.

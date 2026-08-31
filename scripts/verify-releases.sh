@@ -39,6 +39,12 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
   /usr/bin/time -f '%M' -o "$output/$key.fetch-rss" \
     gh api "repos/$repo/releases/tags/$tag" > "$output/$key.release.json"
 done
+for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_id' "$lock"); do
+  repo=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .repository' "$lock")
+  tag=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .tag' "$lock")
+  /usr/bin/time -f '%M' -o "$output/$counterexample_id.fetch-rss" \
+    gh api "repos/$repo/releases/tags/$tag" > "$output/$counterexample_id.release.json"
+done
 fetch_end=$(date +%s%N)
 
 verify_start=$(date +%s%N)
@@ -47,17 +53,30 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
   tag=$(jq -r --arg key "$key" '.releases[$key].tag' "$lock")
   release_url=$(jq -r --arg key "$key" '.releases[$key].release_url' "$lock")
   target=$(jq -r --arg key "$key" '.releases[$key].target_commit_sha' "$lock")
+  release_id=$(jq -r --arg key "$key" '.releases[$key].release_id // empty' "$lock")
+  expected_tag_object=$(jq -r --arg key "$key" '.releases[$key].tag_object_sha // empty' "$lock")
   release_json="$output/$key.release.json"
 
-  if ! jq -e --arg tag "$tag" --arg url "$release_url" \
-    '.tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==true' \
-    "$release_json" >/dev/null; then
-    echo "release metadata mismatch for $repo@$tag" >&2
-    jq -c '{tag_name,html_url,draft,prerelease,immutable}' "$release_json" >&2
-    exit 1
+  if [ -n "$release_id" ]; then
+    if ! jq -e --arg tag "$tag" --arg url "$release_url" --argjson release_id "$release_id" \
+      '.id==$release_id and .tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==true' \
+      "$release_json" >/dev/null; then
+      echo "release metadata mismatch for $repo@$tag" >&2
+      jq -c '{id,tag_name,html_url,draft,prerelease,immutable}' "$release_json" >&2
+      exit 1
+    fi
+  else
+    if ! jq -e --arg tag "$tag" --arg url "$release_url" \
+      '.tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==true' \
+      "$release_json" >/dev/null; then
+      echo "release metadata mismatch for $repo@$tag" >&2
+      jq -c '{id,tag_name,html_url,draft,prerelease,immutable}' "$release_json" >&2
+      exit 1
+    fi
   fi
 
   tag_target=""
+  remote_refs=""
   for attempt in 1 2 3; do
     if remote_refs=$(git ls-remote "https://github.com/$repo.git" "refs/tags/$tag" "refs/tags/$tag^{}"); then
       tag_target=$(awk -v direct="refs/tags/$tag" -v peeled="refs/tags/$tag^{}" '$2==peeled {p=$1} $2==direct {d=$1} END {if (p!="") print p; else print d}' <<< "$remote_refs")
@@ -66,9 +85,36 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     echo "tag lookup attempt $attempt failed for $repo@$tag" >&2
     sleep 1
   done
-  if test "$tag_target" != "$target"; then
+  tag_object=$(awk -v direct="refs/tags/$tag" '$2==direct {print $1}' <<< "$remote_refs")
+  if test "$tag_target" != "$target" || { [ -n "$expected_tag_object" ] && test "$tag_object" != "$expected_tag_object"; }; then
     echo "tag target mismatch for $repo@$tag: expected $target, observed ${tag_target:-<empty>}" >&2
     exit 1
+  fi
+
+  observed_source_run='null'
+  observed_source_job='null'
+  if jq -e --arg key "$key" '.releases[$key] | has("source_run")' "$lock" >/dev/null; then
+    source_run_id=$(jq -r --arg key "$key" '.releases[$key].source_run.run_id' "$lock")
+    source_run_url=$(jq -r --arg key "$key" '.releases[$key].source_run.workflow_url' "$lock")
+    source_run_head=$(jq -r --arg key "$key" '.releases[$key].source_run.head_sha' "$lock")
+    source_run_conclusion=$(jq -r --arg key "$key" '.releases[$key].source_run.conclusion' "$lock")
+    source_job_id=$(jq -r --arg key "$key" '.releases[$key].source_run.job_id' "$lock")
+    source_job_name=$(jq -r --arg key "$key" '.releases[$key].source_run.job_name' "$lock")
+    source_job_url=$(jq -r --arg key "$key" '.releases[$key].source_run.job_url' "$lock")
+    source_artifact_ids=$(jq -c --arg key "$key" '.releases[$key].source_run.artifact_ids // []' "$lock")
+    source_run_json="$output/$key.source-run.json"
+    source_job_json="$output/$key.source-job.json"
+    source_artifacts_json="$output/$key.source-artifacts.json"
+    gh api "repos/$repo/actions/runs/$source_run_id" > "$source_run_json"
+    gh api "repos/$repo/actions/jobs/$source_job_id" > "$source_job_json"
+    gh api "repos/$repo/actions/runs/$source_run_id/artifacts?per_page=100" > "$source_artifacts_json"
+    jq -e --argjson run_id "$source_run_id" --arg url "$source_run_url" --arg head "$source_run_head" --arg conclusion "$source_run_conclusion" \
+      '.id==$run_id and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion==$conclusion' "$source_run_json" >/dev/null
+    jq -e --argjson job_id "$source_job_id" --argjson run_id "$source_run_id" --arg name "$source_job_name" --arg url "$source_job_url" --arg head "$source_run_head" \
+      '.id==$job_id and .run_id==$run_id and .name==$name and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion=="success"' "$source_job_json" >/dev/null
+    jq -e --argjson ids "$source_artifact_ids" '[.artifacts[].id] == $ids' "$source_artifacts_json" >/dev/null
+    observed_source_run=$(jq -S --argjson id "$source_run_id" '. | {id,run_number,event,status,conclusion,head_sha,html_url,workflow_id,workflow_name}' "$source_run_json")
+    observed_source_job=$(jq -S --argjson id "$source_job_id" '. | {id,run_id,name,status,conclusion,head_sha,html_url}' "$source_job_json")
   fi
 
   mkdir -p "$output/$key/assets"
@@ -77,19 +123,26 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
   asset_count=$(jq -r --arg key "$key" '.releases[$key].assets | length' "$lock")
   for index in $(seq 0 $((asset_count - 1))); do
     name=$(jq -r --arg key "$key" --argjson index "$index" '.releases[$key].assets[$index].name' "$lock")
+    asset_id=$(jq -r --arg key "$key" --argjson index "$index" '.releases[$key].assets[$index].id // empty' "$lock")
     size=$(jq -r --arg key "$key" --argjson index "$index" '.releases[$key].assets[$index].size_bytes' "$lock")
     sha=$(jq -r --arg key "$key" --argjson index "$index" '.releases[$key].assets[$index].sha256' "$lock")
     download_url=$(jq -r --arg key "$key" --argjson index "$index" '.releases[$key].assets[$index].download_url' "$lock")
-    jq -e --arg name "$name" --arg digest "$sha" --arg url "$download_url" --argjson size "$size" \
-      '[.assets[] | select(.name==$name and .size==$size and .digest==$digest and .browser_download_url==$url)] | length == 1' \
-      "$release_json" >/dev/null
+    if [ -n "$asset_id" ]; then
+      jq -e --arg name "$name" --arg digest "$sha" --arg url "$download_url" --argjson size "$size" --argjson asset_id "$asset_id" \
+        '[.assets[] | select(.id==$asset_id and .name==$name and .size==$size and .digest==$digest and .browser_download_url==$url)] | length == 1' \
+        "$release_json" >/dev/null
+    else
+      jq -e --arg name "$name" --arg digest "$sha" --arg url "$download_url" --argjson size "$size" \
+        '[.assets[] | select(.name==$name and .size==$size and .digest==$digest and .browser_download_url==$url)] | length == 1' \
+        "$release_json" >/dev/null
+    fi
     curl --fail --location --retry 3 --silent --show-error "$download_url" -o "$output/$key/assets/$name"
     actual_size=$(wc -c < "$output/$key/assets/$name" | tr -d ' ')
     actual_sha="sha256:$(sha256sum "$output/$key/assets/$name" | awk '{print $1}')"
     test "$actual_size" -eq "$size"
     test "$actual_sha" = "$sha"
-    jq -S -n --arg name "$name" --argjson size "$size" --arg sha "$sha" --arg url "$download_url" \
-      '{name:$name,size_bytes:$size,sha256:$sha,download_url:$url,verified:true}' >> "$asset_results"
+    jq -S -n --arg name "$name" --argjson id "${asset_id:-null}" --argjson size "$size" --arg sha "$sha" --arg url "$download_url" \
+      '{id:$id,name:$name,size_bytes:$size,sha256:$sha,download_url:$url,verified:true}' >> "$asset_results"
   done
   manifest_name=$(jq -r --arg key "$key" '.releases[$key].manifest.name // empty' "$lock")
   if [ -n "$manifest_name" ]; then
@@ -119,9 +172,69 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
   fetch_rss=$(cat "$output/$key.fetch-rss")
   jq -S -n \
     --arg state "CLOSED" --arg repository "$repo" --arg tag "$tag" --arg release_url "$release_url" \
-    --arg target "$target" --argjson assets "$assets" --argjson fetch_rss "$fetch_rss" \
-    '{state:$state,verified:true,repository:$repository,tag:$tag,release_url:$release_url,target_commit_sha:$target,assets:$assets,fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},verify:{wall_ms:0,duration_ns:0,peak_rss_kib:0},reason:""}' \
+    --arg target "$target" --argjson release_id "${release_id:-null}" --arg tag_object_sha "$tag_object" \
+    --argjson assets "$assets" --argjson fetch_rss "$fetch_rss" --argjson source_run "$observed_source_run" --argjson source_job "$observed_source_job" \
+    '{state:$state,verified:true,repository:$repository,tag:$tag,release_id:$release_id,release_url:$release_url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,source_run:$source_run,source_job:$source_job,assets:$assets,fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},verify:{wall_ms:0,duration_ns:0,peak_rss_kib:0},reason:""}' \
     > "$output/$key.result.json"
+done
+
+counterexample_results='{}'
+for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_id' "$lock"); do
+  repo=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .repository' "$lock")
+  tag=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .tag' "$lock")
+  release_url=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .release_url' "$lock")
+  target=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .target_commit_sha' "$lock")
+  expected_tag_object=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .tag_object_sha' "$lock")
+  release_id=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .release_id' "$lock")
+  reason=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .reason' "$lock")
+  release_json="$output/$counterexample_id.release.json"
+  jq -e --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .immutable==false and .append_only==true and .reason=="RELEASE_API_IMMUTABLE_FALSE"' "$lock" >/dev/null
+  jq -e --arg tag "$tag" --arg url "$release_url" --argjson release_id "$release_id" \
+    '.id==$release_id and .tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==false' \
+    "$release_json" >/dev/null
+
+  remote_refs=""
+  for attempt in 1 2 3; do
+    if remote_refs=$(git ls-remote "https://github.com/$repo.git" "refs/tags/$tag" "refs/tags/$tag^{}"); then
+      break
+    fi
+    echo "tag lookup attempt $attempt failed for $repo@$tag" >&2
+    sleep 1
+  done
+  tag_target=$(awk -v direct="refs/tags/$tag" -v peeled="refs/tags/$tag^{}" '$2==peeled {p=$1} $2==direct {d=$1} END {if (p!="") print p; else print d}' <<< "$remote_refs")
+  tag_object=$(awk -v direct="refs/tags/$tag" '$2==direct {print $1}' <<< "$remote_refs")
+  test "$tag_target" = "$target"
+  test "$tag_object" = "$expected_tag_object"
+
+  asset_count=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .assets | length' "$lock")
+  test "$(jq -r '.assets|length' "$release_json")" -eq "$asset_count"
+  mkdir -p "$output/counterexamples/$counterexample_id/assets"
+  asset_results="$output/counterexamples/$counterexample_id/assets.ndjson"
+  : > "$asset_results"
+  for index in $(seq 0 $((asset_count - 1))); do
+    name=$(jq -r --arg id "$counterexample_id" --argjson index "$index" '.counterexamples[] | select(.counterexample_id==$id) | .assets[$index].name' "$lock")
+    asset_id=$(jq -r --arg id "$counterexample_id" --argjson index "$index" '.counterexamples[] | select(.counterexample_id==$id) | .assets[$index].id' "$lock")
+    size=$(jq -r --arg id "$counterexample_id" --argjson index "$index" '.counterexamples[] | select(.counterexample_id==$id) | .assets[$index].size_bytes' "$lock")
+    sha=$(jq -r --arg id "$counterexample_id" --argjson index "$index" '.counterexamples[] | select(.counterexample_id==$id) | .assets[$index].sha256' "$lock")
+    download_url=$(jq -r --arg id "$counterexample_id" --argjson index "$index" '.counterexamples[] | select(.counterexample_id==$id) | .assets[$index].download_url' "$lock")
+    jq -e --arg name "$name" --arg digest "$sha" --arg url "$download_url" --argjson size "$size" --argjson asset_id "$asset_id" \
+      '[.assets[] | select(.id==$asset_id and .name==$name and .size==$size and .digest==$digest and .browser_download_url==$url)] | length == 1' \
+      "$release_json" >/dev/null
+    curl --fail --location --retry 3 --silent --show-error "$download_url" -o "$output/counterexamples/$counterexample_id/assets/$name"
+    actual_size=$(wc -c < "$output/counterexamples/$counterexample_id/assets/$name" | tr -d ' ')
+    actual_sha="sha256:$(sha256sum "$output/counterexamples/$counterexample_id/assets/$name" | awk '{print $1}')"
+    test "$actual_size" -eq "$size"
+    test "$actual_sha" = "$sha"
+    jq -S -n --arg name "$name" --argjson id "$asset_id" --argjson size "$size" --arg sha "$sha" --arg url "$download_url" \
+      '{id:$id,name:$name,size_bytes:$size,sha256:$sha,download_url:$url,verified:true}' >> "$asset_results"
+  done
+  assets=$(jq -s . "$asset_results")
+  fetch_rss=$(cat "$output/$counterexample_id.fetch-rss")
+  result=$(jq -S -n --arg id "$counterexample_id" --arg repository "$repo" --arg tag "$tag" --argjson release_id "$release_id" \
+    --arg release_url "$release_url" --arg target "$target" --arg tag_object_sha "$tag_object" --arg reason "$reason" \
+    --argjson assets "$assets" --argjson fetch_rss "$fetch_rss" \
+    '{state:"REFUTED",counterexample:true,verified:true,repository:$repository,tag:$tag,release_id:$release_id,release_url:$release_url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,assets:$assets,fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},reason:$reason}')
+  counterexample_results=$(jq -c --arg id "$counterexample_id" --argjson result "$result" '. + {($id):$result}' <<< "$counterexample_results")
 done
 verify_end=$(date +%s%N)
 
@@ -136,6 +249,6 @@ fetch_timing=$(measurement "$fetch_start" "$fetch_end" "$fetch_peak")
 verify_timing=$(measurement "$verify_start" "$verify_end")
 jq -S -n \
   --arg schema "gooo/self-improvement-portfolio/release-verification/v1" \
-  --argjson releases "$releases" --argjson fetch "$fetch_timing" --argjson verify "$verify_timing" \
-  '{schema:$schema,releases:$releases,summary:{total:($releases|length),verified:([ $releases[] | select(.state=="CLOSED") ]|length),unknown:([ $releases[] | select(.state=="UNKNOWN") ]|length),refuted:([ $releases[] | select(.state=="REFUTED") ]|length)},timing:{fetch:$fetch,verify:$verify,report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}}}' \
+  --argjson releases "$releases" --argjson counterexamples "$counterexample_results" --argjson fetch "$fetch_timing" --argjson verify "$verify_timing" \
+  '{schema:$schema,releases:$releases,counterexamples:$counterexamples,summary:{total:($releases|length),verified:([ $releases[] | select(.state=="CLOSED") ]|length),unknown:([ $releases[] | select(.state=="UNKNOWN") ]|length),refuted:([ $releases[] | select(.state=="REFUTED") ]|length)},timing:{fetch:$fetch,verify:$verify,report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}}}' \
   > "$output/verification.json"

@@ -1,6 +1,6 @@
 {
   "schema": "gooo/self-improvement-portfolio/release-locks/v1",
-  "purpose": "Exact immutable release and asset inputs for the portfolio evidence cells.",
+  "purpose": "Exact immutable release and asset inputs for the portfolio evidence cells; mutable predecessors are retained as append-only counterexamples.",
   "releases": {
     "meta_budget": {
       "repository": "kimjooyoon/gooo-meta-budget",
@@ -143,6 +143,152 @@
         {"name":"SHA256SUMS","size_bytes":729,"sha256":"sha256:9e59948ebe9daf5c9cfcb17269f53d16fb240af9e66e9a8451eade9eb1f6d20b","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/SHA256SUMS"},
         {"name":"validation.json","size_bytes":1776,"sha256":"sha256:885c62ce390bfc799f1ebb81277dd7a79a4ea3a421e82adede0fa35c88cfe041","download_url":"https://github.com/kimjooyoon/gooo-opentofu-bridge/releases/download/v0.2.0/validation.json"}
       ]
+    },
+    "counterfactual_change_release": {
+      "repository": "kimjooyoon/gooo-counterfactual-change",
+      "tag": "v0.1.2",
+      "release_id": 379663025,
+      "release_url": "https://github.com/kimjooyoon/gooo-counterfactual-change/releases/tag/v0.1.2",
+      "target_commit_sha": "e8eb77c88093ff91e62b5c218d00d80df462a59b",
+      "tag_object_sha": "b9ddb3bf434988508fa848ed0e3891a38092d09d",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33381542920,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-counterfactual-change/actions/runs/33381542920",
+        "head_sha": "e8eb77c88093ff91e62b5c218d00d80df462a59b",
+        "conclusion": "success",
+        "job_id": 99454796897,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-counterfactual-change/actions/runs/33381542920/job/99454796897",
+        "artifact_ids": []
+      },
+      "assets": [
+        {"id":537808326,"name":"gooo-counterfactual-change-0.1.2.tar.gz","size_bytes":22665,"sha256":"sha256:66181456e05cca30f26997368acabc1094990a7163cec26eaba521a50637ecdc","download_url":"https://github.com/kimjooyoon/gooo-counterfactual-change/releases/download/v0.1.2/gooo-counterfactual-change-0.1.2.tar.gz"},
+        {"id":537808327,"name":"release-manifest.json","size_bytes":200,"sha256":"sha256:25ae0dc8f5344fe0ed650fb8a486f6fb2c84aaf4678b3388e85611481772f4d4","download_url":"https://github.com/kimjooyoon/gooo-counterfactual-change/releases/download/v0.1.2/release-manifest.json"},
+        {"id":537808330,"name":"SHA256SUMS","size_bytes":106,"sha256":"sha256:d2da8c9f9fdfca275ab280518beedda0bdc6df8e7c7ca6202a6a1448c441b87b","download_url":"https://github.com/kimjooyoon/gooo-counterfactual-change/releases/download/v0.1.2/SHA256SUMS"}
+      ]
+    },
+    "verification_reuse_release": {
+      "repository": "kimjooyoon/gooo-verification-reuse",
+      "tag": "v0.1.2",
+      "release_id": 379662322,
+      "release_url": "https://github.com/kimjooyoon/gooo-verification-reuse/releases/tag/v0.1.2",
+      "target_commit_sha": "5252c202d8f7e3637209037c1b0bf9595b7da661",
+      "tag_object_sha": "3d9bf3374b4ad7e649499ff4a2538b9ff16fab7a",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33381424452,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-verification-reuse/actions/runs/33381424452",
+        "head_sha": "5252c202d8f7e3637209037c1b0bf9595b7da661",
+        "conclusion": "success",
+        "job_id": 99454424981,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-verification-reuse/actions/runs/33381424452/job/99454424981",
+        "artifact_ids": []
+      },
+      "assets": [
+        {"id":537806848,"name":"gooo-verification-reuse-v0.1.2.tar.gz","size_bytes":19943,"sha256":"sha256:2be270c57832fe972f69615cedcb787f9f503a11376699bb827299534e8719f6","download_url":"https://github.com/kimjooyoon/gooo-verification-reuse/releases/download/v0.1.2/gooo-verification-reuse-v0.1.2.tar.gz"},
+        {"id":537806851,"name":"release-manifest.json","size_bytes":402,"sha256":"sha256:7eaa291482d2651d35f188323fe8b81b57ddbd3fb00e5791cc66dceb15c85364","download_url":"https://github.com/kimjooyoon/gooo-verification-reuse/releases/download/v0.1.2/release-manifest.json"},
+        {"id":537806849,"name":"SHA256SUMS","size_bytes":111,"sha256":"sha256:a4e16388e8ff29f59cb0a850d0e61e1349235e0bd2286715d0fd5410454a1dca","download_url":"https://github.com/kimjooyoon/gooo-verification-reuse/releases/download/v0.1.2/SHA256SUMS"}
+      ]
+    },
+    "semantic_drift_release": {
+      "repository": "kimjooyoon/gooo-semantic-drift",
+      "tag": "v0.1.1",
+      "release_id": 379664434,
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-drift/releases/tag/v0.1.1",
+      "target_commit_sha": "1cfff53e4ef48052fb25bf8c56a113d6835726a4",
+      "tag_object_sha": "537e5bb79ba4fa34fbe224aa2f40a62b06a35780",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33381774958,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-semantic-drift/actions/runs/33381774958",
+        "head_sha": "1cfff53e4ef48052fb25bf8c56a113d6835726a4",
+        "conclusion": "success",
+        "job_id": 99455535633,
+        "job_name": "immutable-release",
+        "job_url": "https://github.com/kimjooyoon/gooo-semantic-drift/actions/runs/33381774958/job/99455535633",
+        "artifact_ids": []
+      },
+      "assets": [
+        {"id":537811623,"name":"gooo-semantic-drift-v0.1.1.tar.gz","size_bytes":29313,"sha256":"sha256:231bc7915a67b77f83ab434693a37d4929dbaf1b7f7dd356484ecc07500b5cf3","download_url":"https://github.com/kimjooyoon/gooo-semantic-drift/releases/download/v0.1.1/gooo-semantic-drift-v0.1.1.tar.gz"}
+      ]
     }
-  }
+  },
+  "counterexamples": [
+    {
+      "counterexample_id": "counterfactual_change_v0.1.0_mutable",
+      "capability": "COUNTERFACTUAL_CHANGE_RELEASE",
+      "repository": "kimjooyoon/gooo-counterfactual-change",
+      "tag": "v0.1.0",
+      "release_id": 379657848,
+      "release_url": "https://github.com/kimjooyoon/gooo-counterfactual-change/releases/tag/v0.1.0",
+      "target_commit_sha": "ee7d989c8f22e6853dc77461d19fce02b19496af",
+      "tag_object_sha": "3cf01d3d9a55f38be3351c4d3f892ca7a3a5ef6e",
+      "immutable": false,
+      "reason": "RELEASE_API_IMMUTABLE_FALSE",
+      "successor_release_key": "counterfactual_change_release",
+      "append_only": true,
+      "assets": [
+        {"id":537797741,"name":"gooo-counterfactual-change-0.1.0.tar.gz","size_bytes":22407,"sha256":"sha256:44927573b98ccf9d50941a5fecc4d7f0c3340921be7875a762329b8051dd657d","download_url":"https://github.com/kimjooyoon/gooo-counterfactual-change/releases/download/v0.1.0/gooo-counterfactual-change-0.1.0.tar.gz"},
+        {"id":537797742,"name":"release-manifest.json","size_bytes":200,"sha256":"sha256:ad37ae92b7094e040460223b0b361d7f6e5f061b62be11ecf218966479a4c7cb","download_url":"https://github.com/kimjooyoon/gooo-counterfactual-change/releases/download/v0.1.0/release-manifest.json"},
+        {"id":537797744,"name":"SHA256SUMS","size_bytes":120,"sha256":"sha256:cd553d239171aad7063f6efeb56cc30863e0bb2d88170b5fd8f13d13ad874f1b","download_url":"https://github.com/kimjooyoon/gooo-counterfactual-change/releases/download/v0.1.0/SHA256SUMS"}
+      ]
+    },
+    {
+      "counterexample_id": "counterfactual_change_v0.1.1_mutable",
+      "capability": "COUNTERFACTUAL_CHANGE_RELEASE",
+      "repository": "kimjooyoon/gooo-counterfactual-change",
+      "tag": "v0.1.1",
+      "release_id": 379661972,
+      "release_url": "https://github.com/kimjooyoon/gooo-counterfactual-change/releases/tag/v0.1.1",
+      "target_commit_sha": "a5038f0147cdc507fc46a7e39da43f87aa499d94",
+      "tag_object_sha": "76525ae8f0bdc85cb5b31944b137027cd7898650",
+      "immutable": false,
+      "reason": "RELEASE_API_IMMUTABLE_FALSE",
+      "successor_release_key": "counterfactual_change_release",
+      "append_only": true,
+      "assets": [
+        {"id":537806189,"name":"gooo-counterfactual-change-0.1.1.tar.gz","size_bytes":22443,"sha256":"sha256:c663ad4391c3874b0db76b89c22b1135b07dafbc773c41878389aeb5f87485c5","download_url":"https://github.com/kimjooyoon/gooo-counterfactual-change/releases/download/v0.1.1/gooo-counterfactual-change-0.1.1.tar.gz"},
+        {"id":537806191,"name":"release-manifest.json","size_bytes":200,"sha256":"sha256:78c1a2fd3bfd16f474138f571d1e15b5d0713206403ee5e2b10b26f036e01d67","download_url":"https://github.com/kimjooyoon/gooo-counterfactual-change/releases/download/v0.1.1/release-manifest.json"},
+        {"id":537806190,"name":"SHA256SUMS","size_bytes":106,"sha256":"sha256:14529e10d42cd42e8f9a07baac9b90f45755eaf0c2e4af08bd2428d00d92ff5e","download_url":"https://github.com/kimjooyoon/gooo-counterfactual-change/releases/download/v0.1.1/SHA256SUMS"}
+      ]
+    },
+    {
+      "counterexample_id": "verification_reuse_v0.1.1_mutable",
+      "capability": "VERIFICATION_REUSE_RELEASE",
+      "repository": "kimjooyoon/gooo-verification-reuse",
+      "tag": "v0.1.1",
+      "release_id": 379659735,
+      "release_url": "https://github.com/kimjooyoon/gooo-verification-reuse/releases/tag/v0.1.1",
+      "target_commit_sha": "5252c202d8f7e3637209037c1b0bf9595b7da661",
+      "tag_object_sha": "34ed02e0a8cbed18882c67d3d51988231a849d1a",
+      "immutable": false,
+      "reason": "RELEASE_API_IMMUTABLE_FALSE",
+      "successor_release_key": "verification_reuse_release",
+      "append_only": true,
+      "assets": [
+        {"id":537801742,"name":"gooo-verification-reuse-v0.1.1.tar.gz","size_bytes":19947,"sha256":"sha256:f19c4fdcc4b5d1964b1cb160bf93a34d3927660932cd8cecafe7e11768c2ca88","download_url":"https://github.com/kimjooyoon/gooo-verification-reuse/releases/download/v0.1.1/gooo-verification-reuse-v0.1.1.tar.gz"},
+        {"id":537801743,"name":"release-manifest.json","size_bytes":402,"sha256":"sha256:4b1283d322186f98f115574b6bcb95ee4a52b9fa4d5aaa48daf588e42973322d","download_url":"https://github.com/kimjooyoon/gooo-verification-reuse/releases/download/v0.1.1/release-manifest.json"},
+        {"id":537801741,"name":"SHA256SUMS","size_bytes":111,"sha256":"sha256:4f02d28061c95b5690d098e97c41145923d7d0135af97cf83807ab11bc64564a","download_url":"https://github.com/kimjooyoon/gooo-verification-reuse/releases/download/v0.1.1/SHA256SUMS"}
+      ]
+    },
+    {
+      "counterexample_id": "semantic_drift_v0.1.0_mutable",
+      "capability": "SEMANTIC_DRIFT_RELEASE",
+      "repository": "kimjooyoon/gooo-semantic-drift",
+      "tag": "v0.1.0",
+      "release_id": 379661097,
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-drift/releases/tag/v0.1.0",
+      "target_commit_sha": "89377e44c96f6cefff75d05d5c0a8eb3df6d4944",
+      "tag_object_sha": "1848e9b81cb785bda35123f091d3cc2d182669b1",
+      "immutable": false,
+      "reason": "RELEASE_API_IMMUTABLE_FALSE",
+      "successor_release_key": "semantic_drift_release",
+      "append_only": true,
+      "assets": [
+        {"id":537804378,"name":"gooo-semantic-drift-v0.1.0.tar.gz","size_bytes":27856,"sha256":"sha256:4090d0b25bd2c58499aa57fa2ffa14f59fa38848bad97faaf7348b2cbb0c5ad2","download_url":"https://github.com/kimjooyoon/gooo-semantic-drift/releases/download/v0.1.0/gooo-semantic-drift-v0.1.0.tar.gz"}
+      ]
+    }
+  ]
 }
