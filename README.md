@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 28 named cells, each bound one-to-one to
+language. The denominator is exactly 29 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -21,11 +21,12 @@ The fixed axes are:
 `REFLEXIVE_MODERN_CYCLE_RELEASE`, `EXPERIENCE_MEMORY_RELEASE`, and
 `SEMANTIC_DRIFT_GUARD_RELEASE`, and
 `SEMANTIC_AUTHORITY_CENSUS_RELEASE`, and
-`REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE`.
+`REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE`, and
+`UNKNOWN_RESOLUTION_LATTICE_RELEASE`.
 
-The denominator migration is explicit and append-only: `27 -> 28` with
+The denominator migration is explicit and append-only: `28 -> 29` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/19/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/19/5`.
+`4/20/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/20/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -256,6 +257,26 @@ append-only adoption observation: it does not close core semantic authority or
 semantic-drift development process, and utility remains `UNKNOWN`, yielding
 `CLOSED25/UNKNOWN1/REFUTED2`.
 
+The v0.23 frontier appends `UNKNOWN_RESOLUTION_LATTICE_RELEASE`. It adopts
+immutable `kimjooyoon/gooo-resolution-lattice@v0.2.0` release `379967493`,
+binding annotated tag object
+`2f452efe6b05b50760500da1a4bea7d323e9c11d2` to target
+`fac2f5c0688c62fd31912a310e0fae77bc198258`, successful source and post-main
+conformance runs `33424634161`/job `99595118419` and
+`33425091977`/job `99596614819`, and successful release run
+`33425271313`/job `99597213464`. Its fixed five-stage
+`PROJECT -> ARTIFACT -> ACTIVITY -> PREDICATE -> FIELD` protocol covers 12
+cells, `4/4/4` proof and indicator buckets, cases `CLOSED1/UNKNOWN4/REFUTED5`,
+four UNKNOWN classes, six verified receipts, and 16 identity comparisons with
+zero mismatches. Only exact fixed-point evidence is accepted; the top-level
+unknown decision is `FAIL_CLOSED`, contradiction precedence is `REFUTED`, and
+utility inference is disabled. Its normal exact pair improves the two locked
+metrics from `4 -> 2` and `5 -> 3`; all ledger release assets and both Actions
+evidence artifacts are pinned by API identity, size, and SHA-256 digest. The
+upstream adoption closes only this new cell; external utility remains
+`UNKNOWN`, core semantic authority and semantic-drift development process
+remain `REFUTED`, yielding `CLOSED26/UNKNOWN1/REFUTED2`.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -284,7 +305,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the twenty-five immutable inputs
+commit, and consumer asset identities for the twenty-six immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

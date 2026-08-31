@@ -13,16 +13,16 @@ probe=$(mktemp -d)
 mkdir -p "$probe"
 
 jq -e '
-  .total_cells == 28 and
-  .denominator_migration == {from:27,to:28,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 29 and
+  .denominator_migration == {from:28,to:29,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:19,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:19,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:20,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:20,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -38,7 +38,8 @@ jq -e '
   (.cells|map(select(.id=="EXPERIENCE_MEMORY_RELEASE" and .release_key=="experience_memory_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_GUARD_RELEASE" and .release_key=="semantic_drift_guard_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_AUTHORITY_CENSUS_RELEASE" and .release_key=="semantic_authority_census_release"))|length)==1 and
-  (.cells|map(select(.id=="REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE" and .release_key=="reflexive_learning_drift_cycle_release"))|length)==1
+  (.cells|map(select(.id=="REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE" and .release_key=="reflexive_learning_drift_cycle_release"))|length)==1 and
+  (.cells|map(select(.id=="UNKNOWN_RESOLUTION_LATTICE_RELEASE" and .release_key=="unknown_resolution_lattice_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 
 jq -e '
@@ -388,6 +389,51 @@ jq -e '
   (.releases.semantic_authority_census_release.assets|map(.id)) == [538335233,538335235,538335234,538335236] and
   (.releases.semantic_authority_census_release.assets|map(.size_bytes)) == [2563982,413,263,14360] and
   (.releases.semantic_authority_census_release.assets|map(.sha256)) == ["sha256:e68c93214ef99e65ffd818bf384668c34e8332aa7b4481d6cc70b747afaaf0e3","sha256:9c403c7b607c91f1cddced37611875544f047899610be293c96b6475b269b260","sha256:9ae4216b45722c43f62720a3e3d13048905e3291d7ee595d3fe6ab0f78f11411","sha256:3bd78b1b7cb5330dc901003b2d23abee9b95abfe23d1ad0d754d1bdb63471866"] and
+  .releases.unknown_resolution_lattice_release.repository == "kimjooyoon/gooo-resolution-lattice" and
+  .releases.unknown_resolution_lattice_release.tag == "v0.2.0" and
+  .releases.unknown_resolution_lattice_release.release_id == 379967493 and
+  .releases.unknown_resolution_lattice_release.immutable == true and
+  .releases.unknown_resolution_lattice_release.target_commit_sha == "fac2f5c0688c62fd31912a310e0fae77bc198258" and
+  .releases.unknown_resolution_lattice_release.tag_object_sha == "2f452efe6b05b50760500da1a4bea7d323e9c11d2" and
+  .releases.unknown_resolution_lattice_release.source_run.run_id == 33424634161 and
+  .releases.unknown_resolution_lattice_release.source_run.job_id == 99595118419 and
+  .releases.unknown_resolution_lattice_release.source_run.head_sha == "8c169cc8d821fb0b68ce28cc519d49935a241b8e" and
+  .releases.unknown_resolution_lattice_release.source_run.conclusion == "success" and
+  .releases.unknown_resolution_lattice_release.source_run.artifact_ids == [9770260397] and
+  .releases.unknown_resolution_lattice_release.source_artifact == {run_id:33424634161,artifact_id:9770260397,name:"gooo-resolution-lattice-evidence-33424634161",size_bytes:23723,sha256:"sha256:f80e798ca1893937ba49b86e40ad1ac7f2035e9d666acacb71c28fa6109bb294"} and
+  .releases.unknown_resolution_lattice_release.post_main_validation.run_id == 33425091977 and
+  .releases.unknown_resolution_lattice_release.post_main_validation.job_id == 99596614819 and
+  .releases.unknown_resolution_lattice_release.post_main_validation.head_sha == "2c7bdc1b5024616cbc70aa55c3726dc22cda048e" and
+  .releases.unknown_resolution_lattice_release.post_main_validation.conclusion == "success" and
+  .releases.unknown_resolution_lattice_release.post_main_validation.artifact_ids == [9770452642] and
+  .releases.unknown_resolution_lattice_release.post_main_artifact == {run_id:33425091977,artifact_id:9770452642,name:"gooo-resolution-lattice-evidence-33425091977",size_bytes:23723,sha256:"sha256:7f3edacdfb5f58a9391ceb10b90de139368a0f537fffa86648eeaf62f9f5dc0e"} and
+  .releases.unknown_resolution_lattice_release.release_run.run_id == 33425271313 and
+  .releases.unknown_resolution_lattice_release.release_run.job_id == 99597213464 and
+  .releases.unknown_resolution_lattice_release.release_run.head_sha == "0f0ec4e696cbd6df756051e908f0d9c86d48ba72" and
+  .releases.unknown_resolution_lattice_release.release_run.conclusion == "success" and
+  .releases.unknown_resolution_lattice_release.release_run.artifact_ids == [] and
+  .releases.unknown_resolution_lattice_release.release_manifest == {schema:"gooo/resolution-lattice/release-manifest/v1",tag:"v0.2.0",commit:"fac2f5c0688c62fd31912a310e0fae77bc198258",go_version:"go1.27.0",immutable:true} and
+  .releases.unknown_resolution_lattice_release.protocol_observation.ladder == ["PROJECT","ARTIFACT","ACTIVITY","PREDICATE","FIELD"] and
+  .releases.unknown_resolution_lattice_release.protocol_observation.fixed_denominator == 12 and
+  .releases.unknown_resolution_lattice_release.protocol_observation.proof_totals == {FOUNDATION:4,COHERENCE:4,REGRESSION:4} and
+  .releases.unknown_resolution_lattice_release.protocol_observation.indicator_totals == {DRIVER:4,OUTCOME:4,GUARDRAIL:4} and
+  .releases.unknown_resolution_lattice_release.protocol_observation.case_totals == {normal:1,unknown:4,refuted:5,CLOSED:1,UNKNOWN:4,REFUTED:5} and
+  .releases.unknown_resolution_lattice_release.protocol_observation.unknown_classes == ["DIRECT_MISSING","DEPENDENCY_BLOCKED","DECISION_UNKNOWN","CAUSALITY_UNPROVEN"] and
+  .releases.unknown_resolution_lattice_release.protocol_observation.fixed_point_only == true and
+  .releases.unknown_resolution_lattice_release.protocol_observation.top_unknown_decision == "FAIL_CLOSED" and
+  .releases.unknown_resolution_lattice_release.protocol_observation.top_unknown_reason == "FEEDBACK_COVERAGE_DECISION_UNKNOWN" and
+  .releases.unknown_resolution_lattice_release.protocol_observation.contradiction_priority == "REFUTED" and
+  .releases.unknown_resolution_lattice_release.protocol_observation.receipts == {expected:6,observed:6,verified:"6/6"} and
+  .releases.unknown_resolution_lattice_release.protocol_observation.identity == {comparisons:16,mismatches:0} and
+  .releases.unknown_resolution_lattice_release.protocol_observation.normal_exact_pairs == [{metric:"unidentified_cause_frontier_count",before:4,after:2,delta:-2},{metric:"minimum_cause_reach_stage_count",before:5,after:3,delta:-2}] and
+  .releases.unknown_resolution_lattice_release.protocol_observation.tests == {total:10,executed:10,reused:0,skipped:0,not_observed:0} and
+  .releases.unknown_resolution_lattice_release.protocol_observation.inventory == {go_files:5,go_lines:1335,gooo_files:1,gooo_lines:27,directories:14,files:23,root_readme_excluded:true} and
+  .releases.unknown_resolution_lattice_release.protocol_observation.output_artifacts == {files:22,bytes:67397} and
+  .releases.unknown_resolution_lattice_release.protocol_observation.authority == {repository_writes:0,direct_main_writes:0,local_test_executions:0,provider_install_attempts:0,network_mutation_attempts:0,infrastructure_mutations:0} and
+  .releases.unknown_resolution_lattice_release.protocol_observation.utility_inference == false and
+  (.releases.unknown_resolution_lattice_release.assets|map(.id)) == [538371288,538371290,538371285] and
+  (.releases.unknown_resolution_lattice_release.assets|map(.size_bytes)) == [23967,186,103] and
+  (.releases.unknown_resolution_lattice_release.assets|map(.sha256)) == ["sha256:f16f43175104a42eb20fd8f701fa8296c289ce69929ff1861269cb3b00ebbc75","sha256:c178b312da828be4589352fbc195853ccaa08e48adacf7f5522c4a06df65f9fd","sha256:8a9b8575cdd5abae5ebba2d1e33a6e93f6b6bfcd7d3ac6855529c74652454549"] and
   (.failed_release_triggers|length) == 1 and
   .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
   .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
@@ -426,7 +472,7 @@ jq -e '
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 
 jq -e '
-  .denominator_migration == {from:27,to:28,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:28,to:29,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -604,7 +650,29 @@ jq -e '
     ($learning_drift.evidence | index("manifest-asset:538319775:6537:sha256:b3de9c74872b8b8ec4fac51393a4ee54256c1f97ab9f8f47effdc68971013977")) != null and
     ($learning_drift.evidence | index("source-asset:538319768:96363:sha256:fc8f5e551bb335d0a9133623c2fdc4549f634a93645b41b8fbb7c0acc98ab957")) != null and
     ($learning_drift.evidence | index("checksum-asset:538319776:323:sha256:e55c31a6c66eb82cfcf2d8b39182e07fd39f35f45a7bddfd17407025bda59dc0")) != null) and
-  (.cells|length) == 28 and
+  ((.cells[] | select(.cell_id == "UNKNOWN_RESOLUTION_LATTICE_RELEASE")) as $resolution_lattice |
+    $resolution_lattice.state == "CLOSED" and
+    $resolution_lattice.release_key == "unknown_resolution_lattice_release" and
+    ($resolution_lattice.evidence | index("release:379967493:immutable=true")) != null and
+    ($resolution_lattice.evidence | index("tag-object:2f452efe6b05b50760500da1a4bea7d323e9c11d2:target=fac2f5c0688c62fd31912a310e0fae77bc198258")) != null and
+    ($resolution_lattice.evidence | index("source-actions:run=33424634161:job=99595118419:success")) != null and
+    ($resolution_lattice.evidence | index("source-actions-artifact:9770260397:23723:sha256:f80e798ca1893937ba49b86e40ad1ac7f2035e9d666acacb71c28fa6109bb294")) != null and
+    ($resolution_lattice.evidence | index("post-main-actions:run=33425091977:job=99596614819:success")) != null and
+    ($resolution_lattice.evidence | index("post-main-actions-artifact:9770452642:23723:sha256:7f3edacdfb5f58a9391ceb10b90de139368a0f537fffa86648eeaf62f9f5dc0e")) != null and
+    ($resolution_lattice.evidence | index("release-actions:run=33425271313:job=99597213464:success")) != null and
+    ($resolution_lattice.evidence | index("upstream-resolution-lattice:ladder=PROJECT>ARTIFACT>ACTIVITY>PREDICATE>FIELD:denominator=12:proof=4/4/4:indicator=4/4/4:cases=CLOSED=1:UNKNOWN=4:REFUTED=5:unknown_classes=4:receipts=6/6:identity=16/0")) != null and
+    ($resolution_lattice.evidence | index("upstream-improvement-pairs:normal=4->2,5->3:decision_unknown=2->2,5->5:dependency_blocked=3->3,5->5:unknown=4->4,5->5")) != null and
+    ($resolution_lattice.evidence | index("upstream-runtime:first=5446/1985/67/272748:post_main=5869/2259/80/265604")) != null and
+    ($resolution_lattice.evidence | index("upstream-tests:total=10:executed=10:reused=0:skipped=0:not_observed=0")) != null and
+    ($resolution_lattice.evidence | index("upstream-inventory:go=5-files/1335-lines:gooo=1-files/27-lines:dirs=14:files=23:root_readme_excluded=true")) != null and
+    ($resolution_lattice.evidence | index("upstream-output:artifacts=22:bytes=67397")) != null and
+    ($resolution_lattice.evidence | index("upstream-authority:repository_writes=0:direct_main_writes=0:local_test_executions=0:provider_install_attempts=0:network_mutation_attempts=0:infrastructure_mutations=0")) != null and
+    ($resolution_lattice.evidence | index("upstream-policy:fixed_point_only=true:top_unknown=FAIL_CLOSED/FEEDBACK_COVERAGE_DECISION_UNKNOWN:contradiction_priority=REFUTED:utility_inference=false")) != null and
+    ($resolution_lattice.evidence | index("upstream-manifest:commit=fac2f5c0688c62fd31912a310e0fae77bc198258:go=1.27.0:immutable=true")) != null and
+    ($resolution_lattice.evidence | index("asset:538371288:23967:sha256:f16f43175104a42eb20fd8f701fa8296c289ce69929ff1861269cb3b00ebbc75")) != null and
+    ($resolution_lattice.evidence | index("asset:538371290:186:sha256:c178b312da828be4589352fbc195853ccaa08e48adacf7f5522c4a06df65f9fd")) != null and
+    ($resolution_lattice.evidence | index("asset:538371285:103:sha256:8a9b8575cdd5abae5ebba2d1e33a6e93f6b6bfcd7d3ac6855529c74652454549")) != null) and
+  (.cells|length) == 29 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -773,12 +841,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:28,closed:25,unknown:1,refuted:2} and
+  .summary == {total:29,closed:26,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 28 and
+  (.cells|length) == 29 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 25 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 26 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -809,16 +877,17 @@ jq -e '
     EXPERIENCE_MEMORY_RELEASE:"CLOSED",
     SEMANTIC_DRIFT_GUARD_RELEASE:"CLOSED",
     SEMANTIC_AUTHORITY_CENSUS_RELEASE:"CLOSED",
-    REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE:"CLOSED"
+    REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE:"CLOSED",
+    UNKNOWN_RESOLUTION_LATTICE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:28,activities:28,unique_axes:28,unique_metrics:28,source_bindings:28,ir_bindings:28,generated_artifact_bindings:28,evaluator_bindings:28} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 19 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 19 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:25,verified:25,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:29,activities:29,unique_axes:29,unique_metrics:29,source_bindings:29,ir_bindings:29,generated_artifact_bindings:29,evaluator_bindings:29} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 20 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 20 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:26,verified:26,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
