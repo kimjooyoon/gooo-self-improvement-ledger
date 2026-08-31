@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 17 named cells, each bound one-to-one to
+language. The denominator is exactly 18 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -14,11 +14,12 @@ The fixed axes are:
 `DESIGN_CONSUMER_PATH`, `OPENTOFU_PLAN_PATH`, `RELEASE_PROMOTION`,
 `EXTERNAL_UTILITY_EVIDENCE`, `COUNTERFACTUAL_CHANGE_RELEASE`,
 `VERIFICATION_REUSE_RELEASE`, `SEMANTIC_DRIFT_RELEASE`, and
-`SEMANTIC_DRIFT_DEVELOPMENT_PROCESS`, and `IMPROVEMENT_FRONTIER_RELEASE`.
+`SEMANTIC_DRIFT_DEVELOPMENT_PROCESS`, `IMPROVEMENT_FRONTIER_RELEASE`, and
+`AUTHORITY_BOOTSTRAP_RELEASE`.
 
-The denominator migration is explicit and append-only: `16 -> 17` with
+The denominator migration is explicit and append-only: `17 -> 18` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/8/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/8/5`.
+`4/9/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/9/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -41,17 +42,22 @@ append-only frontier records `CI_EFFORT_OBSERVATION` /
 `DERIVE_OPERATION_DURATION` and the next operation is to publish the CI time
 causality protocol with exact clock-domain semantics. The new protocol is
 tracked only as an unreleased, non-required optional dependency.
-The four release-adoption cells close only from exact immutable release evidence:
+The five release-adoption cells close only from exact immutable release evidence:
 `gooo-counterfactual-change@v0.1.2` release `379663025`,
 `gooo-verification-reuse@v0.1.2` release `379662322`, and
 `gooo-semantic-drift@v0.1.1` release `379664434`, plus
-`gooo-improvement-frontier@v0.1.0` release `379728340`. Their full release
+`gooo-improvement-frontier@v0.1.0` release `379728340`, plus
+`gooo-authority-bootstrap@v0.1.0` release `379750047`. Their full release
 IDs, annotated tag objects, targets, source Actions runs/jobs, source artifact
 IDs, asset IDs, sizes, URLs, and SHA-256 digests are locked in
 `contracts/release-locks-v1.json` and re-fetched by CI. The improvement-frontier
 receipt is also matched field-for-field, including 5 executed tests, 3950 ms
 build time, 1770 ms test time, 282632 KiB peak RSS, and zero product-authority
 writes, local test executions, and cross-project required gates.
+The authority-bootstrap adoption also binds both successful post-main Actions
+runs, its six release assets, and its exact bootstrap receipt; the upstream
+receipt's own `UNKNOWN` decision remains data, while the ledger cell closes
+only the immutable release adoption boundary.
 
 `SEMANTIC_DRIFT_DEVELOPMENT_PROCESS` remains `REFUTED` independently of the
 successful product release: substantive commit
@@ -99,14 +105,14 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the fourteen immutable inputs
+commit, and consumer asset identities for the fifteen immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts as append-only counterexample
 references; those runs are never closure-gated. The reflexive-loop v0.3 lock also
 binds its source Actions artifact and upstream release-manifest lock digest.
 A later immutable release updates the evidence lock and assessment input; it
-does not change the 17-cell denominator.
+does not change the 18-cell denominator.
 
 GitHub Actions is the verification authority. The workflow uses Go 1.27 and
 records integer directory/file counts, Go/Gooo physical files and lines (root

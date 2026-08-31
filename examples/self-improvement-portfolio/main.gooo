@@ -21,3 +21,4 @@ activity AdoptVerificationReuseRelease(PortfolioInput) -> PortfolioEvidence comp
 activity AdoptSemanticDriftRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_DRIFT_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AuditSemanticDriftDevelopmentProcess(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_DRIFT_DEVELOPMENT_PROCESS;proof=REGRESSION;indicator=GUARDRAIL"
 activity AdoptImprovementFrontierRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=IMPROVEMENT_FRONTIER_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptAuthorityBootstrapRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=AUTHORITY_BOOTSTRAP_RELEASE;proof=COHERENCE;indicator=OUTCOME"

@@ -251,6 +251,65 @@
         {"id":537940229,"name":"ci-runtime-receipt-v0.1.0.json","size_bytes":1024,"sha256":"sha256:562db1b6f224a3b732f9b8bb57f1efdcf33d6653e239ffb021fe3e7d9cf2baf4","download_url":"https://github.com/kimjooyoon/gooo-improvement-frontier/releases/download/v0.1.0/ci-runtime-receipt-v0.1.0.json"},
         {"id":537940232,"name":"gooo-improvement-frontier-v0.1.0.tar.gz","size_bytes":25799,"sha256":"sha256:66ac3b7d659c470544b8bd24d9c79ee50d2d250b2f6162cb5fb79b05a9000388","download_url":"https://github.com/kimjooyoon/gooo-improvement-frontier/releases/download/v0.1.0/gooo-improvement-frontier-v0.1.0.tar.gz"}
       ]
+    },
+    "authority_bootstrap_release": {
+      "repository": "kimjooyoon/gooo-authority-bootstrap",
+      "tag": "v0.1.0",
+      "release_id": 379750047,
+      "release_url": "https://github.com/kimjooyoon/gooo-authority-bootstrap/releases/tag/v0.1.0",
+      "target_commit_sha": "e7e6dc0afde6536bb39f94fdfc7ce1e97e4bbefa",
+      "tag_object_sha": "c210a109b513b528a2f690d29bf279e794e260a7",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33393255047,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-authority-bootstrap/actions/runs/33393255047",
+        "head_sha": "e7e6dc0afde6536bb39f94fdfc7ce1e97e4bbefa",
+        "conclusion": "success",
+        "job_id": 99491647091,
+        "job_name": "post-main",
+        "job_url": "https://github.com/kimjooyoon/gooo-authority-bootstrap/actions/runs/33393255047/job/99491647091",
+        "artifact_ids": [9758302892]
+      },
+      "post_main_validation": {
+        "run_id": 33393255004,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-authority-bootstrap/actions/runs/33393255004",
+        "head_sha": "e7e6dc0afde6536bb39f94fdfc7ce1e97e4bbefa",
+        "conclusion": "success",
+        "job_id": 99491646530,
+        "job_name": "required",
+        "job_url": "https://github.com/kimjooyoon/gooo-authority-bootstrap/actions/runs/33393255004/job/99491646530",
+        "artifact_ids": []
+      },
+      "manifest": {"name":"manifest.json","size_bytes":791,"sha256":"sha256:fbff7ae34049d6d271cd7b46b471e4f7fc9b0616d3167301bcd094338c84d30b","download_url":"https://github.com/kimjooyoon/gooo-authority-bootstrap/releases/download/v0.1.0/manifest.json"},
+      "protocol_receipt": {
+        "asset_name": "bootstrap-receipt.json",
+        "receipt_id": "bootstrap:sha256:8b50736fba55e5543a0bd85343e42471a781ae36c624fb83c90754059e938ac7",
+        "decision": "UNKNOWN",
+        "tuple": {"repository":"kimjooyoon/gooo-authority-bootstrap","base":"main-bootstrap-29719a3","head":"candidate-example","pr":1},
+        "branch": "example/bootstrap",
+        "choice": "FOUNDATION",
+        "evaluator_release_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "evaluator_identity": {"id":"example-evaluator","role":"evaluator","artifact_id":"example-evaluator-release","digest":""},
+        "immutable": false,
+        "replay_digest": "sha256:bd06c60d9a21d7313c1029d6a33d2e91c7481c9b80b78f70fa950804c1a2403c",
+        "authority_set": {
+          "policy": {"id":"example-foundation","role":"policy","artifact_id":"example-policy","digest":""},
+          "observation": {"id":"example-observer","role":"observation","artifact_id":"example-protection","digest":""},
+          "execution": {"id":"example-guardian","role":"execution","artifact_id":"example-credential","digest":""},
+          "human_decision": {"id":"example-human","role":"human_decision","artifact_id":"example-decision","digest":""}
+        },
+        "approved_by": {"id":"","role":"","artifact_id":"","digest":""},
+        "issued_at": "2026-08-31T00:04:00Z",
+        "digest": "sha256:5769342e877e09c78a91e22227d18665a6ea1f07a207f317142bc5a205c6a2e8"
+      },
+      "assets": [
+        {"id":537976435,"name":"bootstrap-proposal.json","size_bytes":2013,"sha256":"sha256:0f47a1c5007b9b48959e9565acf37c3c90ec8de5607c1dffc2343151e42984da","download_url":"https://github.com/kimjooyoon/gooo-authority-bootstrap/releases/download/v0.1.0/bootstrap-proposal.json"},
+        {"id":537976439,"name":"bootstrap-receipt.json","size_bytes":1243,"sha256":"sha256:694675761099f4b11b713e6766951ee815c3fad2706d1f3f2dcd88ae8290d8ac","download_url":"https://github.com/kimjooyoon/gooo-authority-bootstrap/releases/download/v0.1.0/bootstrap-receipt.json"},
+        {"id":537976449,"name":"generated-evaluator.go","size_bytes":5474,"sha256":"sha256:6a3de849fef78d9fd45224e4bdbe030d8bf7e03691b61801b8593acef9e1ff4b","download_url":"https://github.com/kimjooyoon/gooo-authority-bootstrap/releases/download/v0.1.0/generated-evaluator.go"},
+        {"id":537976437,"name":"human-dossier.md","size_bytes":1568,"sha256":"sha256:e1e8d286600728ddab88f53bc24850e45a67a9cdeb02d241c10c84d99ccae15f","download_url":"https://github.com/kimjooyoon/gooo-authority-bootstrap/releases/download/v0.1.0/human-dossier.md"},
+        {"id":537976436,"name":"manifest.json","size_bytes":791,"sha256":"sha256:fbff7ae34049d6d271cd7b46b471e4f7fc9b0616d3167301bcd094338c84d30b","download_url":"https://github.com/kimjooyoon/gooo-authority-bootstrap/releases/download/v0.1.0/manifest.json"},
+        {"id":537976438,"name":"semantic-ir.json","size_bytes":4608,"sha256":"sha256:d05050c11ca5c4b35737ee12f233cbf0d9330bcd5b582526b13b36d5dd49cb40","download_url":"https://github.com/kimjooyoon/gooo-authority-bootstrap/releases/download/v0.1.0/semantic-ir.json"}
+      ]
     }
   },
   "counterexample_runs": [

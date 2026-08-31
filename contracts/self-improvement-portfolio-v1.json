@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 17,
+  "total_cells": 18,
   "denominator_migration": {
-    "from": 16,
-    "to": 17,
+    "from": 17,
+    "to": 18,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 8,
+    "COHERENCE": 9,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 8,
+    "OUTCOME": 9,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -302,6 +302,22 @@
       "metric_id": "gooo.metric.self-improvement.improvement-frontier-release.v1",
       "metric_denominator": 1,
       "release_key": "improvement_frontier_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 18,
+      "id": "AUTHORITY_BOOTSTRAP_RELEASE",
+      "axis": "AUTHORITY_BOOTSTRAP_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptAuthorityBootstrapRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptAuthorityBootstrapRelease",
+      "ir": "semantic-ir/activity/AdoptAuthorityBootstrapRelease",
+      "generated_artifact": "evidence/cells/AUTHORITY_BOOTSTRAP_RELEASE.json",
+      "evaluator": "ledger/authority-bootstrap-release",
+      "metric_id": "gooo.metric.self-improvement.authority-bootstrap-release.v1",
+      "metric_denominator": 1,
+      "release_key": "authority_bootstrap_release",
       "depends_on": []
     }
   ]

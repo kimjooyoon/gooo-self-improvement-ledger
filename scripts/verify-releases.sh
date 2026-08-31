@@ -125,6 +125,24 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     observed_source_job=$(jq -S --argjson id "$source_job_id" '. | {id,run_id,name,status,conclusion,head_sha,html_url}' "$source_job_json")
   fi
 
+  if jq -e --arg key "$key" '.releases[$key] | has("post_main_validation")' "$lock" >/dev/null; then
+    post_run_id=$(jq -r --arg key "$key" '.releases[$key].post_main_validation.run_id' "$lock")
+    post_run_url=$(jq -r --arg key "$key" '.releases[$key].post_main_validation.workflow_url' "$lock")
+    post_run_head=$(jq -r --arg key "$key" '.releases[$key].post_main_validation.head_sha' "$lock")
+    post_run_conclusion=$(jq -r --arg key "$key" '.releases[$key].post_main_validation.conclusion' "$lock")
+    post_job_id=$(jq -r --arg key "$key" '.releases[$key].post_main_validation.job_id' "$lock")
+    post_job_name=$(jq -r --arg key "$key" '.releases[$key].post_main_validation.job_name' "$lock")
+    post_job_url=$(jq -r --arg key "$key" '.releases[$key].post_main_validation.job_url' "$lock")
+    post_run_json="$output/$key.post-main-run.json"
+    post_job_json="$output/$key.post-main-job.json"
+    gh api "repos/$repo/actions/runs/$post_run_id" > "$post_run_json"
+    gh api "repos/$repo/actions/jobs/$post_job_id" > "$post_job_json"
+    jq -e --argjson run_id "$post_run_id" --arg url "$post_run_url" --arg head "$post_run_head" --arg conclusion "$post_run_conclusion" \
+      '.id==$run_id and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion==$conclusion' "$post_run_json" >/dev/null
+    jq -e --argjson job_id "$post_job_id" --argjson run_id "$post_run_id" --arg name "$post_job_name" --arg url "$post_job_url" --arg head "$post_run_head" \
+      '.id==$job_id and .run_id==$run_id and .name==$name and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion=="success"' "$post_job_json" >/dev/null
+  fi
+
   mkdir -p "$output/$key/assets"
   asset_results="$output/$key/assets.ndjson"
   : > "$asset_results"
