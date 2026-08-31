@@ -1,0 +1,87 @@
+{
+  "schema": "gooo/non-completeness/capability-evidence-registry/lock/v1",
+  "registry_id": "non-completeness-capability-evidence-registry-v1",
+  "purpose": "A separate registry of independently versioned capability evidence inputs; it is not a completeness denominator or score.",
+  "entry_count": 5,
+  "policy": {
+    "separate_from_portfolio_denominator": true,
+    "status_inference_from_missing_evidence": false,
+    "closure_requires_exact_release_api": true,
+    "closure_requires_immutable_release": true,
+    "closure_requires_resolved_tag_target": true,
+    "closure_requires_exact_asset_api_and_download_digest": true,
+    "status_precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
+    "aggregate_percentage": false,
+    "aggregate_score": false
+  },
+  "entries": [
+    {
+      "entry_id": "evaluator-lineage-v0.1.0",
+      "capability": "evaluator-lineage",
+      "repository": "kimjooyoon/gooo-evaluator-lineage",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-evaluator-lineage/releases/tag/v0.1.0",
+      "target_commit_sha": "3b0605b11c81065123ff834a3c5213887681b788",
+      "immutable_required": true,
+      "assets": [
+        {"name":"gooo-evaluator-lineage-0.1.0.tar.gz","size_bytes":18694,"sha256":"sha256:4f2967a4d4698d9756c64ab265725e0596002b0e58b69663cfec87943da90d59","download_url":"https://github.com/kimjooyoon/gooo-evaluator-lineage/releases/download/v0.1.0/gooo-evaluator-lineage-0.1.0.tar.gz"},
+        {"name":"gooo-evaluator-lineage-0.1.0.tar.gz.sha256","size_bytes":166,"sha256":"sha256:29fdb8e982003625cd31fb595f9ca7a5e0e880dfc01ee0b579029ea0e3eaafea","download_url":"https://github.com/kimjooyoon/gooo-evaluator-lineage/releases/download/v0.1.0/gooo-evaluator-lineage-0.1.0.tar.gz.sha256"}
+      ]
+    },
+    {
+      "entry_id": "counterexample-memory-v0.1.0",
+      "capability": "counterexample-memory",
+      "repository": "kimjooyoon/gooo-counterexample-memory",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-counterexample-memory/releases/tag/v0.1.0",
+      "target_commit_sha": "40fbad10ad4d4cf14015084b28e0df01ef747c38",
+      "immutable_required": true,
+      "assets": [
+        {"name":"gooo-counterexample-memory-v0.1.0.tar.gz","size_bytes":22644,"sha256":"sha256:f6e005df1ab6f96f5761415d08c020a8b99114c2a3becfc5745e9bee57ba81a8","download_url":"https://github.com/kimjooyoon/gooo-counterexample-memory/releases/download/v0.1.0/gooo-counterexample-memory-v0.1.0.tar.gz"},
+        {"name":"release-manifest.json","size_bytes":313,"sha256":"sha256:7494b8fb91c01c1888ca0c567c632b31ff14fccffd66afe60198d728e6e80750","download_url":"https://github.com/kimjooyoon/gooo-counterexample-memory/releases/download/v0.1.0/release-manifest.json"},
+        {"name":"SHA256SUMS","size_bytes":114,"sha256":"sha256:388019394df4dd8bbe7ba7ae7b4e962bc0038f4e0f3faf2a58345f3cc19fbdd9","download_url":"https://github.com/kimjooyoon/gooo-counterexample-memory/releases/download/v0.1.0/SHA256SUMS"}
+      ]
+    },
+    {
+      "entry_id": "improvement-selector-v0.1.0",
+      "capability": "improvement-selector",
+      "repository": "kimjooyoon/gooo-improvement-selector",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-improvement-selector/releases/tag/v0.1.0",
+      "target_commit_sha": "a2ad62caf907e87703abe0c6e8debb0d3602c8d3",
+      "immutable_required": true,
+      "source_run": {"run_id":33350323072,"workflow_url":"https://github.com/kimjooyoon/gooo-improvement-selector/actions/runs/33350323072","conclusion":"success"},
+      "development_provenance": {"local_gofmt_executions":3,"go_version_checks":1,"local_test_executions":0,"local_build_executions":0,"local_vet_executions":0},
+      "assets": [
+        {"name":"gooo-improvement-selector-v0.1.0-evidence.tar.gz","size_bytes":89681,"sha256":"sha256:972f35d2893aaff6b07369768bbd79f1edaebd7e3c525c194ee6745580659c9d","download_url":"https://github.com/kimjooyoon/gooo-improvement-selector/releases/download/v0.1.0/gooo-improvement-selector-v0.1.0-evidence.tar.gz"},
+        {"name":"release-lock-v0.1.0.json","size_bytes":644,"sha256":"sha256:d507c0bd4652a3b6496ee5cdd89c44795aeeb292c4b5f5065772b3cac0dec671","download_url":"https://github.com/kimjooyoon/gooo-improvement-selector/releases/download/v0.1.0/release-lock-v0.1.0.json"},
+        {"name":"SHA256SUMS","size_bytes":206,"sha256":"sha256:4064705a2609e1f7f296ea957a27b6f17c79ab75ffab11591dd81be73cdc358c","download_url":"https://github.com/kimjooyoon/gooo-improvement-selector/releases/download/v0.1.0/SHA256SUMS"}
+      ]
+    },
+    {
+      "entry_id": "proof-kernel-boundary-v0.1.0",
+      "capability": "proof-kernel-boundary",
+      "repository": "kimjooyoon/gooo-proof-kernel-boundary",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-proof-kernel-boundary/releases/tag/v0.1.0",
+      "target_commit_sha": "e08ec36b31754ba0f853b0f3932de5ff7a70f5ac",
+      "immutable_required": true,
+      "assets": [
+        {"name":"proof-kernel-boundary-v0.1.0-evidence.tar.gz","size_bytes":3068,"sha256":"sha256:11638cbfbeb9152751724a4d16dc4b2f9f619adc36348ec3203864c7b809ad1b","download_url":"https://github.com/kimjooyoon/gooo-proof-kernel-boundary/releases/download/v0.1.0/proof-kernel-boundary-v0.1.0-evidence.tar.gz"},
+        {"name":"proof-kernel-boundary-v0.1.0-evidence.tar.gz.sha256","size_bytes":111,"sha256":"sha256:a8e99b1f628ad586dbdb6665054d283416bd9226a6acdcbffcdef001345fdfd9","download_url":"https://github.com/kimjooyoon/gooo-proof-kernel-boundary/releases/download/v0.1.0/proof-kernel-boundary-v0.1.0-evidence.tar.gz.sha256"}
+      ]
+    },
+    {
+      "entry_id": "semantic-mutation-lab-v0.1.1",
+      "capability": "semantic-mutation-lab",
+      "repository": "kimjooyoon/gooo-semantic-mutation-lab",
+      "tag": "v0.1.1",
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-mutation-lab/releases/tag/v0.1.1",
+      "target_commit_sha": "1c2ed798200edaadd34853deb2bc4c7e9828e40b",
+      "immutable_required": true,
+      "release_assets_expected": 0,
+      "source_artifact": {"run_id":33351140449,"workflow_url":"https://github.com/kimjooyoon/gooo-semantic-mutation-lab/actions/runs/33351140449","artifact_id":9743650902,"name":"gooo-semantic-mutation-lab-evidence-33351140449","size_bytes":32399,"sha256":"sha256:082062e6395c3c7c8bdbd0aeb8bffc0b770b10d861e6445562d46fc297eff8de","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-semantic-mutation-lab/actions/artifacts/9743650902/zip"},
+      "assets": []
+    }
+  ]
+}

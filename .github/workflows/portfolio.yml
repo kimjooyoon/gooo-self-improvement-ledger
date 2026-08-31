@@ -59,6 +59,19 @@ jobs:
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
             bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
 
+      - name: Verify separate non-completeness capability evidence registry
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          bash scripts/verify-capability-evidence-registry.sh \
+            contracts/non-completeness-capability-evidence-registry-v1.json \
+            evidence/non-completeness-capability-evidence-registry-v1.json \
+            "$ARTIFACT_ROOT/capability-registry"
+          jq -e '.entry_count==5 and .summary=={closed:2,unknown:0,refuted:3} and (has("percentage")|not) and (has("score")|not)' \
+            "$ARTIFACT_ROOT/capability-registry/verification.json" >/dev/null
+
       - name: Materialize runtime measurements
         shell: bash
         run: |
@@ -87,6 +100,7 @@ jobs:
           jq -e '.repository_writes==0 and .summary=={total:12,closed:10,unknown:2,refuted:0}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
+          cat "$ARTIFACT_ROOT/capability-registry/verification.json" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload human-readable evidence
         if: always()
