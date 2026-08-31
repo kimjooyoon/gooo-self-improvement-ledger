@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for twenty-seven specifically named capabilities.
+The portfolio is an evidence ledger for twenty-eight specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains twenty-seven entries. The v0.21
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-six-cell
+`cells` array is immutable during a run and contains twenty-eight entries. The v0.22
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-seven-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/18/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/18/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/19/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/19/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -179,9 +179,30 @@ and all authority counts are zero. The census is observation-only: it does not
 close core semantic authority or the semantic-drift development-process cell,
 and external utility remains `UNKNOWN`, yielding `CLOSED24/UNKNOWN1/REFUTED2`.
 
+The v0.22 frontier appends `REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE`. It adopts
+the immutable upstream `kimjooyoon/gooo-reflexive-loop@v0.4.0` release
+`379940049`, binding annotated tag object
+`89f6d283791f917c2fe789fa05016a0f33df21d2` to target
+`134d9043e8808147ed2f7252527e809d3eafad44`, successful main Actions run
+`33420406673`/job `99581097777`, and artifact `9768699219` of `3624947` bytes
+with digest
+`sha256:11f3fffb4c6ee93307e46b5c1fdb8013fe5829983e069d823d896dc77e84a6c2`.
+Its learning-drift-gated protocol has fixed denominator `12`, cases
+`CLOSED3/UNKNOWN4/REFUTED5`, precedence `REFUTED > UNKNOWN > CLOSED`, and a
+normal `CLOSED` decision with external utility `UNKNOWN`. The normal evidence
+records cycles `2`, candidates `5`, known-refuted recurrence `1 -> 0`, attempts
+`2`, avoided/refuted/unknown candidates `1/1/2`, replay `16/0`, rollback `1/0`,
+tests `4/2/1/1/0`, build `520 ms / 91448 KiB`, test `0 ms / 7116 KiB`, and
+conformance `4291 ms / 14300 KiB`; repository writes, local test executions,
+and cross-project required gates are zero. The release manifest and all four
+release assets are pinned by API identity, size, and SHA-256 digest. The
+adoption is append-only and does not close core semantic authority or semantic-
+drift development process; utility remains `UNKNOWN`, yielding
+`CLOSED25/UNKNOWN1/REFUTED2`.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-twenty-seven-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+twenty-eight-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 27 named cells, each bound one-to-one to
+language. The denominator is exactly 28 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -20,11 +20,12 @@ The fixed axes are:
 `CHANGE_BUNDLE_RELEASE`, `UTILITY_TRIAL_PROTOCOL_RELEASE`, and
 `REFLEXIVE_MODERN_CYCLE_RELEASE`, `EXPERIENCE_MEMORY_RELEASE`, and
 `SEMANTIC_DRIFT_GUARD_RELEASE`, and
-`SEMANTIC_AUTHORITY_CENSUS_RELEASE`.
+`SEMANTIC_AUTHORITY_CENSUS_RELEASE`, and
+`REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `26 -> 27` with
+The denominator migration is explicit and append-only: `27 -> 28` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/18/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/18/5`.
+`4/19/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/19/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -234,6 +235,27 @@ close core semantic authority or the semantic-drift development-process cell,
 and external utility remains `UNKNOWN`, so the portfolio is
 `CLOSED24/UNKNOWN1/REFUTED2`.
 
+The v0.22 frontier appends `REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE`. It adopts
+the immutable upstream `kimjooyoon/gooo-reflexive-loop@v0.4.0` release
+`379940049`, binding annotated tag object
+`89f6d283791f917c2fe789fa05016a0f33df21d2` to target
+`134d9043e8808147ed2f7252527e809d3eafad44`, successful main Actions run
+`33420406673`/job `99581097777`, and artifact `9768699219` of `3624947` bytes
+with digest
+`sha256:11f3fffb4c6ee93307e46b5c1fdb8013fe5829983e069d823d896dc77e84a6c2`.
+Its learning-drift-gated protocol has fixed denominator `12`, cases
+`CLOSED3/UNKNOWN4/REFUTED5`, precedence `REFUTED > UNKNOWN > CLOSED`, and a
+normal `CLOSED` decision with external utility `UNKNOWN`. The normal evidence
+records cycles `2`, candidates `5`, known-refuted recurrence `1 -> 0`, attempts
+`2`, avoided/refuted/unknown candidates `1/1/2`, replay `16/0`, rollback `1/0`,
+tests `4/2/1/1/0`, build `520 ms / 91448 KiB`, test `0 ms / 7116 KiB`, and
+conformance `4291 ms / 14300 KiB`; repository writes, local test executions,
+and cross-project required gates are zero. The release manifest and all four
+release assets are pinned by API identity, size, and SHA-256 digest. This is an
+append-only adoption observation: it does not close core semantic authority or
+semantic-drift development process, and utility remains `UNKNOWN`, yielding
+`CLOSED25/UNKNOWN1/REFUTED2`.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -262,7 +284,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the twenty-four immutable inputs
+commit, and consumer asset identities for the twenty-five immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

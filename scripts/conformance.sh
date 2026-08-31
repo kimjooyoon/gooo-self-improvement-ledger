@@ -13,16 +13,16 @@ probe=$(mktemp -d)
 mkdir -p "$probe"
 
 jq -e '
-  .total_cells == 27 and
-  .denominator_migration == {from:26,to:27,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 28 and
+  .denominator_migration == {from:27,to:28,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:18,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:18,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:19,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:19,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -37,7 +37,8 @@ jq -e '
   (.cells|map(select(.id=="REFLEXIVE_MODERN_CYCLE_RELEASE" and .release_key=="reflexive_modern_cycle_release"))|length)==1 and
   (.cells|map(select(.id=="EXPERIENCE_MEMORY_RELEASE" and .release_key=="experience_memory_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_GUARD_RELEASE" and .release_key=="semantic_drift_guard_release"))|length)==1 and
-  (.cells|map(select(.id=="SEMANTIC_AUTHORITY_CENSUS_RELEASE" and .release_key=="semantic_authority_census_release"))|length)==1
+  (.cells|map(select(.id=="SEMANTIC_AUTHORITY_CENSUS_RELEASE" and .release_key=="semantic_authority_census_release"))|length)==1 and
+  (.cells|map(select(.id=="REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE" and .release_key=="reflexive_learning_drift_cycle_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 
 jq -e '
@@ -312,6 +313,47 @@ jq -e '
   (.releases.semantic_drift_guard_release.assets|map(.id)) == [538271587,538271586] and
   (.releases.semantic_drift_guard_release.assets|map(.size_bytes)) == [6651,113] and
   (.releases.semantic_drift_guard_release.assets|map(.sha256)) == ["sha256:83ea0adf7b59b08147eb24ef16483682d8f21d204dc93ed337d39900ae9e09ec","sha256:61e49e62af005dff6a27f43bf20be43d257095bee1b552ab89a433fbe5db111b"] and
+  .releases.reflexive_learning_drift_cycle_release.repository == "kimjooyoon/gooo-reflexive-loop" and
+  .releases.reflexive_learning_drift_cycle_release.tag == "v0.4.0" and
+  .releases.reflexive_learning_drift_cycle_release.release_id == 379940049 and
+  .releases.reflexive_learning_drift_cycle_release.immutable == true and
+  .releases.reflexive_learning_drift_cycle_release.target_commit_sha == "134d9043e8808147ed2f7252527e809d3eafad44" and
+  .releases.reflexive_learning_drift_cycle_release.tag_object_sha == "89f6d283791f917c2fe789fa05016a0f33df21d2" and
+  .releases.reflexive_learning_drift_cycle_release.source_run.run_id == 33420406673 and
+  .releases.reflexive_learning_drift_cycle_release.source_run.job_id == 99581097777 and
+  .releases.reflexive_learning_drift_cycle_release.source_run.job_name == "conformance" and
+  .releases.reflexive_learning_drift_cycle_release.source_run.head_sha == "134d9043e8808147ed2f7252527e809d3eafad44" and
+  .releases.reflexive_learning_drift_cycle_release.source_run.conclusion == "success" and
+  .releases.reflexive_learning_drift_cycle_release.source_run.artifact_ids == [9768699219] and
+  .releases.reflexive_learning_drift_cycle_release.source_artifact == {run_id:33420406673,artifact_id:9768699219,name:"gooo-reflexive-loop-evidence",size_bytes:3624947,sha256:"sha256:11f3fffb4c6ee93307e46b5c1fdb8013fe5829983e069d823d896dc77e84a6c2"} and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.schema == "gooo/reflexive-loop/release-manifest/v1" and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.version == "v0.4.0" and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.repository == "kimjooyoon/gooo-reflexive-loop" and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.release == {tag:"v0.4.0",target_commit_sha:"134d9043e8808147ed2f7252527e809d3eafad44",annotated:true,immutable_required:true} and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.implementation == {pull_request:7,correction_pull_request:8,merged_main_commit:"134d9043e8808147ed2f7252527e809d3eafad44"} and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.workflow == {run_id:33420406673,job_id:99581097777,branch:"main",go_version:"go1.27.0",conformance:"passed"} and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence_artifact == {name:"gooo-reflexive-loop-evidence",id:9768699219,size_bytes:3624947,digest:"sha256:11f3fffb4c6ee93307e46b5c1fdb8013fe5829983e069d823d896dc77e84a6c2"} and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.assets == {source:{name:"gooo-reflexive-loop-v0.4.0-source.tar.gz",size_bytes:96363,digest:"sha256:fc8f5e551bb335d0a9133623c2fdc4549f634a93645b41b8fbb7c0acc98ab957"},evidence:{name:"gooo-reflexive-loop-v0.4.0-evidence.tar.gz",size_bytes:2468418,digest:"sha256:1bac0c50f4508922b5351df3a541f4daa115c60867ca106d11d4593e7c58b5ce"}} and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.schema == "gooo/reflexive-loop/learning-drift-gated/conformance/v1" and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.version == "v0.4.0" and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.scenario_counts == {CLOSED:3,REFUTED:5,UNKNOWN:4} and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.denominator == {cells:12,fixed:true} and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.precedence == ["REFUTED","UNKNOWN","CLOSED"] and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.normal_report_digest == "sha256:c1c8686b4e9c96acfe665ead2fd176b2314642f93de428039b0b4a32a59bd6fd" and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.evidence.normal == {decision:"CLOSED",repository_unchanged:true,external_utility_state:"UNKNOWN",metrics:{cycles:2,candidate_count:5,known_refuted_recurrences_before:1,known_refuted_recurrences_after:0,attempts_observed:2,avoided_refuted_candidates:1,refuted_candidates:1,unknown_candidates:2,replay_comparisons:16,replay_mismatches:0,rollback_comparisons:1,rollback_mismatches:0,tests_total:4,tests_executed:2,tests_reused:1,tests_skipped:1,tests_not_observed:0,build_wall_ms:520,build_peak_rss_kib:91448,test_wall_ms:0,test_peak_rss_kib:7116,conformance_wall_ms:4291,conformance_peak_rss_kib:14300,go_files:0,go_physical_lines:0,gooo_files:8,gooo_physical_lines:136,directories:18,files:56,output_artifact_files:375,output_artifact_bytes:1327231,patch_paths:1,patch_hunks:1,patch_bytes:1119,repository_writes:0,local_test_executions:0,cross_project_required_gates:0}} and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.authority == {repository_writes:0,pull_request_authorized:false,push_authorized:false,commit_authorized:false,merge_authorized:false,apply_authorized:false,local_test_executions:0,cross_project_required_gates:0} and
+  .releases.reflexive_learning_drift_cycle_release.release_manifest.utility_inference == false and
+  .releases.reflexive_learning_drift_cycle_release.protocol_observation.schema == "gooo/reflexive-loop/learning-drift-gated/conformance/v1" and
+  .releases.reflexive_learning_drift_cycle_release.protocol_observation.version == "v0.4.0" and
+  .releases.reflexive_learning_drift_cycle_release.protocol_observation.denominator == {cells:12,fixed:true} and
+  .releases.reflexive_learning_drift_cycle_release.protocol_observation.cases == {CLOSED:3,UNKNOWN:4,REFUTED:5} and
+  .releases.reflexive_learning_drift_cycle_release.protocol_observation.precedence == ["REFUTED","UNKNOWN","CLOSED"] and
+  .releases.reflexive_learning_drift_cycle_release.protocol_observation.normal == {decision:"CLOSED",normal_report_digest:"sha256:c1c8686b4e9c96acfe665ead2fd176b2314642f93de428039b0b4a32a59bd6fd",repository_unchanged:true,external_utility_state:"UNKNOWN",metrics:{cycles:2,candidates:5,recurrence_before:1,recurrence_after:0,attempts:2,avoided_refuted:1,refuted:1,unknown:2,replay:{comparisons:16,mismatches:0},rollback:{comparisons:1,mismatches:0},tests:{total:4,executed:2,reused:1,skipped:1,not_observed:0},build:{wall_ms:520,peak_rss_kib:91448},test:{wall_ms:0,peak_rss_kib:7116},conformance:{wall_ms:4291,peak_rss_kib:14300},inventory:{go_files:0,go_lines:0,gooo_files:8,gooo_lines:136,directories:18,files:56,root_readme_excluded:true},output_artifacts:{files:375,bytes:1327231},patch:{paths:1,hunks:1,bytes:1119}}} and
+  .releases.reflexive_learning_drift_cycle_release.protocol_observation.authority == {repository_writes:0,local_test_executions:0,cross_project_required_gates:0,apply:0,commit:0,push:0,pull_request:0,merge:0} and
+  .releases.reflexive_learning_drift_cycle_release.protocol_observation.utility_inference == false and
+  (.releases.reflexive_learning_drift_cycle_release.assets|map(.id)) == [538319772,538319775,538319768,538319776] and
+  (.releases.reflexive_learning_drift_cycle_release.assets|map(.size_bytes)) == [2468418,6537,96363,323] and
+  (.releases.reflexive_learning_drift_cycle_release.assets|map(.sha256)) == ["sha256:1bac0c50f4508922b5351df3a541f4daa115c60867ca106d11d4593e7c58b5ce","sha256:b3de9c74872b8b8ec4fac51393a4ee54256c1f97ab9f8f47effdc68971013977","sha256:fc8f5e551bb335d0a9133623c2fdc4549f634a93645b41b8fbb7c0acc98ab957","sha256:e55c31a6c66eb82cfcf2d8b39182e07fd39f35f45a7bddfd17407025bda59dc0"] and
   .releases.semantic_authority_census_release.repository == "kimjooyoon/gooo-semantic-authority-census" and
   .releases.semantic_authority_census_release.tag == "v0.1.0" and
   .releases.semantic_authority_census_release.release_id == 379947813 and
@@ -384,7 +426,7 @@ jq -e '
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 
 jq -e '
-  .denominator_migration == {from:26,to:27,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:27,to:28,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -542,7 +584,27 @@ jq -e '
     ($census.evidence | index("checksum-asset:538335234:263:sha256:9ae4216b45722c43f62720a3e3d13048905e3291d7ee595d3fe6ab0f78f11411")) != null and
     ($census.evidence | index("source-asset:538335236:14360:sha256:3bd78b1b7cb5330dc901003b2d23abee9b95abfe23d1ad0d754d1bdb63471866")) != null and
     ($census.evidence | index("evidence-asset:538335233:2563982:sha256:e68c93214ef99e65ffd818bf384668c34e8332aa7b4481d6cc70b747afaaf0e3")) != null) and
-  (.cells|length) == 27 and
+  ((.cells[] | select(.cell_id == "REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE")) as $learning_drift |
+    $learning_drift.state == "CLOSED" and
+    $learning_drift.release_key == "reflexive_learning_drift_cycle_release" and
+    ($learning_drift.evidence | index("release:379940049:immutable=true")) != null and
+    ($learning_drift.evidence | index("tag-object:89f6d283791f917c2fe789fa05016a0f33df21d2:target=134d9043e8808147ed2f7252527e809d3eafad44")) != null and
+    ($learning_drift.evidence | index("main-actions:run=33420406673:job=99581097777:success")) != null and
+    ($learning_drift.evidence | index("main-actions-artifact:9768699219:3624947:sha256:11f3fffb4c6ee93307e46b5c1fdb8013fe5829983e069d823d896dc77e84a6c2")) != null and
+    ($learning_drift.evidence | index("upstream-reflexive-learning-drift-cycle:cycles=2:candidates=5:recurrence=1->0:attempts=2:avoided_refuted=1:refuted=1:unknown=2:replay=16/0:rollback=1/0")) != null and
+    ($learning_drift.evidence | index("upstream-tests:total=4:executed=2:reused=1:skipped=1:not_observed=0")) != null and
+    ($learning_drift.evidence | index("upstream-runtime:build=520/91448:test=0/7116:conformance=4291/14300")) != null and
+    ($learning_drift.evidence | index("upstream-inventory:go=0-files/0-lines:gooo=8-files/136-lines:dirs=18:files=56:root_readme_excluded=true")) != null and
+    ($learning_drift.evidence | index("upstream-output:artifacts=375:bytes=1327231")) != null and
+    ($learning_drift.evidence | index("upstream-authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0:apply=0:commit=0:push=0:pull_request=0:merge=0")) != null and
+    ($learning_drift.evidence | index("upstream-state:CLOSED=3:UNKNOWN=4:REFUTED=5:precedence=REFUTED>UNKNOWN>CLOSED")) != null and
+    ($learning_drift.evidence | index("upstream-utility:external_utility=UNKNOWN:inference=false")) != null and
+    ($learning_drift.evidence | index("upstream-manifest:implementation_pr=7:correction_pr=8:merged_main=134d9043e8808147ed2f7252527e809d3eafad44")) != null and
+    ($learning_drift.evidence | index("evidence-asset:538319772:2468418:sha256:1bac0c50f4508922b5351df3a541f4daa115c60867ca106d11d4593e7c58b5ce")) != null and
+    ($learning_drift.evidence | index("manifest-asset:538319775:6537:sha256:b3de9c74872b8b8ec4fac51393a4ee54256c1f97ab9f8f47effdc68971013977")) != null and
+    ($learning_drift.evidence | index("source-asset:538319768:96363:sha256:fc8f5e551bb335d0a9133623c2fdc4549f634a93645b41b8fbb7c0acc98ab957")) != null and
+    ($learning_drift.evidence | index("checksum-asset:538319776:323:sha256:e55c31a6c66eb82cfcf2d8b39182e07fd39f35f45a7bddfd17407025bda59dc0")) != null) and
+  (.cells|length) == 28 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -711,12 +773,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:27,closed:24,unknown:1,refuted:2} and
+  .summary == {total:28,closed:25,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 27 and
+  (.cells|length) == 28 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 24 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 25 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -746,16 +808,17 @@ jq -e '
     REFLEXIVE_MODERN_CYCLE_RELEASE:"CLOSED",
     EXPERIENCE_MEMORY_RELEASE:"CLOSED",
     SEMANTIC_DRIFT_GUARD_RELEASE:"CLOSED",
-    SEMANTIC_AUTHORITY_CENSUS_RELEASE:"CLOSED"
+    SEMANTIC_AUTHORITY_CENSUS_RELEASE:"CLOSED",
+    REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:27,activities:27,unique_axes:27,unique_metrics:27,source_bindings:27,ir_bindings:27,generated_artifact_bindings:27,evaluator_bindings:27} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 18 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 18 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:24,verified:24,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:28,activities:28,unique_axes:28,unique_metrics:28,source_bindings:28,ir_bindings:28,generated_artifact_bindings:28,evaluator_bindings:28} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 19 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 19 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:25,verified:25,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
