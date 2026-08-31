@@ -2,16 +2,13 @@ name: Self-improvement portfolio evidence
 
 on:
   pull_request:
-  push:
     branches: [main]
+  push:
+    branches: [main, 'agent/**']
   workflow_dispatch:
 
 permissions:
   contents: read
-
-concurrency:
-  group: self-improvement-portfolio-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
 
 jobs:
   evidence:
@@ -28,7 +25,7 @@ jobs:
       - name: Install Go 1.27
         uses: actions/setup-go@v6
         with:
-          go-version: 1.27.0
+          go-version: '1.27.0'
           cache: false
 
       - name: Verify toolchain and clean checkout
