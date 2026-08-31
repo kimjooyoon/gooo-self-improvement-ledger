@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 19 named cells, each bound one-to-one to
+language. The denominator is exactly 20 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -15,11 +15,12 @@ The fixed axes are:
 `EXTERNAL_UTILITY_EVIDENCE`, `COUNTERFACTUAL_CHANGE_RELEASE`,
 `VERIFICATION_REUSE_RELEASE`, `SEMANTIC_DRIFT_RELEASE`, and
 `SEMANTIC_DRIFT_DEVELOPMENT_PROCESS`, `IMPROVEMENT_FRONTIER_RELEASE`, and
-`AUTHORITY_BOOTSTRAP_RELEASE`, and `OPENTOFU_ENVELOPE_RELEASE`.
+`AUTHORITY_BOOTSTRAP_RELEASE`, `OPENTOFU_ENVELOPE_RELEASE`, and
+`IMPROVEMENT_PROPOSER_RELEASE`.
 
-The denominator migration is explicit and append-only: `18 -> 19` with
+The denominator migration is explicit and append-only: `19 -> 20` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/10/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/10/5`.
+`4/11/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/11/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -42,13 +43,14 @@ append-only frontier records `CI_EFFORT_OBSERVATION` /
 `DERIVE_OPERATION_DURATION` and the next operation is to publish the CI time
 causality protocol with exact clock-domain semantics. The new protocol is
 tracked only as an unreleased, non-required optional dependency.
-The six release-adoption cells close only from exact immutable release evidence:
+The seven release-adoption cells close only from exact immutable release evidence:
 `gooo-counterfactual-change@v0.1.2` release `379663025`,
 `gooo-verification-reuse@v0.1.2` release `379662322`, and
 `gooo-semantic-drift@v0.1.1` release `379664434`, plus
 `gooo-improvement-frontier@v0.1.0` release `379728340`, plus
 `gooo-authority-bootstrap@v0.1.0` release `379750047`, plus
-`gooo-opentofu-envelope@v0.1.1` release `379769579`. Their full release
+`gooo-opentofu-envelope@v0.1.1` release `379769579`, plus
+`gooo-improvement-proposer@v0.1.1` release `379780599`. Their full release
 IDs, annotated tag objects, targets, source Actions runs/jobs, source artifact
 IDs, asset IDs, sizes, URLs, and SHA-256 digests are locked in
 `contracts/release-locks-v1.json` and re-fetched by CI. The improvement-frontier
@@ -64,6 +66,21 @@ its post-main artifact, both release assets, the source 12-cell `4/4/4` proof
 and indicator observation, `3/3/3` case outcomes, `UNKNOWN` improvement result,
 exact Go 1.27/OpenTofu 1.12.6 timings and RSS, and zero product-authority
 writes.
+
+The v0.14 frontier appends `IMPROVEMENT_PROPOSER_RELEASE`. It closes only when
+the immutable `gooo-improvement-proposer@v0.1.1` release binds annotated tag
+object `2ed70c6fae93c21b0c4839d4fa2ff0f4da3ebc59` to target
+`6757651d5b6abae7dfb7c7a3ec7a0cab103e3279`, successful release run
+`33397566380`, post-main conformance run `33397372252`, and artifact
+`9759855868`. The upstream protocol preserves 12 activities/cells, six fixed
+case artifacts (`proposal.json`, `candidate-events.ndjson`, `semantic-ir.json`,
+`generated-evaluator.go`, `replay-receipt.json`, `human-dossier.md`), 9 cases
+with `3 CLOSED / 3 UNKNOWN / 3 REFUTED`, candidate count 4, evidence edges 4,
+blocked frontier 2, and zero authority. The four release assets are pinned by
+ID, size, and SHA-256. Its v0.1.0 annotated tag object and target are preserved
+as a separate `FAILED_RELEASE_TRIGGER` with no release (`404`) and failed run
+`33396465907`/job `99502048200`; neither that run nor earlier failed runs are
+success evidence.
 
 `SEMANTIC_DRIFT_DEVELOPMENT_PROCESS` remains `REFUTED` independently of the
 successful product release: substantive commit
@@ -114,7 +131,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the sixteen immutable inputs
+commit, and consumer asset identities for the seventeen immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope
@@ -122,7 +139,7 @@ attempts as append-only counterexample references; those runs are never
 closure-gated. The reflexive-loop v0.3 lock also
 binds its source Actions artifact and upstream release-manifest lock digest.
 A later immutable release updates the evidence lock and assessment input; it
-does not change the 19-cell denominator.
+does not change the 20-cell denominator.
 
 GitHub Actions is the verification authority. The workflow uses Go 1.27 and
 records integer directory/file counts, Go/Gooo physical files and lines (root

@@ -1,6 +1,33 @@
 {
   "schema": "gooo/self-improvement-portfolio/release-locks/v1",
-  "purpose": "Exact immutable release and asset inputs for the portfolio evidence cells; mutable predecessors are retained as append-only counterexamples.",
+  "purpose": "Exact immutable release and asset inputs for the portfolio evidence cells; mutable predecessors and failed release triggers are retained as append-only counterexamples.",
+  "failed_release_triggers": [
+    {
+      "counterexample_id": "improvement_proposer_v0.1.0_failed_release_trigger",
+      "capability": "IMPROVEMENT_PROPOSER_RELEASE",
+      "repository": "kimjooyoon/gooo-improvement-proposer",
+      "tag": "v0.1.0",
+      "tag_ref": "refs/tags/v0.1.0",
+      "tag_object_sha": "9acc18c4f021a42fbd41f2c67f22bb1df1152187",
+      "target_commit_sha": "2007b49fdf60765b1868636da75b980f0c16db28",
+      "release_url": "https://github.com/kimjooyoon/gooo-improvement-proposer/releases/tag/v0.1.0",
+      "release_api_status": 404,
+      "release_absent": true,
+      "reason": "FAILED_RELEASE_TRIGGER",
+      "append_only": true,
+      "failed_run": {
+        "run_id": 33396465907,
+        "run_url": "https://github.com/kimjooyoon/gooo-improvement-proposer/actions/runs/33396465907",
+        "event": "push",
+        "head_branch": "v0.1.0",
+        "head_sha": "2007b49fdf60765b1868636da75b980f0c16db28",
+        "conclusion": "failure",
+        "job_id": 99502048200,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-improvement-proposer/actions/runs/33396465907/job/99502048200"
+      }
+    }
+  ],
   "releases": {
     "meta_budget": {
       "repository": "kimjooyoon/gooo-meta-budget",
@@ -367,6 +394,98 @@
       "assets": [
         {"id":538012631,"name":"gooo-opentofu-envelope-v0.1.0-evidence.zip","size_bytes":17829,"sha256":"sha256:dc8a466ecc4ea2f5c127dcc59985252ba8a01a7ae6eb8fb1caa63f7f595fcd31","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.1.1/gooo-opentofu-envelope-v0.1.0-evidence.zip"},
         {"id":538012630,"name":"SHA256SUMS","size_bytes":109,"sha256":"sha256:73eabf693676e918d42dae77f78d901045cd4a014387ea95917b9b9b29a00b55","download_url":"https://github.com/kimjooyoon/gooo-opentofu-envelope/releases/download/v0.1.1/SHA256SUMS"}
+      ]
+    },
+    "improvement_proposer_release": {
+      "repository": "kimjooyoon/gooo-improvement-proposer",
+      "tag": "v0.1.1",
+      "release_id": 379780599,
+      "release_url": "https://github.com/kimjooyoon/gooo-improvement-proposer/releases/tag/v0.1.1",
+      "target_commit_sha": "6757651d5b6abae7dfb7c7a3ec7a0cab103e3279",
+      "tag_object_sha": "2ed70c6fae93c21b0c4839d4fa2ff0f4da3ebc59",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33397372252,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-improvement-proposer/actions/runs/33397372252",
+        "head_sha": "a967f1d186980b97b921ad852832f7049b43e8f9",
+        "conclusion": "success",
+        "job_id": 99505021461,
+        "job_name": "conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-improvement-proposer/actions/runs/33397372252/job/99505021461",
+        "artifact_ids": [9759855868]
+      },
+      "release_run": {
+        "run_id": 33397566380,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-improvement-proposer/actions/runs/33397566380",
+        "head_sha": "a967f1d186980b97b921ad852832f7049b43e8f9",
+        "conclusion": "success",
+        "job_id": 99505669083,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-improvement-proposer/actions/runs/33397566380/job/99505669083",
+        "artifact_ids": []
+      },
+      "source_artifact": {
+        "run_id": 33397372252,
+        "artifact_id": 9759855868,
+        "name": "gooo-improvement-proposer-ci-33397372252",
+        "size_bytes": 2916595,
+        "sha256": "sha256:79c6a8acf82e1e94e1529b7c43e0aef7f922ea7bc77c79ab13758a033cfade20"
+      },
+      "release_manifest": {
+        "schema": "gooo/improvement-proposer/release-manifest/v1",
+        "tag": "v0.1.1",
+        "commit_sha": "6757651d5b6abae7dfb7c7a3ec7a0cab103e3279",
+        "source_asset": "gooo-improvement-proposer-v0.1.1.tar.gz",
+        "source_asset_digest": "sha256:55e1d35d67b6c18aedcd26de7e699dc6096c58fc59ad4f624f1bd439f9b433a5",
+        "evidence_asset": "gooo-improvement-proposer-v0.1.1-evidence.tar.gz",
+        "evidence_asset_digest": "sha256:ceccc9f5a3a44ff3ef27d9a78cc9569192f6b5f119a1cc338dc5cae49b8e9e53",
+        "immutable": true,
+        "manifest_asset": {"name":"release-manifest.json","size_bytes":679,"sha256":"sha256:a55b06f0658afe4b4b7d875ff6ea00689aeabe4ccf236aa1c0f4be415160f3eb"},
+        "authority": {"repository_writes":0,"pull_request_creations":0,"merge_operations":0,"local_test_executions":0,"cross_project_required_gates":0}
+      },
+      "pull_requests": [
+        {"number":1,"title":"feat: derive bounded improvement experiment proposals","url":"https://github.com/kimjooyoon/gooo-improvement-proposer/pull/1","merged":true,"merge_commit_sha":"2007b49fdf60765b1868636da75b980f0c16db28","merged_at":"2026-08-31T13:19:53Z"},
+        {"number":2,"title":"fix: bind release archive to checked out tag commit","url":"https://github.com/kimjooyoon/gooo-improvement-proposer/pull/2","merged":true,"merge_commit_sha":"ec6c014c58517e48ef47366aa31a2029780637e8","merged_at":"2026-08-31T13:23:24Z"},
+        {"number":3,"title":"docs: preserve failed v0.1.0 release trigger","url":"https://github.com/kimjooyoon/gooo-improvement-proposer/pull/3","merged":true,"merge_commit_sha":"6757651d5b6abae7dfb7c7a3ec7a0cab103e3279","merged_at":"2026-08-31T13:26:38Z"},
+        {"number":4,"title":"fix: preserve annotated tag during release checkout","url":"https://github.com/kimjooyoon/gooo-improvement-proposer/pull/4","merged":true,"merge_commit_sha":"a967f1d186980b97b921ad852832f7049b43e8f9","merged_at":"2026-08-31T13:30:44Z"}
+      ],
+      "protocol_observation": {
+        "schema": "gooo/improvement-proposer/ci-report/v1",
+        "decision": "PROPOSER_CONFORMANCE_CLOSED",
+        "fixed_denominator": {"exact":true,"total":12},
+        "activities": 12,
+        "cells": 12,
+        "proof_totals": {"FOUNDATION":4,"COHERENCE":4,"REGRESSION":4},
+        "indicator_totals": {"DRIVER":4,"OUTCOME":4,"GUARDRAIL":4},
+        "precedence": ["REFUTED","UNKNOWN","CLOSED"],
+        "fixed_artifacts": ["proposal.json","candidate-events.ndjson","semantic-ir.json","generated-evaluator.go","replay-receipt.json","human-dossier.md"],
+        "case_facts": [
+          {"case_id":"normal-zero-candidates","class":"normal","state":"CLOSED","decision":"NO_EXPERIMENT_REQUIRED","candidate_count":0,"evidence_edges":0,"blocked_frontier":0,"candidates":[],"unknowns":[],"refutations":[]},
+          {"case_id":"normal-empty-frontier","class":"normal","state":"CLOSED","decision":"NO_EXPERIMENT_REQUIRED","candidate_count":0,"evidence_edges":0,"blocked_frontier":0,"candidates":[],"unknowns":[],"refutations":[]},
+          {"case_id":"normal-deterministic-replay","class":"normal","state":"CLOSED","decision":"NO_EXPERIMENT_REQUIRED","candidate_count":0,"evidence_edges":0,"blocked_frontier":0,"candidates":[],"unknowns":[],"refutations":[]},
+          {"case_id":"unknown-minimal-blocked-frontier","class":"unknown","state":"UNKNOWN","decision":"PROPOSE_NEXT_EXPERIMENT","candidate_count":1,"evidence_edges":1,"blocked_frontier":1,"candidates":[{"candidate_id":"capability/capability.blocked","causal_source_cells":["cell-03"],"expected_evidence_type":"EXACT_CAPABILITY_CONFORMANCE_RECEIPT","falsifier":"CAPABILITY_RECORD_NOT_CLOSED_WITH_EXACT_EVIDENCE","next_operation":"COLLECT_EXACT_CAPABILITY_EVIDENCE","blocked_by":["capability.prerequisite"]}],"unknowns":[{"stage":"CAPABILITY_RECORD","step":"REQUIRE_EXACT_CAPABILITY_EVIDENCE","reason":"DEPENDENCY_EVIDENCE_NOT_AVAILABLE","unknown_class":"DEPENDENCY_BLOCKED","next_operation":"COLLECT_EXACT_CAPABILITY_EVIDENCE","blocked_by":["capability.prerequisite"]}],"refutations":[]},
+          {"case_id":"unknown-stale-ledger","class":"unknown","state":"UNKNOWN","decision":"PROPOSAL_BLOCKED_BY_UNKNOWN","candidate_count":0,"evidence_edges":0,"blocked_frontier":1,"candidates":[],"unknowns":[{"stage":"LEDGER_BINDING","step":"VERIFY_CURRENT_IMMUTABLE_RELEASE","reason":"STALE_LEDGER_RELEASE","unknown_class":"STALE_INPUT","next_operation":"REFRESH_LEDGER_RELEASE_AND_DIGEST","blocked_by":["ledger-release"]}],"refutations":[]},
+          {"case_id":"unknown-missing-utility","class":"unknown","state":"UNKNOWN","decision":"PROPOSE_NEXT_EXPERIMENT","candidate_count":1,"evidence_edges":1,"blocked_frontier":0,"candidates":[{"candidate_id":"utility/utility-record-missing","causal_source_cells":["cell-05"],"expected_evidence_type":"EXACT_BEFORE_AFTER_UTILITY_RECEIPT","falsifier":"UTILITY_BEFORE_AFTER_PAIR_MISSING_OR_NON_EXACT","next_operation":"COLLECT_EXACT_BEFORE_AFTER_UTILITY_PAIR","blocked_by":null}],"unknowns":[{"stage":"UTILITY_RECORD","step":"REQUIRE_EXACT_BEFORE_AFTER_PAIR","reason":"EXACT_BEFORE_AFTER_UTILITY_MISSING","unknown_class":"DIRECT_MISSING","next_operation":"COLLECT_EXACT_BEFORE_AFTER_UTILITY_PAIR","blocked_by":[]}],"refutations":[]},
+          {"case_id":"refuted-known-contradiction","class":"refuted","state":"REFUTED","decision":"PROPOSAL_BLOCKED_BY_REFUTATION","candidate_count":0,"evidence_edges":0,"blocked_frontier":0,"candidates":null,"unknowns":[{"stage":"CAPABILITY_RECORD","step":"REQUIRE_EXACT_CAPABILITY_EVIDENCE","reason":"CONFLICTING_LEDGER_OBSERVATION","unknown_class":"DIRECT_MISSING","next_operation":"COLLECT_EXACT_CAPABILITY_EVIDENCE","blocked_by":[]}],"refutations":["KNOWN_EVIDENCE_CONTRADICTION:capability.contradiction"]},
+          {"case_id":"refuted-capability-record","class":"refuted","state":"REFUTED","decision":"PROPOSAL_BLOCKED_BY_REFUTATION","candidate_count":1,"evidence_edges":1,"blocked_frontier":0,"candidates":[{"candidate_id":"capability/capability.refuted","causal_source_cells":["cell-03"],"expected_evidence_type":"EXACT_CAPABILITY_CONFORMANCE_RECEIPT","falsifier":"CAPABILITY_RECORD_NOT_CLOSED_WITH_EXACT_EVIDENCE","next_operation":"COLLECT_EXACT_CAPABILITY_EVIDENCE","blocked_by":[]}],"unknowns":[],"refutations":["capability-record-refuted:KNOWN_CAPABILITY_COUNTEREXAMPLE"]},
+          {"case_id":"refuted-utility-record","class":"refuted","state":"REFUTED","decision":"PROPOSAL_BLOCKED_BY_REFUTATION","candidate_count":1,"evidence_edges":1,"blocked_frontier":0,"candidates":[{"candidate_id":"utility/utility-record-refuted","causal_source_cells":["cell-05"],"expected_evidence_type":"EXACT_BEFORE_AFTER_UTILITY_RECEIPT","falsifier":"UTILITY_BEFORE_AFTER_PAIR_MISSING_OR_NON_EXACT","next_operation":"COLLECT_EXACT_BEFORE_AFTER_UTILITY_PAIR","blocked_by":null}],"unknowns":[],"refutations":["utility-record-refuted:UTILITY_EVIDENCE_REFUTED"]}
+        ],
+        "case_totals": {"normal":3,"unknown":3,"refuted":3,"CLOSED":3,"UNKNOWN":3,"REFUTED":3},
+        "candidate_count": 4,
+        "evidence_edges": 4,
+        "blocked_frontier": 2,
+        "output_files": 54,
+        "runtime": {"go":"1.27.0","build_wall_ms":5910,"test_wall_ms":2064,"conformance_wall_ms":13,"build_peak_rss_kib":265844,"test_peak_rss_kib":107936,"conformance_peak_rss_kib":265844},
+        "inventory": {"directories":12,"go_files":10,"go_lines":1568,"gooo_files":1,"gooo_lines":14,"regular_files_root_readme_excluded":30},
+        "tests": {"executed":3,"not_observed":0,"reused":0,"skipped":0},
+        "authority": {"cross_project_required_gates":0,"local_test_executions":0,"merge_operations":0,"pull_request_creations":0,"repository_writes":0},
+        "improvement": null
+      },
+      "assets": [
+        {"id":538032347,"name":"gooo-improvement-proposer-v0.1.1-evidence.tar.gz","size_bytes":11861,"sha256":"sha256:ceccc9f5a3a44ff3ef27d9a78cc9569192f6b5f119a1cc338dc5cae49b8e9e53","download_url":"https://github.com/kimjooyoon/gooo-improvement-proposer/releases/download/v0.1.1/gooo-improvement-proposer-v0.1.1-evidence.tar.gz"},
+        {"id":538032342,"name":"gooo-improvement-proposer-v0.1.1.tar.gz","size_bytes":25402,"sha256":"sha256:55e1d35d67b6c18aedcd26de7e699dc6096c58fc59ad4f624f1bd439f9b433a5","download_url":"https://github.com/kimjooyoon/gooo-improvement-proposer/releases/download/v0.1.1/gooo-improvement-proposer-v0.1.1.tar.gz"},
+        {"id":538032346,"name":"release-manifest.json","size_bytes":679,"sha256":"sha256:a55b06f0658afe4b4b7d875ff6ea00689aeabe4ccf236aa1c0f4be415160f3eb","download_url":"https://github.com/kimjooyoon/gooo-improvement-proposer/releases/download/v0.1.1/release-manifest.json"},
+        {"id":538032343,"name":"SHA256SUMS","size_bytes":309,"sha256":"sha256:822341ef6ab41c6c8e4f10fc4f93db3b29bf3ad4d1c9abe208a249ea24945c34","download_url":"https://github.com/kimjooyoon/gooo-improvement-proposer/releases/download/v0.1.1/SHA256SUMS"}
       ]
     }
   },

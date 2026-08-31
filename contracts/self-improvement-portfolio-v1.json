@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 19,
+  "total_cells": 20,
   "denominator_migration": {
-    "from": 18,
-    "to": 19,
+    "from": 19,
+    "to": 20,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 10,
+    "COHERENCE": 11,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 10,
+    "OUTCOME": 11,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -334,6 +334,22 @@
       "metric_id": "gooo.metric.self-improvement.opentofu-envelope-release.v1",
       "metric_denominator": 1,
       "release_key": "opentofu_envelope_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 20,
+      "id": "IMPROVEMENT_PROPOSER_RELEASE",
+      "axis": "IMPROVEMENT_PROPOSER_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptImprovementProposerRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptImprovementProposerRelease",
+      "ir": "semantic-ir/activity/AdoptImprovementProposerRelease",
+      "generated_artifact": "evidence/cells/IMPROVEMENT_PROPOSER_RELEASE.json",
+      "evaluator": "ledger/improvement-proposer-release",
+      "metric_id": "gooo.metric.self-improvement.improvement-proposer-release.v1",
+      "metric_denominator": 1,
+      "release_key": "improvement_proposer_release",
       "depends_on": []
     }
   ]

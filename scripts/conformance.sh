@@ -13,23 +13,24 @@ probe=$(mktemp -d)
 mkdir -p "$probe"
 
 jq -e '
-  .total_cells == 19 and
-  .denominator_migration == {from:18,to:19,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 20 and
+  .denominator_migration == {from:19,to:20,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:10,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:10,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:11,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:11,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_DEVELOPMENT_PROCESS" and .release_key==null))|length)==1 and
   (.cells|map(select(.id=="IMPROVEMENT_FRONTIER_RELEASE" and .release_key=="improvement_frontier_release"))|length)==1 and
   (.cells|map(select(.id=="AUTHORITY_BOOTSTRAP_RELEASE" and .release_key=="authority_bootstrap_release"))|length)==1 and
-  (.cells|map(select(.id=="OPENTOFU_ENVELOPE_RELEASE" and .release_key=="opentofu_envelope_release"))|length)==1
+  (.cells|map(select(.id=="OPENTOFU_ENVELOPE_RELEASE" and .release_key=="opentofu_envelope_release"))|length)==1 and
+  (.cells|map(select(.id=="IMPROVEMENT_PROPOSER_RELEASE" and .release_key=="improvement_proposer_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 
 jq -e '
@@ -82,6 +83,33 @@ jq -e '
   (.releases.improvement_frontier_release.assets|map(.id)) == [537940229,537940232] and
   (.releases.authority_bootstrap_release.assets|map(.id)) == [537976435,537976439,537976449,537976437,537976436,537976438] and
   (.releases.opentofu_envelope_release.assets|map(.id)) == [538012631,538012630] and
+  .releases.improvement_proposer_release.release_id == 379780599 and .releases.improvement_proposer_release.tag_object_sha == "2ed70c6fae93c21b0c4839d4fa2ff0f4da3ebc59" and
+  .releases.improvement_proposer_release.target_commit_sha == "6757651d5b6abae7dfb7c7a3ec7a0cab103e3279" and
+  .releases.improvement_proposer_release.source_run.run_id == 33397372252 and .releases.improvement_proposer_release.source_run.job_id == 99505021461 and
+  .releases.improvement_proposer_release.source_run.artifact_ids == [9759855868] and
+  .releases.improvement_proposer_release.release_run.run_id == 33397566380 and .releases.improvement_proposer_release.release_run.job_id == 99505669083 and
+  .releases.improvement_proposer_release.source_artifact.artifact_id == 9759855868 and .releases.improvement_proposer_release.source_artifact.size_bytes == 2916595 and
+  .releases.improvement_proposer_release.source_artifact.sha256 == "sha256:79c6a8acf82e1e94e1529b7c43e0aef7f922ea7bc77c79ab13758a033cfade20" and
+  .releases.improvement_proposer_release.protocol_observation.fixed_artifacts == ["proposal.json","candidate-events.ndjson","semantic-ir.json","generated-evaluator.go","replay-receipt.json","human-dossier.md"] and
+  (.releases.improvement_proposer_release.protocol_observation.case_facts|length) == 9 and
+  (.releases.improvement_proposer_release.protocol_observation.case_facts|map(select(.state=="CLOSED"))|length) == 3 and
+  (.releases.improvement_proposer_release.protocol_observation.case_facts|map(select(.state=="UNKNOWN"))|length) == 3 and
+  (.releases.improvement_proposer_release.protocol_observation.case_facts|map(select(.state=="REFUTED"))|length) == 3 and
+  (.releases.improvement_proposer_release.protocol_observation.case_facts|map(.candidates[]?.causal_source_cells[]?)|unique|sort) == ["cell-03","cell-05"] and
+  (.releases.improvement_proposer_release.protocol_observation.case_facts|map(.unknowns[]?.unknown_class)|unique|sort) == ["DEPENDENCY_BLOCKED","DIRECT_MISSING","STALE_INPUT"] and
+  (.releases.improvement_proposer_release.protocol_observation.case_facts|map(.refutations[]?)|unique|sort) == ["KNOWN_EVIDENCE_CONTRADICTION:capability.contradiction","capability-record-refuted:KNOWN_CAPABILITY_COUNTEREXAMPLE","utility-record-refuted:UTILITY_EVIDENCE_REFUTED"] and
+  .releases.improvement_proposer_release.protocol_observation.case_totals == {normal:3,unknown:3,refuted:3,CLOSED:3,UNKNOWN:3,REFUTED:3} and
+  .releases.improvement_proposer_release.protocol_observation.authority == {cross_project_required_gates:0,local_test_executions:0,merge_operations:0,pull_request_creations:0,repository_writes:0} and
+  (.releases.improvement_proposer_release.assets|map(.id)) == [538032347,538032342,538032346,538032343] and
+  (.releases.improvement_proposer_release.pull_requests|map(.number)) == [1,2,3,4] and
+  all(.releases.improvement_proposer_release.pull_requests[]; .merged==true) and
+  (.failed_release_triggers|length) == 1 and
+  .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
+  .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
+  .failed_release_triggers[0].tag_object_sha == "9acc18c4f021a42fbd41f2c67f22bb1df1152187" and
+  .failed_release_triggers[0].target_commit_sha == "2007b49fdf60765b1868636da75b980f0c16db28" and
+  .failed_release_triggers[0].failed_run.run_id == 33396465907 and .failed_release_triggers[0].failed_run.job_id == 99502048200 and
+  .failed_release_triggers[0].reason == "FAILED_RELEASE_TRIGGER" and .failed_release_triggers[0].append_only == true and
   (.counterexamples|map(.counterexample_id)|sort) == ["counterfactual_change_v0.1.0_mutable","counterfactual_change_v0.1.1_mutable","opentofu_envelope_v0.1.0_failed_release_immutability","semantic_drift_v0.1.0_mutable","verification_reuse_v0.1.1_mutable"] and
   all(.counterexamples[0:4][]; .immutable==false and .append_only==true and .reason=="RELEASE_API_IMMUTABLE_FALSE") and
   .counterexamples[4].immutable == false and .counterexamples[4].append_only == true and .counterexamples[4].reason == "FAILED_RELEASE_IMMUTABILITY" and
@@ -93,7 +121,7 @@ jq -e '
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 
 jq -e '
-  .denominator_migration == {from:18,to:19,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:19,to:20,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -173,7 +201,7 @@ jq -e '
     $process.refutation.reason == "SUBSTANTIVE_IMPLEMENTATION_LANDED_DIRECTLY_ON_MAIN" and
     $process.refutation.next_operation == "REQUIRE_PULL_REQUEST_FOR_SUBSTANTIVE_IMPLEMENTATION" and
     ($process.refutation.blocked_by|length) == 3) and
-  (.cells|length) == 19 and
+  (.cells|length) == 20 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -215,6 +243,17 @@ jq -e '
     ($envelope.evidence | index("counterexample-release:379762192:immutable=false:tag-object=6aca4fde71d6fdd8800000c7fb0f9b687a67423e:target=1a908f0c7504654b6ead83beebb0caff1ad16374:reason=FAILED_RELEASE_IMMUTABILITY")) != null and
     ($envelope.evidence | index("counterexample-run:33394717115:job=99496382005:failure:reason=FAILED_CI_VALIDATION")) != null and
     ($envelope.evidence | index("counterexample-run:33394727232:job=99496415701:failure:reason=FAILED_CI_VALIDATION")) != null) and
+  ((.cells[] | select(.cell_id == "IMPROVEMENT_PROPOSER_RELEASE")) as $proposer |
+    $proposer.state == "CLOSED" and
+    $proposer.release_key == "improvement_proposer_release" and
+    ($proposer.evidence | index("release:379780599:immutable=true")) != null and
+    ($proposer.evidence | index("tag-object:2ed70c6fae93c21b0c4839d4fa2ff0f4da3ebc59:target=6757651d5b6abae7dfb7c7a3ec7a0cab103e3279")) != null and
+    ($proposer.evidence | index("release-actions:run=33397566380:job=99505669083:success")) != null and
+    ($proposer.evidence | index("post-main-actions:run=33397372252:job=99505021461:success")) != null and
+    ($proposer.evidence | index("post-main-actions-artifact:9759855868:2916595:sha256:79c6a8acf82e1e94e1529b7c43e0aef7f922ea7bc77c79ab13758a033cfade20")) != null and
+    ($proposer.evidence | index("upstream-fixed-artifacts:proposal.json,candidate-events.ndjson,semantic-ir.json,generated-evaluator.go,replay-receipt.json,human-dossier.md")) != null and
+    ($proposer.evidence | index("upstream-cases:CLOSED=3:UNKNOWN=3:REFUTED=3:precedence=REFUTED>UNKNOWN>CLOSED")) != null and
+    ($proposer.evidence | index("upstream-v0.1.0-no-release:tag-object=9acc18c4f021a42fbd41f2c67f22bb1df1152187:target=2007b49fdf60765b1868636da75b980f0c16db28:failed-run=33396465907:job=99502048200:reason=FAILED_RELEASE_TRIGGER")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -286,12 +325,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:19,closed:16,unknown:1,refuted:2} and
+  .summary == {total:20,closed:17,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 19 and
+  (.cells|length) == 20 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 16 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 17 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -313,16 +352,17 @@ jq -e '
     SEMANTIC_DRIFT_DEVELOPMENT_PROCESS:"REFUTED",
     IMPROVEMENT_FRONTIER_RELEASE:"CLOSED",
     AUTHORITY_BOOTSTRAP_RELEASE:"CLOSED",
-    OPENTOFU_ENVELOPE_RELEASE:"CLOSED"
+    OPENTOFU_ENVELOPE_RELEASE:"CLOSED",
+    IMPROVEMENT_PROPOSER_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:19,activities:19,unique_axes:19,unique_metrics:19,source_bindings:19,ir_bindings:19,generated_artifact_bindings:19,evaluator_bindings:19} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 10 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 10 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:16,verified:16,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:20,activities:20,unique_axes:20,unique_metrics:20,source_bindings:20,ir_bindings:20,generated_artifact_bindings:20,evaluator_bindings:20} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 11 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 11 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:17,verified:17,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

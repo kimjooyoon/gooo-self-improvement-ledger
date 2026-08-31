@@ -53,6 +53,21 @@ for counterexample_id in $(jq -r '(.counterexample_runs // [])[] | .counterexamp
     gh api "repos/$repo/actions/runs/$run_id" > "$output/$counterexample_id.run.json"
   gh api "repos/$repo/actions/jobs/$job_id" > "$output/$counterexample_id.job.json"
 done
+for counterexample_id in $(jq -r '(.failed_release_triggers // [])[] | .counterexample_id' "$lock"); do
+  repo=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .repository' "$lock")
+  tag=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .tag' "$lock")
+  run_id=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.run_id' "$lock")
+  job_id=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.job_id' "$lock")
+  if gh api "repos/$repo/releases/tags/$tag" > "$output/$counterexample_id.release.json"; then
+    release_exit=0
+  else
+    release_exit=$?
+  fi
+  test "$release_exit" -ne 0
+  gh api "repos/$repo/actions/runs/$run_id" > "$output/$counterexample_id.failed-run.json"
+  gh api "repos/$repo/actions/jobs/$job_id" > "$output/$counterexample_id.failed-job.json"
+  printf '0\n' > "$output/$counterexample_id.fetch-rss"
+done
 fetch_end=$(date +%s%N)
 
 verify_start=$(date +%s%N)
@@ -116,7 +131,7 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     source_artifacts_json="$output/$key.source-artifacts.json"
     gh api "repos/$repo/actions/runs/$source_run_id" > "$source_run_json"
     gh api "repos/$repo/actions/jobs/$source_job_id" > "$source_job_json"
-    gh api "repos/$repo/actions/runs/$source_run_id/artifacts?per_page=100" > "$source_artifacts_json"
+  gh api "repos/$repo/actions/runs/$source_run_id/artifacts?per_page=100" > "$source_artifacts_json"
     jq -e --argjson run_id "$source_run_id" --arg url "$source_run_url" --arg head "$source_run_head" --arg conclusion "$source_run_conclusion" \
       '.id==$run_id and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion==$conclusion' "$source_run_json" >/dev/null
     jq -e --argjson job_id "$source_job_id" --argjson run_id "$source_run_id" --arg name "$source_job_name" --arg url "$source_job_url" --arg head "$source_run_head" \
@@ -124,6 +139,28 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     jq -e --argjson ids "$source_artifact_ids" '[.artifacts[].id] == $ids' "$source_artifacts_json" >/dev/null
     observed_source_run=$(jq -S --argjson id "$source_run_id" '. | {id,run_number,event,status,conclusion,head_sha,html_url,workflow_id,workflow_name}' "$source_run_json")
     observed_source_job=$(jq -S --argjson id "$source_job_id" '. | {id,run_id,name,status,conclusion,head_sha,html_url}' "$source_job_json")
+  fi
+
+  observed_release_run='null'
+  observed_release_job='null'
+  if jq -e --arg key "$key" '.releases[$key] | has("release_run")' "$lock" >/dev/null; then
+    release_run_id=$(jq -r --arg key "$key" '.releases[$key].release_run.run_id' "$lock")
+    release_run_url=$(jq -r --arg key "$key" '.releases[$key].release_run.workflow_url' "$lock")
+    release_run_head=$(jq -r --arg key "$key" '.releases[$key].release_run.head_sha' "$lock")
+    release_run_conclusion=$(jq -r --arg key "$key" '.releases[$key].release_run.conclusion' "$lock")
+    release_job_id=$(jq -r --arg key "$key" '.releases[$key].release_run.job_id' "$lock")
+    release_job_name=$(jq -r --arg key "$key" '.releases[$key].release_run.job_name' "$lock")
+    release_job_url=$(jq -r --arg key "$key" '.releases[$key].release_run.job_url' "$lock")
+    release_run_json="$output/$key.release-run.json"
+    release_job_json="$output/$key.release-job.json"
+    gh api "repos/$repo/actions/runs/$release_run_id" > "$release_run_json"
+    gh api "repos/$repo/actions/jobs/$release_job_id" > "$release_job_json"
+    jq -e --argjson run_id "$release_run_id" --arg url "$release_run_url" --arg head "$release_run_head" --arg conclusion "$release_run_conclusion" \
+      '.id==$run_id and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion==$conclusion' "$release_run_json" >/dev/null
+    jq -e --argjson job_id "$release_job_id" --argjson run_id "$release_run_id" --arg name "$release_job_name" --arg url "$release_job_url" --arg head "$release_run_head" \
+      '.id==$job_id and .run_id==$run_id and .name==$name and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion=="success"' "$release_job_json" >/dev/null
+    observed_release_run=$(jq -S '. | {id,run_number,event,status,conclusion,head_sha,html_url,workflow_id,workflow_name}' "$release_run_json")
+    observed_release_job=$(jq -S '. | {id,run_id,name,status,conclusion,head_sha,html_url}' "$release_job_json")
   fi
 
   if jq -e --arg key "$key" '.releases[$key] | has("source_artifact")' "$lock" >/dev/null; then
@@ -238,9 +275,57 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     --arg state "CLOSED" --arg repository "$repo" --arg tag "$tag" --arg release_url "$release_url" \
     --arg target "$target" --argjson release_id "${release_id:-null}" --arg tag_object_sha "$tag_object" \
     --argjson assets "$assets" --argjson fetch_rss "$fetch_rss" --argjson source_run "$observed_source_run" --argjson source_job "$observed_source_job" \
-    --argjson source_artifact "$observed_source_artifact" \
-    '{state:$state,verified:true,repository:$repository,tag:$tag,release_id:$release_id,release_url:$release_url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,source_run:$source_run,source_job:$source_job,source_artifact:$source_artifact,assets:$assets,fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},verify:{wall_ms:0,duration_ns:0,peak_rss_kib:0},reason:""}' \
+    --argjson source_artifact "$observed_source_artifact" --argjson release_run "$observed_release_run" --argjson release_job "$observed_release_job" \
+    '{state:$state,verified:true,repository:$repository,tag:$tag,release_id:$release_id,release_url:$release_url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,source_run:$source_run,source_job:$source_job,source_artifact:$source_artifact,release_run:$release_run,release_job:$release_job,assets:$assets,fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},verify:{wall_ms:0,duration_ns:0,peak_rss_kib:0},reason:""}' \
     > "$output/$key.result.json"
+done
+
+failed_release_trigger_results='{}'
+for counterexample_id in $(jq -r '(.failed_release_triggers // [])[] | .counterexample_id' "$lock"); do
+  repo=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .repository' "$lock")
+  tag=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .tag' "$lock")
+  release_url=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .release_url' "$lock")
+  target=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .target_commit_sha' "$lock")
+  expected_tag_object=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .tag_object_sha' "$lock")
+  reason=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .reason' "$lock")
+  release_json="$output/$counterexample_id.release.json"
+  jq -e --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .append_only==true and .release_absent==true and .release_api_status==404 and .reason=="FAILED_RELEASE_TRIGGER"' "$lock" >/dev/null
+  jq -e --arg url "$release_url" '(.status==404 or .status=="404") and .message=="Not Found"' "$release_json" >/dev/null
+
+  remote_refs=""
+  for attempt in 1 2 3; do
+    if remote_refs=$(git ls-remote "https://github.com/$repo.git" "refs/tags/$tag" "refs/tags/$tag^{}"); then
+      tag_target=$(awk -v peeled="refs/tags/$tag^{}" '$2==peeled {print $1}' <<< "$remote_refs")
+      tag_object=$(awk -v direct="refs/tags/$tag" '$2==direct {print $1}' <<< "$remote_refs")
+      break
+    fi
+    echo "tag lookup attempt $attempt failed for $repo@$tag" >&2
+    sleep 1
+  done
+  test "$tag_target" = "$target"
+  test "$tag_object" = "$expected_tag_object"
+
+  run_id=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.run_id' "$lock")
+  run_url=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.run_url' "$lock")
+  event=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.event' "$lock")
+  head_branch=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.head_branch' "$lock")
+  head_sha=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.head_sha' "$lock")
+  job_id=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.job_id' "$lock")
+  job_name=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.job_name' "$lock")
+  job_url=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.job_url' "$lock")
+  run_json="$output/$counterexample_id.failed-run.json"
+  job_json="$output/$counterexample_id.failed-job.json"
+  gh api "repos/$repo/actions/runs/$run_id" > "$run_json"
+  gh api "repos/$repo/actions/jobs/$job_id" > "$job_json"
+  jq -e --argjson run_id "$run_id" --arg url "$run_url" --arg event "$event" --arg branch "$head_branch" --arg head "$head_sha" \
+    '.id==$run_id and .html_url==$url and .event==$event and .head_branch==$branch and .head_sha==$head and .status=="completed" and .conclusion=="failure"' "$run_json" >/dev/null
+  jq -e --argjson job_id "$job_id" --argjson run_id "$run_id" --arg name "$job_name" --arg url "$job_url" --arg head "$head_sha" \
+    '.id==$job_id and .run_id==$run_id and .name==$name and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion=="failure"' "$job_json" >/dev/null
+  fetch_rss=$(cat "$output/$counterexample_id.fetch-rss")
+  result=$(jq -S -n --arg id "$counterexample_id" --arg repository "$repo" --arg tag "$tag" --arg url "$release_url" --arg target "$target" --arg tag_object_sha "$tag_object" --arg reason "$reason" \
+    --argjson run_id "$run_id" --arg run_url "$run_url" --arg event "$event" --arg branch "$head_branch" --arg head "$head_sha" --argjson job_id "$job_id" --arg job_name "$job_name" --arg job_url "$job_url" --argjson fetch_rss "$fetch_rss" \
+    '{state:"REFUTED",counterexample:true,verified:true,release_absent:true,repository:$repository,tag:$tag,release_url:$url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,release_api_status:404,failed_run:{run_id:$run_id,run_url:$run_url,event:$event,head_branch:$branch,head_sha:$head,conclusion:"failure",job_id:$job_id,job_name:$job_name,job_url:$job_url},fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},reason:$reason}')
+  failed_release_trigger_results=$(jq -c --arg id "$counterexample_id" --argjson result "$result" '. + {($id):$result}' <<< "$failed_release_trigger_results")
 done
 
 counterexample_results='{}'
@@ -340,6 +425,6 @@ fetch_timing=$(measurement "$fetch_start" "$fetch_end" "$fetch_peak")
 verify_timing=$(measurement "$verify_start" "$verify_end")
 jq -S -n \
   --arg schema "gooo/self-improvement-portfolio/release-verification/v1" \
-  --argjson releases "$releases" --argjson counterexamples "$counterexample_results" --argjson counterexample_runs "$counterexample_run_results" --argjson fetch "$fetch_timing" --argjson verify "$verify_timing" \
-  '{schema:$schema,releases:$releases,counterexamples:$counterexamples,counterexample_runs:$counterexample_runs,summary:{total:($releases|length),verified:([ $releases[] | select(.state=="CLOSED") ]|length),unknown:([ $releases[] | select(.state=="UNKNOWN") ]|length),refuted:([ $releases[] | select(.state=="REFUTED") ]|length)},timing:{fetch:$fetch,verify:$verify,report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}}}' \
+  --argjson releases "$releases" --argjson counterexamples "$counterexample_results" --argjson counterexample_runs "$counterexample_run_results" --argjson failed_release_triggers "$failed_release_trigger_results" --argjson fetch "$fetch_timing" --argjson verify "$verify_timing" \
+  '{schema:$schema,releases:$releases,counterexamples:$counterexamples,counterexample_runs:$counterexample_runs,failed_release_triggers:$failed_release_triggers,summary:{total:($releases|length),verified:([ $releases[] | select(.state=="CLOSED") ]|length),unknown:([ $releases[] | select(.state=="UNKNOWN") ]|length),refuted:([ $releases[] | select(.state=="REFUTED") ]|length)},timing:{fetch:$fetch,verify:$verify,report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}}}' \
   > "$output/verification.json"
