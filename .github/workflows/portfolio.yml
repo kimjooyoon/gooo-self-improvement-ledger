@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify fourteen immutable release locks plus preserved counterexamples and six upstream failed attempts
+      - name: Fetch and verify fifteen immutable release locks plus preserved counterexamples and six upstream failed attempts
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -77,7 +77,7 @@ jobs:
           set -Eeuo pipefail
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:14,verified:14,unknown:0,refuted:0} and (.counterexamples|length)==4 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==6 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure")' \
+          jq -e '.summary=={total:15,verified:15,unknown:0,refuted:0} and (.counterexamples|length)==4 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==6 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
 
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
@@ -119,7 +119,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:17,closed:14,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:18,closed:15,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
