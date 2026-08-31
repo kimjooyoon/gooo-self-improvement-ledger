@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 21 named cells, each bound one-to-one to
+language. The denominator is exactly 22 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -16,11 +16,12 @@ The fixed axes are:
 `VERIFICATION_REUSE_RELEASE`, `SEMANTIC_DRIFT_RELEASE`, and
 `SEMANTIC_DRIFT_DEVELOPMENT_PROCESS`, `IMPROVEMENT_FRONTIER_RELEASE`, and
 `AUTHORITY_BOOTSTRAP_RELEASE`, `OPENTOFU_ENVELOPE_RELEASE`, and
-`IMPROVEMENT_PROPOSER_RELEASE`, and `TEST_FRONTIER_RELEASE`.
+`IMPROVEMENT_PROPOSER_RELEASE`, `TEST_FRONTIER_RELEASE`, and
+`CHANGE_BUNDLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `20 -> 21` with
+The denominator migration is explicit and append-only: `21 -> 22` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/12/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/12/5`.
+`4/13/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/13/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -43,7 +44,7 @@ append-only frontier records `CI_EFFORT_OBSERVATION` /
 `DERIVE_OPERATION_DURATION` and the next operation is to publish the CI time
 causality protocol with exact clock-domain semantics. The new protocol is
 tracked only as an unreleased, non-required optional dependency.
-The eight release-adoption cells close only from exact immutable release evidence:
+The nine release-adoption cells close only from exact immutable release evidence:
 `gooo-counterfactual-change@v0.1.2` release `379663025`,
 `gooo-verification-reuse@v0.1.2` release `379662322`, and
 `gooo-semantic-drift@v0.1.1` release `379664434`, plus
@@ -51,7 +52,8 @@ The eight release-adoption cells close only from exact immutable release evidenc
 `gooo-authority-bootstrap@v0.1.0` release `379750047`, plus
 `gooo-opentofu-envelope@v0.1.1` release `379769579`, plus
 `gooo-improvement-proposer@v0.1.1` release `379780599`, plus
-`gooo-test-frontier@v0.1.1` release `379783807`. Their full release
+`gooo-test-frontier@v0.1.1` release `379783807`, plus
+`gooo-change-bundle@v0.1.1` release `379788730`. Their full release
 IDs, annotated tag objects, targets, source Actions runs/jobs, source artifact
 IDs, asset IDs, sizes, URLs, and SHA-256 digests are locked in
 `contracts/release-locks-v1.json` and re-fetched by CI. The improvement-frontier
@@ -97,6 +99,23 @@ NOT_OBSERVED`. The v0.1.0 release ID `379770450` is preserved as a separate
 GitHub reports `immutable=false`, regardless of its self-asserted manifest;
 the direct-main `7281ead57069050b73538fa247953a4d1d6d1822` observation is
 workflow-only and has no associated pull request.
+
+The v0.16 frontier appends `CHANGE_BUNDLE_RELEASE`. It closes only when the
+immutable `gooo-change-bundle@v0.1.1` release binds annotated tag object
+`09885ac7480d1ee2e350e907f5dc408b35188f47` to target
+`a93c41a28b5718f110b8679556b169f2b11c75b5`, successful release run
+`33398653367` with release job `99509268842` and audit job `99509422788`, and
+audit artifact `9760351466` (`735` bytes,
+`sha256:30b54d122e4e32f47fecc74f93345e7f9a04a15c1c757f4f83cad36e2ba5f762`).
+The upstream change-bundle protocol has 12 cells/activities with `4/4/4`
+proof and indicator buckets, `3 CLOSED / 3 UNKNOWN / 6 REFUTED` cases,
+`15` bundle files and `17527` bundle bytes, exact replay and rollback
+comparisons, zero authority, and root README exclusion. Its v0.1.0 release
+`379775534` remains a separate `REFUTED`
+`SELF_ASSERTED_IMMUTABILITY_CONTRADICTED_BY_PLATFORM` counterexample. The
+three direct-main commits after upstream PR #1 are preserved as
+`DEVELOPMENT_PROCESS_DIRECT_MAIN` REFUTED observations and do not alter the
+product release cell.
 
 `SEMANTIC_DRIFT_DEVELOPMENT_PROCESS` remains `REFUTED` independently of the
 successful product release: substantive commit
@@ -147,7 +166,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the eighteen immutable inputs
+commit, and consumer asset identities for the nineteen immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

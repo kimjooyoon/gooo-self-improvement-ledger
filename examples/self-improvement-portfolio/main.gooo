@@ -25,3 +25,4 @@ activity AdoptAuthorityBootstrapRelease(PortfolioInput) -> PortfolioEvidence com
 activity AdoptOpenTofuEnvelopeRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=OPENTOFU_ENVELOPE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptImprovementProposerRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=IMPROVEMENT_PROPOSER_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptTestFrontierRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=TEST_FRONTIER_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptChangeBundleRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CHANGE_BUNDLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"

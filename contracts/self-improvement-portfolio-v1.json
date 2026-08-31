@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 21,
+  "total_cells": 22,
   "denominator_migration": {
-    "from": 20,
-    "to": 21,
+    "from": 21,
+    "to": 22,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 12,
+    "COHERENCE": 13,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 12,
+    "OUTCOME": 13,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -366,6 +366,22 @@
       "metric_id": "gooo.metric.self-improvement.test-frontier-release.v1",
       "metric_denominator": 1,
       "release_key": "test_frontier_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 22,
+      "id": "CHANGE_BUNDLE_RELEASE",
+      "axis": "CHANGE_BUNDLE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptChangeBundleRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptChangeBundleRelease",
+      "ir": "semantic-ir/activity/AdoptChangeBundleRelease",
+      "generated_artifact": "evidence/cells/CHANGE_BUNDLE_RELEASE.json",
+      "evaluator": "ledger/change-bundle-release",
+      "metric_id": "gooo.metric.self-improvement.change-bundle-release.v1",
+      "metric_denominator": 1,
+      "release_key": "change_bundle_release",
       "depends_on": []
     }
   ]
