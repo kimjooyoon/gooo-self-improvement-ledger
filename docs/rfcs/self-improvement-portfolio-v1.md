@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for thirty-six specifically named capabilities.
+The portfolio is an evidence ledger for thirty-seven specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains thirty-six entries. The v0.30
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-five-cell
+`cells` array is immutable during a run and contains thirty-seven entries. The v0.31
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-six-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/27/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/27/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/28/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/28/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -389,9 +389,24 @@ The ledger adoption cell is `CLOSED`, yielding `CLOSED33/UNKNOWN1/REFUTED2`.
 The prior `local_validation_executions=1`, artifact-schema replay count `1`,
 zero local Go executions, and process state `REFUTED` remain unchanged.
 
+The v0.31 frontier appends `REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE`.
+It adopts immutable `kimjooyoon/gooo-reflexive-compiler-slice@v0.2.0` release
+`380102097`, binding annotated tag object `5852cc52f4ecec7fc835fdb6ed7adc1108459d6a`
+to target `7bdba0c353a73a40111747dbf55512939f6841a0`. The source PR validation,
+post-merge main validation, and release audit are pinned in the release lock,
+including all six release assets and their SHA-256 digests. The compiler now
+accepts both the prior three-role/two-edge/stage-one topology and the
+four-role/three-typed-edge/stage-two split based on role, edge, and stage
+semantics rather than raw activity count. The direct corpus remains
+`CLOSED1/UNKNOWN1/REFUTED1` before and after, while the trial candidate cases
+are accepted `0 -> 3`; the historical trial refutation remains `REFUTED`.
+The ledger adoption cell is `CLOSED`, yielding `CLOSED34/UNKNOWN1/REFUTED2`.
+The prior `local_validation_executions=1`, process state `REFUTED`, and zero
+additional local schema/conformance replays remain preserved.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-thirty-six-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+thirty-seven-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
