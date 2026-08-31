@@ -28,34 +28,14 @@
       "observed_error_digest": "sha256:37dedce852118e15bfe824d15fcb11979e062854c83f1ff22c08534f8a37b34a"
     }
   ],
-  "optional_dependencies": [
+  "refutation_resolution_events": [
     {
-      "id": "gooo-receipt-schema-migration-v0.2",
-      "status": "UNRELEASED",
-      "release_api": "NOT_FOUND",
-      "tag_api": "NOT_FOUND",
-      "required": false,
-      "gate": false
-    }
-  ],
-  "cells": [
-    {
+      "event_id": "CORE_SEMANTIC_AUTHORITY-BEFORE-DIGEST-RESOLVED-v0.8",
       "cell_id": "CORE_SEMANTIC_AUTHORITY",
-      "state": "REFUTED",
-      "release_key": null,
-      "evidence": [
-        "meta-ontology-go@dev:7f45792e3c23100cbb10cca8b229132060982a7b:PR613_MERGED_ADMIN_RECEIPT",
-        "meta-ontology-go@dev:CI#3405:run:33354730212",
-        "meta-ontology-go:.github/governance-denominator-v4-schema-coherence.json@7f45792e3c23100cbb10cca8b229132060982a7b:blob:0209602f998666e81f40c89d17143a12d896825c",
-        "meta-ontology-go:.github/workflows/ci-guardian.yml@7f45792e3c23100cbb10cca8b229132060982a7b:blob:eee90d8410efb40c9fca965139cce293eafca895",
-        "meta-ontology-go#609:guardian-run:33355380192",
-        "meta-ontology-go#609:guardian-artifact:9744953729:sha256:3dfd72e6f5822d3c99116efc7ead8cbeeaf864ed0847dbd4458da41ce8f7d4ee",
-        "meta-ontology-go#609:guardian-annotation:99376387819:.github:342",
-        "gooo/receipt-schema-migration/v0.1.1:release-asset:sha256:5bb52a3da96e8aabad76c27cbc900c71a4fbd3346c0b330804cb55fa2a9d3dd5",
-        "gooo/receipt-schema-migration/v0.1.1:adoption-proposal:sha256:7f7edfd4e4e4a8622b20f15868e96d6707f3b44f1fab183f5c2e466f854be106",
-        "gooo/receipt-schema-migration/v0.1.1:proposal:sha256:182d99c99985ad49e5a7365e1f975b9662cf020a44bd335f45cdf6629b7578b0"
-      ],
-      "refutation": {
+      "append_only": true,
+      "from_refutation_reason": "BEFORE_DIGEST_REFERENCE_ERROR",
+      "resolution": "RESOLVED_BY_EXECUTABLE_GUARDIAN_SCOPE_ADOPTION",
+      "previous_refutation": {
         "stage": "GUARDIAN_RUNTIME",
         "step": "EXECUTE_BASE_CONTROLLED_FEATURE_PR_GUARDIAN",
         "reason": "BEFORE_DIGEST_REFERENCE_ERROR",
@@ -95,6 +75,116 @@
           "guardian_artifact_size_bytes": 2744,
           "guardian_artifact_sha256": "sha256:3dfd72e6f5822d3c99116efc7ead8cbeeaf864ed0847dbd4458da41ce8f7d4ee",
           "guardian_bundle_sha256": "sha256:08d8807422a157287d937815a9342023925abc925c192b78c5267c119bef3905"
+        }
+      },
+      "resolved_by": {
+        "pull_request": 614,
+        "pull_request_url": "https://github.com/kimjooyoon/meta-ontology-go/pull/614",
+        "pull_request_state": "MERGED",
+        "dev_commit": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+        "dev_run": {
+          "ci_number": 3408,
+          "run_id": 33358898970,
+          "conclusion": "success",
+          "url": "https://github.com/kimjooyoon/meta-ontology-go/actions/runs/33358898970"
+        },
+        "proof_artifact": {
+          "artifact_id": 9746186091,
+          "name": "ci-proof-33358898970-1",
+          "size_bytes": 11258,
+          "sha256": "sha256:f4e183581d4a556acad66cc2e73fa028d78ae61b209b3913904496d723bfc1af"
+        },
+        "receipt_schema_migration": {
+          "tag": "v0.2.2",
+          "target_commit_sha": "977e622db99c16fbe37db5912b07f403cd09cdb2",
+          "release_asset_sha256": "sha256:e4a2cb8acd608141bdcdb66db6f6369a9480fc691d8a67b3572dd711d02dadf3",
+          "source_artifact_id": 9745614408,
+          "source_artifact_sha256": "sha256:6e3989aaf21e760f57868a756847dbc9b75824f3b0b8c47ed984e53f12f40146",
+          "adoption_proposal_sha256": "sha256:f55a204da6e258f1345a52e5e9f164226eff4b6cafa8ba3a65daf97f2247e451",
+          "declared_proposal_digest": "sha256:54cde81ff704cc6afe10f3dfaf0d2dbca2bb29eb18d61a29efe9c9dc4d6d718e"
+        }
+      }
+    }
+  ],
+  "optional_dependencies": [
+    {
+      "id": "gooo-receipt-schema-migration-v0.3",
+      "status": "UNRELEASED",
+      "release_api": "NOT_FOUND",
+      "tag_api": "NOT_FOUND",
+      "required": false,
+      "gate": false
+    }
+  ],
+  "cells": [
+    {
+      "cell_id": "CORE_SEMANTIC_AUTHORITY",
+      "state": "REFUTED",
+      "release_key": null,
+      "evidence": [
+        "meta-ontology-go@dev:e440cbc99f24ceb8385f1b89c70f8cdada10cdbb:PR614_MERGED_ADMIN_RECEIPT",
+        "meta-ontology-go@dev:CI#3408:run:33358898970",
+        "meta-ontology-go@dev:CI#3408:proof-artifact:9746186091:sha256:f4e183581d4a556acad66cc2e73fa028d78ae61b209b3913904496d723bfc1af",
+        "meta-ontology-go:.github/workflows/ci-guardian.yml@e440cbc99f24ceb8385f1b89c70f8cdada10cdbb:blob:d783b29871f75004534e52acc8fc2b50daa808c1",
+        "meta-ontology-go#609:guardian-run:33359548617",
+        "meta-ontology-go#609:guardian-artifact:9746232159:2144:sha256:41ae5d2398a001b16ecd72dba937924897234dd748fdcb5374caee7e70f026a8",
+        "meta-ontology-go#609:guardian-annotation:99388126433:.github:338",
+        "meta-ontology-go#609:changed-paths:92:protected-kernel-paths:26",
+        "gooo/receipt-schema-migration/v0.2.2:target:977e622db99c16fbe37db5912b07f403cd09cdb2",
+        "gooo/receipt-schema-migration/v0.2.2:release-asset:sha256:e4a2cb8acd608141bdcdb66db6f6369a9480fc691d8a67b3572dd711d02dadf3",
+        "gooo/receipt-schema-migration/v0.2.2:source-artifact:9745614408:41821:sha256:6e3989aaf21e760f57868a756847dbc9b75824f3b0b8c47ed984e53f12f40146",
+        "gooo/receipt-schema-migration/v0.2.2:adoption-proposal:sha256:f55a204da6e258f1345a52e5e9f164226eff4b6cafa8ba3a65daf97f2247e451",
+        "gooo/receipt-schema-migration/v0.2.2:proposal:sha256:54cde81ff704cc6afe10f3dfaf0d2dbca2bb29eb18d61a29efe9c9dc4d6d718e"
+      ],
+      "refutation": {
+        "stage": "CHANGED_PATH_AUTHORIZATION_DISPATCH",
+        "step": "EVALUATE_PROTECTED_PATH_TUPLE_BEFORE_AUTHORIZATION",
+        "reason": "PROTECTED_PATH_GATE_PREEMPTS_FOUNDATION_AUTHORIZATION",
+        "next_operation": "PUBLISH_EXECUTABLE_PROTECTED_PATH_AUTHORIZATION_DISPATCH_AND_ADOPT_GATE_ORDER",
+        "blocked_by": [
+          "meta-ontology-go@dev:e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+          "meta-ontology-go#609:guardian-run:33359548617",
+          "meta-ontology-go:.github/workflows/ci-guardian.yml@e440cbc99f24ceb8385f1b89c70f8cdada10cdbb:blob:d783b29871f75004534e52acc8fc2b50daa808c1",
+          "meta-ontology-go#609:changed-paths:92:protected-kernel-paths:26",
+          "gooo/receipt-schema-migration/v0.2.2:release-asset:sha256:e4a2cb8acd608141bdcdb66db6f6369a9480fc691d8a67b3572dd711d02dadf3",
+          "gooo/receipt-schema-migration/v0.2.2:adoption-proposal:sha256:f55a204da6e258f1345a52e5e9f164226eff4b6cafa8ba3a65daf97f2247e451",
+          "gooo/receipt-schema-migration/v0.2.2:proposal:sha256:54cde81ff704cc6afe10f3dfaf0d2dbca2bb29eb18d61a29efe9c9dc4d6d718e"
+        ],
+        "counterexample": {
+          "pull_request": 609,
+          "state": "OPEN",
+          "merged": false,
+          "base_ref": "dev",
+          "base_sha": "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb",
+          "head_ref": "agent/dev-main-sync-20260831-rerun",
+          "head_sha": "8b47db349315c02933296423b0ae7fa80ffeb1dc",
+          "merge_base_sha": "bc5dc21788aa4c7d46d1f8ab516f8218bb423fdc",
+          "main_live_sha": "a0962dd1ac8376b9e88bb629c66e3a7f710b96a9",
+          "dev_to_main_performed": false,
+          "changed_files_count": 92,
+          "protected_kernel_paths_count": 26
+        },
+        "observed_error": {
+          "message": "CI-ROOT-OF-TRUST-001: protected kernel path changed",
+          "run_id": 33359548617,
+          "check_run_id": 99388126433,
+          "path": ".github",
+          "line": 338,
+          "annotation_message": "CI-ROOT-OF-TRUST-001: protected kernel path changed"
+        },
+        "observed_digest": {
+          "guardian_workflow_path": ".github/workflows/ci-guardian.yml",
+          "guardian_workflow_blob_sha": "d783b29871f75004534e52acc8fc2b50daa808c1",
+          "guardian_artifact_id": 9746232159,
+          "guardian_artifact_size_bytes": 2144,
+          "guardian_artifact_sha256": "sha256:41ae5d2398a001b16ecd72dba937924897234dd748fdcb5374caee7e70f026a8",
+          "guardian_bundle_sha256": "sha256:f2184f4d12b8eb641c37ce4ebde45e8fdfe81b0e4c6be61b5c1e1c782d88b277"
+        },
+        "observed_guardian": {
+          "foundation_bootstrap": null,
+          "foundation_authorization": null,
+          "digests": null,
+          "stage": null
         }
       }
     },

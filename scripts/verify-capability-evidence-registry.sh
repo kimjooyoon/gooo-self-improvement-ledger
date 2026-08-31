@@ -26,24 +26,26 @@ command -v sha256sum >/dev/null
 jq -e '
   .schema == "gooo/non-completeness/capability-evidence-registry/lock/v1" and
   .registry_id == "non-completeness-capability-evidence-registry-v1" and
-  .entry_count == 9 and (.entries|length) == 9 and
+  .entry_count == 10 and (.entries|length) == 10 and
   (.entries|map(.entry_id)|length) == (.entries|map(.entry_id)|unique|length) and
-  (.lineage|length) == 3 and
+  (.lineage|length) == 4 and
   (.lineage|map(.historical_entry_id)|sort) == ["counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0"] and
-  all(.lineage[]; .historical_state == "REFUTED" and .successor_state == "CLOSED" and .transition == "REFUTED_TO_CLOSED") and
-  (.frontier_additions == ["receipt-schema-migration-v0.1.1"]) and
+  (.["lineage"] | map(select(.historical_entry_id == "receipt-schema-migration-v0.1.1" and .successor_entry_id == "receipt-schema-migration-v0.2.2" and .historical_state == "CLOSED" and .successor_state == "CLOSED" and .transition == "CLOSED_TO_CLOSED_SUCCESSOR")) | length) == 1 and
+  ((.lineage | map(select(.transition == "REFUTED_TO_CLOSED")) | length) == 3) and
+  (.frontier_additions == ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2"]) and
   .policy.separate_from_portfolio_denominator == true and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false
 ' "$lock" >/dev/null
 jq -e '
   .schema == "gooo/non-completeness/capability-evidence-registry/assessment/v1" and
   .registry_id == "non-completeness-capability-evidence-registry-v1" and
-  .entry_count == 9 and (.entries|length) == 9 and
+  .entry_count == 10 and (.entries|length) == 10 and
   (.entries|map(.entry_id)|length) == (.entries|map(.entry_id)|unique|length) and
-  (.lineage|length) == 3 and
+  (.lineage|length) == 4 and
   (.lineage|map(.historical_entry_id)|sort) == ["counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0"] and
-  all(.lineage[]; .historical_state == "REFUTED" and .successor_state == "CLOSED" and .transition == "REFUTED_TO_CLOSED") and
-  (.frontier_additions == ["receipt-schema-migration-v0.1.1"]) and
+  (.["lineage"] | map(select(.historical_entry_id == "receipt-schema-migration-v0.1.1" and .successor_entry_id == "receipt-schema-migration-v0.2.2" and .historical_state == "CLOSED" and .successor_state == "CLOSED" and .transition == "CLOSED_TO_CLOSED_SUCCESSOR")) | length) == 1 and
+  ((.lineage | map(select(.transition == "REFUTED_TO_CLOSED")) | length) == 3) and
+  (.frontier_additions == ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2"]) and
   all(.entries[]; .state == "CLOSED" or .state == "UNKNOWN" or .state == "REFUTED")
 ' "$assessment" >/dev/null
 
@@ -196,16 +198,27 @@ for entry_id in $(jq -r '.entries[].entry_id' "$lock"); do
       proposal_asset_path="$output/$entry_id/assets/$proposal_index.bin"
       proposal_json="$output/$entry_id.adoption-proposal.json"
       if ! tar -xOzf "$proposal_asset_path" "$proposal_path" > "$proposal_json" 2> "$output/$entry_id.adoption-proposal.error"; then
-        mark_refuted "ADOPTION_PROPOSAL_CONTENT_UNAVAILABLE"
-      else
-        actual_proposal_sha="sha256:$(sha256sum "$proposal_json" | awk '{print $1}')"
-        observed_adoption_proposal=$(jq -S -n --arg path "$proposal_path" --arg sha "$actual_proposal_sha" \
-          --arg declared "$(jq -r '.proposal_digest // empty' "$proposal_json")" \
-          '{path:$path,sha256:$sha,declared_proposal_digest:$declared}')
-        if [ "$actual_proposal_sha" != "$proposal_sha" ] || \
-          ! jq -e --arg digest "$proposal_declared_digest" '.proposal_digest==$digest' "$proposal_json" >/dev/null; then
-          mark_refuted "ADOPTION_PROPOSAL_DIGEST_MISMATCH"
+        proposal_basename=${proposal_path##*/}
+        proposal_member=$(tar -tzf "$proposal_asset_path" | awk -v base="$proposal_basename" '($0 == base || substr($0, length($0) - length(base) + 1) == base) {print; exit}')
+        if [ -z "$proposal_member" ] || ! tar -xOzf "$proposal_asset_path" "$proposal_member" > "$proposal_json" 2>> "$output/$entry_id.adoption-proposal.error"; then
+          mark_refuted "ADOPTION_PROPOSAL_CONTENT_UNAVAILABLE"
         fi
+      fi
+      if [ "$state" != "REFUTED" ] || [ -s "$proposal_json" ]; then
+        if [ ! -s "$proposal_json" ]; then
+          mark_refuted "ADOPTION_PROPOSAL_CONTENT_UNAVAILABLE"
+        else
+          actual_proposal_sha="sha256:$(sha256sum "$proposal_json" | awk '{print $1}')"
+          observed_adoption_proposal=$(jq -S -n --arg path "$proposal_path" --arg sha "$actual_proposal_sha" \
+            --arg declared "$(jq -r '.proposal_digest // empty' "$proposal_json")" \
+            '{path:$path,sha256:$sha,declared_proposal_digest:$declared}')
+          if [ "$actual_proposal_sha" != "$proposal_sha" ] || \
+            ! jq -e --arg digest "$proposal_declared_digest" '.proposal_digest==$digest' "$proposal_json" >/dev/null; then
+            mark_refuted "ADOPTION_PROPOSAL_DIGEST_MISMATCH"
+          fi
+        fi
+      else
+        :
       fi
     fi
   fi

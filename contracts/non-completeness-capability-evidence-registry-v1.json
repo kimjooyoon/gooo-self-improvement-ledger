@@ -2,7 +2,7 @@
   "schema": "gooo/non-completeness/capability-evidence-registry/lock/v1",
   "registry_id": "non-completeness-capability-evidence-registry-v1",
   "purpose": "A separate registry of independently versioned capability evidence inputs; it is not a completeness denominator or score.",
-  "entry_count": 9,
+  "entry_count": 10,
   "policy": {
     "separate_from_portfolio_denominator": true,
     "status_inference_from_missing_evidence": false,
@@ -154,12 +154,31 @@
       "assets": [
         {"name":"gooo-receipt-schema-migration-v0.1.1-conformance.tar.gz","size_bytes":18371,"sha256":"sha256:5bb52a3da96e8aabad76c27cbc900c71a4fbd3346c0b330804cb55fa2a9d3dd5","download_url":"https://github.com/kimjooyoon/gooo-receipt-schema-migration/releases/download/v0.1.1/gooo-receipt-schema-migration-v0.1.1-conformance.tar.gz"}
       ]
+    },
+    {
+      "entry_id": "receipt-schema-migration-v0.2.2",
+      "capability": "receipt-schema-migration",
+      "repository": "kimjooyoon/gooo-receipt-schema-migration",
+      "tag": "v0.2.2",
+      "release_url": "https://github.com/kimjooyoon/gooo-receipt-schema-migration/releases/tag/v0.2.2",
+      "target_commit_sha": "977e622db99c16fbe37db5912b07f403cd09cdb2",
+      "immutable_required": true,
+      "api_surfaces": {"rest":true,"graphql":true},
+      "successor_of": "receipt-schema-migration-v0.1.1",
+      "lineage_role": "CLOSED_SUCCESSOR_FRONTIER",
+      "source_run": {"run_id":33357554531,"workflow_url":"https://github.com/kimjooyoon/gooo-receipt-schema-migration/actions/runs/33357554531","conclusion":"success"},
+      "source_artifact": {"run_id":33357554531,"artifact_id":9745614408,"name":"receipt-schema-migration-conformance","size_bytes":41821,"sha256":"sha256:6e3989aaf21e760f57868a756847dbc9b75824f3b0b8c47ed984e53f12f40146","archive_download_url":"https://api.github.com/repos/kimjooyoon/gooo-receipt-schema-migration/actions/artifacts/9745614408/zip"},
+      "adoption_proposal": {"asset_name":"gooo-receipt-schema-migration-v0.2.2-conformance.tar.gz","path":"./adoption-proposal.json","sha256":"sha256:f55a204da6e258f1345a52e5e9f164226eff4b6cafa8ba3a65daf97f2247e451","declared_proposal_digest":"sha256:54cde81ff704cc6afe10f3dfaf0d2dbca2bb29eb18d61a29efe9c9dc4d6d718e"},
+      "assets": [
+        {"name":"gooo-receipt-schema-migration-v0.2.2-conformance.tar.gz","size_bytes":28877,"sha256":"sha256:e4a2cb8acd608141bdcdb66db6f6369a9480fc691d8a67b3572dd711d02dadf3","download_url":"https://github.com/kimjooyoon/gooo-receipt-schema-migration/releases/download/v0.2.2/gooo-receipt-schema-migration-v0.2.2-conformance.tar.gz"}
+      ]
     }
   ],
   "lineage": [
     {"historical_entry_id":"evaluator-lineage-v0.1.0","successor_entry_id":"evaluator-lineage-v0.1.1","historical_state":"REFUTED","successor_state":"CLOSED","transition":"REFUTED_TO_CLOSED"},
     {"historical_entry_id":"counterexample-memory-v0.1.0","successor_entry_id":"counterexample-memory-v0.1.1","historical_state":"REFUTED","successor_state":"CLOSED","transition":"REFUTED_TO_CLOSED"},
-    {"historical_entry_id":"improvement-selector-v0.1.0","successor_entry_id":"improvement-selector-v0.1.1","historical_state":"REFUTED","successor_state":"CLOSED","transition":"REFUTED_TO_CLOSED"}
+    {"historical_entry_id":"improvement-selector-v0.1.0","successor_entry_id":"improvement-selector-v0.1.1","historical_state":"REFUTED","successor_state":"CLOSED","transition":"REFUTED_TO_CLOSED"},
+    {"historical_entry_id":"receipt-schema-migration-v0.1.1","successor_entry_id":"receipt-schema-migration-v0.2.2","historical_state":"CLOSED","successor_state":"CLOSED","transition":"CLOSED_TO_CLOSED_SUCCESSOR"}
   ],
-  "frontier_additions": ["receipt-schema-migration-v0.1.1"]
+  "frontier_additions": ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2"]
 }

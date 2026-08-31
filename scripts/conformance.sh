@@ -20,27 +20,55 @@ jq -e '
   .state_transition_events[0].append_only == true and
   .state_transition_events[0].prior_record.state == "UNKNOWN" and
   .state_transition_events[0].observed_error_digest == "sha256:37dedce852118e15bfe824d15fcb11979e062854c83f1ff22c08534f8a37b34a" and
-  .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.2" and
+  (.refutation_resolution_events|length) == 1 and
+  .refutation_resolution_events[0].event_id == "CORE_SEMANTIC_AUTHORITY-BEFORE-DIGEST-RESOLVED-v0.8" and
+  .refutation_resolution_events[0].append_only == true and
+  .refutation_resolution_events[0].from_refutation_reason == "BEFORE_DIGEST_REFERENCE_ERROR" and
+  .refutation_resolution_events[0].resolution == "RESOLVED_BY_EXECUTABLE_GUARDIAN_SCOPE_ADOPTION" and
+  .refutation_resolution_events[0].previous_refutation.reason == "BEFORE_DIGEST_REFERENCE_ERROR" and
+  .refutation_resolution_events[0].previous_refutation.observed_error.message == "ReferenceError: beforeDigest is not defined" and
+  .refutation_resolution_events[0].resolved_by.dev_commit == "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb" and
+  .refutation_resolution_events[0].resolved_by.dev_run.ci_number == 3408 and
+  .refutation_resolution_events[0].resolved_by.dev_run.run_id == 33358898970 and
+  .refutation_resolution_events[0].resolved_by.dev_run.conclusion == "success" and
+  .refutation_resolution_events[0].resolved_by.proof_artifact.artifact_id == 9746186091 and
+  .refutation_resolution_events[0].resolved_by.proof_artifact.size_bytes == 11258 and
+  .refutation_resolution_events[0].resolved_by.proof_artifact.sha256 == "sha256:f4e183581d4a556acad66cc2e73fa028d78ae61b209b3913904496d723bfc1af" and
+  .refutation_resolution_events[0].resolved_by.receipt_schema_migration.target_commit_sha == "977e622db99c16fbe37db5912b07f403cd09cdb2" and
+  .refutation_resolution_events[0].resolved_by.receipt_schema_migration.release_asset_sha256 == "sha256:e4a2cb8acd608141bdcdb66db6f6369a9480fc691d8a67b3572dd711d02dadf3" and
+  .refutation_resolution_events[0].resolved_by.receipt_schema_migration.source_artifact_id == 9745614408 and
+  .refutation_resolution_events[0].resolved_by.receipt_schema_migration.adoption_proposal_sha256 == "sha256:f55a204da6e258f1345a52e5e9f164226eff4b6cafa8ba3a65daf97f2247e451" and
+  .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
   .optional_dependencies[0].gate == false and
   ((.cells[] | select(.cell_id == "CORE_SEMANTIC_AUTHORITY")) as $core |
     $core.state == "REFUTED" and
     ($core | has("unknown") | not) and
-    $core.refutation.stage == "GUARDIAN_RUNTIME" and
-    $core.refutation.step == "EXECUTE_BASE_CONTROLLED_FEATURE_PR_GUARDIAN" and
-    $core.refutation.reason == "BEFORE_DIGEST_REFERENCE_ERROR" and
-    $core.refutation.next_operation == "PUBLISH_EXECUTABLE_GUARDIAN_FEATURE_PR_ACCEPTANCE_AND_ADOPT_CORRECTED_SCOPE" and
+    $core.refutation.stage == "CHANGED_PATH_AUTHORIZATION_DISPATCH" and
+    $core.refutation.step == "EVALUATE_PROTECTED_PATH_TUPLE_BEFORE_AUTHORIZATION" and
+    $core.refutation.reason == "PROTECTED_PATH_GATE_PREEMPTS_FOUNDATION_AUTHORIZATION" and
+    $core.refutation.next_operation == "PUBLISH_EXECUTABLE_PROTECTED_PATH_AUTHORIZATION_DISPATCH_AND_ADOPT_GATE_ORDER" and
     ($core.refutation | has("unknown_class") | not) and
-    $core.refutation.observed_error.message == "ReferenceError: beforeDigest is not defined" and
-    $core.refutation.observed_error.run_id == 33355380192 and
-    $core.refutation.observed_error.check_run_id == 99376387819 and
+    $core.refutation.counterexample.base_sha == "e440cbc99f24ceb8385f1b89c70f8cdada10cdbb" and
+    $core.refutation.counterexample.head_sha == "8b47db349315c02933296423b0ae7fa80ffeb1dc" and
+    $core.refutation.counterexample.merge_base_sha == "bc5dc21788aa4c7d46d1f8ab516f8218bb423fdc" and
+    $core.refutation.counterexample.changed_files_count == 92 and
+    $core.refutation.counterexample.protected_kernel_paths_count == 26 and
+    $core.refutation.observed_error.message == "CI-ROOT-OF-TRUST-001: protected kernel path changed" and
+    $core.refutation.observed_error.run_id == 33359548617 and
+    $core.refutation.observed_error.check_run_id == 99388126433 and
     $core.refutation.observed_error.path == ".github" and
-    $core.refutation.observed_error.line == 342 and
+    $core.refutation.observed_error.line == 338 and
     $core.refutation.observed_digest.guardian_workflow_path == ".github/workflows/ci-guardian.yml" and
-    $core.refutation.observed_digest.guardian_workflow_blob_sha == "eee90d8410efb40c9fca965139cce293eafca895" and
-    $core.refutation.observed_digest.guardian_artifact_id == 9744953729 and
-    $core.refutation.observed_digest.guardian_artifact_sha256 == "sha256:3dfd72e6f5822d3c99116efc7ead8cbeeaf864ed0847dbd4458da41ce8f7d4ee")
+    $core.refutation.observed_digest.guardian_workflow_blob_sha == "d783b29871f75004534e52acc8fc2b50daa808c1" and
+    $core.refutation.observed_digest.guardian_artifact_id == 9746232159 and
+    $core.refutation.observed_digest.guardian_artifact_size_bytes == 2144 and
+    $core.refutation.observed_digest.guardian_artifact_sha256 == "sha256:41ae5d2398a001b16ecd72dba937924897234dd748fdcb5374caee7e70f026a8" and
+    $core.refutation.observed_guardian.foundation_bootstrap == null and
+    $core.refutation.observed_guardian.foundation_authorization == null and
+    $core.refutation.observed_guardian.digests == null and
+    $core.refutation.observed_guardian.stage == null)
 ' "$repository/evidence/assessment-v1.json" >/dev/null
 
 start=$(date +%s%N)
