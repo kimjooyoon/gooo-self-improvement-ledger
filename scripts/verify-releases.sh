@@ -52,8 +52,14 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     '.tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==true' \
     "$release_json" >/dev/null
 
-  tag_target=$(git ls-remote "https://github.com/$repo.git" "refs/tags/$tag" "refs/tags/$tag^{}" | \
-    awk -v direct="refs/tags/$tag" -v peeled="refs/tags/$tag^{}" '$2==peeled {p=$1} $2==direct {d=$1} END {if (p!="") print p; else print d}')
+  tag_target=""
+  for attempt in 1 2 3; do
+    if remote_refs=$(git ls-remote "https://github.com/$repo.git" "refs/tags/$tag" "refs/tags/$tag^{}"); then
+      tag_target=$(awk -v direct="refs/tags/$tag" -v peeled="refs/tags/$tag^{}" '$2==peeled {p=$1} $2==direct {d=$1} END {if (p!="") print p; else print d}' <<< "$remote_refs")
+      break
+    fi
+    sleep 1
+  done
   test "$tag_target" = "$target"
 
   mkdir -p "$output/$key/assets"
