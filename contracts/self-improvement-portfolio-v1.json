@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 24,
+  "total_cells": 25,
   "denominator_migration": {
-    "from": 23,
-    "to": 24,
+    "from": 24,
+    "to": 25,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 15,
+    "COHERENCE": 16,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 15,
+    "OUTCOME": 16,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -414,6 +414,22 @@
       "metric_id": "gooo.metric.self-improvement.reflexive-modern-cycle-release.v1",
       "metric_denominator": 1,
       "release_key": "reflexive_modern_cycle_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 25,
+      "id": "EXPERIENCE_MEMORY_RELEASE",
+      "axis": "EXPERIENCE_MEMORY_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptExperienceMemoryRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptExperienceMemoryRelease",
+      "ir": "semantic-ir/activity/AdoptExperienceMemoryRelease",
+      "generated_artifact": "evidence/cells/EXPERIENCE_MEMORY_RELEASE.json",
+      "evaluator": "ledger/experience-memory-release",
+      "metric_id": "gooo.metric.self-improvement.experience-memory-release.v1",
+      "metric_denominator": 1,
+      "release_key": "experience_memory_release",
       "depends_on": []
     }
   ]

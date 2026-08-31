@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify twenty-one immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify twenty-two immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -77,8 +77,16 @@ jobs:
           set -Eeuo pipefail
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:21,verified:21,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:22,verified:22,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
+          experience_dir="$ARTIFACT_ROOT/releases/experience_memory_release/assets"
+          jq -e '.schema=="gooo/experience-memory/release-manifest/v1" and .tag=="v0.1.0" and .commit_sha=="79fd6edc588ea26279dbe735e5f6e250132f7730" and .immutable==true and .assets=={source:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",evidence:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6"}' "$experience_dir/release-manifest.json" >/dev/null
+          test "$(awk 'NF {print NF}' "$experience_dir/SHA256SUMS" | sort -u)" = 2
+          while read -r declared_digest asset_name; do
+            test "$asset_name" = "gooo-experience-memory-v0.1.0.tar.gz" || test "$asset_name" = "gooo-experience-memory-evidence-v0.1.0.tar.gz"
+            actual="sha256:$(sha256sum "$experience_dir/$asset_name" | awk '{print $1}')"
+            test "${declared_digest#sha256:}" = "${actual#sha256:}"
+          done < <(awk '{print $1" "$2}' "$experience_dir/SHA256SUMS")
 
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
         shell: bash
@@ -119,7 +127,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:24,closed:21,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:25,closed:22,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"

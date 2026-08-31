@@ -13,16 +13,16 @@ probe=$(mktemp -d)
 mkdir -p "$probe"
 
 jq -e '
-  .total_cells == 24 and
-  .denominator_migration == {from:23,to:24,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 25 and
+  .denominator_migration == {from:24,to:25,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:15,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:15,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:16,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:16,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -34,7 +34,8 @@ jq -e '
   (.cells|map(select(.id=="TEST_FRONTIER_RELEASE" and .release_key=="test_frontier_release"))|length)==1 and
   (.cells|map(select(.id=="CHANGE_BUNDLE_RELEASE" and .release_key=="change_bundle_release"))|length)==1 and
   (.cells|map(select(.id=="UTILITY_TRIAL_PROTOCOL_RELEASE" and .release_key=="utility_trial_protocol_release"))|length)==1 and
-  (.cells|map(select(.id=="REFLEXIVE_MODERN_CYCLE_RELEASE" and .release_key=="reflexive_modern_cycle_release"))|length)==1
+  (.cells|map(select(.id=="REFLEXIVE_MODERN_CYCLE_RELEASE" and .release_key=="reflexive_modern_cycle_release"))|length)==1 and
+  (.cells|map(select(.id=="EXPERIENCE_MEMORY_RELEASE" and .release_key=="experience_memory_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 
 jq -e '
@@ -222,6 +223,47 @@ jq -e '
   .releases.reflexive_modern_cycle_release.protocol_observation.inventory == {directories:16,files:44,go_physical_lines:0,gooo_physical_lines:93,root_readme_excluded:true} and
   .releases.reflexive_modern_cycle_release.protocol_observation.authority == {apply_authorized:false,commit_authorized:false,cross_project_required_gates:0,local_test_executions:0,merge_authorized:false,pull_request_authorized:false,push_authorized:false,repository_writes:0} and
   (.releases.reflexive_modern_cycle_release.assets|map(.id)) == [538205028,538205030,538205039,538205026] and
+  .releases.experience_memory_release.release_id == 379896833 and
+  .releases.experience_memory_release.immutable == true and
+  .releases.experience_memory_release.tag_object_sha == "9b889fc3dd5b663b5ac1ce7cd975fc89030c4a46" and
+  .releases.experience_memory_release.target_commit_sha == "79fd6edc588ea26279dbe735e5f6e250132f7730" and
+  .releases.experience_memory_release.source_run.run_id == 33414536312 and
+  .releases.experience_memory_release.source_run.job_id == 99561917616 and
+  .releases.experience_memory_release.source_run.conclusion == "success" and
+  .releases.experience_memory_release.source_artifact.artifact_id == 9766475762 and
+  .releases.experience_memory_release.source_artifact.size_bytes == 15798 and
+  .releases.experience_memory_release.source_artifact.sha256 == "sha256:0aaec4dc2f9a3822c8c3f275f178dde929c7abb87b733544b1f36e2d3b9f26fb" and
+  .releases.experience_memory_release.release_run.run_id == 33414620023 and
+  .releases.experience_memory_release.release_run.job_id == 99562201563 and
+  .releases.experience_memory_release.release_run.conclusion == "success" and
+  .releases.experience_memory_release.manifest_file.asset_id == 538237752 and
+  .releases.experience_memory_release.manifest_file.size_bytes == 555 and
+  .releases.experience_memory_release.manifest_file.sha256 == "sha256:34e97b1cb9fd2ee520cea5b82acd9ee44272abb7392c8a32ce51a144f397ada1" and
+  .releases.experience_memory_release.manifest_file.content == {schema:"gooo/experience-memory/release-manifest/v1",tag:"v0.1.0",commit_sha:"79fd6edc588ea26279dbe735e5f6e250132f7730",immutable:true,assets:{source:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",evidence:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6"}} and
+  .releases.experience_memory_release.checksum_file.asset_id == 538237754 and
+  .releases.experience_memory_release.checksum_file.size_bytes == 229 and
+  .releases.experience_memory_release.checksum_file.sha256 == "sha256:237c96b9bd3eed13676f0a8a4f0de37c71d75646b6a51a762ba5ca9aa1afb6ca" and
+  .releases.experience_memory_release.checksum_file.bindings == {"gooo-experience-memory-v0.1.0.tar.gz":"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d","gooo-experience-memory-evidence-v0.1.0.tar.gz":"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6"} and
+  .releases.experience_memory_release.evidence_manifest.schema == "gooo/experience-memory/evidence-manifest/v1" and
+  .releases.experience_memory_release.evidence_manifest.subject_sha == "10210e2a1d7bf803ed5be5c187ead9300e88d5e6" and
+  .releases.experience_memory_release.evidence_manifest.bytes == 1565 and
+  .releases.experience_memory_release.evidence_manifest.sha256 == "sha256:f9105286cdd402372dfe4a65abde56c74d36b6246f5f3b60ce535cb2a35ec0be" and
+  .releases.experience_memory_release.protocol_observation.fixed_denominator == 12 and
+  .releases.experience_memory_release.protocol_observation.proof_totals == {FOUNDATION:4,COHERENCE:4,REGRESSION:4} and
+  .releases.experience_memory_release.protocol_observation.indicator_totals == {DRIVER:4,OUTCOME:4,GUARDRAIL:4} and
+  .releases.experience_memory_release.protocol_observation.case_totals == {normal:4,unknown:4,refuted:4,CLOSED:4,UNKNOWN:4,REFUTED:4} and
+  .releases.experience_memory_release.protocol_observation.precedence == ["REFUTED","UNKNOWN","CLOSED"] and
+  .releases.experience_memory_release.protocol_observation.metrics == {attempts_observed:2,memory_records:1,candidate_count:5,known_refuted_recurrences_before:1,known_refuted_recurrences_after:0,avoided_refuted_candidates:1,new_unknown_candidates:2,replay_comparisons:2,replay_mismatches:0,peak_rss_kib:7256,wall_ms:1,go_physical_lines:1578,go_files:9,gooo_physical_lines:16,gooo_files:1,descendant_dirs:13,tests:{total:2,executed:2,reused:0,skipped:0,not_observed:0}} and
+  .releases.experience_memory_release.protocol_observation.inventory == {go_physical_lines:1578,go_files:9,gooo_physical_lines:16,gooo_files:1,descendant_dirs:13,regular_files_root_readme_excluded:34} and
+  .releases.experience_memory_release.protocol_observation.authority == {repository_writes:0,local_test_executions:0,cross_project_required_gates:0} and
+  .releases.experience_memory_release.process_observations.append_only == true and
+  .releases.experience_memory_release.process_observations.score_included == false and
+  .releases.experience_memory_release.process_observations.failed_release_workflow.run_id == 33413752929 and
+  .releases.experience_memory_release.process_observations.failed_release_workflow.job_id == 99559373690 and
+  .releases.experience_memory_release.process_observations.failed_release_workflow.failed_step == "Confirm tag is annotated and build source asset" and
+  (.releases.experience_memory_release.process_observations.operational_pull_requests|map(.number)) == [2,3] and
+  all(.releases.experience_memory_release.process_observations.operational_pull_requests[]; .merged == true) and
+  (.releases.experience_memory_release.assets|map(.id)) == [538237751,538237753,538237752,538237754] and
   (.failed_release_triggers|length) == 1 and
   .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
   .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
@@ -260,7 +302,7 @@ jq -e '
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 
 jq -e '
-  .denominator_migration == {from:23,to:24,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:24,to:25,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -361,7 +403,27 @@ jq -e '
     $utility_process.observed.initial_immutable == false and $utility_process.observed.failed_run_id == 33407273856 and
     $utility_process.observed.failed_artifact_id == 9763659711 and $utility_process.observed.current_release_id == 379850805 and
     $utility_process.observed.current_immutable == true and ($utility_process.blocked_by|length) == 3) and
-  (.cells|length) == 24 and
+  ((.cells[] | select(.cell_id == "EXPERIENCE_MEMORY_RELEASE")) as $experience |
+    $experience.state == "CLOSED" and
+    $experience.release_key == "experience_memory_release" and
+    ($experience.evidence | index("release:379896833:immutable=true")) != null and
+    ($experience.evidence | index("tag-object:9b889fc3dd5b663b5ac1ce7cd975fc89030c4a46:target=79fd6edc588ea26279dbe735e5f6e250132f7730")) != null and
+    ($experience.evidence | index("source-actions:run=33414536312:job=99561917616:success")) != null and
+    ($experience.evidence | index("source-actions-artifact:9766475762:15798:sha256:0aaec4dc2f9a3822c8c3f275f178dde929c7abb87b733544b1f36e2d3b9f26fb")) != null and
+    ($experience.evidence | index("release-recheck-actions:run=33414620023:job=99562201563:success")) != null and
+    ($experience.evidence | index("upstream-experience-memory:denominator=12:proof=4/4/4:indicator=4/4/4:cases=normal=4:CLOSED:unknown=4:UNKNOWN:refuted=4:REFUTED:precedence=REFUTED>UNKNOWN>CLOSED")) != null and
+    ($experience.evidence | index("upstream-metrics:recurrence=1->0:avoided=1:new_unknown=2:replay=2/0:attempts=2:memory=1:candidates=5:rss=7256:wall=1:go=1578-lines/9-files:gooo=16-lines/1-file:dirs=13:tests=2/2/0/0/0:authority=0/0/0")) != null and
+    ($experience.evidence | index("source-asset:538237753:25993:sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d")) != null and
+    ($experience.evidence | index("evidence-asset:538237751:11528:sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6")) != null and
+    ($experience.evidence | index("manifest-asset:538237752:555:sha256:34e97b1cb9fd2ee520cea5b82acd9ee44272abb7392c8a32ce51a144f397ada1")) != null and
+    ($experience.evidence | index("checksum-asset:538237754:229:sha256:237c96b9bd3eed13676f0a8a4f0de37c71d75646b6a51a762ba5ca9aa1afb6ca")) != null and
+    ($experience.evidence | index("manifest-bindings:source=sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d:evidence=sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6")) != null and
+    ($experience.evidence | index("checksum-bindings:source=sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d:evidence=sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6")) != null and
+    ($experience.evidence | index("evidence-manifest:subject=10210e2a1d7bf803ed5be5c187ead9300e88d5e6:manifest=sha256:f9105286cdd402372dfe4a65abde56c74d36b6246f5f3b60ce535cb2a35ec0be:summary=sha256:2a31e5eb0eca14843199c90d697c533650c67f820d22e65e473e78b3f7be2665:ir=sha256:11c6aaee3853a67fb446fff669bb3384f6221936da6c55224cb2328921f260e1:receipt=sha256:b013ea186daeb0517d208630dc523ede4180f986cf8265258400f46963b49e33")) != null and
+    ($experience.evidence | index("process-observation:failed-release-workflow:run=33413752929:job=99559373690:step=Confirm tag is annotated and build source asset:failure:score_included=false")) != null and
+    ($experience.evidence | index("process-observation:operational-pr:2:head=91d046ebcf12ac6baf6a43dfb9f88c404f0be711:merge=6bf9ca277478bab5e47393e4b0fbcbe07d847296:merged=true:score_included=false")) != null and
+    ($experience.evidence | index("process-observation:operational-pr:3:head=79921641afc2742634a473bf77f0656da50cb9fb:merge=10210e2a1d7bf803ed5be5c187ead9300e88d5e6:merged=true:score_included=false")) != null) and
+  (.cells|length) == 25 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -530,12 +592,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:24,closed:21,unknown:1,refuted:2} and
+  .summary == {total:25,closed:22,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 24 and
+  (.cells|length) == 25 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 21 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 22 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -562,16 +624,17 @@ jq -e '
     TEST_FRONTIER_RELEASE:"CLOSED",
     CHANGE_BUNDLE_RELEASE:"CLOSED",
     UTILITY_TRIAL_PROTOCOL_RELEASE:"CLOSED",
-    REFLEXIVE_MODERN_CYCLE_RELEASE:"CLOSED"
+    REFLEXIVE_MODERN_CYCLE_RELEASE:"CLOSED",
+    EXPERIENCE_MEMORY_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:24,activities:24,unique_axes:24,unique_metrics:24,source_bindings:24,ir_bindings:24,generated_artifact_bindings:24,evaluator_bindings:24} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 15 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 15 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:21,verified:21,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:25,activities:25,unique_axes:25,unique_metrics:25,source_bindings:25,ir_bindings:25,generated_artifact_bindings:25,evaluator_bindings:25} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 16 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 16 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:22,verified:22,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

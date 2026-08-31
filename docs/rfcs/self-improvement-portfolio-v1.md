@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for twenty-four specifically named capabilities.
+The portfolio is an evidence ledger for twenty-five specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains twenty-four entries. The v0.18
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-three-cell
+`cells` array is immutable during a run and contains twenty-five entries. The v0.19
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-four-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/15/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/15/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/16/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/16/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -130,9 +130,22 @@ directories, with all eight authority fields zero. Upstream v0.3.0 release
 `379458203` and its target remain only as a separate historical fact; legacy
 `REFLEXIVE_LOOP` v0.2 is unchanged and is not retired or replaced.
 
+The v0.19 frontier appends `EXPERIENCE_MEMORY_RELEASE`. It adopts immutable
+`gooo-experience-memory@v0.1.0` release `379896833` with its annotated tag,
+main CI evidence, release recheck, source/evidence assets, release manifest,
+and checksum bindings. The upstream observation has fixed denominator `12`,
+`4/4/4` proof and indicator totals, `4 CLOSED / 4 UNKNOWN / 4 REFUTED` cases,
+and precedence `REFUTED > UNKNOWN > CLOSED`. Its authoritative main-CI
+metrics include recurrence `1 -> 0`, avoided `1`, new unknown `2`, replay
+`2/0`, attempts `2`, memory `1`, candidates `5`, peak RSS `7256 KiB`, `1578`
+Go lines across `9` files, `16` Gooo lines in `1` file, and `13` descendant
+directories. Because the Go implementation remains larger than the Gooo source,
+`CORE_SEMANTIC_AUTHORITY` stays `REFUTED`; utility remains `UNKNOWN`, and prior
+refutations and upstream release-process observations remain append-only.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-twenty-four-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+twenty-five-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
