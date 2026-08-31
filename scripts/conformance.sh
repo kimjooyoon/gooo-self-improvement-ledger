@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
+trap 'status=$?; echo "conformance command failed: $BASH_COMMAND (status=$status)" >&2' ERR
 
 if [ "$#" -ne 3 ]; then
   echo "usage: conformance.sh REPORT_BINARY REPOSITORY_ROOT ARTIFACT_ROOT" >&2
