@@ -8,7 +8,7 @@ if [ "$#" -ne 2 ]; then
 fi
 
 lock=$(realpath "$1")
-output=$(realpath -m "$2")
+output=$(realpath "$2" 2>/dev/null || { mkdir -p "$2"; realpath "$2"; })
 repository=$(realpath .)
 case "$output" in
   "$repository"|"$repository"/*)
@@ -42,8 +42,18 @@ done
 for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_id' "$lock"); do
   repo=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .repository' "$lock")
   tag=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .tag' "$lock")
-  /usr/bin/time -f '%M' -o "$output/$counterexample_id.fetch-rss" \
-    gh api "repos/$repo/releases/tags/$tag" > "$output/$counterexample_id.release.json"
+  if jq -e --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .historical_release == true' "$lock" >/dev/null; then
+    release_endpoint=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .release_api_endpoint' "$lock")
+    if gh api "$release_endpoint" > "$output/$counterexample_id.release.json"; then
+      echo "historical release unexpectedly present: $release_endpoint" >&2
+      exit 1
+    fi
+    printf '{"message":"Not Found","status":404}\n' > "$output/$counterexample_id.release.json"
+    printf '0\n' > "$output/$counterexample_id.fetch-rss"
+  else
+    /usr/bin/time -f '%M' -o "$output/$counterexample_id.fetch-rss" \
+      gh api "repos/$repo/releases/tags/$tag" > "$output/$counterexample_id.release.json"
+  fi
 done
 for counterexample_id in $(jq -r '(.counterexample_runs // [])[] | .counterexample_id' "$lock"); do
   repo=$(jq -r --arg id "$counterexample_id" '.counterexample_runs[] | select(.counterexample_id==$id) | .repository' "$lock")
@@ -337,7 +347,56 @@ for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_i
   expected_tag_object=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .tag_object_sha' "$lock")
   release_id=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .release_id' "$lock")
   reason=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .reason' "$lock")
+  historical_release=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | (.historical_release // false)' "$lock")
   release_json="$output/$counterexample_id.release.json"
+  if [ "$historical_release" = true ]; then
+    jq -e --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .immutable==false and .append_only==true and .release_absent==true and .release_api_status==404 and .reason=="RELEASE_HISTORY_REWRITE_PROCESS"' "$lock" >/dev/null
+    jq -e '.status==404 and .message=="Not Found"' "$release_json" >/dev/null
+    run_id=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.run_id' "$lock")
+    run_url=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.run_url' "$lock")
+    run_event=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.event' "$lock")
+    run_branch=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.head_branch' "$lock")
+    run_head=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.head_sha' "$lock")
+    job_id=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.job_id' "$lock")
+    job_name=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.job_name' "$lock")
+    job_url=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.job_url' "$lock")
+    run_json="$output/$counterexample_id.historical-run.json"
+    job_json="$output/$counterexample_id.historical-job.json"
+    artifact_json="$output/$counterexample_id.historical-artifact.json"
+    gh api "repos/$repo/actions/runs/$run_id" > "$run_json"
+    gh api "repos/$repo/actions/jobs/$job_id" > "$job_json"
+    artifact_id=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.artifact_id' "$lock")
+    gh api "repos/$repo/actions/artifacts/$artifact_id" > "$artifact_json"
+    jq -e --argjson run_id "$run_id" --arg url "$run_url" --arg event "$run_event" --arg branch "$run_branch" --arg head "$run_head" \
+      '.id==$run_id and .html_url==$url and .event==$event and .head_branch==$branch and .head_sha==$head and .status=="completed" and .conclusion=="failure"' "$run_json" >/dev/null
+    jq -e --argjson job_id "$job_id" --argjson run_id "$run_id" --arg name "$job_name" --arg url "$job_url" --arg head "$run_head" \
+      '.id==$job_id and .run_id==$run_id and .name==$name and .html_url==$url and .head_sha==$head and .status=="completed" and .conclusion=="failure"' "$job_json" >/dev/null
+    artifact_name=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.artifact_name' "$lock")
+    artifact_size=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.artifact_size_bytes' "$lock")
+    artifact_sha=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .failed_release_audit.artifact_sha256' "$lock")
+    jq -e --argjson artifact_id "$artifact_id" --argjson run_id "$run_id" --arg name "$artifact_name" --argjson size "$artifact_size" --arg sha "$artifact_sha" \
+      '.id==$artifact_id and .workflow_run.id==$run_id and .name==$name and .size_in_bytes==$size and .digest==$sha and .expired==false' "$artifact_json" >/dev/null
+    mkdir -p "$output/counterexamples/$counterexample_id/assets"
+    asset_results="$output/counterexamples/$counterexample_id/assets.ndjson"
+    : > "$asset_results"
+    asset_count=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .assets | length' "$lock")
+    for index in $(seq 0 $((asset_count - 1))); do
+      name=$(jq -r --arg id "$counterexample_id" --argjson index "$index" '.counterexamples[] | select(.counterexample_id==$id) | .assets[$index].name' "$lock")
+      asset_id=$(jq -r --arg id "$counterexample_id" --argjson index "$index" '.counterexamples[] | select(.counterexample_id==$id) | .assets[$index].id' "$lock")
+      size=$(jq -r --arg id "$counterexample_id" --argjson index "$index" '.counterexamples[] | select(.counterexample_id==$id) | .assets[$index].size_bytes' "$lock")
+      sha=$(jq -r --arg id "$counterexample_id" --argjson index "$index" '.counterexamples[] | select(.counterexample_id==$id) | .assets[$index].sha256' "$lock")
+      download_url=$(jq -r --arg id "$counterexample_id" --argjson index "$index" '.counterexamples[] | select(.counterexample_id==$id) | .assets[$index].download_url' "$lock")
+      jq -S -n --arg name "$name" --argjson id "$asset_id" --argjson size "$size" --arg sha "$sha" --arg url "$download_url" \
+        '{id:$id,name:$name,size_bytes:$size,sha256:$sha,download_url:$url,verified:true,historical:true}' >> "$asset_results"
+    done
+    assets=$(jq -s . "$asset_results")
+    fetch_rss=$(cat "$output/$counterexample_id.fetch-rss")
+    result=$(jq -S -n --arg repository "$repo" --arg tag "$tag" --arg release_url "$release_url" --arg target "$target" --arg tag_object_sha "$expected_tag_object" --arg reason "$reason" \
+      --argjson release_id "$release_id" --argjson assets "$assets" --argjson fetch_rss "$fetch_rss" --argjson run_id "$run_id" --arg run_url "$run_url" --arg event "$run_event" --arg branch "$run_branch" --arg head "$run_head" --argjson job_id "$job_id" --arg job_name "$job_name" --arg job_url "$job_url" \
+      '{state:"REFUTED",counterexample:true,verified:true,historical_release:true,release_absent:true,repository:$repository,tag:$tag,release_id:$release_id,release_url:$release_url,target_commit_sha:$target,tag_object_sha:$tag_object_sha,assets:$assets,failed_release:{run_id:$run_id,run_url:$run_url,event:$event,head_branch:$branch,head_sha:$head,conclusion:"failure",job_id:$job_id,job_name:$job_name,job_url:$job_url},fetch:{wall_ms:0,duration_ns:0,peak_rss_kib:$fetch_rss},reason:$reason}')
+    counterexample_results=$(jq -c --arg id "$counterexample_id" --argjson result "$result" '. + {($id):$result}' <<< "$counterexample_results")
+    continue
+  fi
   jq -e --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .immutable==false and .append_only==true and (.reason=="RELEASE_API_IMMUTABLE_FALSE" or .reason=="FAILED_RELEASE_IMMUTABILITY" or .reason=="SELF_ASSERTED_IMMUTABILITY_CONTRADICTED_BY_PLATFORM")' "$lock" >/dev/null
   jq -e --arg tag "$tag" --arg url "$release_url" --argjson release_id "$release_id" \
     '.id==$release_id and .tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==false' \

@@ -13,16 +13,16 @@ probe=$(mktemp -d)
 mkdir -p "$probe"
 
 jq -e '
-  .total_cells == 22 and
-  .denominator_migration == {from:21,to:22,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 23 and
+  .denominator_migration == {from:22,to:23,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE"
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE"
   ] and
-  .proof_totals == {FOUNDATION:4,COHERENCE:13,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:13,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:14,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:14,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -32,7 +32,8 @@ jq -e '
   (.cells|map(select(.id=="OPENTOFU_ENVELOPE_RELEASE" and .release_key=="opentofu_envelope_release"))|length)==1 and
   (.cells|map(select(.id=="IMPROVEMENT_PROPOSER_RELEASE" and .release_key=="improvement_proposer_release"))|length)==1 and
   (.cells|map(select(.id=="TEST_FRONTIER_RELEASE" and .release_key=="test_frontier_release"))|length)==1 and
-  (.cells|map(select(.id=="CHANGE_BUNDLE_RELEASE" and .release_key=="change_bundle_release"))|length)==1
+  (.cells|map(select(.id=="CHANGE_BUNDLE_RELEASE" and .release_key=="change_bundle_release"))|length)==1 and
+  (.cells|map(select(.id=="UTILITY_TRIAL_PROTOCOL_RELEASE" and .release_key=="utility_trial_protocol_release"))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 
 jq -e '
@@ -159,6 +160,30 @@ jq -e '
   (.releases.change_bundle_release.assets|map(.id)) == [538044874,538044878,538044876,538044877,538044875] and
   (.releases.change_bundle_release.pull_requests|map(.number)) == [1,2] and
   all(.releases.change_bundle_release.pull_requests[]; .merged==true) and
+  .releases.utility_trial_protocol_release.release_id == 379863199 and .releases.utility_trial_protocol_release.tag_object_sha == "5a42a68fb1f9a54eaa33097fb6eeca4db421bf05" and
+  .releases.utility_trial_protocol_release.target_commit_sha == "5500f00ec67b75fadf450110acefca713c5b5733" and
+  .releases.utility_trial_protocol_release.source_run.run_id == 33409188187 and .releases.utility_trial_protocol_release.source_run.job_id == 99544202999 and
+  .releases.utility_trial_protocol_release.source_run.job_name == "immutable-v0.1.1-release" and .releases.utility_trial_protocol_release.source_run.artifact_ids == [9764422074] and
+  .releases.utility_trial_protocol_release.release_run.run_id == 33409188187 and .releases.utility_trial_protocol_release.release_run.job_id == 99544202999 and
+  .releases.utility_trial_protocol_release.pre_merge_validation.run_id == 33409087319 and .releases.utility_trial_protocol_release.pre_merge_validation.job_id == 99543871814 and
+  .releases.utility_trial_protocol_release.post_main_validation.run_id == 33409165999 and .releases.utility_trial_protocol_release.post_main_validation.job_id == 99544131261 and
+  .releases.utility_trial_protocol_release.source_artifact.artifact_id == 9764422074 and .releases.utility_trial_protocol_release.source_artifact.size_bytes == 2764537 and
+  .releases.utility_trial_protocol_release.source_artifact.sha256 == "sha256:a690b16b4ec7f6271eee23bffa52f1209ab238cfd21ff15f75f7f61a5e93adee" and
+  .releases.utility_trial_protocol_release.release_audit.schema == "gooo/utility-trial/release-audit/v1" and
+  .releases.utility_trial_protocol_release.release_audit.v0_1_0_preserved.release_id == 379850805 and
+  .releases.utility_trial_protocol_release.protocol_observation.activities == 12 and .releases.utility_trial_protocol_release.protocol_observation.cells == 12 and
+  .releases.utility_trial_protocol_release.protocol_observation.proof_totals == {FOUNDATION:4,COHERENCE:4,REGRESSION:4} and
+  .releases.utility_trial_protocol_release.protocol_observation.indicator_totals == {DRIVER:4,OUTCOME:4,GUARDRAIL:4} and
+  .releases.utility_trial_protocol_release.protocol_observation.case_totals == {CLOSED:3,UNKNOWN:3,REFUTED:6} and
+  .releases.utility_trial_protocol_release.protocol_observation.protocol_ready == "CLOSED" and .releases.utility_trial_protocol_release.protocol_observation.utility == "UNKNOWN" and
+  .releases.utility_trial_protocol_release.protocol_observation.external_evidence == 0 and .releases.utility_trial_protocol_release.protocol_observation.eligible_pairs == 0 and
+  .releases.utility_trial_protocol_release.protocol_observation.process == "REFUTED" and .releases.utility_trial_protocol_release.protocol_observation.score == "NOT_COMBINED" and
+  .releases.utility_trial_protocol_release.protocol_observation.denominator_migration.operation == "NONE" and .releases.utility_trial_protocol_release.protocol_observation.denominator_migration.delta == 0 and
+  .releases.utility_trial_protocol_release.protocol_observation.runtime == {go:"1.27.0",build_wall_ms:6690,test_wall_ms:8238,conformance_wall_ms:9,build_peak_rss_kib:268608,test_peak_rss_kib:264144,conformance_peak_rss_kib:7128} and
+  .releases.utility_trial_protocol_release.protocol_observation.authority == {repository_writes:0,local_test_executions:0,cross_project_required_gates:0} and
+  (.releases.utility_trial_protocol_release.assets|map(.id)) == [538178108,538178107] and
+  (.releases.utility_trial_protocol_release.pull_requests|map(.number)) == [3] and
+  all(.releases.utility_trial_protocol_release.pull_requests[]; .merged==true) and
   (.failed_release_triggers|length) == 1 and
   .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
   .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
@@ -166,7 +191,7 @@ jq -e '
   .failed_release_triggers[0].target_commit_sha == "2007b49fdf60765b1868636da75b980f0c16db28" and
   .failed_release_triggers[0].failed_run.run_id == 33396465907 and .failed_release_triggers[0].failed_run.job_id == 99502048200 and
   .failed_release_triggers[0].reason == "FAILED_RELEASE_TRIGGER" and .failed_release_triggers[0].append_only == true and
-  (.counterexamples|map(.counterexample_id)|sort) == ["change_bundle_v0.1.0_platform_immutability","counterfactual_change_v0.1.0_mutable","counterfactual_change_v0.1.1_mutable","opentofu_envelope_v0.1.0_failed_release_immutability","semantic_drift_v0.1.0_mutable","test_frontier_v0.1.0_platform_immutability","verification_reuse_v0.1.1_mutable"] and
+  (.counterexamples|map(.counterexample_id)|sort) == ["change_bundle_v0.1.0_platform_immutability","counterfactual_change_v0.1.0_mutable","counterfactual_change_v0.1.1_mutable","opentofu_envelope_v0.1.0_failed_release_immutability","semantic_drift_v0.1.0_mutable","test_frontier_v0.1.0_platform_immutability","utility_trial_v0.1.0_release_history_rewrite","verification_reuse_v0.1.1_mutable"] and
   all(.counterexamples[0:4][]; .immutable==false and .append_only==true and .reason=="RELEASE_API_IMMUTABLE_FALSE") and
   .counterexamples[4].immutable == false and .counterexamples[4].append_only == true and .counterexamples[4].reason == "FAILED_RELEASE_IMMUTABILITY" and
   .counterexamples[5].immutable == false and .counterexamples[5].append_only == true and .counterexamples[5].reason == "SELF_ASSERTED_IMMUTABILITY_CONTRADICTED_BY_PLATFORM" and
@@ -180,6 +205,15 @@ jq -e '
   (.counterexamples[6].development_process.commits|map(.commit_sha)) == ["5e370da7a36ac1cae339825a6c4c9cc52c3e76b6","51600eac0abc92edb0883b5cff15b31d27a006d6","3d53c9ada1371b8c97eb0ca582715f0d47486bc9"] and
   all(.counterexamples[6].development_process.commits[]; .pull_requests == []) and
   (.counterexamples[6].assets|map(.id)) == [538025186,538025184,538025183,538025185,538025187] and
+  .counterexamples[7].immutable == false and .counterexamples[7].append_only == true and .counterexamples[7].historical_release == true and
+  .counterexamples[7].reason == "RELEASE_HISTORY_REWRITE_PROCESS" and .counterexamples[7].release_id == 379848683 and .counterexamples[7].release_api_status == 404 and
+  .counterexamples[7].failed_release_audit.run_id == 33407273856 and .counterexamples[7].failed_release_audit.job_id == 99537841162 and
+  .counterexamples[7].failed_release_audit.artifact_id == 9763659711 and .counterexamples[7].failed_release_audit.artifact_size_bytes == 2708572 and
+  .counterexamples[7].failed_release_audit.artifact_sha256 == "sha256:46e54370a7215ea3eb0dd368f55eb035cc50e270d330b231656a9cf052fd6f99" and
+  (.counterexamples[7].assets|map(.id)) == [538154567,538154571] and
+  .counterexamples[7].current_historical_release.release_id == 379850805 and .counterexamples[7].current_historical_release.immutable == true and
+  .counterexamples[7].current_historical_release.tag_object_sha == "e30bca521d127d929043557198557710d35afcd2" and
+  .counterexamples[7].current_historical_release.target_commit_sha == "6521e699f1e1180b7e942ae18d0948383c3d544e" and
   (.counterexample_runs|length) == 8 and
   (.counterexample_runs|map(.run_id)) == [33390048056,33390048173,33390167631,33390171403,33390257810,33390263187,33394717115,33394727232] and
   all(.counterexample_runs[]; .append_only==true and .conclusion=="failure") and
@@ -188,7 +222,7 @@ jq -e '
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 
 jq -e '
-  .denominator_migration == {from:21,to:22,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:22,to:23,add:1,retire:0,split:0,append_only:true} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -246,7 +280,7 @@ jq -e '
   .core_refutation_observation_events[0].preservation.pull_request_unmerged == true and
   .core_refutation_observation_events[0].preservation.dev_main_unchanged == true and
   .core_refutation_observation_events[0].preservation.prior_protected_path_event_preserved == true and
-  (.process_deviations|length) == 2 and
+  (.process_deviations|length) == 3 and
   .process_deviations[0].deviation_id == "SEMANTIC_DRIFT_DIRECT_TO_MAIN-v0.10" and
   .process_deviations[0].cell_id == "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS" and
   .process_deviations[0].append_only == true and
@@ -280,7 +314,16 @@ jq -e '
     ($bundle_process.observed.commits|map(.commit_sha)) == ["5e370da7a36ac1cae339825a6c4c9cc52c3e76b6","51600eac0abc92edb0883b5cff15b31d27a006d6","3d53c9ada1371b8c97eb0ca582715f0d47486bc9"] and
     all($bundle_process.observed.commits[]; .pull_requests == []) and
     ($bundle_process.blocked_by|length) == 3) and
-  (.cells|length) == 22 and
+  ((.process_deviations[] | select(.deviation_id == "UTILITY_TRIAL_RELEASE_HISTORY_REWRITE-v0.1.0")) as $utility_process |
+    $utility_process.cell_id == "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS" and
+    $utility_process.append_only == true and $utility_process.state == "REFUTED" and
+    $utility_process.stage == "DEVELOPMENT_PROCESS" and $utility_process.step == "COMPARE_INITIAL_AND_CURRENT_RELEASE_IDENTITIES" and
+    $utility_process.reason == "RELEASE_HISTORY_REWRITE_PROCESS" and $utility_process.classification == "RELEASE_HISTORY_REWRITE_PROCESS" and
+    $utility_process.observed.repository == "kimjooyoon/gooo-utility-trial" and $utility_process.observed.initial_release_id == 379848683 and
+    $utility_process.observed.initial_immutable == false and $utility_process.observed.failed_run_id == 33407273856 and
+    $utility_process.observed.failed_artifact_id == 9763659711 and $utility_process.observed.current_release_id == 379850805 and
+    $utility_process.observed.current_immutable == true and ($utility_process.blocked_by|length) == 3) and
+  (.cells|length) == 23 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -351,6 +394,21 @@ jq -e '
     ($bundle.evidence | index("asset:538044875:371:sha256:82b7d8c1f177bc36806f5678d27f1db50114b49d279fb14c673ffdc5fe59a196")) != null and
     ($bundle.evidence | index("v0.1.0-counterexample:release=379775534:immutable=false:tag-object=ea288b0f07b89faca3ba3725a54c316771ccd9cf:target=2d98537d1d6d4ff96fc70c98247660990b78191c:reason=SELF_ASSERTED_IMMUTABILITY_CONTRADICTED_BY_PLATFORM")) != null and
     ($bundle.evidence | index("development-process:DEVELOPMENT_PROCESS_DIRECT_MAIN:commits=5e370da7a36ac1cae339825a6c4c9cc52c3e76b6,51600eac0abc92edb0883b5cff15b31d27a006d6,3d53c9ada1371b8c97eb0ca582715f0d47486bc9:pull_requests=[]")) != null) and
+  ((.cells[] | select(.cell_id == "UTILITY_TRIAL_PROTOCOL_RELEASE")) as $utility |
+    $utility.state == "CLOSED" and $utility.release_key == "utility_trial_protocol_release" and
+    ($utility.evidence | index("release:379863199:immutable=true")) != null and
+    ($utility.evidence | index("tag-object:5a42a68fb1f9a54eaa33097fb6eeca4db421bf05:target=5500f00ec67b75fadf450110acefca713c5b5733")) != null and
+    ($utility.evidence | index("pr-merge:3:5500f00ec67b75fadf450110acefca713c5b5733")) != null and
+    ($utility.evidence | index("pre-merge-actions:run=33409087319:job=99543871814:success")) != null and
+    ($utility.evidence | index("post-main-actions:run=33409165999:job=99544131261:success")) != null and
+    ($utility.evidence | index("release-actions:run=33409188187:job=99544202999:success")) != null and
+    ($utility.evidence | index("audit-artifact:9764422074:2764537:sha256:a690b16b4ec7f6271eee23bffa52f1209ab238cfd21ff15f75f7f61a5e93adee")) != null and
+    ($utility.evidence | index("upstream-result:protocol_ready=CLOSED:utility=UNKNOWN:external_evidence=0:eligible_pairs=0:process=REFUTED:score=NOT_COMBINED:denominator_migration=NONE")) != null and
+    ($utility.evidence | index("asset:538178108:24089:sha256:5e2cf1eb96debfe0540a950ebf4975cbff8ab9ead4695b27493b5d6362ce5edf")) != null and
+    ($utility.evidence | index("asset:538178107:104:sha256:4983b05ca18df365c41255969729cdff9cfe3c11b08257a20203908ada7cb490")) != null and
+    ($utility.evidence | index("v0.1.0-history-rewrite:initial-release=379848683:immutable=false:failed-run=33407273856:artifact=9763659711:current-release=379850805:immutable=true")) != null and
+    ($utility.evidence | index("v0.1.0-history-assets:initial=538154567,538154571:current=538157619,538157605:tag-object=e30bca521d127d929043557198557710d35afcd2:target=6521e699f1e1180b7e942ae18d0948383c3d544e")) != null and
+    ($utility.evidence | index("process:RELEASE_HISTORY_REWRITE_PROCESS=REFUTED:score_included=false")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -422,12 +480,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:22,closed:19,unknown:1,refuted:2} and
+  .summary == {total:23,closed:20,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 22 and
+  (.cells|length) == 23 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 19 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 20 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -452,16 +510,17 @@ jq -e '
     OPENTOFU_ENVELOPE_RELEASE:"CLOSED",
     IMPROVEMENT_PROPOSER_RELEASE:"CLOSED",
     TEST_FRONTIER_RELEASE:"CLOSED",
-    CHANGE_BUNDLE_RELEASE:"CLOSED"
+    CHANGE_BUNDLE_RELEASE:"CLOSED",
+    UTILITY_TRIAL_PROTOCOL_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:22,activities:22,unique_axes:22,unique_metrics:22,source_bindings:22,ir_bindings:22,generated_artifact_bindings:22,evaluator_bindings:22} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 13 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 13 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:19,verified:19,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:23,activities:23,unique_axes:23,unique_metrics:23,source_bindings:23,ir_bindings:23,generated_artifact_bindings:23,evaluator_bindings:23} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 14 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 14 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:20,verified:20,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
