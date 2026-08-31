@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 25 named cells, each bound one-to-one to
+language. The denominator is exactly 26 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -18,11 +18,12 @@ The fixed axes are:
 `AUTHORITY_BOOTSTRAP_RELEASE`, `OPENTOFU_ENVELOPE_RELEASE`, and
 `IMPROVEMENT_PROPOSER_RELEASE`, `TEST_FRONTIER_RELEASE`, and
 `CHANGE_BUNDLE_RELEASE`, `UTILITY_TRIAL_PROTOCOL_RELEASE`, and
-`REFLEXIVE_MODERN_CYCLE_RELEASE`, and `EXPERIENCE_MEMORY_RELEASE`.
+`REFLEXIVE_MODERN_CYCLE_RELEASE`, `EXPERIENCE_MEMORY_RELEASE`, and
+`SEMANTIC_DRIFT_GUARD_RELEASE`.
 
-The denominator migration is explicit and append-only: `24 -> 25` with
+The denominator migration is explicit and append-only: `25 -> 26` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/16/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/16/5`.
+`4/17/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/17/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -191,6 +192,30 @@ and the existing two refuted cells remain unchanged. The failed release workflow
 and operational upstream PRs #2 and #3 are retained as append-only, non-score
 process evidence.
 
+The v0.20 frontier appends `SEMANTIC_DRIFT_GUARD_RELEASE`. It adopts the
+immutable upstream `gooo-semantic-drift-guard@v0.1.1` release `379915376`,
+binding annotated tag object
+`1e1cf4882347ccd69c14c4aa96e63c096709d512` to target
+`15b6c1dcce26feb5f64d562140708f7cb27390aa`, successful PR #2 conformance
+run `33416441475`/job `99568101328`, artifact `9767194212`, and successful
+release run `33416657453`/job `99568816492`. Its independent protocol has
+fixed denominator `12`, ten cases (`1 CLOSED / 4 UNKNOWN / 5 REFUTED`),
+precedence `REFUTED > UNKNOWN > CLOSED`, and canonical
+`source -> IR -> generated Go` binding. The normal case records releases `2`,
+source files `2`, IR nodes `24`, generated files `2`, semantic relations
+`12 -> 12`, equivalent changes `1`, drift `0`, unknown bindings `0`, replay
+`1/0`, RSS `12246 KiB`, wall `1 ms`, build `4654 ms`, test `1993 ms`, tests
+`12/12/0/0/0`, `1772` Go lines across `13` files, `85` Gooo lines across `6`
+files, `24` descendant directories, and `45` descendant files; repository
+writes, local test executions, and cross-project required gates are all zero.
+The v0.1.0 release `379905110` remains an append-only non-score process
+observation with `immutable=false` and the literal `tag_object=v0.1.0^{tag}`
+metadata defect; its faulty assets and annotated correction assets remain
+preserved. The successful independent tool release does not close or alter
+`SEMANTIC_DRIFT_DEVELOPMENT_PROCESS=REFUTED`; the Go `1772` versus Gooo `85`
+line observation keeps `CORE_SEMANTIC_AUTHORITY=REFUTED`. Utility remains
+`UNKNOWN`, so the portfolio is `CLOSED23/UNKNOWN1/REFUTED2`.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -219,7 +244,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the twenty-two immutable inputs
+commit, and consumer asset identities for the twenty-three immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

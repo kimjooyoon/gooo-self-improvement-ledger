@@ -29,6 +29,131 @@
     }
   ],
   "releases": {
+    "semantic_drift_guard_release": {
+      "repository": "kimjooyoon/gooo-semantic-drift-guard",
+      "tag": "v0.1.1",
+      "release_id": 379915376,
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-drift-guard/releases/tag/v0.1.1",
+      "target_commit_sha": "15b6c1dcce26feb5f64d562140708f7cb27390aa",
+      "tag_object_sha": "1e1cf4882347ccd69c14c4aa96e63c096709d512",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33416441475,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-semantic-drift-guard/actions/runs/33416441475",
+        "head_sha": "4ceaf5066bd9dc864c748b9faac440214860d8b6",
+        "conclusion": "success",
+        "job_id": 99568101328,
+        "job_name": "conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-semantic-drift-guard/actions/runs/33416441475/job/99568101328",
+        "artifact_ids": [9767194212]
+      },
+      "source_artifact": {
+        "run_id": 33416441475,
+        "artifact_id": 9767194212,
+        "name": "gooo-semantic-drift-guard-conformance",
+        "size_bytes": 44290,
+        "sha256": "sha256:f6bd1319019ec14d836b4e4bcc31533bc2614768b85bdb1c73deea3e37c89171"
+      },
+      "release_run": {
+        "run_id": 33416657453,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-semantic-drift-guard/actions/runs/33416657453",
+        "head_sha": "15b6c1dcce26feb5f64d562140708f7cb27390aa",
+        "conclusion": "success",
+        "job_id": 99568816492,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-semantic-drift-guard/actions/runs/33416657453/job/99568816492"
+      },
+      "pull_request": {
+        "number": 2,
+        "url": "https://github.com/kimjooyoon/gooo-semantic-drift-guard/pull/2",
+        "state": "closed",
+        "merged": true,
+        "head_ref": "fix/immutable-release-tag-object",
+        "head_sha": "4ceaf5066bd9dc864c748b9faac440214860d8b6",
+        "base_ref": "main",
+        "base_sha": "32c52a412f3e07451d8c4e0aa0428bc5b33bd214",
+        "merge_commit_sha": "15b6c1dcce26feb5f64d562140708f7cb27390aa",
+        "merged_at": "2026-08-31T16:53:24Z"
+      },
+      "release_workflow": {
+        "path": ".github/workflows/release.yml",
+        "immutable_releases_enabled": true,
+        "tag_pattern": "v*.*.*",
+        "annotated_tag_required": true,
+        "release_exists_guard": true,
+        "post_publish_immutable_check": true,
+        "release_metadata_file": "release-metadata.txt"
+      },
+      "ruleset": {
+        "id": 21943064,
+        "name": "Immutable v release tags",
+        "target": "tag",
+        "enforcement": "active",
+        "conditions": {"ref_name":{"include":["refs/tags/v*"]}},
+        "rules": [{"type":"deletion"},{"type":"non_fast_forward"}]
+      },
+      "protocol_observation": {
+        "schema": "gooo/semantic-drift-guard/report/v1",
+        "fixed_denominator": 12,
+        "case_total": 10,
+        "case_totals": {"normal":1,"unknown":4,"refuted":5,"CLOSED":1,"UNKNOWN":4,"REFUTED":5},
+        "precedence": ["REFUTED","UNKNOWN","CLOSED"],
+        "canonical_graph_binding": {
+          "source_to_ir_to_generated": true,
+          "description": "source→IR→generated Go canonical graph binding"
+        },
+        "normal_metrics": {
+          "releases_compared": 2,
+          "source_files": 2,
+          "ir_nodes": 24,
+          "generated_files": 2,
+          "semantic_relations_before": 12,
+          "semantic_relations_after": 12,
+          "equivalent_changes": 1,
+          "semantic_drift_changes": 0,
+          "unknown_bindings": 0,
+          "replay_comparisons": 1,
+          "replay_mismatches": 0,
+          "peak_rss_kib": 12246,
+          "wall_ms": 1,
+          "build_ms": 4654,
+          "test_ms": 1993,
+          "tests": {"total":12,"executed":12,"reused":0,"skipped":0,"not_observed":0}
+        },
+        "inventory": {
+          "go_physical_lines": 1772,
+          "go_files": 13,
+          "gooo_physical_lines": 85,
+          "gooo_files": 6,
+          "descendant_dirs": 24,
+          "descendant_files": 45,
+          "root_readme_excluded": true
+        },
+        "authority": {"repository_writes":0,"local_test_executions":0,"cross_project_required_gates":0}
+      },
+      "process_observations": {
+        "append_only": true,
+        "score_included": false,
+        "legacy_v0_1_0": {
+          "release_id": 379905110,
+          "release_url": "https://github.com/kimjooyoon/gooo-semantic-drift-guard/releases/tag/v0.1.0",
+          "immutable": false,
+          "tag_object_sha": "1af22b91e82ba97203bd7270ae64b2e487a1a4e5",
+          "target_commit_sha": "32c52a412f3e07451d8c4e0aa0428bc5b33bd214",
+          "reason": "LEGACY_TAG_OBJECT_LITERAL_DEFECT",
+          "faulty_release_metadata": "release_tag=v0.1.0\ntarget_commit=32c52a412f3e07451d8c4e0aa0428bc5b33bd214\ntag_object=v0.1.0^{tag}",
+          "faulty_asset": {"id":538253208,"name":"evidence-v0.1.0.tar.gz","size_bytes":6642,"sha256":"sha256:c62afed0b028da17b67f2398fd38b54bd7279c36f18eac1c825f6ca9a09ad612"},
+          "faulty_checksum_asset": {"id":538253206,"name":"evidence-v0.1.0.tar.gz.sha256","size_bytes":113,"sha256":"sha256:94d970c65a129b9580c3655904454854b3ebc8616451ff57c088d479519b3895"},
+          "correction_asset": {"id":538262313,"name":"evidence-v0.1.0-annotated.tar.gz","size_bytes":10546,"sha256":"sha256:598c5d20eaa1b9c39471043087ebc9640bd8e4ba4c951eea803aeb9933f61d59"},
+          "correction_checksum_asset": {"id":538262314,"name":"evidence-v0.1.0-annotated.tar.gz.sha256","size_bytes":163,"sha256":"sha256:d4e5376d0a4182d9a7ab39fe938a3637b6c1a8c9d7f29b25c49875a68d254744"},
+        "correction_release_metadata": "release_tag=v0.1.0\ntarget_commit=32c52a412f3e07451d8c4e0aa0428bc5b33bd214\ntag_object=1af22b91e82ba97203bd7270ae64b2e487a1a4e5"
+        }
+      },
+      "assets": [
+        {"id":538271587,"name":"evidence-v0.1.1.tar.gz","size_bytes":6651,"sha256":"sha256:83ea0adf7b59b08147eb24ef16483682d8f21d204dc93ed337d39900ae9e09ec","download_url":"https://github.com/kimjooyoon/gooo-semantic-drift-guard/releases/download/v0.1.1/evidence-v0.1.1.tar.gz"},
+        {"id":538271586,"name":"evidence-v0.1.1.tar.gz.sha256","size_bytes":113,"sha256":"sha256:61e49e62af005dff6a27f43bf20be43d257095bee1b552ab89a433fbe5db111b","download_url":"https://github.com/kimjooyoon/gooo-semantic-drift-guard/releases/download/v0.1.1/evidence-v0.1.1.tar.gz.sha256"}
+      ]
+    },
     "experience_memory_release": {
       "repository": "kimjooyoon/gooo-experience-memory",
       "tag": "v0.1.0",
