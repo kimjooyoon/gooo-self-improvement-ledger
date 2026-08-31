@@ -67,6 +67,35 @@
         {"name":"gooo-reflexive-loop-evidence.zip","size_bytes":423918,"sha256":"sha256:89ff0bbf5d1fc946b0f07d6eaf9c77e09636b41e3ed9f1699c0036ce336106a1","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.1.0/gooo-reflexive-loop-evidence.zip"}
       ]
     },
+    "reflexive_loop_v0_2": {
+      "repository": "kimjooyoon/gooo-reflexive-loop",
+      "tag": "v0.2.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-reflexive-loop/releases/tag/v0.2.0",
+      "target_commit_sha": "30dc9ee2da107fa5e4a3bbcb38ba75913af58848",
+      "immutable": true,
+      "manifest": {"name":"gooo-reflexive-loop-v0.2.0-manifest.json","size_bytes":1724,"sha256":"sha256:dae78e81096736d29049ec6e2d233824c603a6833d4b0a42c4ac2bbfcaf70c0c","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.2.0/gooo-reflexive-loop-v0.2.0-manifest.json"},
+      "evidence": {"name":"gooo-reflexive-loop-v0.2.0-evidence.zip","size_bytes":535681,"sha256":"sha256:6d0a0f06a909d59880155fc546be60a14881e9098d8b5a8e6a64b3e22060b467","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.2.0/gooo-reflexive-loop-v0.2.0-evidence.zip"},
+      "assets": [
+        {"name":"gooo-reflexive-loop-v0.2.0-evidence.zip","size_bytes":535681,"sha256":"sha256:6d0a0f06a909d59880155fc546be60a14881e9098d8b5a8e6a64b3e22060b467","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.2.0/gooo-reflexive-loop-v0.2.0-evidence.zip"},
+        {"name":"gooo-reflexive-loop-v0.2.0-manifest.json","size_bytes":1724,"sha256":"sha256:dae78e81096736d29049ec6e2d233824c603a6833d4b0a42c4ac2bbfcaf70c0c","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.2.0/gooo-reflexive-loop-v0.2.0-manifest.json"},
+        {"name":"SHA256SUMS","size_bytes":213,"sha256":"sha256:fed0e4645cccc50fd8033166259d5dda23c4b30716a43f175f55c8f54697fc06","download_url":"https://github.com/kimjooyoon/gooo-reflexive-loop/releases/download/v0.2.0/SHA256SUMS"}
+      ]
+    },
+    "semantic_merge_advisor": {
+      "repository": "kimjooyoon/gooo-semantic-merge-advisor",
+      "tag": "v0.1.0",
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-merge-advisor/releases/tag/v0.1.0",
+      "target_commit_sha": "b0aeab76a533d25cd7f0fa90cbadd29d508b4607",
+      "immutable": true,
+      "manifest": {"name":"evidence-manifest.json","size_bytes":13449,"sha256":"sha256:0e238a7bdb6579422a87a0cac37cfb1b136d935a3f8f2b32fba3eb0660e09c5c","download_url":"https://github.com/kimjooyoon/gooo-semantic-merge-advisor/releases/download/v0.1.0/evidence-manifest.json"},
+      "evidence": {"name":"evidence-bundle-v0.1.0.zip","size_bytes":19539,"sha256":"sha256:08ea56d1bd9ee971057b0c96317e244f282f1337d15c933a520738c32faeb5d7","download_url":"https://github.com/kimjooyoon/gooo-semantic-merge-advisor/releases/download/v0.1.0/evidence-bundle-v0.1.0.zip"},
+      "assets": [
+        {"name":"checksums.sha256","size_bytes":1389,"sha256":"sha256:a6df26628dd6b9ff2db311bfe48857a99998155b7cdcdcf67ff6d5a6b07596f8","download_url":"https://github.com/kimjooyoon/gooo-semantic-merge-advisor/releases/download/v0.1.0/checksums.sha256"},
+        {"name":"evidence-bundle-v0.1.0.zip","size_bytes":19539,"sha256":"sha256:08ea56d1bd9ee971057b0c96317e244f282f1337d15c933a520738c32faeb5d7","download_url":"https://github.com/kimjooyoon/gooo-semantic-merge-advisor/releases/download/v0.1.0/evidence-bundle-v0.1.0.zip"},
+        {"name":"evidence-manifest.json","size_bytes":13449,"sha256":"sha256:0e238a7bdb6579422a87a0cac37cfb1b136d935a3f8f2b32fba3eb0660e09c5c","download_url":"https://github.com/kimjooyoon/gooo-semantic-merge-advisor/releases/download/v0.1.0/evidence-manifest.json"},
+        {"name":"release-assets.json","size_bytes":859,"sha256":"sha256:4467bac13bf1ca151485fce2320a8001a6382668fcf15abe3edabc6ee9aab405","download_url":"https://github.com/kimjooyoon/gooo-semantic-merge-advisor/releases/download/v0.1.0/release-assets.json"}
+      ]
+    },
     "design_contract_bridge": {
       "repository": "kimjooyoon/gooo-design-contract-bridge",
       "tag": "v0.2.0",

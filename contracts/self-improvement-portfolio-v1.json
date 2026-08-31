@@ -117,7 +117,7 @@
       "evaluator": "ledger/reflexive-loop",
       "metric_id": "gooo.metric.self-improvement.reflexive-loop.v1",
       "metric_denominator": 1,
-      "release_key": "reflexive_loop",
+      "release_key": "reflexive_loop_v0_2",
       "depends_on": []
     },
     {
@@ -149,7 +149,7 @@
       "evaluator": "ledger/semantic-merge-advice",
       "metric_id": "gooo.metric.self-improvement.semantic-merge-advice.v1",
       "metric_denominator": 1,
-      "release_key": null,
+      "release_key": "semantic_merge_advisor",
       "depends_on": ["CORE_SEMANTIC_AUTHORITY"]
     },
     {

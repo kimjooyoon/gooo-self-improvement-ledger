@@ -18,16 +18,17 @@ The profile keeps `FOUNDATION`, `COHERENCE`, and `REGRESSION` at `4/4/4`, and
 `DRIVER`, `OUTCOME`, and `GUARDRAIL` at `4/4/4`. Every physical metric has a
 denominator of `1`. Status precedence is `REFUTED > UNKNOWN > CLOSED`.
 
-The checked-in assessment intentionally leaves these six cells `UNKNOWN`:
-core semantic authority, reflexive-loop v0.2 integration, semantic-merge
-advice, OpenTofu plan path, release promotion, and external utility evidence.
+The checked-in assessment closes reflexive-loop v0.2 integration and semantic-
+merge advice from their immutable upstream evidence. It intentionally leaves
+these four cells `UNKNOWN`: core semantic authority, OpenTofu plan path,
+release promotion, and external utility evidence.
 Each retains exactly `stage`, `step`, `reason`, `unknown_class`,
 `next_operation`, and a minimal non-empty `blocked_by` frontier. A missing or
 contradictory locked release cannot close a cell.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the six immutable inputs requested by
-the portfolio. CI fetches every asset and verifies its exact size and SHA-256
+commit, and consumer asset identities for the eight immutable inputs requested
+by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. A later immutable release updates the
 evidence lock and assessment input; it does not change the 12-cell denominator.
 
