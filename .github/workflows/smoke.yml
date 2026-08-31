@@ -1,9 +1,0 @@
-name: Workflow smoke test
-
-on: [push, pull_request]
-
-jobs:
-  smoke:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo workflow-ok
