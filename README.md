@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 29 named cells, each bound one-to-one to
+language. The denominator is exactly 30 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -22,11 +22,12 @@ The fixed axes are:
 `SEMANTIC_DRIFT_GUARD_RELEASE`, and
 `SEMANTIC_AUTHORITY_CENSUS_RELEASE`, and
 `REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE`, and
-`UNKNOWN_RESOLUTION_LATTICE_RELEASE`.
+`UNKNOWN_RESOLUTION_LATTICE_RELEASE`, and
+`SELF_REPAIR_INTEGRATION_RELEASE`.
 
-The denominator migration is explicit and append-only: `28 -> 29` with
+The denominator migration is explicit and append-only: `29 -> 30` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/20/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/20/5`.
+`4/21/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/21/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -277,6 +278,28 @@ upstream adoption closes only this new cell; external utility remains
 `UNKNOWN`, core semantic authority and semantic-drift development process
 remain `REFUTED`, yielding `CLOSED26/UNKNOWN1/REFUTED2`.
 
+The v0.24 frontier appends `SELF_REPAIR_INTEGRATION_RELEASE`. It adopts
+immutable `kimjooyoon/gooo-self-repair-example@v0.2.1` release `379971030`,
+binding annotated tag object
+`b8318c1645bc76286eb5c404b771118b6ce1e07b` to target
+`28f3589d69796b4630b2e066c6a5c45ac8468096`. PR #3 merged the integration and
+PR #4 bound the release manifest; historical direct-main workflow commit
+`5dca56d238751739beba3fafe9a9018c0bb18ce4` remains an append-only
+`DEVELOPMENT_PROCESS_DIRECT_MAIN` `REFUTED` observation, while the current
+guard is `CLOSED`. Successful post-main and release Actions are locked to
+`33425759488`/job `99598796427` and `33425908089`/job `99599283424`; the
+post-main artifact is `9770678796`, `14701` bytes, digest
+`sha256:870a731cf484535e2b1218e1d7eee37a0ccdd9c7ad194ff19030ab31e42c7514`.
+The upstream self-repair protocol records 12 activities, claims `3/3/3`,
+proof and indicator buckets `4/4/4`, two cycles with attempts `2`, candidates
+`5`, recurrence `1 -> 0`, avoided `1`, unknown `2`, replay `2/0`, tests
+`3/3/0/0/0`, build/test/conformance `250/240/13757 ms`, peak RSS `90856 KiB`,
+8 Go files/1547 lines, 2 Gooo files/16 lines, 15 directories, 25 files, 12
+outputs/38440 bytes, and zero repository writes, local test executions, and
+cross-project required gates. Core semantic authority is `CLOSED`, external
+utility remains `UNKNOWN` because the exact pair axes cross, and the new cell
+is `CLOSED`; the portfolio becomes `CLOSED27/UNKNOWN1/REFUTED2`.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -305,7 +328,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the twenty-six immutable inputs
+commit, and consumer asset identities for the twenty-seven immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

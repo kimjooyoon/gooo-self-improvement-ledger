@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 29,
+  "total_cells": 30,
   "denominator_migration": {
-    "from": 28,
-    "to": 29,
+    "from": 29,
+    "to": 30,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 20,
+    "COHERENCE": 21,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 20,
+    "OUTCOME": 21,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -494,6 +494,22 @@
       "metric_id": "gooo.metric.self-improvement.unknown-resolution-lattice-release.v1",
       "metric_denominator": 1,
       "release_key": "unknown_resolution_lattice_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 30,
+      "id": "SELF_REPAIR_INTEGRATION_RELEASE",
+      "axis": "SELF_REPAIR_INTEGRATION_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptSelfRepairIntegrationRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptSelfRepairIntegrationRelease",
+      "ir": "semantic-ir/activity/AdoptSelfRepairIntegrationRelease",
+      "generated_artifact": "evidence/cells/SELF_REPAIR_INTEGRATION_RELEASE.json",
+      "evaluator": "ledger/self-repair-integration-release",
+      "metric_id": "gooo.metric.self-improvement.self-repair-integration-release.v1",
+      "metric_denominator": 1,
+      "release_key": "self_repair_integration_release",
       "depends_on": []
     }
   ]

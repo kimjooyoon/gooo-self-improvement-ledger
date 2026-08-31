@@ -1435,6 +1435,92 @@
         {"id":538371290,"name":"release-manifest.json","size_bytes":186,"sha256":"sha256:c178b312da828be4589352fbc195853ccaa08e48adacf7f5522c4a06df65f9fd","download_url":"https://github.com/kimjooyoon/gooo-resolution-lattice/releases/download/v0.2.0/release-manifest.json"},
         {"id":538371285,"name":"SHA256SUMS","size_bytes":103,"sha256":"sha256:8a9b8575cdd5abae5ebba2d1e33a6e93f6b6bfcd7d3ac6855529c74652454549","download_url":"https://github.com/kimjooyoon/gooo-resolution-lattice/releases/download/v0.2.0/SHA256SUMS"}
       ]
+    },
+    "self_repair_integration_release": {
+      "repository": "kimjooyoon/gooo-self-repair-example",
+      "tag": "v0.2.1",
+      "release_id": 379971030,
+      "release_url": "https://github.com/kimjooyoon/gooo-self-repair-example/releases/tag/v0.2.1",
+      "target_commit_sha": "28f3589d69796b4630b2e066c6a5c45ac8468096",
+      "tag_object_sha": "b8318c1645bc76286eb5c404b771118b6ce1e07b",
+      "immutable": true,
+      "post_main_validation": {
+        "run_id": 33425759488,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-self-repair-example/actions/runs/33425759488",
+        "event": "push",
+        "head_branch": "main",
+        "head_sha": "28f3589d69796b4630b2e066c6a5c45ac8468096",
+        "conclusion": "success",
+        "job_id": 99598796427,
+        "job_name": "verify",
+        "job_url": "https://github.com/kimjooyoon/gooo-self-repair-example/actions/runs/33425759488/job/99598796427",
+        "artifact_ids": [9770678796]
+      },
+      "post_main_artifact": {
+        "run_id": 33425759488,
+        "artifact_id": 9770678796,
+        "name": "self-repair-artifacts-28f3589d69796b4630b2e066c6a5c45ac8468096",
+        "size_bytes": 14701,
+        "sha256": "sha256:870a731cf484535e2b1218e1d7eee37a0ccdd9c7ad194ff19030ab31e42c7514"
+      },
+      "release_run": {
+        "run_id": 33425908089,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-self-repair-example/actions/runs/33425908089",
+        "event": "push",
+        "head_branch": "v0.2.1",
+        "head_sha": "28f3589d69796b4630b2e066c6a5c45ac8468096",
+        "conclusion": "success",
+        "job_id": 99599283424,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-self-repair-example/actions/runs/33425908089/job/99599283424",
+        "artifact_ids": []
+      },
+      "pull_requests": [
+        {"number": 3, "title": "Integrate released Gooo self-repair cycle", "url": "https://github.com/kimjooyoon/gooo-self-repair-example/pull/3", "merged": true, "merged_at": "2026-08-31T18:23:49Z", "merge_commit_sha": "c460fd7b568adef24cfa85433b0022b450a51288"},
+        {"number": 4, "title": "Bind release manifest to tagged commit", "url": "https://github.com/kimjooyoon/gooo-self-repair-example/pull/4", "merged": true, "merged_at": "2026-08-31T18:34:20Z", "merge_commit_sha": "28f3589d69796b4630b2e066c6a5c45ac8468096"}
+      ],
+      "historical_process": {
+        "state": "REFUTED",
+        "classification": "DEVELOPMENT_PROCESS_DIRECT_MAIN",
+        "direct_main_push_count": 1,
+        "offending_commit": "5dca56d238751739beba3fafe9a9018c0bb18ce4",
+        "parent_sha": "c460fd7b568adef24cfa85433b0022b450a51288",
+        "changed_paths": [".github/workflows/release.yml"],
+        "historical_violation_count": 1,
+        "current_guard_state": "CLOSED",
+        "current_pr_associated_path": 1,
+        "repository_direct_writes_after_guard": 0
+      },
+      "release_manifest": {
+        "schema": "gooo.self-repair.release-manifest.v1",
+        "tag": "v0.2.1",
+        "commit": "28f3589d69796b4630b2e066c6a5c45ac8468096",
+        "immutable": true
+      },
+      "protocol_observation": {
+        "schema": "gooo/self-repair/repair-manifest.v2",
+        "version": "v0.2.1",
+        "fixed_denominator": 12,
+        "activities": 12,
+        "claims": {"CLOSED": 3, "UNKNOWN": 3, "REFUTED": 3},
+        "proof_totals": {"FOUNDATION": 4, "COHERENCE": 4, "REGRESSION": 4},
+        "indicator_totals": {"DRIVER": 4, "OUTCOME": 4, "GUARDRAIL": 4},
+        "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
+        "cycles": {"attempts": 2, "candidates": 5, "known_refuted_recurrence": "1->0", "avoided_refuted_candidates": 1, "unknown_candidates": 2, "replay": {"comparisons": 2, "mismatches": 0}},
+        "tests": {"total": 3, "executed": 3, "reused": 0, "skipped": 0, "not_observed": 0},
+        "runtime": {"go": "1.27.x", "build_wall_ms": 250, "test_wall_ms": 240, "conformance_wall_ms": 13757, "peak_rss_kib": 90856},
+        "inventory": {"go_files": 8, "go_lines": 1547, "gooo_files": 2, "gooo_lines": 16, "directories": 15, "files": 25, "root_readme_excluded": true},
+        "output_artifacts": {"files": 12, "bytes": 38440},
+        "authority": {"repository_writes": 0, "local_test_executions": 0, "cross_project_required_gates": 0},
+        "external_utility": {"state": "UNKNOWN", "reason": "RESOURCE_AXES_CROSS", "direct_exact_pair": true},
+        "core_semantic_authority": "CLOSED",
+        "development_process_authority": "REFUTED"
+      },
+      "assets": [
+        {"id": 538378587, "name": "gooo-self-repair-example-0.2.1.tar.gz", "size_bytes": 30698, "sha256": "sha256:7d505a14cfd11c0d6a57cb14ec8de2f51c946285b18d1af8bce1d6ff476b4582", "download_url": "https://github.com/kimjooyoon/gooo-self-repair-example/releases/download/v0.2.1/gooo-self-repair-example-0.2.1.tar.gz"},
+        {"id": 538378586, "name": "release-manifest.json", "size_bytes": 134, "sha256": "sha256:3655571de02ba889fe83676d700e43befbf6130730079a26bed6aa6b65adcdd3", "download_url": "https://github.com/kimjooyoon/gooo-self-repair-example/releases/download/v0.2.1/release-manifest.json"},
+        {"id": 538378585, "name": "SHA256SUMS", "size_bytes": 104, "sha256": "sha256:fd70f404c9238fb6fd2ace7cf36b19ed0ce7d89d15fc794ce96ee4d5333f5d1f", "download_url": "https://github.com/kimjooyoon/gooo-self-repair-example/releases/download/v0.2.1/SHA256SUMS"}
+      ]
     }
   },
   "counterexample_runs": [

@@ -33,3 +33,4 @@ activity AdoptSemanticDriftGuardRelease(PortfolioInput) -> PortfolioEvidence com
 activity AdoptSemanticAuthorityCensusRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_AUTHORITY_CENSUS_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptReflexiveLearningDriftCycleRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptUnknownResolutionLatticeRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=UNKNOWN_RESOLUTION_LATTICE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptSelfRepairIntegrationRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SELF_REPAIR_INTEGRATION_RELEASE;proof=COHERENCE;indicator=OUTCOME"
