@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 31,
+  "total_cells": 32,
   "denominator_migration": {
-    "from": 30,
-    "to": 31,
+    "from": 31,
+    "to": 32,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 22,
+    "COHERENCE": 23,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 22,
+    "OUTCOME": 23,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -526,6 +526,22 @@
       "metric_id": "gooo.metric.self-improvement.opentofu-durable-semantic-envelope-release.v1",
       "metric_denominator": 1,
       "release_key": "opentofu_durable_semantic_envelope_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 32,
+      "id": "LANGUAGE_DELTA_FORGE_DURABLE_RELEASE",
+      "axis": "LANGUAGE_DELTA_FORGE_DURABLE_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptLanguageDeltaForgeDurableRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptLanguageDeltaForgeDurableRelease",
+      "ir": "semantic-ir/activity/AdoptLanguageDeltaForgeDurableRelease",
+      "generated_artifact": "evidence/cells/LANGUAGE_DELTA_FORGE_DURABLE_RELEASE.json",
+      "evaluator": "ledger/language-delta-forge-durable-release",
+      "metric_id": "gooo.metric.self-improvement.language-delta-forge-durable-release.v1",
+      "metric_denominator": 1,
+      "release_key": "language_delta_forge_durable_release",
       "depends_on": []
     }
   ]

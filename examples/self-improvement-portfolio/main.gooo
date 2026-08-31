@@ -35,3 +35,4 @@ activity AdoptReflexiveLearningDriftCycleRelease(PortfolioInput) -> PortfolioEvi
 activity AdoptUnknownResolutionLatticeRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=UNKNOWN_RESOLUTION_LATTICE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptSelfRepairIntegrationRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SELF_REPAIR_INTEGRATION_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptOpenTofuDurableSemanticEnvelopeRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptLanguageDeltaForgeDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=LANGUAGE_DELTA_FORGE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
