@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 22 named cells, each bound one-to-one to
+language. The denominator is exactly 23 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -17,11 +17,11 @@ The fixed axes are:
 `SEMANTIC_DRIFT_DEVELOPMENT_PROCESS`, `IMPROVEMENT_FRONTIER_RELEASE`, and
 `AUTHORITY_BOOTSTRAP_RELEASE`, `OPENTOFU_ENVELOPE_RELEASE`, and
 `IMPROVEMENT_PROPOSER_RELEASE`, `TEST_FRONTIER_RELEASE`, and
-`CHANGE_BUNDLE_RELEASE`.
+`CHANGE_BUNDLE_RELEASE`, and `UTILITY_TRIAL_PROTOCOL_RELEASE`.
 
-The denominator migration is explicit and append-only: `21 -> 22` with
+The denominator migration is explicit and append-only: `22 -> 23` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/13/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/13/5`.
+`4/14/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/14/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -44,7 +44,7 @@ append-only frontier records `CI_EFFORT_OBSERVATION` /
 `DERIVE_OPERATION_DURATION` and the next operation is to publish the CI time
 causality protocol with exact clock-domain semantics. The new protocol is
 tracked only as an unreleased, non-required optional dependency.
-The nine release-adoption cells close only from exact immutable release evidence:
+The ten release-adoption cells close only from exact immutable release evidence:
 `gooo-counterfactual-change@v0.1.2` release `379663025`,
 `gooo-verification-reuse@v0.1.2` release `379662322`, and
 `gooo-semantic-drift@v0.1.1` release `379664434`, plus
@@ -138,6 +138,25 @@ receipt-schema-migration v0.2.2 immutable release is locked as supporting
 evidence, while the not-yet-released v0.3 work is tracked as an optional
 dependency only and is not a gate.
 
+The v0.17 frontier appends `UTILITY_TRIAL_PROTOCOL_RELEASE`. It closes only
+when the immutable `kimjooyoon/gooo-utility-trial@v0.1.1` release binds release
+ID `379863199`, annotated tag object `5a42a68fb1f9a54eaa33097fb6eeca4db421bf05`
+to target `5500f00ec67b75fadf450110acefca713c5b5733`, merged upstream PR #3,
+successful pre-merge run `33409087319`/job `99543871814`, post-main run
+`33409165999`/job `99544131261`, release/audit run `33409188187`/job
+`99544202999`, audit artifact `9764422074` (`2764537` bytes,
+`sha256:a690b16b4ec7f6271eee23bffa52f1209ab238cfd21ff15f75f7f61a5e93adee`),
+and the two release assets. The upstream protocol remains 12 cells/activities
+with `4/4/4` proof and indicator buckets, `protocol_ready=CLOSED`,
+`utility=UNKNOWN`, zero external evidence and eligible pairs,
+`process=REFUTED`, `score=NOT_COMBINED`, and denominator migration `NONE`.
+The failed initial v0.1.0 release `379848683` (`immutable=false`), run
+`33407273856`, artifact `9763659711`, and assets `538154567/538154571` are
+preserved as an append-only `RELEASE_HISTORY_REWRITE_PROCESS=REFUTED`
+counterexample. Current historical release `379850805` and assets
+`538157619/538157605` are retained as replacement evidence only; neither
+rewritten v0.1.0 nor its assets are closure evidence.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
@@ -166,7 +185,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the nineteen immutable inputs
+commit, and consumer asset identities for the twenty immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope
@@ -174,7 +193,7 @@ attempts as append-only counterexample references; those runs are never
 closure-gated. The reflexive-loop v0.3 lock also
 binds its source Actions artifact and upstream release-manifest lock digest.
 A later immutable release updates the evidence lock and assessment input; it
-does not change the 20-cell denominator.
+does not change the 23-cell denominator.
 
 GitHub Actions is the verification authority. The workflow uses Go 1.27 and
 records integer directory/file counts, Go/Gooo physical files and lines (root

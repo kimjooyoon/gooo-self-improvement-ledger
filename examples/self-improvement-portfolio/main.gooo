@@ -26,3 +26,4 @@ activity AdoptOpenTofuEnvelopeRelease(PortfolioInput) -> PortfolioEvidence compu
 activity AdoptImprovementProposerRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=IMPROVEMENT_PROPOSER_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptTestFrontierRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=TEST_FRONTIER_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptChangeBundleRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CHANGE_BUNDLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptUtilityTrialProtocolRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=UTILITY_TRIAL_PROTOCOL_RELEASE;proof=COHERENCE;indicator=OUTCOME"

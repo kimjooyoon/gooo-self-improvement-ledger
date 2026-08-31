@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for twenty-two specifically named capabilities.
+The portfolio is an evidence ledger for twenty-three specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains twenty-two entries. The v0.16
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-one-cell
+`cells` array is immutable during a run and contains twenty-three entries. The v0.17
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior twenty-two-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/13/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/13/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/14/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/14/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -97,9 +97,27 @@ comparisons, and zero authority. Release v0.1.0 remains a platform-immutability
 `REFUTED` counterexample, while the three post-PR #1 direct-main commits are
 preserved as `DEVELOPMENT_PROCESS_DIRECT_MAIN` REFUTED process observations.
 
+The v0.17 frontier appends `UTILITY_TRIAL_PROTOCOL_RELEASE`. It closes only
+when the immutable `kimjooyoon/gooo-utility-trial@v0.1.1` release binds release
+ID `379863199`, annotated tag object `5a42a68fb1f9a54eaa33097fb6eeca4db421bf05`
+to target `5500f00ec67b75fadf450110acefca713c5b5733`, merged upstream PR #3,
+successful pre-merge run `33409087319`/job `99543871814`, post-main run
+`33409165999`/job `99544131261`, release/audit run `33409188187`/job
+`99544202999`, audit artifact `9764422074` (`2764537` bytes,
+`sha256:a690b16b4ec7f6271eee23bffa52f1209ab238cfd21ff15f75f7f61a5e93adee`),
+and both release assets. Its source protocol remains 12 cells/activities with
+`4/4/4` proof and indicator buckets, `protocol_ready=CLOSED`,
+`utility=UNKNOWN`, zero external evidence and eligible pairs,
+`process=REFUTED`, `score=NOT_COMBINED`, and denominator migration `NONE`.
+The failed initial v0.1.0 release `379848683` (`immutable=false`), failed run
+`33407273856`, audit artifact `9763659711`, and assets `538154567/538154571`
+are preserved as an append-only `RELEASE_HISTORY_REWRITE_PROCESS=REFUTED`
+counterexample. Current historical release `379850805` and assets
+`538157619/538157605` remain replacement evidence only and never closure evidence.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-twenty-two-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+twenty-three-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

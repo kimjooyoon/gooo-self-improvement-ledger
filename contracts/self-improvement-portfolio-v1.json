@@ -2,10 +2,10 @@
   "schema": "gooo/self-improvement-portfolio/contract/v1",
   "profile_id": "self-improvement-portfolio-v1",
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
-  "total_cells": 22,
+  "total_cells": 23,
   "denominator_migration": {
-    "from": 21,
-    "to": 22,
+    "from": 22,
+    "to": 23,
     "add": 1,
     "retire": 0,
     "split": 0,
@@ -13,12 +13,12 @@
   },
   "proof_totals": {
     "FOUNDATION": 4,
-    "COHERENCE": 13,
+    "COHERENCE": 14,
     "REGRESSION": 5
   },
   "indicator_totals": {
     "DRIVER": 4,
-    "OUTCOME": 13,
+    "OUTCOME": 14,
     "GUARDRAIL": 5
   },
   "precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
@@ -382,6 +382,22 @@
       "metric_id": "gooo.metric.self-improvement.change-bundle-release.v1",
       "metric_denominator": 1,
       "release_key": "change_bundle_release",
+      "depends_on": []
+    },
+    {
+      "ordinal": 23,
+      "id": "UTILITY_TRIAL_PROTOCOL_RELEASE",
+      "axis": "UTILITY_TRIAL_PROTOCOL_RELEASE",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "activity": "AdoptUtilityTrialProtocolRelease",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptUtilityTrialProtocolRelease",
+      "ir": "semantic-ir/activity/AdoptUtilityTrialProtocolRelease",
+      "generated_artifact": "evidence/cells/UTILITY_TRIAL_PROTOCOL_RELEASE.json",
+      "evaluator": "ledger/utility-trial-protocol-release",
+      "metric_id": "gooo.metric.self-improvement.utility-trial-protocol-release.v1",
+      "metric_denominator": 1,
+      "release_key": "utility_trial_protocol_release",
       "depends_on": []
     }
   ]

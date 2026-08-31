@@ -653,6 +653,108 @@
         {"id":538044877,"name":"release-manifest.json","size_bytes":848,"sha256":"sha256:1920afc524309326cba26109c93d764b4effb5dd4bf717340db654131ecbfc15","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.1/release-manifest.json"},
         {"id":538044875,"name":"SHA256SUMS","size_bytes":371,"sha256":"sha256:82b7d8c1f177bc36806f5678d27f1db50114b49d279fb14c673ffdc5fe59a196","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.1/SHA256SUMS"}
       ]
+    },
+    "utility_trial_protocol_release": {
+      "repository": "kimjooyoon/gooo-utility-trial",
+      "tag": "v0.1.1",
+      "release_id": 379863199,
+      "release_url": "https://github.com/kimjooyoon/gooo-utility-trial/releases/tag/v0.1.1",
+      "target_commit_sha": "5500f00ec67b75fadf450110acefca713c5b5733",
+      "tag_object_sha": "5a42a68fb1f9a54eaa33097fb6eeca4db421bf05",
+      "immutable": true,
+      "source_run": {
+        "run_id": 33409188187,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-utility-trial/actions/runs/33409188187",
+        "head_sha": "5500f00ec67b75fadf450110acefca713c5b5733",
+        "conclusion": "success",
+        "job_id": 99544202999,
+        "job_name": "immutable-v0.1.1-release",
+        "job_url": "https://github.com/kimjooyoon/gooo-utility-trial/actions/runs/33409188187/job/99544202999",
+        "artifact_ids": [9764422074]
+      },
+      "release_run": {
+        "run_id": 33409188187,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-utility-trial/actions/runs/33409188187",
+        "head_sha": "5500f00ec67b75fadf450110acefca713c5b5733",
+        "conclusion": "success",
+        "job_id": 99544202999,
+        "job_name": "immutable-v0.1.1-release",
+        "job_url": "https://github.com/kimjooyoon/gooo-utility-trial/actions/runs/33409188187/job/99544202999",
+        "artifact_ids": [9764422074]
+      },
+      "pre_merge_validation": {
+        "run_id": 33409087319,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-utility-trial/actions/runs/33409087319",
+        "head_sha": "d6893b9a7f33aa30e9680a3c93c0f17231dfee2c",
+        "conclusion": "success",
+        "job_id": 99543871814,
+        "job_name": "utility-trial-conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-utility-trial/actions/runs/33409087319/job/99543871814"
+      },
+      "post_main_validation": {
+        "run_id": 33409165999,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-utility-trial/actions/runs/33409165999",
+        "head_sha": "5500f00ec67b75fadf450110acefca713c5b5733",
+        "conclusion": "success",
+        "job_id": 99544131261,
+        "job_name": "utility-trial-conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-utility-trial/actions/runs/33409165999/job/99544131261"
+      },
+      "source_artifact": {
+        "run_id": 33409188187,
+        "artifact_id": 9764422074,
+        "name": "gooo-utility-trial-release-evidence-v0.1.1",
+        "size_bytes": 2764537,
+        "sha256": "sha256:a690b16b4ec7f6271eee23bffa52f1209ab238cfd21ff15f75f7f61a5e93adee"
+      },
+      "release_audit": {
+        "schema": "gooo/utility-trial/release-audit/v1",
+        "audit_run_id": 33409188187,
+        "workflow": "Gooo utility trial release",
+        "tag": {
+          "name": "v0.1.1",
+          "tag_object_sha": "5a42a68fb1f9a54eaa33097fb6eeca4db421bf05",
+          "target_commit_sha": "5500f00ec67b75fadf450110acefca713c5b5733"
+        },
+        "v0_1_0_preserved": {
+          "release_id": 379850805,
+          "tag_name": "v0.1.0",
+          "immutable": true,
+          "assets": [
+            {"id":538157619,"name":"gooo-utility-trial-0.1.0-evidence.zip","size_bytes":11376,"sha256":"sha256:734082b840e915b48c42e14e93252624f5e441538509ff29dafe259b851f9a9e"},
+            {"id":538157605,"name":"SHA256SUMS","size_bytes":104,"sha256":"sha256:152398724ab80d4ad5dbaaa040fc2d63261431322d9344d1305e6c840bbf5ffa"}
+          ]
+        }
+      },
+      "protocol_observation": {
+        "schema": "gooo/utility-trial/denominator/v1",
+        "fixed_denominator": 12,
+        "activities": 12,
+        "cells": 12,
+        "proof_totals": {"FOUNDATION":4,"COHERENCE":4,"REGRESSION":4},
+        "indicator_totals": {"DRIVER":4,"OUTCOME":4,"GUARDRAIL":4},
+        "case_totals": {"CLOSED":3,"UNKNOWN":3,"REFUTED":6},
+        "precedence": ["REFUTED","UNKNOWN","CLOSED"],
+        "protocol_ready": "CLOSED",
+        "utility": "UNKNOWN",
+        "utility_improvement": "UNKNOWN",
+        "external_evidence": 0,
+        "eligible_pairs": 0,
+        "process": "REFUTED",
+        "score": "NOT_COMBINED",
+        "denominator_migration": {"operation":"NONE","delta":0,"protocol_cells_before":12,"protocol_cells_after":12,"protocol_activities_before":12,"protocol_activities_after":12,"process_cells_added":0,"hidden_mutation":false},
+        "runtime": {"go":"1.27.0","build_wall_ms":6690,"test_wall_ms":8238,"conformance_wall_ms":9,"build_peak_rss_kib":268608,"test_peak_rss_kib":264144,"conformance_peak_rss_kib":7128},
+        "tests": {"executed":1,"reused":0,"skipped":0,"not_observed":0},
+        "inventory": {"regular_files":27,"descendant_directories":19,"go_lines":2121,"gooo_lines":28,"root_readme_excluded":true},
+        "authority": {"repository_writes":0,"local_test_executions":0,"cross_project_required_gates":0}
+      },
+      "pull_requests": [
+        {"number":3,"title":"fix: preserve release history rewrite as non-score evidence","url":"https://github.com/kimjooyoon/gooo-utility-trial/pull/3","merged":true,"merge_commit_sha":"5500f00ec67b75fadf450110acefca713c5b5733","merged_at":"2026-08-31T15:33:53Z"}
+      ],
+      "assets": [
+        {"id":538178108,"name":"gooo-utility-trial-0.1.1-evidence.zip","size_bytes":24089,"sha256":"sha256:5e2cf1eb96debfe0540a950ebf4975cbff8ab9ead4695b27493b5d6362ce5edf","download_url":"https://github.com/kimjooyoon/gooo-utility-trial/releases/download/v0.1.1/gooo-utility-trial-0.1.1-evidence.zip"},
+        {"id":538178107,"name":"SHA256SUMS","size_bytes":104,"sha256":"sha256:4983b05ca18df365c41255969729cdff9cfe3c11b08257a20203908ada7cb490","download_url":"https://github.com/kimjooyoon/gooo-utility-trial/releases/download/v0.1.1/SHA256SUMS"}
+      ]
     }
   },
   "counterexample_runs": [
@@ -968,6 +1070,54 @@
         {"id":538025185,"name":"release-manifest.json","size_bytes":848,"sha256":"sha256:5dabb48804a52e4d03cfe98cf8b230db62252da3a534e108efd992d15c2e1a68","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.0/release-manifest.json"},
         {"id":538025187,"name":"SHA256SUMS","size_bytes":371,"sha256":"sha256:447d3d48b3dd33e185b51f4b48b24696848a5a233505c1d608636275b4f2998a","download_url":"https://github.com/kimjooyoon/gooo-change-bundle/releases/download/v0.1.0/SHA256SUMS"}
       ]
+    },
+    {
+      "counterexample_id": "utility_trial_v0.1.0_release_history_rewrite",
+      "capability": "UTILITY_TRIAL_PROTOCOL_RELEASE",
+      "repository": "kimjooyoon/gooo-utility-trial",
+      "tag": "v0.1.0",
+      "release_id": 379848683,
+      "release_url": "https://github.com/kimjooyoon/gooo-utility-trial/releases/tag/v0.1.0",
+      "release_api_endpoint": "repos/kimjooyoon/gooo-utility-trial/releases/379848683",
+      "release_api_status": 404,
+      "release_absent": true,
+      "target_commit_sha": "6521e699f1e1180b7e942ae18d0948383c3d544e",
+      "tag_object_sha": "e30bca521d127d929043557198557710d35afcd2",
+      "immutable": false,
+      "reason": "RELEASE_HISTORY_REWRITE_PROCESS",
+      "successor_release_key": "utility_trial_protocol_release",
+      "append_only": true,
+      "historical_release": true,
+      "failed_release_audit": {
+        "run_id": 33407273856,
+        "run_url": "https://github.com/kimjooyoon/gooo-utility-trial/actions/runs/33407273856",
+        "event": "push",
+        "head_branch": "v0.1.0",
+        "head_sha": "6521e699f1e1180b7e942ae18d0948383c3d544e",
+        "conclusion": "failure",
+        "job_id": 99537841162,
+        "job_name": "immutable-v0.1.0-release",
+        "job_url": "https://github.com/kimjooyoon/gooo-utility-trial/actions/runs/33407273856/job/99537841162",
+        "artifact_id": 9763659711,
+        "artifact_name": "gooo-utility-trial-release-evidence-v0.1.0",
+        "artifact_size_bytes": 2708572,
+        "artifact_sha256": "sha256:46e54370a7215ea3eb0dd368f55eb035cc50e270d330b231656a9cf052fd6f99"
+      },
+      "assets": [
+        {"id":538154567,"name":"gooo-utility-trial-0.1.0-evidence.zip","size_bytes":11377,"sha256":"sha256:1350c51f5f7db9dc2c6ac64523229f75cf7ec9ebdffaf99aa2c6edf32a40aa72","download_url":"https://github.com/kimjooyoon/gooo-utility-trial/releases/download/v0.1.0/gooo-utility-trial-0.1.0-evidence.zip"},
+        {"id":538154571,"name":"SHA256SUMS","size_bytes":104,"sha256":"sha256:1848476904a222e9fab2fbe2186ba7315ca0fb1df247ea5ddfb5d9462f1997ba","download_url":"https://github.com/kimjooyoon/gooo-utility-trial/releases/download/v0.1.0/SHA256SUMS"}
+      ],
+      "current_historical_release": {
+        "release_id": 379850805,
+        "immutable": true,
+        "tag": "v0.1.0",
+        "tag_object_sha": "e30bca521d127d929043557198557710d35afcd2",
+        "target_commit_sha": "6521e699f1e1180b7e942ae18d0948383c3d544e",
+        "assets": [
+          {"id":538157619,"name":"gooo-utility-trial-0.1.0-evidence.zip","size_bytes":11376,"sha256":"sha256:734082b840e915b48c42e14e93252624f5e441538509ff29dafe259b851f9a9e"},
+          {"id":538157605,"name":"SHA256SUMS","size_bytes":104,"sha256":"sha256:152398724ab80d4ad5dbaaa040fc2d63261431322d9344d1305e6c840bbf5ffa"}
+        ]
+      }
     }
   ]
 }
