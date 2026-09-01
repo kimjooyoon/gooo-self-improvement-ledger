@@ -7476,7 +7476,7 @@
       },
       "release_run": {
         "run_id": 33544122558,
-        "run_url": "https://github.com/kimjooyoon/gooo-measurement-boundary-projector/actions/runs/33544122558",
+        "workflow_url": "https://github.com/kimjooyoon/gooo-measurement-boundary-projector/actions/runs/33544122558",
         "head_sha": "da72a5499046b27f5262ad22d2c88164ceae0bab",
         "conclusion": "success",
         "job_id": 99977324252,
@@ -7530,7 +7530,7 @@
       },
       "release_run": {
         "run_id": 33541947055,
-        "run_url": "https://github.com/kimjooyoon/gooo-content-addressed-proof-reuse/actions/runs/33541947055",
+        "workflow_url": "https://github.com/kimjooyoon/gooo-content-addressed-proof-reuse/actions/runs/33541947055",
         "head_sha": "1c84bd91613ac765a43396b6ab5b1da64e8b2097",
         "conclusion": "success",
         "job_id": 99970086956,
