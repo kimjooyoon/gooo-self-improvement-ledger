@@ -507,8 +507,14 @@ done
 fetch_peak=$(for file in "$output"/*.fetch-rss; do cat "$file"; done | sort -n | tail -1)
 fetch_timing=$(measurement "$fetch_start" "$fetch_end" "$fetch_peak")
 verify_timing=$(measurement "$verify_start" "$verify_end")
+printf '%s\n' "$releases" > "$output/.releases.json"
+printf '%s\n' "$counterexample_results" > "$output/.counterexamples.json"
+printf '%s\n' "$counterexample_run_results" > "$output/.counterexample-runs.json"
+printf '%s\n' "$failed_release_trigger_results" > "$output/.failed-release-triggers.json"
+printf '%s\n' "$fetch_timing" > "$output/.fetch-timing.json"
+printf '%s\n' "$verify_timing" > "$output/.verify-timing.json"
 jq -S -n \
   --arg schema "gooo/self-improvement-portfolio/release-verification/v1" \
-  --argjson releases "$releases" --argjson counterexamples "$counterexample_results" --argjson counterexample_runs "$counterexample_run_results" --argjson failed_release_triggers "$failed_release_trigger_results" --argjson fetch "$fetch_timing" --argjson verify "$verify_timing" \
-  '{schema:$schema,releases:$releases,counterexamples:$counterexamples,counterexample_runs:$counterexample_runs,failed_release_triggers:$failed_release_triggers,summary:{total:($releases|length),verified:([ $releases[] | select(.state=="CLOSED") ]|length),unknown:([ $releases[] | select(.state=="UNKNOWN") ]|length),refuted:([ $releases[] | select(.state=="REFUTED") ]|length)},timing:{fetch:$fetch,verify:$verify,report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}}}' \
+  --slurpfile releases "$output/.releases.json" --slurpfile counterexamples "$output/.counterexamples.json" --slurpfile counterexample_runs "$output/.counterexample-runs.json" --slurpfile failed_release_triggers "$output/.failed-release-triggers.json" --slurpfile fetch "$output/.fetch-timing.json" --slurpfile verify "$output/.verify-timing.json" \
+  '{schema:$schema,releases:$releases[0],counterexamples:$counterexamples[0],counterexample_runs:$counterexample_runs[0],failed_release_triggers:$failed_release_triggers[0],summary:{total:($releases[0]|length),verified:([ $releases[0][] | select(.state=="CLOSED") ]|length),unknown:([ $releases[0][] | select(.state=="UNKNOWN") ]|length),refuted:([ $releases[0][] | select(.state=="REFUTED") ]|length)},timing:{fetch:$fetch[0],verify:$verify[0],report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}}}' \
   > "$output/verification.json"
