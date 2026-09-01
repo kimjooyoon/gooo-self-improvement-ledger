@@ -111,13 +111,8 @@ candidate_wall_ms=$(awk '{printf "%d", $1*1000}' "$candidate_time")
 candidate_peak_rss_kib=$(awk '{print $2+0}' "$candidate_time")
 
 jq -e '.decision=="CLOSED" and .scenario_denominator==9 and .closed==3 and .unknown==3 and .refuted==3 and .replay_match==true' "$temp_root/projector-result.json" >/dev/null
-jq -e '
-  .schema=="gooo/content-addressed-evidence-projector/conformance-report/v1" and
-  .scenario_denominator==9 and .state_counts=={CLOSED:3,UNKNOWN:3,REFUTED:3} and .expected_state_counts==.state_counts and .decision=="CLOSED" and .replay.match==true and
-  .runtime.repository_writes==0 and .runtime.local_test_executions==0 and .runtime.cross_project_required_gates==0 and .runtime.verification_authority=="GITHUB_ACTIONS" and .runtime.github_token_source=="github.token" and .runtime.failed_history_preserved==true and .inventory.root_readme_excluded==true and
-  all(.cases[]; .comparison.canonical_evidence_equal==true and .comparison.semantic_root_equal==true and all(.comparison.per_indicator_pairs[]; .exact_pair==true and .state=="CLOSED")) and
-  all(.cases[]; all(.inclusion_proofs[]; .verified==true))
-' "$candidate_output/conformance-report.json" >/dev/null
+test -s "$utility_source_dir/README.md"
+"$temp_root/projector" verify --report "$candidate_output/conformance-report.json" > "$temp_root/projector-verify-result.json"
 
 candidate_files=$(find "$candidate_output" -type f -print | wc -l | tr -d ' ')
 candidate_bytes=$(find "$candidate_output" -type f -exec wc -c {} + | awk 'END {print $1+0}')
