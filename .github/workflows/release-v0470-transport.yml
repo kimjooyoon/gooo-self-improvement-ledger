@@ -64,7 +64,7 @@ jobs:
             *) echo "unsupported release tag: $RELEASE_TAG" >&2; exit 1 ;;
           esac
           test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT_SHA"
-          if test "$RESUME_EXISTING" != "true"; then
+          if test "$RESUME_EXISTING" != "true" && test "$RESUME_DRAFT" != "true"; then
             test "$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')" = "$SOURCE_COMMIT_SHA"
           fi
           run_json=$(gh api "repos/$REPOSITORY/actions/runs/$SOURCE_RUN_ID")
@@ -145,8 +145,14 @@ jobs:
         shell: bash
         run: |
           set -Eeuo pipefail
-          draft_releases=$(gh api "repos/$REPOSITORY/releases?per_page=100")
-          release_id=$(jq -er --arg tag "$RELEASE_TAG" '[.[] | select(.tag_name==$tag and .draft==true)] | if length==1 then .[0].id else error("expected one draft release") end' <<< "$draft_releases")
+          release_id=""
+          for attempt in $(seq 1 12); do
+            draft_releases=$(gh api "repos/$REPOSITORY/releases?per_page=100")
+            release_id=$(jq -r --arg tag "$RELEASE_TAG" '[.[] | select(.tag_name==$tag and .draft==true)] | if length==1 then .[0].id else empty end' <<< "$draft_releases")
+            if test -n "$release_id"; then break; fi
+            sleep 5
+          done
+          test -n "$release_id"
           upload_url=$(gh api "repos/$REPOSITORY/releases/$release_id" --jq '.upload_url' | sed 's/{.*//')
           gh api --method POST "$upload_url?name=$ASSET_NAME" -H 'Content-Type: application/zip' --input "$ASSET_PATH" >/dev/null
           gh api --method PATCH "repos/$REPOSITORY/releases/$release_id" -F draft=false >/dev/null
