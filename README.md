@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 50 named cells, each bound one-to-one to
+language. The denominator is exactly 51 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -43,11 +43,12 @@ The fixed axes are:
 `STAGED_QUASIQUOTE_DURABLE_RELEASE`, and
 `ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE`, and
 `INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE`, and
-`SELF_REWRITE_SANDBOX_DURABLE_RELEASE`.
+`SELF_REWRITE_SANDBOX_DURABLE_RELEASE`, and
+`RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `49 -> 50` with
+The denominator migration is explicit and append-only: `50 -> 51` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/41/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/41/5`.
+`4/42/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/42/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 

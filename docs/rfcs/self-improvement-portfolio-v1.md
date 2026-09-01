@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for fifty specifically named capabilities.
+The portfolio is an evidence ledger for fifty-one specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains fifty entries. The v0.44
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-nine-cell
+`cells` array is immutable during a run and contains fifty-one entries. The v0.45
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior fifty-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/41/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/41/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/42/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/42/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition

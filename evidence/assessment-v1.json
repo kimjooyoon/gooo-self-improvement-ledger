@@ -1122,6 +1122,37 @@
       ],
       "release_key": "self_rewrite_sandbox_durable_release",
       "state": "CLOSED"
+    },
+    {
+      "cell_id": "RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "release_transport_conformer_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-release-transport-conformer:tag=v0.1.3:release=380375220:tag_object=036d3f9dcfb81511b64a34ae360ecd58b0e58fdd:target=932c98e97ca61bd4f64764a9793c3dabfd05c359:immutable=true",
+        "upstream-assets:539322857:27484:sha256:309b0868bfca9ff51048c66db76c758e321f4df513455f666012fbab15ac66c6,539322868:7518:sha256:acebe4be411d0690991fed517daa4610b5dcca72ff185a372d0f9ff0e749ccc4,539322879:176:sha256:725f0a4ef23360a48ca717aa48a8ab605d1b5404917e035372152630aceadbb6",
+        "upstream-ci:workflow=gooo release transport conformance:run_id=33493203961:job=99809287369:commit=932c98e97ca61bd4f64764a9793c3dabfd05c359:success",
+        "upstream-ci-artifact:9794616120:2654153:sha256:a844d2ffc9c346aeccba1bfb53ca9b79b537b01f7f2b6b4d2c3b284e46102936",
+        "upstream-release-ci:workflow=gooo release transport:run_id=33493273460:job=99809518165:commit=932c98e97ca61bd4f64764a9793c3dabfd05c359:success",
+        "upstream-contract:contract_id=gooo-release-transport-conformer/v5:contract_digest=sha256:73620093455ea01b04e424f310b22d502ca24da16329d548c894edafa456834e:scenarios=20:closed=8:unknown=3:refuted=9:tests=20/20/20/0/0/0",
+        "upstream-activities:count=12:exactly_once=true",
+        "upstream-inventory:dirs=10:regular_files=20:go_files=7:go_lines=1659:gooo_files=1:gooo_lines=38:root_readme_excluded=true",
+        "upstream-operational-audit:state=REFUTED:authoring_local_test_invocations=2:authoring_local_test_executions=1:authoring_static_validation_invocations=2:authoring_static_validation_executions=2",
+        "authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0",
+        "parent-v0.44.0:release=380386277:tag_object=a14d2bc3276ffebc689bbe61d0fe707cda42af6:target=35a96e54dd8457c13e45b8339a09787f806c4455:asset=539347880:30322448:sha256:70e995f17de551624497db95caca1da10b56f46eaa058d15bc244b88701b3d24:immutable=true",
+        "parent-v0.44.0-transport:run_id=33494896036:job=99814686460:receipt_artifact=9795295120:994:sha256:1ee117ceffba4673402b53943481554795aa976dc33b3ba2051f8694e514dc99",
+        "preserved-v0.40.0-transport:release=380259706:state=REFUTED:reason=RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD:mutation_policy=NO_DELETE_NO_OVERWRITE",
+        "immutable-v0.44.0-baseline:semantic-source-bound",
+        "structural-append:cell=RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE:activity=AdoptReleaseTransportConformerDurableRelease:lock=release_transport_conformer_durable_release",
+        "derived-projection-regeneration:report-and-history-replaced-in-caller-copy",
+        "projection-replacements:count=2:report=replace:history=replace",
+        "ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0",
+        "rollback-receipt:rollback_ready=true",
+        "replay-mismatches:0",
+        "input-repository-writes:0",
+        "planner-tool-executions:version=v0.3.0:current_task=1:classification=generator_only:not_validation=true",
+        "local-validation-followup:local_validation_executions=0:inspection_only=true:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0",
+        "measurement-frontier:missing_peak_rss=peak_rss_kib:null:measurement_state=UNKNOWN:unknown_fields=stage,step,reason,unknown_class,next_operation,blocked_by:no_zero_coercion=true"
+      ]
     }
   ],
   "core_refutation_observation_events": [
@@ -1191,10 +1222,10 @@
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 49,
+    "from": 50,
     "retire": 0,
     "split": 0,
-    "to": 50
+    "to": 51
   },
   "local_validation_followup": {
     "inspection_only": false,
@@ -1204,7 +1235,7 @@
     "local_go_test": 0,
     "local_go_vet": 0,
     "local_schema_replays": 0,
-    "local_validation_executions": 2,
+    "local_validation_executions": 0,
     "process_state": "REFUTED"
   },
   "optional_dependencies": [
