@@ -68,3 +68,5 @@ activity AdoptBoundedSelfChangeCompilerDurableRelease(PortfolioInput) -> Portfol
 activity AdoptProofAwareTestReuseDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptDeterministicProofFetchSchedulerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptImprovementDominanceLatticeDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptMeasurementBoundaryProjectorDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=MEASUREMENT_BOUNDARY_PROJECTOR_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptContentAddressedProofReuseDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"

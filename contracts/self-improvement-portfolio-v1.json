@@ -974,21 +974,53 @@
       "proof": "COHERENCE",
       "release_key": "improvement_dominance_lattice_durable_release",
       "source": "examples/self-improvement-portfolio/main.gooo#AdoptImprovementDominanceLatticeDurableRelease"
+    },
+    {
+      "activity": "AdoptMeasurementBoundaryProjectorDurableRelease",
+      "axis": "MEASUREMENT_BOUNDARY_PROJECTOR_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "measurement-boundary-projector",
+      "generated_artifact": "evidence/cells/MEASUREMENT_BOUNDARY_PROJECTOR_DURABLE_RELEASE.json",
+      "id": "MEASUREMENT_BOUNDARY_PROJECTOR_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptMeasurementBoundaryProjectorDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.measurement-boundary-projector-durable-release.v1",
+      "ordinal": 61,
+      "proof": "COHERENCE",
+      "release_key": "measurement_boundary_projector_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptMeasurementBoundaryProjectorDurableRelease"
+    },
+    {
+      "activity": "AdoptContentAddressedProofReuseDurableRelease",
+      "axis": "CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "content-addressed-proof-reuse",
+      "generated_artifact": "evidence/cells/CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE.json",
+      "id": "CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptContentAddressedProofReuseDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.content-addressed-proof-reuse-durable-release.v1",
+      "ordinal": 62,
+      "proof": "COHERENCE",
+      "release_key": "content_addressed_proof_reuse_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptContentAddressedProofReuseDurableRelease"
     }
   ],
   "denominator_migration": {
-    "add": 7,
+    "add": 9,
     "append_only": true,
     "from": 53,
     "retire": 0,
     "split": 0,
-    "to": 60
+    "to": 62
   },
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
   "indicator_totals": {
     "DRIVER": 4,
     "GUARDRAIL": 5,
-    "OUTCOME": 51
+    "OUTCOME": 53
   },
   "policy": {
     "aggregate_percentage": false,
@@ -1006,10 +1038,10 @@
   ],
   "profile_id": "self-improvement-portfolio-v1",
   "proof_totals": {
-    "COHERENCE": 51,
+    "COHERENCE": 53,
     "FOUNDATION": 4,
     "REGRESSION": 5
   },
   "schema": "gooo/self-improvement-portfolio/contract/v1",
-  "total_cells": 60
+  "total_cells": 62
 }
