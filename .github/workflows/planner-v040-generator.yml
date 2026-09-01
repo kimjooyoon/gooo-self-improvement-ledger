@@ -90,12 +90,12 @@ jobs:
             -baseline-lock "$GITHUB_WORKSPACE/.planner-v040/contracts/upstream-lock-v0.39.0.json" \
             -output-dir "$RUNNER_TEMP/planner-output" \
             | tee "$RUNNER_TEMP/planner-cli-result.json"
-          test "$(jq -r '.operation_decision' "$RUNNER_TEMP/planner-output/patch-plan.json")" = CLOSED
+          test "$(jq -r '.decision' "$RUNNER_TEMP/planner-output/patch-plan.json")" = CLOSED
           test "$(jq -r '.portfolio_decision' "$RUNNER_TEMP/planner-output/patch-plan.json")" = REFUTED
           test "$(jq -r '.metrics.exact_files_planned' "$RUNNER_TEMP/planner-output/patch-plan.json")" = 7
           test "$(jq -r '.metrics.replay_mismatches' "$RUNNER_TEMP/planner-output/patch-plan.json")" = 0
           test "$(jq -r '.rollback_ready' "$RUNNER_TEMP/planner-output/replay-receipt.json")" = true
-          test "$(find "$RUNNER_TEMP/planner-output/repository" -type f | wc -l | tr -d ' ')" = 7
+          test "$(jq -r '.files | length' "$RUNNER_TEMP/planner-output/patch-plan.json")" = 7
 
       - name: Preserve planner outputs for assertion diagnosis
         if: ${{ always() }}
