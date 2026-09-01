@@ -1024,6 +1024,7 @@ jobs:
           conformer_dir="$ARTIFACT_ROOT/releases/release_transport_conformer_durable_release/assets"
           conformer_release_json="$ARTIFACT_ROOT/releases/release_transport_conformer_durable_release.release.json"
           jq -e '.id==380375220 and .tag_name=="v0.1.3" and .html_url=="https://github.com/kimjooyoon/gooo-release-transport-conformer/releases/tag/v0.1.3" and .target_commitish=="main" and .draft==false and .prerelease==false and .immutable==true and ([.assets[]|{id,name,size,digest,browser_download_url}]|sort_by(.id))==([{id:539322857,name:"source-v0.1.3.tar.gz",size:27484,digest:"sha256:309b0868bfca9ff51048c66db76c758e321f4df513455f666012fbab15ac66c6",browser_download_url:"https://github.com/kimjooyoon/gooo-release-transport-conformer/releases/download/v0.1.3/source-v0.1.3.tar.gz"},{id:539322868,name:"evidence-v0.1.3.tar.gz",size:7518,digest:"sha256:acebe4be411d0690991fed517daa4610b5dcca72ff185a372d0f9ff0e749ccc4",browser_download_url:"https://github.com/kimjooyoon/gooo-release-transport-conformer/releases/download/v0.1.3/evidence-v0.1.3.tar.gz"},{id:539322879,name:"SHA256SUMS",size:176,digest:"sha256:725f0a4ef23360a48ca717aa48a8ab605d1b5404917e035372152630aceadbb6",browser_download_url:"https://github.com/kimjooyoon/gooo-release-transport-conformer/releases/download/v0.1.3/SHA256SUMS"}]|sort_by(.id))' "$conformer_release_json" >/dev/null
+          echo "conformer release API lock verified"
           while IFS='|' read -r asset_name asset_size asset_sha; do
             test "$(wc -c < "$conformer_dir/$asset_name" | tr -d ' ')" = "$asset_size"
             test "$(sha256sum "$conformer_dir/$asset_name" | awk '{print $1}')" = "$asset_sha"
@@ -1032,32 +1033,46 @@ jobs:
           evidence-v0.1.3.tar.gz|7518|acebe4be411d0690991fed517daa4610b5dcca72ff185a372d0f9ff0e749ccc4
           SHA256SUMS|176|725f0a4ef23360a48ca717aa48a8ab605d1b5404917e035372152630aceadbb6
           EOF
+          echo "conformer asset bytes and digests verified"
           test "$(cat "$conformer_dir/SHA256SUMS")" = $'309b0868bfca9ff51048c66db76c758e321f4df513455f666012fbab15ac66c6  source-v0.1.3.tar.gz\nacebe4be411d0690991fed517daa4610b5dcca72ff185a372d0f9ff0e749ccc4  evidence-v0.1.3.tar.gz'
+          echo "conformer SHA256SUMS content verified"
           conformer_ref=$(gh api "repos/$conformer_repo/git/ref/tags/v0.1.3")
           jq -e '.object.sha=="036d3f9dcfb81511b64a34ae360ecd58b0e58fdd" and .object.type=="tag"' <<< "$conformer_ref" >/dev/null
+          echo "conformer annotated tag ref verified"
           conformer_tag=$(gh api "repos/$conformer_repo/git/tags/036d3f9dcfb81511b64a34ae360ecd58b0e58fdd")
           jq -e '.object.sha=="932c98e97ca61bd4f64764a9793c3dabfd05c359" and .object.type=="commit"' <<< "$conformer_tag" >/dev/null
+          echo "conformer annotated tag target verified"
           conformer_refs=$(git ls-remote "https://github.com/$conformer_repo.git" refs/tags/v0.1.3 'refs/tags/v0.1.3^{}')
           test "$(awk '$2=="refs/tags/v0.1.3" {print $1}' <<< "$conformer_refs")" = 036d3f9dcfb81511b64a34ae360ecd58b0e58fdd
           test "$(awk '$2=="refs/tags/v0.1.3^{}" {print $1}' <<< "$conformer_refs")" = 932c98e97ca61bd4f64764a9793c3dabfd05c359
+          echo "conformer public tag refs verified"
           source_run=$(gh api "repos/$conformer_repo/actions/runs/33493203961")
           jq -e '.id==33493203961 and .head_sha=="932c98e97ca61bd4f64764a9793c3dabfd05c359" and .status=="completed" and .conclusion=="success"' <<< "$source_run" >/dev/null
+          echo "conformer source run verified"
           source_job=$(gh api "repos/$conformer_repo/actions/jobs/99809287369")
           jq -e '.id==99809287369 and .run_id==33493203961 and .head_sha=="932c98e97ca61bd4f64764a9793c3dabfd05c359" and .status=="completed" and .conclusion=="success"' <<< "$source_job" >/dev/null
+          echo "conformer source job verified"
           source_artifact=$(gh api "repos/$conformer_repo/actions/artifacts/9794616120")
           jq -e '.id==9794616120 and .name=="gooo-release-transport-evidence-33493203961" and .size_in_bytes==2654153 and .digest=="sha256:a844d2ffc9c346aeccba1bfb53ca9b79b537b01f7f2b6b4d2c3b284e46102936" and .workflow_run.id==33493203961' <<< "$source_artifact" >/dev/null
+          echo "conformer source evidence artifact verified"
           release_run=$(gh api "repos/$conformer_repo/actions/runs/33493273460")
           jq -e '.id==33493273460 and .head_sha=="932c98e97ca61bd4f64764a9793c3dabfd05c359" and .status=="completed" and .conclusion=="success"' <<< "$release_run" >/dev/null
+          echo "conformer release run verified"
           release_job=$(gh api "repos/$conformer_repo/actions/jobs/99809518165")
           jq -e '.id==99809518165 and .run_id==33493273460 and .head_sha=="932c98e97ca61bd4f64764a9793c3dabfd05c359" and .status=="completed" and .conclusion=="success"' <<< "$release_job" >/dev/null
+          echo "conformer release job verified"
           evidence_dir="$RUNNER_TEMP/release-transport-conformer-evidence"
           rm -rf "$evidence_dir"
           mkdir -p "$evidence_dir"
           tar --no-xattrs -xzf "$conformer_dir/evidence-v0.1.3.tar.gz" -C "$evidence_dir"
           manifest="$evidence_dir/conformance/transport-manifest.json"
           receipt="$evidence_dir/conformance/conformance-receipt.json"
+          test -f "$manifest" -a -f "$receipt"
+          echo "conformer evidence archive extracted"
           jq -e '.schema=="gooo/release-transport-conformer/transport-manifest/v5" and .protocol=="gooo-release-transport-conformer/v5" and .contract_id=="gooo-release-transport-conformer/v5" and .contract_digest=="sha256:73620093455ea01b04e424f310b22d502ca24da16329d548c894edafa456834e" and (.activities|length)==12 and ((.activities|sort)==["BindOperatorPolicyReceipt","BindSourceRunArtifact","DeclareReleaseTransportProtocol","EmitTransportReceipt","GenerateDraftFirstWorkflow","PreserveTransportCounterexample","ReconcileExistingDraft","ResolveSymbolicReleaseTarget","UseCreatedDraftID","UseReleaseUploadURL","VerifyAnnotatedTagTarget","VerifyPublicAssetDigests"]) and .authority=={repository_writes:0,commits:0,pushes:0,merges:0,tags:0,releases:0,local_go_tests:0,caller_owned_output:true,source_repository_read_only:true}' "$manifest" >/dev/null
+          echo "conformer transport manifest verified"
           jq -e '.schema=="gooo/release-transport-conformer/conformance-receipt/v5" and .contract_id=="gooo-release-transport-conformer/v5" and .contract_digest=="sha256:73620093455ea01b04e424f310b22d502ca24da16329d548c894edafa456834e" and .decision=="CLOSED" and .conformance_closed==true and .denominator==20 and .summary=={CLOSED:8,REFUTED:9,UNKNOWN:3} and .tests=={total:20,selected:20,executed:20,reused:0,failed:0,unknown:0} and (.activities|length)==12 and ((.activities|map(.name)|sort)==["BindOperatorPolicyReceipt","BindSourceRunArtifact","DeclareReleaseTransportProtocol","EmitTransportReceipt","GenerateDraftFirstWorkflow","PreserveTransportCounterexample","ReconcileExistingDraft","ResolveSymbolicReleaseTarget","UseCreatedDraftID","UseReleaseUploadURL","VerifyAnnotatedTagTarget","VerifyPublicAssetDigests"]) and (.activity_binding_counts|length)==12 and all(.activity_binding_counts[]; .==1) and .authority.repository_writes==0 and .authority.commits==0 and .authority.pushes==0 and .authority.merges==0 and .authority.tags==0 and .authority.releases==0 and .authority.local_go_tests==0 and .authority.caller_owned_output==true and .authority.source_repository_read_only==true and .operational_audit.state=="REFUTED" and .operational_audit.authoring_local_test_invocations==2 and .operational_audit.authoring_local_test_executions==1 and .operational_audit.authoring_static_validation_invocations==2 and .operational_audit.authoring_static_validation_executions==2 and .inventory=={descendant_dirs:10,regular_files:20,go_files:7,go_physical_lines:1659,gooo_files:1,gooo_physical_lines:38,root_readme_excluded:true,excluded_directories:[".git","temp","cache","vendor","toolchain"]}' "$receipt" >/dev/null
+          echo "conformer conformance receipt verified"
           echo "upstream release transport conformer v0.1.3 release, source CI, evidence artifact, annotated tag, and conformance receipt verified"
 
       - name: Verify separate thirty-entry non-completeness capability evidence registry
