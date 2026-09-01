@@ -508,7 +508,10 @@ the exact `REFUTED` counterexample, while whole-language improvement and
 external utility remain `UNKNOWN`/`NOT_MADE`. The ledger adoption cell is
 `CLOSED`, yielding `CLOSED35/UNKNOWN1/REFUTED2`; the prior
 `local_validation_executions=1`, process state `REFUTED`, and zero additional
-local schema/conformance replays remain unchanged.
+local schema/conformance replays remain unchanged. A separate current-ledger
+validation follow-up is recorded as cumulative `local_validation_executions=2`
+with `inspection_only=false`; it preserves `REFUTED` and keeps local
+schema/conformance and Go execution counts at zero.
 
 The separate `non-completeness-capability-evidence-registry-v1` records
 seventeen independent evidence inputs without treating its entry count as the portfolio

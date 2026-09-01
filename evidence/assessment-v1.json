@@ -10,6 +10,17 @@
     "split": 0,
     "append_only": true
   },
+  "local_validation_followup": {
+    "local_validation_executions": 2,
+    "inspection_only": false,
+    "process_state": "REFUTED",
+    "local_schema_replays": 0,
+    "local_conformance_replays": 0,
+    "local_go_test": 0,
+    "local_go_build": 0,
+    "local_go_vet": 0,
+    "local_go_conformance": 0
+  },
   "state_transition_events": [
     {
       "event_id": "CORE_SEMANTIC_AUTHORITY-UNKNOWN-TO-REFUTED-v0.7",

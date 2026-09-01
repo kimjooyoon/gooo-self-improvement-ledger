@@ -722,6 +722,7 @@ jq -e '
   .releases.executable_evolution_trial_closed_loop_durable_release.protocol_observation.closure_receipt == {schema:"gooo/reflexive-improvement-closure/v1",state:"CLOSED",stage:"IMPROVEMENT",step:"RESOLVE_TRIAL_COUNTEREXAMPLE",reason:"GRAPH_SEMANTICS_ACCEPT_SPLIT_CANDIDATE",trial_refutation_state:"REFUTED",trial_refutation_error:"phase graph must declare exactly three executable activities",next_operation:"RETAIN_BASELINE_AND_CANDIDATE_EVIDENCE",blocked_by:[]} and
   .releases.executable_evolution_trial_closed_loop_durable_release.protocol_observation.process == {bootstrap_direct_main:1,post_bootstrap_direct_main:0,exact:true,repository_writes_by_experiment:0,upstream_writes_by_experiment:0,local_test_executions:0,main_head:"aa72f7019d1224344802478490d94046d27af58f",bootstrap_root:"cd64acc2077474e459dcbcd457aff0d320524c14",pull_requests:[1,2,3,4,5]} and
   .releases.executable_evolution_trial_closed_loop_durable_release.protocol_observation.ledger_consumer_observation == {append_only:true,local_validation_executions:1,artifact_schema_assertion_replays:1,local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0,process_state:"REFUTED"} and
+  .releases.executable_evolution_trial_closed_loop_durable_release.local_validation_followup == {local_validation_executions:2,inspection_only:false,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.releases.executable_evolution_trial_closed_loop_durable_release.assets|map(.id)) == [538638669,538638668,538638665,538638674,538638666,538638667] and
   (.releases.executable_evolution_trial_closed_loop_durable_release.assets|map(.size_bytes)) == [2345,30429,764,469,4134,319] and
   (.releases.executable_evolution_trial_closed_loop_durable_release.assets|map(.sha256)) == ["sha256:7cf59e690e9458eefffcb9cfd536119f6669146bf00aa96a365ee3bc1af688ac","sha256:984ef2a192221adc8ebeaeb8489e6a1bf450238d16036c045c4382fe19429218","sha256:48f4dd0c1391f9ec91654e8d2b25a67942e8e6febd3461c61d0651a35896153f","sha256:bc867402084059cda6fd1f9590f94b45f807725001c2d9e927e13808be8e9aca","sha256:28f5457240fb35d3c24c65373f824cb5df918f003245b60cb5389ca3618e4120","sha256:c11572b368dcc984ea4c2666ec4aa46dc43c3434cd913cac044daf6142bb9f74"] and
@@ -766,6 +767,7 @@ echo "conformance: release lock contract passed"
 echo "conformance: verify emitted report"
 jq -e '
   .denominator_migration == {from:37,to:38,add:1,retire:0,split:0,append_only:true} and
+  .local_validation_followup == {local_validation_executions:2,inspection_only:false,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and

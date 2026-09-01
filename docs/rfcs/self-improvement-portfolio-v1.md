@@ -418,6 +418,9 @@ The closure receipt is `GRAPH_SEMANTICS_ACCEPT_SPLIT_CANDIDATE`; the v0.1.0
 release remains the exact `REFUTED` counterexample, while whole-language
 improvement and external utility remain `UNKNOWN`/`NOT_MADE`. The ledger now
 has `CLOSED35/UNKNOWN1/REFUTED2`; prior local observations remain unchanged.
+A separate current-ledger validation follow-up records cumulative
+`local_validation_executions=2` with `inspection_only=false`, while preserving
+`REFUTED` and zero local schema/conformance and Go executions.
 
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
