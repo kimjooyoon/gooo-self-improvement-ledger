@@ -153,7 +153,7 @@ jq -e '
 echo "conformance: verify v0.46 replay measurement"
 test -f "$artifact/incremental-release-proof/measurement.json"
 jq -e '
-  .schema == "gooo/self-improvement-portfolio/incremental-release-proof-measurement/v1" and
+  .schema == "gooo-self-improvement-portfolio/incremental-release-proof-measurement/v1" and
   .toolchain == "go1.27.0/linux/amd64" and .runner_digest == "sha256:947e4cfcb533070a0ccbc3ba49864f71051c5db733cf486b22f32feecc353291" and
   .full_verification.pair_metrics == {remote_lookup_count:48,verified_lock_count:48,reused_lock_count:0} and
   .full_verification.summary == {total:49,verified:49,unknown:0,refuted:0} and
