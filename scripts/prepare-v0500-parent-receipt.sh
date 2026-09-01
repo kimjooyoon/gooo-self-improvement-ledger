@@ -61,6 +61,12 @@ public_refs=""
 release_asset='{}'
 release_fetch_state=UNKNOWN
 artifact_fetch_state=UNKNOWN
+artifact_download_state=UNKNOWN
+release_asset_download_state=UNKNOWN
+parent_manifest_digest=""
+parent_lock_set_digest=""
+release_manifest_digest=""
+release_lock_set_digest=""
 reason="PARENT_RECEIPT_NOT_OBSERVED"
 unknown_class=PARENT_RECEIPT_UNAVAILABLE
 primary_state=UNKNOWN
@@ -152,8 +158,10 @@ fi
 
 if [ "$primary_state" != REFUTED ]; then
   if download_api "repos/$repo/actions/artifacts/$parent_artifact_id/zip" > "$parent_artifact_zip" 2>/dev/null; then
+    artifact_download_state=CLOSED
     record_download_bytes "$parent_artifact_zip"
     if [ "$(wc -c < "$parent_artifact_zip" | tr -d ' ')" != "$parent_size" ] || [ "sha256:$(sha256sum "$parent_artifact_zip" | awk '{print $1}')" != "$parent_digest" ]; then
+      artifact_download_state=REFUTED
       primary_state=REFUTED
       reason="PARENT_SOURCE_ARTIFACT_BYTES_OR_DIGEST_CONTRADICT_IMMUTABLE_METADATA"
       unknown_class=PARENT_RECEIPT_CONTRADICTION
@@ -171,17 +179,15 @@ if [ "$primary_state" != REFUTED ]; then
         parent_lock_set_digest="sha256:$(jq -cS '.releases' "$artifact_manifest" | sha256sum | awk '{print $1}')"
       fi
     fi
-  else
-    primary_state=UNKNOWN
-    reason="PARENT_SOURCE_ARTIFACT_DOWNLOAD_NOT_OBSERVED"
-    unknown_class=PARENT_ARTIFACT_UNAVAILABLE
   fi
 fi
 
-if [ "$primary_state" != REFUTED ] && [ "$primary_state" != UNKNOWN ]; then
+if [ "$primary_state" != REFUTED ]; then
   if download_api "repos/$repo/releases/assets/$parent_asset_id" > "$parent_release_zip" 2>/dev/null; then
+    release_asset_download_state=CLOSED
     record_download_bytes "$parent_release_zip"
     if [ "$(wc -c < "$parent_release_zip" | tr -d ' ')" != "$parent_size" ] || [ "sha256:$(sha256sum "$parent_release_zip" | awk '{print $1}')" != "$parent_digest" ]; then
+      release_asset_download_state=REFUTED
       primary_state=REFUTED
       reason="PARENT_RELEASE_ASSET_BYTES_OR_DIGEST_CONTRADICT_IMMUTABLE_METADATA"
       unknown_class=PARENT_RECEIPT_CONTRADICTION
@@ -190,17 +196,35 @@ if [ "$primary_state" != REFUTED ] && [ "$primary_state" != UNKNOWN ]; then
       mkdir -p "$parent_release_root"
       unzip -q "$parent_release_zip" -d "$parent_release_root"
       release_manifest="$parent_release_root/contracts/release-locks-v1.json"
-      release_manifest_digest="sha256:$(sha256sum "$release_manifest" | awk '{print $1}')"
-      release_lock_set_digest="sha256:$(jq -cS '.releases' "$release_manifest" | sha256sum | awk '{print $1}')"
-      if [ "$parent_manifest_digest" != "$expected_manifest_digest" ] || [ "$parent_lock_set_digest" != "$expected_lock_set_digest" ] || [ "$release_manifest_digest" != "$expected_manifest_digest" ] || [ "$release_lock_set_digest" != "$expected_lock_set_digest" ] || [ "$current_lock_count" -ne 59 ] || [ "$current_manifest_digest" != "$expected_manifest_digest" ] || [ "$current_lock_set_digest" != "$expected_lock_set_digest" ]; then
+      if [ ! -s "$release_manifest" ]; then
+        release_asset_download_state=UNKNOWN
+        primary_state=UNKNOWN
+        reason="PARENT_RELEASE_ASSET_LOCK_MANIFEST_NOT_OBSERVED"
+        unknown_class=PARENT_MANIFEST_UNAVAILABLE
+      else
+        release_manifest_digest="sha256:$(sha256sum "$release_manifest" | awk '{print $1}')"
+        release_lock_set_digest="sha256:$(jq -cS '.releases' "$release_manifest" | sha256sum | awk '{print $1}')"
+        parent_manifest_digest=${parent_manifest_digest:-$release_manifest_digest}
+        parent_lock_set_digest=${parent_lock_set_digest:-$release_lock_set_digest}
+      fi
+      if [ "$primary_state" = UNKNOWN ] && [ "$release_asset_download_state" = CLOSED ] && [ -s "$release_manifest" ] && [ "$release_manifest_digest" = "$expected_manifest_digest" ] && [ "$release_lock_set_digest" = "$expected_lock_set_digest" ] && [ "$current_lock_count" -eq 59 ] && [ "$current_manifest_digest" = "$expected_manifest_digest" ] && [ "$current_lock_set_digest" = "$expected_lock_set_digest" ]; then
+        if [ "$release_identity_state" = CLOSED ] && [ "$tag_identity_state" = CLOSED ] && [ "$target_identity_state" = CLOSED ] && [ "$artifact_identity_state" = CLOSED ] && [ "$run_identity_state" = CLOSED ] && [ "$job_identity_state" = CLOSED ] && [ "$contents_state" = CLOSED ] && [ "$public_tag_state" = CLOSED ]; then
+          primary_state=CLOSED
+          reason="IMMUTABLE_SOURCE_ARTIFACT_METADATA_AND_RELEASE_ASSET_LOCK_SET_MATCHED"
+        fi
+      elif [ "$parent_manifest_digest" != "$expected_manifest_digest" ] || [ "$parent_lock_set_digest" != "$expected_lock_set_digest" ] || [ "$release_manifest_digest" != "$expected_manifest_digest" ] || [ "$release_lock_set_digest" != "$expected_lock_set_digest" ] || [ "$current_lock_count" -ne 59 ] || [ "$current_manifest_digest" != "$expected_manifest_digest" ] || [ "$current_lock_set_digest" != "$expected_lock_set_digest" ]; then
         primary_state=REFUTED
         reason="CURRENT_OR_PARENT_LOCK_MANIFEST_DIGEST_CONTRADICTS_EXACT_59_LOCK_RECEIPT"
         unknown_class=PARENT_RECEIPT_CONTRADICTION
-      else
+      elif [ "$primary_state" = CLOSED ]; then
         primary_state=CLOSED
         reason="IMMUTABLE_V049_RELEASE_AND_EXACT_59_LOCK_SET_RECEIPT_MATCHED"
+      fi
+      if [ "$primary_state" = CLOSED ]; then
+        copy_root="$parent_source_root"
+        if [ ! -d "$copy_root/releases" ]; then copy_root="$parent_release_root"; fi
         mkdir -p "$artifact_root/releases"
-        cp -a "$parent_source_root/releases/." "$artifact_root/releases/"
+        cp -a "$copy_root/releases/." "$artifact_root/releases/"
         cp "$artifact_root/releases/verification.json" "$artifact_root/releases/v049-full-audit-verification.json"
         jq -S '
           .release_lock_snapshot.parallel_live_metrics.requests=0 |
@@ -275,7 +299,8 @@ jq -S -n \
   --slurpfile asset "$temp_root/release-asset.json" --arg public_refs "$public_refs" \
   --argjson parent_release_id "$parent_release_id" --arg parent_tag "$parent_tag" --arg parent_tag_object "$parent_tag_object" --arg parent_target "$parent_target" \
   --argjson parent_asset_id "$parent_asset_id" --arg parent_asset_name "$parent_asset_name" --argjson parent_artifact_id "$parent_artifact_id" --argjson parent_run_id "$parent_run_id" --argjson parent_job_id "$parent_job_id" --argjson parent_size "$parent_size" --arg parent_digest "$parent_digest" \
-  '{schema:$schema,parent:{repository:"kimjooyoon/gooo-self-improvement-ledger",tag:$parent_tag,release_id:$parent_release_id,tag_object_sha:$parent_tag_object,target_commit_sha:$parent_target,release_asset:{id:$parent_asset_id,name:$parent_asset_name,size_bytes:$parent_size,sha256:$parent_digest},source_artifact:{id:$parent_artifact_id,run_id:$parent_run_id,job_id:$parent_job_id,size_bytes:$parent_size,sha256:$parent_digest},release_lock_manifest_digest:$parent_manifest,lock_set_digest:$parent_lock_set},primary:{state:$state,mode:$mode,reason:$reason,unknown:(if $state=="UNKNOWN" then {stage:"PARENT_RECEIPT",step:"READ_IMMUTABLE_PARENT_RECEIPT",reason:$reason,unknown_class:$unknown_class,next_operation:"RUN_FULL_59_LOCK_AUDIT",blocked_by:["parent-release-receipt"]} else null end),refuted:(if $state=="REFUTED" then {stage:"PARENT_RECEIPT",step:"COMPARE_IMMUTABLE_PARENT_RECEIPT",reason:$reason,unknown_class:$unknown_class,next_operation:"RUN_FULL_59_LOCK_AUDIT",blocked_by:["parent-release-receipt-contradiction"]} else null end),api_observation:{requests:0,selected:$selected,executed:$executed,reused:$reused,bytes_read:0,bytes_downloaded:0,rate_limit:{remaining:$remaining,reset:$reset,observed:($remaining!=null and $reset!=null)},source:(if $state=="CLOSED" then "PARENT_RELEASE_RECEIPT_REUSE" else "PENDING_FULL_59_LOCK_AUDIT" end)}},lock_set:{count:$current_count,current_digest:$current_lock_set,parent_digest:$parent_lock_set,unchanged:($state=="CLOSED")},release_lock_manifest:{current_digest:$current_manifest,parent_digest:$parent_manifest,release_asset_digest:$release_manifest,source_artifact_digest:$parent_manifest,unchanged:($state=="CLOSED")},parent_fetch_observation:{api_requests:$api_requests,selected:0,executed:0,reused:0,bytes_read:0,bytes_downloaded:$downloaded_bytes,rate_limit:{remaining:$remaining,reset:$reset,observed:($remaining!=null and $reset!=null)},release_api_identity:{state:(if $release[0].id==null then "UNKNOWN" elif $release[0].id==$parent_release_id and $release[0].immutable==true then "CLOSED" else "REFUTED" end)},tag_ref:$ref[0],tag_object:$tag_record[0],source_artifact:$artifact[0],source_run:$run[0],source_job:$job[0],manifest_contents:$contents[0],release_asset:$asset[0],public_tag_refs:$public_refs},full_fallback:{required:$fallback_required,state:$fallback_state,reason:$fallback_reason},authority:{verification:"GITHUB_ACTIONS",github_token:"github.token",repository_writes:0,local_test_executions:0,cross_project_required_gates:0,caller_owned_temp_outputs_only:true}}' \
+  --arg artifact_download_state "$artifact_download_state" --arg release_asset_download_state "$release_asset_download_state" \
+  '{schema:$schema,parent:{repository:"kimjooyoon/gooo-self-improvement-ledger",tag:$parent_tag,release_id:$parent_release_id,tag_object_sha:$parent_tag_object,target_commit_sha:$parent_target,release_asset:{id:$parent_asset_id,name:$parent_asset_name,size_bytes:$parent_size,sha256:$parent_digest},source_artifact:{id:$parent_artifact_id,run_id:$parent_run_id,job_id:$parent_job_id,size_bytes:$parent_size,sha256:$parent_digest},release_lock_manifest_digest:$parent_manifest,lock_set_digest:$parent_lock_set},primary:{state:$state,mode:$mode,reason:$reason,unknown:(if $state=="UNKNOWN" then {stage:"PARENT_RECEIPT",step:"READ_IMMUTABLE_PARENT_RECEIPT",reason:$reason,unknown_class:$unknown_class,next_operation:"RUN_FULL_59_LOCK_AUDIT",blocked_by:["parent-release-receipt"]} else null end),refuted:(if $state=="REFUTED" then {stage:"PARENT_RECEIPT",step:"COMPARE_IMMUTABLE_PARENT_RECEIPT",reason:$reason,unknown_class:$unknown_class,next_operation:"RUN_FULL_59_LOCK_AUDIT",blocked_by:["parent-release-receipt-contradiction"]} else null end),api_observation:{requests:0,selected:$selected,executed:$executed,reused:$reused,bytes_read:0,bytes_downloaded:0,rate_limit:{remaining:$remaining,reset:$reset,observed:($remaining!=null and $reset!=null)},source:(if $state=="CLOSED" then "PARENT_RELEASE_RECEIPT_REUSE" else "PENDING_FULL_59_LOCK_AUDIT" end)}},lock_set:{count:$current_count,current_digest:$current_lock_set,parent_digest:$parent_lock_set,unchanged:($state=="CLOSED")},release_lock_manifest:{current_digest:$current_manifest,parent_digest:$parent_manifest,release_asset_digest:$release_manifest,source_artifact_digest:$parent_manifest,unchanged:($state=="CLOSED")},parent_fetch_observation:{api_requests:$api_requests,selected:0,executed:0,reused:0,bytes_read:0,bytes_downloaded:$downloaded_bytes,rate_limit:{remaining:$remaining,reset:$reset,observed:($remaining!=null and $reset!=null)},source_artifact_download:{state:$artifact_download_state,metadata_digest:$parent_digest},release_asset_download:{state:$release_asset_download_state,metadata_digest:$parent_digest},release_api_identity:{state:(if $release[0].id==null then "UNKNOWN" elif $release[0].id==$parent_release_id and $release[0].immutable==true then "CLOSED" else "REFUTED" end)},tag_ref:$ref[0],tag_object:$tag_record[0],source_artifact:$artifact[0],source_run:$run[0],source_job:$job[0],manifest_contents:$contents[0],release_asset:$asset[0],public_tag_refs:$public_refs},full_fallback:{required:$fallback_required,state:$fallback_state,reason:$fallback_reason},authority:{verification:"GITHUB_ACTIONS",github_token:"github.token",repository_writes:0,local_test_executions:0,cross_project_required_gates:0,caller_owned_temp_outputs_only:true}}' \
   > "$receipt"
 
 echo "v0.50 parent receipt: primary=$primary_state lock_set=$current_lock_set_digest api_requests=$api_requests selected=$primary_selected executed=$primary_executed reused=$primary_reused"
