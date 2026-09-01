@@ -474,9 +474,34 @@
         "unintended_capture": "REFUTED"
       },
       "state": "CLOSED"
+    },
+    {
+      "entry_id": "capability-effect-checker-v0.1.1",
+      "evidence": [
+        "immutable release API and annotated tag",
+        "release source, metrics, report, manifest, and SHA256SUMS assets",
+        "effect sets preserve safe generator, repository-write escalation, indirect grants, and external oracle cases",
+        "minimum offending call paths are preserved for repository writes and indirect grants",
+        "two UNKNOWN cases preserve six fields; repository writes, local tests, and cross-project gates are zero"
+      ],
+      "observed": {
+        "cross_project_required_gates": 0,
+        "external_oracle": "UNKNOWN",
+        "generated_checker_go_build": "CLOSED",
+        "indirect_missing_grant": "UNKNOWN",
+        "indirect_repository_write": "REFUTED",
+        "local_test_executions": 0,
+        "release_assets": 5,
+        "release_immutable": true,
+        "repository_write_escalation": "REFUTED",
+        "repository_writes": 0,
+        "safe_generator": "CLOSED",
+        "target_commit_sha": "5bd2efb088ec9d38d3d4fc79c3545b61446935e8"
+      },
+      "state": "CLOSED"
     }
   ],
-  "entry_count": 21,
+  "entry_count": 22,
   "frontier_additions": [
     "receipt-schema-migration-v0.1.1",
     "receipt-schema-migration-v0.2.2",
@@ -490,7 +515,8 @@
     "structural-ledger-append-planner-v0.2.0",
     "explanation-carrying-compiler-v0.3.0",
     "two-generation-bootstrap-v0.1.1",
-    "hygienic-origin-resolver-v0.1.1"
+    "hygienic-origin-resolver-v0.1.1",
+    "capability-effect-checker-v0.1.1"
   ],
   "lineage": [
     {

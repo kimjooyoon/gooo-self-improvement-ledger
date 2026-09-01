@@ -895,6 +895,33 @@
       ],
       "release_key": "hygienic_origin_resolver_durable_release",
       "state": "CLOSED"
+    },
+    {
+      "cell_id": "CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-capability-effect-checker:tag=v0.1.1:release=380149578:tag_object=a94e28c3bba56886b709838c04723e25abf55c1b:target=5bd2efb088ec9d38d3d4fc79c3545b61446935e8:immutable=true",
+        "upstream-assets:538739363:978:sha256:f2ef6d03150d868d85f8a3e91e6c34a47446f3417937339c291dac2447a61303,538739364:19964:sha256:ca111a04da52d746223de7ce194433ac628bfc33754aea2655baa3a0e8b6ef2c,538739362:872:sha256:f4a8373e9f5f466a7c77ca09866e59fa344ece00acdf515c5a8c2927d0c86bb9,538739365:6234:sha256:26089654c08e8db6353b253afb8a7c674aef6e813bd4d032545df0b973cd0843,538739366:362:sha256:49938f8dd3dc3e6c5818f92cabad028a2a15e6678d76527c107c284122e19139",
+        "child-corpus:cases=5:safe-generator=CLOSED:repository-write-escalation=REFUTED:indirect-missing-grant=UNKNOWN:indirect-repository-write=REFUTED:external-oracle=UNKNOWN:unknown_fields=stage/step/reason/unknown_class/next_operation/blocked_by:precedence=REFUTED\u003eUNKNOWN\u003eCLOSED",
+        "effect-sets:safe-generator=READ_INPUT+WRITE_CALLER_OUTPUT:repository-write-escalation=READ_INPUT+REPOSITORY_WRITE:indirect-missing-grant=NETWORK+READ_INPUT+WRITE_CALLER_OUTPUT:indirect-repository-write=READ_INPUT+REPOSITORY_WRITE+WRITE_CALLER_OUTPUT:external-oracle=READ_INPUT+WRITE_CALLER_OUTPUT",
+        "offending-call-paths:repository-write-escalation=generator-\u003egenerator:indirect-missing-grant=generator-\u003ehelper:indirect-repository-write=generator-\u003egenerator,generator-\u003ehelper:external-oracle=generator",
+        "generated-checker-go:artifact=generated/checker.go:bytes=2481:digest=sha256:93db4dfda9d2069e07557e17113b46c9bbbc998d071f5ee562395e997edfa94f",
+        "replay:status=UNKNOWN:source_contract_toolchain_before_after_pair=false",
+        "authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0",
+        "metrics:go_files=7:gooo_files=6:go_physical_lines=1259:gooo_physical_lines=88:regular_files=25:directories=12:outputs=4/16271:generated_artifacts=1/2481:tests=5/5/0/0/2:peak_rss_kib=274988:compile=17:build=5917:test=2303:conformance=7:integration=19",
+        "scope:CAPABILITY_EFFECT_CHECKER_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN",
+        "structural-append:cell=CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE:activity=AdoptCapabilityEffectCheckerDurableRelease:lock=capability_effect_checker_durable_release",
+        "immutable-v0.36.0-baseline:semantic-source-bound",
+        "derived-projection-regeneration:report-and-history-replaced-in-caller-copy",
+        "projection-replacements:count=2:report=replace:history=replace",
+        "ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0",
+        "rollback-receipt:rollback_ready=true",
+        "replay-mismatches:0",
+        "input-repository-writes:0",
+        "planner-tool-executions:current_task=1:classification=generator_only:not_validation=true",
+        "local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0"
+      ],
+      "release_key": "capability_effect_checker_durable_release",
+      "state": "CLOSED"
     }
   ],
   "core_refutation_observation_events": [
@@ -964,10 +991,10 @@
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 41,
+    "from": 42,
     "retire": 0,
     "split": 0,
-    "to": 42
+    "to": 43
   },
   "local_validation_followup": {
     "inspection_only": false,

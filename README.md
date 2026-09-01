@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 42 named cells, each bound one-to-one to
+language. The denominator is exactly 43 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -35,11 +35,12 @@ The fixed axes are:
 `STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE`, and
 `EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE`, and
 `TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE`, and
-`HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE`.
+`HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE`, and
+`CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `41 -> 42` with
+The denominator migration is explicit and append-only: `42 -> 43` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/33/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/33/5`.
+`4/34/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/34/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -605,8 +606,36 @@ yielding `CLOSED39/UNKNOWN1/REFUTED2`; cumulative local validation remains `2`,
 the planner invocation is generator-only, process state remains `REFUTED`, and
 local schema/conformance plus Go test/build/vet executions remain zero.
 
+The v0.37 frontier appends `CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE`. It
+adopts immutable upstream `kimjooyoon/gooo-capability-effect-checker@v0.1.1`
+release `380149578`, binding annotated tag object
+`a94e28c3bba56886b709838c04723e25abf55c1b` to target
+`5bd2efb088ec9d38d3d4fc79c3545b61446935e8`. All five release assets are pinned
+by API ID, byte size, download URL, and SHA-256 digest. Its five-case corpus is
+`1 CLOSED / 2 UNKNOWN / 2 REFUTED`: safe generator is `CLOSED`, repository-write
+escalation and indirect repository write are `REFUTED`, and indirect missing
+grant plus external oracle are `UNKNOWN`, each preserving exactly
+`stage`, `step`, `reason`, `unknown_class`, `next_operation`, and `blocked_by`.
+The exact inferred effect sets and minimum offending paths are preserved for
+all cases; generated `checker.go` is `2481` bytes with digest
+`sha256:93db4dfda9d2069e07557e17113b46c9bbbc998d071f5ee562395e997edfa94f`.
+Upstream authority is zero repository writes, zero local test executions, and
+zero cross-project required gates; whole-language improvement and external
+utility remain `UNKNOWN`.
+
+The adoption is generated from the immutable v0.36 baseline with planner v0.3.0
+using the v3 transaction manifest. Five semantic targets remain append-only and
+two derived report/history projections are replaced only in caller-owned
+temporary output after exact before/source semantic digest checks. The planner
+records `7/7` planned/changed paths, `5` AST nodes, zero replay mismatches, zero
+planning repository writes, an exact rollback-ready receipt, and a
+generator-only invocation. The new cell is `CLOSED`, yielding
+`CLOSED40/UNKNOWN1/REFUTED2`; cumulative local validation remains `2`, process
+state remains `REFUTED`, and local schema/conformance plus Go test/build/vet
+executions remain zero.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
-twenty-one independent evidence inputs without treating its entry count as the portfolio
+twenty-two independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
 REFUTED`: the three historical v0.1.0 refutations remain preserved and are
 linked to immutable v0.1.1 successor locks; the immutable receipt-schema-

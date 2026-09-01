@@ -700,6 +700,57 @@
       "tag_object_sha": "c210a109b513b528a2f690d29bf279e794e260a7",
       "target_commit_sha": "e7e6dc0afde6536bb39f94fdfc7ce1e97e4bbefa"
     },
+    "capability_effect_checker_durable_release": {
+      "assets": [
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/ci-metrics.json",
+          "id": 538739363,
+          "name": "ci-metrics.json",
+          "role": "ci-metrics",
+          "sha256": "sha256:f2ef6d03150d868d85f8a3e91e6c34a47446f3417937339c291dac2447a61303",
+          "size_bytes": 978
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/gooo-capability-effect-checker-0.1.1.tar.gz",
+          "id": 538739364,
+          "name": "gooo-capability-effect-checker-0.1.1.tar.gz",
+          "role": "release-source",
+          "sha256": "sha256:ca111a04da52d746223de7ce194433ac628bfc33754aea2655baa3a0e8b6ef2c",
+          "size_bytes": 19964
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/release-manifest.json",
+          "id": 538739362,
+          "name": "release-manifest.json",
+          "role": "release-manifest",
+          "sha256": "sha256:f4a8373e9f5f466a7c77ca09866e59fa344ece00acdf515c5a8c2927d0c86bb9",
+          "size_bytes": 872
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/run-report.json",
+          "id": 538739365,
+          "name": "run-report.json",
+          "role": "run-report",
+          "sha256": "sha256:26089654c08e8db6353b253afb8a7c674aef6e813bd4d032545df0b973cd0843",
+          "size_bytes": 6234
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/SHA256SUMS",
+          "id": 538739366,
+          "name": "SHA256SUMS",
+          "role": "release-checksums",
+          "sha256": "sha256:49938f8dd3dc3e6c5818f92cabad028a2a15e6678d76527c107c284122e19139",
+          "size_bytes": 362
+        }
+      ],
+      "immutable": true,
+      "release_id": 380149578,
+      "release_url": "https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-capability-effect-checker",
+      "tag": "v0.1.1",
+      "tag_object_sha": "a94e28c3bba56886b709838c04723e25abf55c1b",
+      "target_commit_sha": "5bd2efb088ec9d38d3d4fc79c3545b61446935e8"
+    },
     "causal_ci": {
       "assets": [
         {
