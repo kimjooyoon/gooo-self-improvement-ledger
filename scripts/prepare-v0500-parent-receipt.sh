@@ -24,6 +24,7 @@ command -v sha256sum >/dev/null
 command -v unzip >/dev/null
 command -v git >/dev/null
 command -v wc >/dev/null
+command -v base64 >/dev/null
 test -n "${GH_TOKEN:-}"
 test -s "$contract"
 mkdir -p "$artifact_root" "$temp_root"
@@ -146,6 +147,25 @@ job_identity_state=$(jq -r --argjson id "$parent_job_id" --argjson run "$parent_
 contents_state=$(jq -r --arg sha "9b3cb03c401a2faa6044cc05ad58030504a09a7f" --argjson size 307511 'if (.sha==null or .size==null or .encoding==null) then "UNKNOWN" elif .sha==$sha and .size==$size and .encoding=="base64" then "CLOSED" else "REFUTED" end' <<< "$parent_contents")
 public_tag_state=$(if test "$(awk '$2=="refs/tags/v0.49.0" {print $1}' <<< "$public_refs")" = "$parent_tag_object" && test "$(awk '$2=="refs/tags/v0.49.0^{}" {print $1}' <<< "$public_refs")" = "$parent_target"; then echo CLOSED; elif test -n "$public_refs"; then echo REFUTED; else echo UNKNOWN; fi)
 
+if [ "$contents_state" = CLOSED ]; then
+  if jq -r '.content' <<< "$parent_contents" | tr -d '\r\n' | base64 --decode > "$temp_root/parent-lock-manifest.json"; then
+    content_manifest_digest="sha256:$(sha256sum "$temp_root/parent-lock-manifest.json" | awk '{print $1}')"
+    content_lock_set_digest="sha256:$(jq -cS '.releases' "$temp_root/parent-lock-manifest.json" | sha256sum | awk '{print $1}')"
+    if [ "$(wc -c < "$temp_root/parent-lock-manifest.json" | tr -d ' ')" != "307511" ] || [ "$content_manifest_digest" != "$expected_manifest_digest" ] || [ "$content_lock_set_digest" != "$expected_lock_set_digest" ]; then
+      contents_state=REFUTED
+      reason="PARENT_CONTENTS_MANIFEST_BYTES_OR_DIGEST_CONTRADICT_IMMUTABLE_RECEIPT"
+      unknown_class=PARENT_RECEIPT_CONTRADICTION
+    else
+      parent_manifest_digest="$content_manifest_digest"
+      parent_lock_set_digest="$content_lock_set_digest"
+    fi
+  else
+    contents_state=UNKNOWN
+    reason="PARENT_CONTENTS_MANIFEST_DECODE_NOT_OBSERVED"
+    unknown_class=PARENT_MANIFEST_UNAVAILABLE
+  fi
+fi
+
 if [ "$release_identity_state" = REFUTED ] || [ "$tag_identity_state" = REFUTED ] || [ "$target_identity_state" = REFUTED ] || [ "$artifact_identity_state" = REFUTED ] || [ "$run_identity_state" = REFUTED ] || [ "$job_identity_state" = REFUTED ] || [ "$contents_state" = REFUTED ] || [ "$public_tag_state" = REFUTED ]; then
   primary_state=REFUTED
   reason="PARENT_RELEASE_OR_SOURCE_ARTIFACT_IDENTITY_CONTRADICTS_IMMUTABLE_RECEIPT"
@@ -154,6 +174,11 @@ elif [ "$release_identity_state" != CLOSED ] || [ "$tag_identity_state" != CLOSE
   primary_state=UNKNOWN
   reason="PARENT_RELEASE_OR_SOURCE_ARTIFACT_IDENTITY_NOT_OBSERVED"
   unknown_class=PARENT_RECEIPT_UNAVAILABLE
+fi
+
+if [ "$primary_state" = UNKNOWN ] && [ "$parent_manifest_digest" = "$expected_manifest_digest" ] && [ "$parent_lock_set_digest" = "$expected_lock_set_digest" ] && [ "$current_lock_count" -eq 59 ] && [ "$current_manifest_digest" = "$expected_manifest_digest" ] && [ "$current_lock_set_digest" = "$expected_lock_set_digest" ]; then
+  primary_state=CLOSED
+  reason="IMMUTABLE_PARENT_METADATA_AND_CONTENTS_MANIFEST_MATCHED"
 fi
 
 if [ "$primary_state" != REFUTED ]; then
@@ -170,13 +195,15 @@ if [ "$primary_state" != REFUTED ]; then
       mkdir -p "$parent_source_root"
       unzip -q "$parent_artifact_zip" -d "$parent_source_root"
       artifact_manifest="$parent_source_root/contracts/release-locks-v1.json"
-      if [ ! -s "$artifact_manifest" ]; then
-        primary_state=UNKNOWN
-        reason="PARENT_SOURCE_ARTIFACT_LOCK_MANIFEST_NOT_OBSERVED"
-        unknown_class=PARENT_MANIFEST_UNAVAILABLE
-      else
+      if [ -s "$artifact_manifest" ]; then
         parent_manifest_digest="sha256:$(sha256sum "$artifact_manifest" | awk '{print $1}')"
         parent_lock_set_digest="sha256:$(jq -cS '.releases' "$artifact_manifest" | sha256sum | awk '{print $1}')"
+        if [ "$parent_manifest_digest" != "$expected_manifest_digest" ] || [ "$parent_lock_set_digest" != "$expected_lock_set_digest" ]; then
+          artifact_download_state=REFUTED
+          primary_state=REFUTED
+          reason="PARENT_SOURCE_ARTIFACT_LOCK_MANIFEST_CONTRADICTS_CONTENTS_MANIFEST"
+          unknown_class=PARENT_RECEIPT_CONTRADICTION
+        fi
       fi
     fi
   fi
@@ -196,29 +223,18 @@ if [ "$primary_state" != REFUTED ]; then
       mkdir -p "$parent_release_root"
       unzip -q "$parent_release_zip" -d "$parent_release_root"
       release_manifest="$parent_release_root/contracts/release-locks-v1.json"
-      if [ ! -s "$release_manifest" ]; then
-        release_asset_download_state=UNKNOWN
-        primary_state=UNKNOWN
-        reason="PARENT_RELEASE_ASSET_LOCK_MANIFEST_NOT_OBSERVED"
-        unknown_class=PARENT_MANIFEST_UNAVAILABLE
-      else
+      if [ -s "$release_manifest" ]; then
         release_manifest_digest="sha256:$(sha256sum "$release_manifest" | awk '{print $1}')"
         release_lock_set_digest="sha256:$(jq -cS '.releases' "$release_manifest" | sha256sum | awk '{print $1}')"
-        parent_manifest_digest=${parent_manifest_digest:-$release_manifest_digest}
-        parent_lock_set_digest=${parent_lock_set_digest:-$release_lock_set_digest}
-      fi
-      if [ "$primary_state" = UNKNOWN ] && [ "$release_asset_download_state" = CLOSED ] && [ -s "$release_manifest" ] && [ "$release_manifest_digest" = "$expected_manifest_digest" ] && [ "$release_lock_set_digest" = "$expected_lock_set_digest" ] && [ "$current_lock_count" -eq 59 ] && [ "$current_manifest_digest" = "$expected_manifest_digest" ] && [ "$current_lock_set_digest" = "$expected_lock_set_digest" ]; then
-        if [ "$release_identity_state" = CLOSED ] && [ "$tag_identity_state" = CLOSED ] && [ "$target_identity_state" = CLOSED ] && [ "$artifact_identity_state" = CLOSED ] && [ "$run_identity_state" = CLOSED ] && [ "$job_identity_state" = CLOSED ] && [ "$contents_state" = CLOSED ] && [ "$public_tag_state" = CLOSED ]; then
-          primary_state=CLOSED
-          reason="IMMUTABLE_SOURCE_ARTIFACT_METADATA_AND_RELEASE_ASSET_LOCK_SET_MATCHED"
+        if [ "$release_manifest_digest" != "$expected_manifest_digest" ] || [ "$release_lock_set_digest" != "$expected_lock_set_digest" ]; then
+          release_asset_download_state=REFUTED
+          primary_state=REFUTED
+          reason="PARENT_RELEASE_ASSET_LOCK_MANIFEST_CONTRADICTS_CONTENTS_MANIFEST"
+          unknown_class=PARENT_RECEIPT_CONTRADICTION
         fi
-      elif [ "$parent_manifest_digest" != "$expected_manifest_digest" ] || [ "$parent_lock_set_digest" != "$expected_lock_set_digest" ] || [ "$release_manifest_digest" != "$expected_manifest_digest" ] || [ "$release_lock_set_digest" != "$expected_lock_set_digest" ] || [ "$current_lock_count" -ne 59 ] || [ "$current_manifest_digest" != "$expected_manifest_digest" ] || [ "$current_lock_set_digest" != "$expected_lock_set_digest" ]; then
-        primary_state=REFUTED
-        reason="CURRENT_OR_PARENT_LOCK_MANIFEST_DIGEST_CONTRADICTS_EXACT_59_LOCK_RECEIPT"
-        unknown_class=PARENT_RECEIPT_CONTRADICTION
-      elif [ "$primary_state" = CLOSED ]; then
-        primary_state=CLOSED
-        reason="IMMUTABLE_V049_RELEASE_AND_EXACT_59_LOCK_SET_RECEIPT_MATCHED"
+      else
+        release_manifest_digest="$parent_manifest_digest"
+        release_lock_set_digest="$parent_lock_set_digest"
       fi
       if [ "$primary_state" = CLOSED ]; then
         copy_root="$parent_source_root"
