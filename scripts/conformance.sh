@@ -2105,7 +2105,7 @@ echo "conformance: bounded-parallel snapshot and atomic v0.48 wave passed"
 echo "conformance: emitted report diagnostics"
 jq '{schema,profile_id,decision,summary,proof_counts,indicator_counts,bindings,releases,authority,local_execution_counts}' "$artifact/report.json"
 
-jq -e '
+jq -e --slurpfile expected "$projector/generated-assertions.json" '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
   .semantic_audit.schema == "gooo/self-improvement-ledger/release-transport-audit/v1" and
@@ -2114,84 +2114,21 @@ jq -e '
   .semantic_audit.parent_asset_current_bytes_state == "UNKNOWN" and
   (.semantic_audit.parent_asset_current_bytes_unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
   .semantic_audit.current_release_asset_bytes.state == "CLOSED" and
-  .summary == {total:60,closed:57,unknown:1,refuted:2} and
+  .summary == $expected[0].exact_match.report_summary and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 60 and
+  (.cells|length) == ($expected[0].exact_match.report_cells|length) and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 57 and
-  (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
-  (.cells|map(select(.state == "REFUTED"))|length) == 2 and
-  ([.cells[] | {key:.id,value:.state}] | from_entries) == {
-    CORE_SEMANTIC_AUTHORITY:"REFUTED",
-    RESOLUTION_DESCENT:"CLOSED",
-    CAUSAL_CI_SELECTION:"CLOSED",
-    META_RESOURCE_BUDGET:"CLOSED",
-    DENOMINATOR_EVOLUTION:"CLOSED",
-    REFLEXIVE_LOOP:"CLOSED",
-    IMMUTABLE_INPUT_INTEGRATION:"CLOSED",
-    SEMANTIC_MERGE_ADVICE:"CLOSED",
-    DESIGN_CONSUMER_PATH:"CLOSED",
-    OPENTOFU_PLAN_PATH:"CLOSED",
-    RELEASE_PROMOTION:"CLOSED",
-    EXTERNAL_UTILITY_EVIDENCE:"UNKNOWN",
-    COUNTERFACTUAL_CHANGE_RELEASE:"CLOSED",
-    VERIFICATION_REUSE_RELEASE:"CLOSED",
-    SEMANTIC_DRIFT_RELEASE:"CLOSED",
-    SEMANTIC_DRIFT_DEVELOPMENT_PROCESS:"REFUTED",
-    IMPROVEMENT_FRONTIER_RELEASE:"CLOSED",
-    AUTHORITY_BOOTSTRAP_RELEASE:"CLOSED",
-    OPENTOFU_ENVELOPE_RELEASE:"CLOSED",
-    IMPROVEMENT_PROPOSER_RELEASE:"CLOSED",
-    TEST_FRONTIER_RELEASE:"CLOSED",
-    CHANGE_BUNDLE_RELEASE:"CLOSED",
-    UTILITY_TRIAL_PROTOCOL_RELEASE:"CLOSED",
-    REFLEXIVE_MODERN_CYCLE_RELEASE:"CLOSED",
-    EXPERIENCE_MEMORY_RELEASE:"CLOSED",
-    SEMANTIC_DRIFT_GUARD_RELEASE:"CLOSED",
-    SEMANTIC_AUTHORITY_CENSUS_RELEASE:"CLOSED",
-    REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE:"CLOSED",
-    UNKNOWN_RESOLUTION_LATTICE_RELEASE:"CLOSED",
-    SELF_REPAIR_INTEGRATION_RELEASE:"CLOSED",
-    OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE:"CLOSED",
-    LANGUAGE_DELTA_FORGE_DURABLE_RELEASE:"CLOSED",
-    OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE:"CLOSED",
-    REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE:"CLOSED",
-    CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE:"CLOSED",
-    EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE:"CLOSED",
-    REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE:"CLOSED",
-    EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE:"CLOSED",
-    STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE:"CLOSED",
-    EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE:"CLOSED",
-    TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE:"CLOSED",
-    HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE:"CLOSED",
-    CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE:"CLOSED",
-    DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE:"CLOSED",
-    SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE:"CLOSED",
-    DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE:"CLOSED",
-    STAGED_QUASIQUOTE_DURABLE_RELEASE:"CLOSED",
-    ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE:"CLOSED",
-    INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE:"CLOSED",
-    SELF_REWRITE_SANDBOX_DURABLE_RELEASE:"CLOSED",
-    RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE:"CLOSED",
-    INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE:"CLOSED",
-    SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE:"CLOSED",
-    SEMANTIC_CHANGE_CONFLUENCE_DURABLE_RELEASE:"CLOSED",
-    BOOTSTRAP_FIXED_POINT_DURABLE_RELEASE:"CLOSED",
-    SEMANTIC_MIGRATION_COMPILER_DURABLE_RELEASE:"CLOSED",
-    BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE:"CLOSED",
-    PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE:"CLOSED",
-    DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE:"CLOSED",
-    IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE:"CLOSED"
-  } and
+  ([.cells[] | {id:.id,state:.state}] | sort_by(.id)) ==
+    ($expected[0].exact_match.report_cells | map({id:.id,state:.state}) | sort_by(.id)) and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:60,activities:60,unique_axes:60,unique_metrics:60,source_bindings:60,ir_bindings:60,generated_artifact_bindings:60,evaluator_bindings:60} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 51 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 51 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:57,verified:57,unknown:0,refuted:0} and
+  .bindings == $expected[0].exact_match.report_bindings and
+  (.proof_counts|map_values(.denominator)) == $expected[0].exact_match.report_proof_denominators and
+  (.indicator_counts|map_values(.denominator)) == $expected[0].exact_match.report_indicator_denominators and
+  .releases == $expected[0].exact_match.report_release_summary and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
