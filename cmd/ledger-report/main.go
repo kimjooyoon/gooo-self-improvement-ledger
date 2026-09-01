@@ -131,9 +131,20 @@ type RuntimeInput struct {
 }
 
 type Measurement struct {
-	WallMS     int64 `json:"wall_ms"`
-	DurationNS int64 `json:"duration_ns"`
-	PeakRSSKiB int64 `json:"peak_rss_kib"`
+	WallMS           int64             `json:"wall_ms"`
+	DurationNS       int64             `json:"duration_ns"`
+	PeakRSSKiB       *int64            `json:"peak_rss_kib"`
+	MeasurementState *MeasurementState `json:"measurement_state,omitempty"`
+}
+
+type MeasurementState struct {
+	State         string   `json:"state"`
+	Stage         string   `json:"stage"`
+	Step          string   `json:"step"`
+	Reason        string   `json:"reason"`
+	UnknownClass  string   `json:"unknown_class"`
+	NextOperation string   `json:"next_operation"`
+	BlockedBy     []string `json:"blocked_by"`
 }
 
 type Timing struct {
@@ -699,12 +710,19 @@ func writeMarkdown(path string, report PortfolioReport) error {
 	fmt.Fprintf(&b, "- indicator buckets: DRIVER %d/%d, OUTCOME %d/%d, GUARDRAIL %d/%d\n", report.IndicatorCounts["DRIVER"].Closed, report.IndicatorCounts["DRIVER"].Denominator, report.IndicatorCounts["OUTCOME"].Closed, report.IndicatorCounts["OUTCOME"].Denominator, report.IndicatorCounts["GUARDRAIL"].Closed, report.IndicatorCounts["GUARDRAIL"].Denominator)
 	fmt.Fprintf(&b, "- repository dirs/files: %d/%d; Go files/lines: %d/%d; Gooo files/lines: %d/%d; root README excluded from line accounting: `%t`\n", report.Inventory.DescendantDirs, report.Inventory.RegularFiles, report.Inventory.GoFiles, report.Inventory.GoLines, report.Inventory.GoooFiles, report.Inventory.GoooLines, report.Inventory.RootReadmeExcluded)
 	fmt.Fprintf(&b, "- fetch wall_ms/raw duration_ns: %d/%d; verify wall_ms/raw duration_ns: %d/%d; report wall_ms/raw duration_ns: %d/%d\n", report.Performance.Fetch.WallMS, report.Performance.Fetch.DurationNS, report.Performance.Verify.WallMS, report.Performance.Verify.DurationNS, report.Performance.Report.WallMS, report.Performance.Report.DurationNS)
-	fmt.Fprintf(&b, "- peak RSS KiB fetch/verify/report: %d/%d/%d\n", report.Performance.Fetch.PeakRSSKiB, report.Performance.Verify.PeakRSSKiB, report.Performance.Report.PeakRSSKiB)
+	fmt.Fprintf(&b, "- peak RSS KiB fetch/verify/report: %s/%s/%s\n", formatPeakRSS(report.Performance.Fetch), formatPeakRSS(report.Performance.Verify), formatPeakRSS(report.Performance.Report))
 	fmt.Fprintf(&b, "- caller-owned artifact files/bytes: %d/%d\n", report.Artifact.Files, report.Artifact.Bytes)
 	fmt.Fprintf(&b, "- releases verified/unknown/refuted: %d/%d/%d\n", report.ReleaseSummary.Verified, report.ReleaseSummary.Unknown, report.ReleaseSummary.Refuted)
 	fmt.Fprintf(&b, "- runtime repository writes/cross-project required gates: %d/%d; caller-owned temp output: `%t`\n", report.Authority.RuntimeRepositoryWrites, report.Authority.CrossProjectRequiredGates, report.Authority.CallerOwnedTempOutput)
 	fmt.Fprintf(&b, "- developer-local gofmt/build/test/vet/conformance executions: %d/%d/%d/%d/%d\n", report.LocalExecutionCount.Gofmt, report.LocalExecutionCount.Build, report.LocalExecutionCount.Test, report.LocalExecutionCount.Vet, report.LocalExecutionCount.Conformance)
 	return os.WriteFile(path, []byte(b.String()), 0o644)
+}
+
+func formatPeakRSS(measurement Measurement) string {
+	if measurement.PeakRSSKiB == nil {
+		return "UNKNOWN"
+	}
+	return fmt.Sprintf("%d", *measurement.PeakRSSKiB)
 }
 
 func equalStringSlice(left, right []string) bool {

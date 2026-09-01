@@ -1825,14 +1825,16 @@ report_raw=$((end - start))
 echo "conformance: probe report generator completed"
 if test -f "$probe/report-peak-rss"; then
   report_rss=$(cat "$probe/report-peak-rss")
+  jq --argjson wall "$report_wall" --argjson raw "$report_raw" --argjson rss "$report_rss" \
+    '.timing.report={wall_ms:$wall,duration_ns:$raw,peak_rss_kib:($rss|tonumber)}' \
+    "$artifact/runtime.json" > "$probe/runtime.json"
 else
-  echo "conformance: probe report peak RSS measurement missing" >&2
-  exit 1
+  echo "conformance: probe report peak RSS measurement missing; preserving UNKNOWN frontier" >&2
+  jq --argjson wall "$report_wall" --argjson raw "$report_raw" \
+    --argjson measurement_state '{"state":"UNKNOWN","stage":"CONFORMANCE","step":"CAPTURE_REPORT_PEAK_RSS","reason":"REPORT_PEAK_RSS_MEASUREMENT_UNAVAILABLE","unknown_class":"MEASUREMENT_MISSING","next_operation":"RECAPTURE_REPORT_PEAK_RSS_IN_GITHUB_ACTIONS","blocked_by":["report-peak-rss"]}' \
+    '.timing.report={wall_ms:$wall,duration_ns:$raw,peak_rss_kib:null,measurement_state:$measurement_state}' \
+    "$artifact/runtime.json" > "$probe/runtime.json"
 fi
-
-jq --argjson wall "$report_wall" --argjson raw "$report_raw" --argjson rss "$report_rss" \
-  '.timing.report={wall_ms:$wall,duration_ns:$raw,peak_rss_kib:$rss}' \
-  "$artifact/runtime.json" > "$probe/runtime.json"
 mv "$probe/runtime.json" "$artifact/runtime.json"
 
 start=$(date +%s%N)
@@ -1936,11 +1938,16 @@ jq -e '
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
   (.performance.report.wall_ms|type) == "number" and (.performance.report.duration_ns|type) == "number" and
+  (.performance.report | if .peak_rss_kib == null then
+    .measurement_state == {state:"UNKNOWN",stage:"CONFORMANCE",step:"CAPTURE_REPORT_PEAK_RSS",reason:"REPORT_PEAK_RSS_MEASUREMENT_UNAVAILABLE",unknown_class:"MEASUREMENT_MISSING",next_operation:"RECAPTURE_REPORT_PEAK_RSS_IN_GITHUB_ACTIONS",blocked_by:["report-peak-rss"]}
+  else
+    (.peak_rss_kib|type) == "number" and (has("measurement_state")|not)
+  end) and
   .authority.runtime_repository_writes == 0 and .authority.caller_owned_temp_output == true and .authority.cross_project_required_gates == 0 and
   .local_execution_counts == {gofmt:0,build:0,test:0,vet:0,conformance:0} and
   (has("percentage")|not) and (has("score")|not)
 ' "$artifact/report.json" >/dev/null
 
 jq -S -n --slurpfile report "$artifact/report.json" --argjson wall "$report_wall" --argjson raw "$((end - start))" \
-  '{schema:"gooo-self-improvement-portfolio/conformance/v1",tests:{executed:1,reused:0,skipped:0},report_decision:$report[0].decision,summary:$report[0].summary,report_generation:{wall_ms:$wall,duration_ns:$raw,peak_rss_kib:($report[0].performance.report.peak_rss_kib|tonumber)},repository_writes:$report[0].authority.runtime_repository_writes}' \
+  '{schema:"gooo-self-improvement-portfolio/conformance/v1",tests:{executed:1,reused:0,skipped:0},report_decision:$report[0].decision,summary:$report[0].summary,report_generation:{wall_ms:$wall,duration_ns:$raw,peak_rss_kib:(if $report[0].performance.report.peak_rss_kib == null then null else ($report[0].performance.report.peak_rss_kib|tonumber) end),measurement_state:$report[0].performance.report.measurement_state},repository_writes:$report[0].authority.runtime_repository_writes}' \
   > "$artifact/conformance.json"

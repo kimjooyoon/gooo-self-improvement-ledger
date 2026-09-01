@@ -1042,7 +1042,7 @@ jobs:
             --arg schema "gooo/self-improvement-portfolio/runtime/v1" \
             --arg subject "$SUBJECT_SHA" --arg go_version "$(go env GOVERSION)" \
             --argjson fetch "$fetch" --argjson verify "$verify" --argjson verify_rss "$verify_rss" --argjson ci "$ci" \
-            '{schema:$schema,subject_sha:$subject,go_version:$go_version,timing:{fetch:$fetch,verify:($verify|.peak_rss_kib=$verify_rss),report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}},ci_observations:$ci,authority:{runtime_repository_writes:0,caller_owned_temp_output:true,cross_project_required_gates:0},local_execution_counts:{gofmt:0,build:0,test:0,vet:0,conformance:0}}' \
+            '{schema:$schema,subject_sha:$subject,go_version:$go_version,timing:{fetch:$fetch,verify:($verify|.peak_rss_kib=$verify_rss),report:{wall_ms:0,duration_ns:0,peak_rss_kib:null,measurement_state:{state:"UNKNOWN",stage:"CONFORMANCE",step:"CAPTURE_REPORT_PEAK_RSS",reason:"REPORT_PEAK_RSS_MEASUREMENT_UNAVAILABLE",unknown_class:"MEASUREMENT_MISSING",next_operation:"RECAPTURE_REPORT_PEAK_RSS_IN_GITHUB_ACTIONS",blocked_by:["report-peak-rss"]}}},ci_observations:$ci,authority:{runtime_repository_writes:0,caller_owned_temp_output:true,cross_project_required_gates:0},local_execution_counts:{gofmt:0,build:0,test:0,vet:0,conformance:0}}' \
             > "$ARTIFACT_ROOT/runtime.json"
 
       - name: Run fixed-denominator conformance and emit human report
