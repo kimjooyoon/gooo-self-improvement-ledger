@@ -441,7 +441,7 @@ at `2`, the current planner run is generator-only, and local schema/conformance
 and Go execution counts remain zero; GitHub Actions remains the validation
 authority.
 
-The non-completeness capability evidence registry is a separate seventeen-entry
+The non-completeness capability evidence registry is a separate eighteen-entry
 external-input ledger. Its count and dispositions never alter this fixed
 thirty-nine-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.

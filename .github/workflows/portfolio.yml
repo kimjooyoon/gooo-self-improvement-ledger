@@ -649,7 +649,7 @@ jobs:
           test "$(awk '$2=="refs/tags/v0.2.0^{}" {print $1}' <<< "$trial_refs")" = aa72f7019d1224344802478490d94046d27af58f
           echo "upstream executable evolution trial closed-loop durable release and exact CLOSED evidence verified"
 
-      - name: Verify separate seventeen-entry non-completeness capability evidence registry
+      - name: Verify separate eighteen-entry non-completeness capability evidence registry
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -659,7 +659,7 @@ jobs:
             contracts/non-completeness-capability-evidence-registry-v1.json \
             evidence/non-completeness-capability-evidence-registry-v1.json \
             "$ARTIFACT_ROOT/capability-registry"
-          jq -e '.entry_count==17 and .summary=={closed:13,unknown:0,refuted:4} and (has("percentage")|not) and (has("score")|not)' \
+          jq -e '.entry_count==18 and .summary=={closed:14,unknown:0,refuted:4} and (has("percentage")|not) and (has("score")|not)' \
             "$ARTIFACT_ROOT/capability-registry/verification.json" >/dev/null
 
       - name: Materialize runtime measurements

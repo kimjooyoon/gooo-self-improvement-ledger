@@ -536,7 +536,7 @@ generator-only, and local schema/conformance plus Go test/build/vet counts
 remain zero; GitHub Actions is the validation authority.
 
 The separate `non-completeness-capability-evidence-registry-v1` records
-seventeen independent evidence inputs without treating its entry count as the portfolio
+eighteen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
 REFUTED`: the three historical v0.1.0 refutations remain preserved and are
 linked to immutable v0.1.1 successor locks; the immutable receipt-schema-
