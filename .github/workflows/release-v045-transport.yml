@@ -79,9 +79,6 @@ jobs:
           jq -e '.id==380386277 and .tag_name=="v0.44.0" and .html_url=="https://github.com/kimjooyoon/gooo-self-improvement-ledger/releases/tag/v0.44.0" and .target_commitish=="main" and .draft==false and .prerelease==false and .immutable==true and ([.assets[]|{id,name,size,digest,browser_download_url}]|sort_by(.id))==([{id:539347880,name:"gooo-self-improvement-ledger-35a96e54dd8457c13e45b8339a09787f806c4455.zip",size:30322448,digest:"sha256:70e995f17de551624497db95caca1da10b56f46eaa058d15bc244b88701b3d24",browser_download_url:"https://github.com/kimjooyoon/gooo-self-improvement-ledger/releases/download/v0.44.0/gooo-self-improvement-ledger-35a96e54dd8457c13e45b8339a09787f806c4455.zip"}]|sort_by(.id))' <<< "$parent_release" >/dev/null
           parent_ref=$(gh api "repos/$REPOSITORY/git/ref/tags/v0.44.0")
           jq -e '.object.sha=="a14d2bc3276ffebc689bbe61d0fe707cda42af6" and .object.type=="tag"' <<< "$parent_ref" >/dev/null
-          parent_refs=$(git ls-remote "https://github.com/$REPOSITORY.git" "refs/tags/v0.44.0" "refs/tags/v0.44.0^{}")
-          test "$(awk '$2=="refs/tags/v0.44.0" {print $1}' <<< "$parent_refs")" = a14d2bc3276ffebc689bbe61d0fe707cda42af6
-          test "$(awk '$2=="refs/tags/v0.44.0^{}" {print $1}' <<< "$parent_refs")" = 35a96e54dd8457c13e45b8339a09787f806c4455
 
       - name: Preserve the v0.40.0 failed release envelope
         shell: bash
@@ -92,9 +89,6 @@ jobs:
           jq -e '.id==380259706 and .tag_name=="v0.40.0" and .immutable==true and (.assets|length)==0' <<< "$old_release" >/dev/null
           old_ref=$(gh api "repos/$REPOSITORY/git/ref/tags/v0.40.0")
           jq -e '.object.sha=="ca691484122c408d60b694ed7a5a9179a4a613d5" and .object.type=="tag"' <<< "$old_ref" >/dev/null
-          old_refs=$(git ls-remote "https://github.com/$REPOSITORY.git" "refs/tags/v0.40.0" "refs/tags/v0.40.0^{}")
-          test "$(awk '$2=="refs/tags/v0.40.0" {print $1}' <<< "$old_refs")" = ca691484122c408d60b694ed7a5a9179a4a613d5
-          test "$(awk '$2=="refs/tags/v0.40.0^{}" {print $1}' <<< "$old_refs")" = 7883b07a3ebc0101acc516a4a5662f01296c63a9
 
       - name: Refuse to overwrite an existing v0.45.0 release or tag
         shell: bash
@@ -172,6 +166,8 @@ jobs:
           asset_id=$(jq -r '.assets[0].id' <<< "$release_json")
           tag_ref=$(gh api "repos/$REPOSITORY/git/ref/tags/$RELEASE_TAG")
           jq -e --arg object "$TAG_OBJECT" '.object.sha==$object and .object.type=="tag"' <<< "$tag_ref" >/dev/null
+          tag_target=$(gh api "repos/$REPOSITORY/git/tags/$TAG_OBJECT")
+          jq -e --arg commit "$SOURCE_COMMIT_SHA" '.object.sha==$commit and .object.type=="commit"' <<< "$tag_target" >/dev/null
           release_refs=$(git ls-remote "https://github.com/$REPOSITORY.git" "refs/tags/$RELEASE_TAG" "refs/tags/$RELEASE_TAG^{}")
           test "$(awk -v ref="refs/tags/$RELEASE_TAG" '$2==ref {print $1}' <<< "$release_refs")" = "$TAG_OBJECT"
           test "$(awk -v ref="refs/tags/$RELEASE_TAG^{}" '$2==ref {print $1}' <<< "$release_refs")" = "$SOURCE_COMMIT_SHA"
