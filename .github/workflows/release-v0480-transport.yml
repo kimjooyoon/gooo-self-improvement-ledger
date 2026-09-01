@@ -86,11 +86,43 @@ jobs:
           assertions_json="$extracted/semantic-denominator-projector/generated-assertions.json"
           events_json="$extracted/semantic-denominator-projector/projection-events.ndjson"
           test -f "$report_json" -a -f "$denominator_json" -a -f "$assertions_json" -a -f "$events_json"
-          jq -e '.summary=={total:60,closed:57,unknown:1,refuted:2} and .proof_counts=={FOUNDATION:{numerator:4,denominator:4},COHERENCE:{numerator:51,denominator:51},REGRESSION:{numerator:5,denominator:5}} and .indicator_counts=={DRIVER:{numerator:4,denominator:4},OUTCOME:{numerator:51,denominator:51},GUARDRAIL:{numerator:5,denominator:5}}' "$report_json" >/dev/null
-          jq -e '.scenario_denominator==60 and .state_counts=={total:60,closed:57,unknown:1,refuted:2} and .proof_totals=={FOUNDATION:4,COHERENCE:51,REGRESSION:5} and .indicator_totals=={DRIVER:4,OUTCOME:51,GUARDRAIL:5}' "$denominator_json" >/dev/null
-          jq -e '.exact_match.report_summary=={total:60,closed:57,unknown:1,refuted:2} and (.exact_match.report_cells|length)==60' "$assertions_json" >/dev/null
-          test "$(jq -s length "$events_json")" = 60
-          jq -e '.schema=="gooo/self-improvement-ledger/atomic-v0480-adoption-wave/v1" and .wave.projected_profile_state=={total:60,closed:57,unknown:1,refuted:2} and (.cells|length)==7 and .bounded_parallel_verifier.snapshot_single_fetch==true and .bounded_parallel_verifier.network_improvement_state=="UNKNOWN" and .authority.repository_writes==0' evidence/atomic-v0480-wave-v1.json >/dev/null
+          jq -e --slurpfile expected "$assertions_json" '
+            .summary == $expected[0].exact_match.report_summary and
+            (.proof_counts|map_values(.denominator)) == $expected[0].exact_match.report_proof_denominators and
+            (.indicator_counts|map_values(.denominator)) == $expected[0].exact_match.report_indicator_denominators and
+            .releases == $expected[0].exact_match.report_release_summary
+          ' "$report_json" >/dev/null
+          jq -e --slurpfile expected "$assertions_json" '
+            .scenario_denominator == ($expected[0].exact_match.report_cells|length) and
+            .state_counts == $expected[0].exact_match.report_summary and
+            .proof_totals == $expected[0].exact_match.report_proof_denominators and
+            .indicator_totals == $expected[0].exact_match.report_indicator_denominators
+          ' "$denominator_json" >/dev/null
+          jq -e '
+            .exact_match.report_summary.total == (.exact_match.report_cells|length) and
+            .exact_match.report_bindings.cells == (.exact_match.report_cells|length) and
+            .exact_match.report_bindings.activities == (.exact_match.report_cells|length)
+          ' "$assertions_json" >/dev/null
+          test "$(jq -s length "$events_json")" = "$(jq -r '.exact_match.report_cells|length' "$assertions_json")"
+          jq -e --slurpfile expected "$assertions_json" '
+            .schema=="gooo/self-improvement-ledger/atomic-v0480-adoption-wave/v1" and
+            .wave.projected_profile_state == $expected[0].exact_match.report_summary and
+            (.cells|length)==7 and
+            .bounded_parallel_verifier.snapshot_single_fetch==true and
+            .bounded_parallel_verifier.network_improvement_state=="UNKNOWN" and
+            .authority.repository_writes==0
+          ' evidence/atomic-v0480-wave-v1.json >/dev/null
+          semantic_total=$(jq -r '.exact_match.report_summary.total' "$assertions_json")
+          semantic_closed=$(jq -r '.exact_match.report_summary.closed' "$assertions_json")
+          semantic_unknown=$(jq -r '.exact_match.report_summary.unknown' "$assertions_json")
+          semantic_refuted=$(jq -r '.exact_match.report_summary.refuted' "$assertions_json")
+          proof_foundation=$(jq -r '.exact_match.report_proof_denominators.FOUNDATION' "$assertions_json")
+          proof_coherence=$(jq -r '.exact_match.report_proof_denominators.COHERENCE' "$assertions_json")
+          proof_regression=$(jq -r '.exact_match.report_proof_denominators.REGRESSION' "$assertions_json")
+          indicator_driver=$(jq -r '.exact_match.report_indicator_denominators.DRIVER' "$assertions_json")
+          indicator_outcome=$(jq -r '.exact_match.report_indicator_denominators.OUTCOME' "$assertions_json")
+          indicator_guardrail=$(jq -r '.exact_match.report_indicator_denominators.GUARDRAIL' "$assertions_json")
+          activity_count=$(jq -r '.exact_match.report_cells|length' "$assertions_json")
           {
             echo "artifact_name=$artifact_name"
             echo "artifact_size=$artifact_size"
@@ -98,6 +130,17 @@ jobs:
             echo "source_job_id=$source_job_id"
             echo "asset_name=$artifact_name.zip"
             echo "asset_path=$asset_path"
+            echo "semantic_total=$semantic_total"
+            echo "semantic_closed=$semantic_closed"
+            echo "semantic_unknown=$semantic_unknown"
+            echo "semantic_refuted=$semantic_refuted"
+            echo "proof_foundation=$proof_foundation"
+            echo "proof_coherence=$proof_coherence"
+            echo "proof_regression=$proof_regression"
+            echo "indicator_driver=$indicator_driver"
+            echo "indicator_outcome=$indicator_outcome"
+            echo "indicator_guardrail=$indicator_guardrail"
+            echo "activity_count=$activity_count"
           } >> "$GITHUB_OUTPUT"
 
       - name: Refuse overwrite of existing v0.48.0 release or tag
@@ -120,10 +163,22 @@ jobs:
 
       - name: Create v0.48.0 draft release before upload
         if: inputs.resume_existing != true && inputs.resume_draft != true
+        env:
+          SEMANTIC_TOTAL: ${{ steps.source.outputs.semantic_total }}
+          SEMANTIC_CLOSED: ${{ steps.source.outputs.semantic_closed }}
+          SEMANTIC_UNKNOWN: ${{ steps.source.outputs.semantic_unknown }}
+          SEMANTIC_REFUTED: ${{ steps.source.outputs.semantic_refuted }}
+          PROOF_FOUNDATION: ${{ steps.source.outputs.proof_foundation }}
+          PROOF_COHERENCE: ${{ steps.source.outputs.proof_coherence }}
+          PROOF_REGRESSION: ${{ steps.source.outputs.proof_regression }}
+          INDICATOR_DRIVER: ${{ steps.source.outputs.indicator_driver }}
+          INDICATOR_OUTCOME: ${{ steps.source.outputs.indicator_outcome }}
+          INDICATOR_GUARDRAIL: ${{ steps.source.outputs.indicator_guardrail }}
+          ACTIVITY_COUNT: ${{ steps.source.outputs.activity_count }}
         shell: bash
         run: |
           set -Eeuo pipefail
-          body="$RELEASE_TAG is one atomic adoption wave containing seven independent CLOSED release-ownership cells (54-60). The generated profile is 60 total / 57 CLOSED / 1 UNKNOWN / 2 REFUTED, with proof FOUNDATION 4 / COHERENCE 51 / REGRESSION 5 and indicators DRIVER 4 / OUTCOME 51 / GUARDRAIL 5. The release verifier uses one bounded-parallel snapshot (bound 8, retry 3, timeout 30s), then evaluates that same snapshot sequentially and in parallel in canonical lock order; semantic equivalence is required. Live network improvement remains UNKNOWN because no matched local before/after pair exists; the scheduler's 53-lock fixture is preserved as upstream evidence only. v0.47.1 remains the CLOSED parent and v0.47.0 remains an immutable REFUTED counterexample."
+          body="$RELEASE_TAG is one atomic adoption wave containing seven independent CLOSED release-ownership cells (54-60). The generated profile is $SEMANTIC_TOTAL total / $SEMANTIC_CLOSED CLOSED / $SEMANTIC_UNKNOWN UNKNOWN / $SEMANTIC_REFUTED REFUTED, with proof FOUNDATION $PROOF_FOUNDATION / COHERENCE $PROOF_COHERENCE / REGRESSION $PROOF_REGRESSION and indicators DRIVER $INDICATOR_DRIVER / OUTCOME $INDICATOR_OUTCOME / GUARDRAIL $INDICATOR_GUARDRAIL across $ACTIVITY_COUNT generated activities. The release verifier uses one bounded-parallel snapshot (bound 8, retry 3, timeout 30s), then evaluates that same snapshot sequentially and in parallel in canonical lock order; semantic equivalence is required. Live network improvement remains UNKNOWN because no matched local before/after pair exists; the scheduler's upstream fixture is preserved as upstream evidence only. v0.47.1 remains the CLOSED parent and v0.47.0 remains an immutable REFUTED counterexample."
           gh api --method POST "repos/$REPOSITORY/releases" -f tag_name="$RELEASE_TAG" -f target_commitish=main -f name="$RELEASE_TAG" -f body="$body" -F draft=true -F prerelease=false >/dev/null
 
       - name: Upload exact main evidence artifact and publish
@@ -155,6 +210,16 @@ jobs:
           ASSET_SIZE: ${{ steps.source.outputs.artifact_size }}
           ASSET_DIGEST: ${{ steps.source.outputs.artifact_digest }}
           SOURCE_JOB_ID: ${{ steps.source.outputs.source_job_id }}
+          SEMANTIC_TOTAL: ${{ steps.source.outputs.semantic_total }}
+          SEMANTIC_CLOSED: ${{ steps.source.outputs.semantic_closed }}
+          SEMANTIC_UNKNOWN: ${{ steps.source.outputs.semantic_unknown }}
+          SEMANTIC_REFUTED: ${{ steps.source.outputs.semantic_refuted }}
+          PROOF_FOUNDATION: ${{ steps.source.outputs.proof_foundation }}
+          PROOF_COHERENCE: ${{ steps.source.outputs.proof_coherence }}
+          PROOF_REGRESSION: ${{ steps.source.outputs.proof_regression }}
+          INDICATOR_DRIVER: ${{ steps.source.outputs.indicator_driver }}
+          INDICATOR_OUTCOME: ${{ steps.source.outputs.indicator_outcome }}
+          INDICATOR_GUARDRAIL: ${{ steps.source.outputs.indicator_guardrail }}
         shell: bash
         run: |
           set -Eeuo pipefail
@@ -174,8 +239,8 @@ jobs:
           refs=$(git ls-remote "https://github.com/$REPOSITORY.git" "refs/tags/$RELEASE_TAG" "refs/tags/$RELEASE_TAG^{}")
           test "$(awk -v ref="refs/tags/$RELEASE_TAG" '$2==ref {print $1}' <<< "$refs")" = "$tag_object"
           test "$(awk -v ref="refs/tags/$RELEASE_TAG^{}" '$2==ref {print $1}' <<< "$refs")" = "$SOURCE_COMMIT_SHA"
-          jq -n --arg tag "$RELEASE_TAG" --argjson release_id "$release_id" --argjson asset_id "$asset_id" --arg name "$ASSET_NAME" --argjson size "$ASSET_SIZE" --arg digest "$ASSET_DIGEST" --arg tag_object "$tag_object" --arg commit "$SOURCE_COMMIT_SHA" --argjson source_run "$SOURCE_RUN_ID" --argjson source_job "$SOURCE_JOB_ID" --argjson source_artifact "$SOURCE_ARTIFACT_ID" \
-            '{schema:"gooo/self-improvement-ledger/release-transport-receipt/v1",release:{tag:$tag,release_id:$release_id,immutable:true,asset_count:1,asset:{id:$asset_id,name:$name,size_bytes:$size,digest:$digest},tag_object_sha:$tag_object,target_commit_sha:$commit,source_run_id:$source_run,source_job_id:$source_job,source_artifact_id:$source_artifact},semantic_state:{total_cells:60,closed:57,unknown:1,refuted:2,proof_totals:{FOUNDATION:4,COHERENCE:51,REGRESSION:5},indicator_totals:{DRIVER:4,OUTCOME:51,GUARDRAIL:5}},bounded_parallel:{concurrency_bound:8,retry_max_attempts:3,timeout_seconds:30,canonical_lock_order:"release_lock_id:ascending",snapshot_single_fetch:true,semantic_equivalence:"CLOSED",network_improvement:"UNKNOWN",network_improvement_reason:"NO_MATCHED_LIVE_BEFORE_AFTER_PAIR"},parent_v0471:{release_id:380630346,tag:"v0.47.1",immutable:true,target_commit_sha:"004edebd21d1935bfcec9d9d923292e555bc66fe",state:"CLOSED"},preserved_v0470_refuted:{release_id:380601504,tag:"v0.47.0",immutable:true,target_commit_sha:"a8104f3b22177e3bb193559e38180cbed13e5f36",state:"REFUTED",mutation_policy:"NO_DELETE_NO_OVERWRITE"},authority:{verification:"GITHUB_ACTIONS",github_token:"github.token",repository_writes:0,runtime_writes:0,cross_project_required_gates:0}}' > "$RUNNER_TEMP/release-transport-receipt.json"
+          jq -n --arg tag "$RELEASE_TAG" --argjson release_id "$release_id" --argjson asset_id "$asset_id" --arg name "$ASSET_NAME" --argjson size "$ASSET_SIZE" --arg digest "$ASSET_DIGEST" --arg tag_object "$tag_object" --arg commit "$SOURCE_COMMIT_SHA" --argjson source_run "$SOURCE_RUN_ID" --argjson source_job "$SOURCE_JOB_ID" --argjson source_artifact "$SOURCE_ARTIFACT_ID" --argjson semantic_total "$SEMANTIC_TOTAL" --argjson semantic_closed "$SEMANTIC_CLOSED" --argjson semantic_unknown "$SEMANTIC_UNKNOWN" --argjson semantic_refuted "$SEMANTIC_REFUTED" --argjson proof_foundation "$PROOF_FOUNDATION" --argjson proof_coherence "$PROOF_COHERENCE" --argjson proof_regression "$PROOF_REGRESSION" --argjson indicator_driver "$INDICATOR_DRIVER" --argjson indicator_outcome "$INDICATOR_OUTCOME" --argjson indicator_guardrail "$INDICATOR_GUARDRAIL" \
+            '{schema:"gooo/self-improvement-ledger/release-transport-receipt/v1",release:{tag:$tag,release_id:$release_id,immutable:true,asset_count:1,asset:{id:$asset_id,name:$name,size_bytes:$size,digest:$digest},tag_object_sha:$tag_object,target_commit_sha:$commit,source_run_id:$source_run,source_job_id:$source_job,source_artifact_id:$source_artifact},semantic_state:{total_cells:$semantic_total,closed:$semantic_closed,unknown:$semantic_unknown,refuted:$semantic_refuted,proof_totals:{FOUNDATION:$proof_foundation,COHERENCE:$proof_coherence,REGRESSION:$proof_regression},indicator_totals:{DRIVER:$indicator_driver,OUTCOME:$indicator_outcome,GUARDRAIL:$indicator_guardrail}},bounded_parallel:{concurrency_bound:8,retry_max_attempts:3,timeout_seconds:30,canonical_lock_order:"release_lock_id:ascending",snapshot_single_fetch:true,semantic_equivalence:"CLOSED",network_improvement:"UNKNOWN",network_improvement_reason:"NO_MATCHED_LIVE_BEFORE_AFTER_PAIR"},parent_v0471:{release_id:380630346,tag:"v0.47.1",immutable:true,target_commit_sha:"004edebd21d1935bfcec9d9d923292e555bc66fe",state:"CLOSED"},preserved_v0470_refuted:{release_id:380601504,tag:"v0.47.0",immutable:true,target_commit_sha:"a8104f3b22177e3bb193559e38180cbed13e5f36",state:"REFUTED",mutation_policy:"NO_DELETE_NO_OVERWRITE"},authority:{verification:"GITHUB_ACTIONS",github_token:"github.token",repository_writes:0,runtime_writes:0,cross_project_required_gates:0}}' > "$RUNNER_TEMP/release-transport-receipt.json"
           cat "$RUNNER_TEMP/release-transport-receipt.json" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload v0.48.0 transport receipt
