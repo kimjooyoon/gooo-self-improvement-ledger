@@ -1,0 +1,53 @@
+gooo transaction_manifest v3
+operation append_exactly_one_adoption_transaction
+transaction-schema "gooo/ledger-append-transaction/v3"
+
+target-file SEMANTIC_APPEND_ONLY activity_file "examples/self-improvement-portfolio/main.gooo"
+target-file SEMANTIC_APPEND_ONLY profile "contracts/self-improvement-portfolio-v1.json"
+target-file SEMANTIC_APPEND_ONLY release_locks "contracts/release-locks-v1.json"
+target-file SEMANTIC_APPEND_ONLY assessment "evidence/assessment-v1.json"
+target-file SEMANTIC_APPEND_ONLY registry "evidence/non-completeness-capability-evidence-registry-v1.json"
+target-file DERIVED_PROJECTION report "evidence/report-v1.json"
+projection-kind report "assessment-report"
+projection-before-digest report "sha256:5bf679360997bfde5fea0bab3e17fd49415dc6de9423947884e3795a1f9a0fe3"
+projection-source-semantic-digest report "sha256:a4daac1447ae468421541c9961170b72dadc0e8e66c18990f5268da4ce5e2e79"
+projection-after-invariant report "deterministic-regenerate-from-post-append-semantic-source"
+target-file DERIVED_PROJECTION history "evidence/history-v1.json"
+projection-kind history "append-history"
+projection-before-digest history "sha256:623d630d15e90d31d7d3307b8821a7a9d635bc2d57fdaa9864ead0ea8837a8cf"
+projection-source-semantic-digest history "sha256:a4daac1447ae468421541c9961170b72dadc0e8e66c18990f5268da4ce5e2e79"
+projection-after-invariant history "deterministic-regenerate-from-post-append-semantic-source"
+
+after-invariant append-one-cell
+after-invariant append-one-activity
+after-invariant append-one-release-lock
+after-invariant append-one-assessment
+after-invariant append-one-registry-entry
+after-invariant advance-denominator-by-one
+after-invariant increment-state-counts-by-outcome
+after-invariant preserve-existing-canonical-objects
+after-invariant planned-file-set-exact
+after-invariant replay-mismatches-zero
+after-invariant no-input-repository-writes
+after-invariant semantic-targets-declared
+after-invariant derived-projection-targets-declared
+after-invariant projection-kind-declared
+after-invariant projection-before-digest-exact
+after-invariant projection-source-semantic-digest-exact
+after-invariant projection-regenerate-deterministic
+after-invariant unexpected-deletes-refuted
+
+target v0.42.0
+target-repository "kimjooyoon/gooo-self-improvement-ledger"
+target-tag "v0.42.0"
+target-commit-sha "6319c757f694a5a91d2fc43af94f8ba841bf093e"
+target-before-digest "sha256:9a3544bef8aed00f3aea2c831e0fcdbf0663ce61102b0c04fae14f4ea8387b5c"
+expected-denominator 48
+expected-state-count CLOSED=45 UNKNOWN=1 REFUTED=2
+anchor profile.first_cell_id "CORE_SEMANTIC_AUTHORITY"
+anchor profile.last_cell_id "ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE"
+anchor assessment.last_cell_id "ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE"
+anchor registry.last_entry_id "error-directed-evolution-planner-v0.1.1"
+anchor activity.last_activity "AdoptErrorDirectedEvolutionPlannerDurableRelease"
+anchor release_map.last_key "error_directed_evolution_planner_durable_release"
+end-target

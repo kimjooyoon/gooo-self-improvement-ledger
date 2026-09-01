@@ -1,0 +1,17 @@
+{
+  "repository": "kimjooyoon/gooo-self-improvement-ledger",
+  "tag": "v0.43.0",
+  "release_id": 380333473,
+  "release_url": "https://github.com/kimjooyoon/gooo-self-improvement-ledger/releases/tag/v0.43.0",
+  "target_commit_sha": "8de54d1adb544be8506e938522e6e247a7b1a216",
+  "tag_object_sha": "df8f2ac1dddcb6db09883fc488e0f5b45d8e843b",
+  "immutable": true,
+  "source_tree_sha256": "sha256:73c4f3b1f3a44c1d2cf89fb92e9a2de86afdc97be7038ee3bcf002e030365a6f",
+  "source_archive": {
+    "sha256": "sha256:b6f96d505ccfd27aa24755887ca4ae9bc9549285d776ca872fb44b3a3503660b"
+  },
+  "release_asset": {
+    "id": 539249006,
+    "sha256": "sha256:b6f96d505ccfd27aa24755887ca4ae9bc9549285d776ca872fb44b3a3503660b"
+  }
+}
