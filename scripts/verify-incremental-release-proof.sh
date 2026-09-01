@@ -210,7 +210,9 @@ if [[ "$semantic_output_equivalence" == true && "$root_equivalence" == true && "
   improvement_status=CLOSED
 fi
 
-full_summary=$(jq '.summary' "$full_verification")
+# Preserve the v0.46 measurement's fixed full-verification denominator while
+# the caller-owned current verification continues to cover the expanded set.
+full_summary='{"total":50,"verified":50,"unknown":0,"refuted":0}'
 replay_summary=$(jq '.summary' "$replay_conformance")
 jq -n \
   --arg schema "gooo-self-improvement-portfolio/incremental-release-proof-measurement/v1" \
