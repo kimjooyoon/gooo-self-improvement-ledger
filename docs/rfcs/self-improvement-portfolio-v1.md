@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for forty specifically named capabilities.
+The portfolio is an evidence ledger for forty-one specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains forty entries. The v0.34
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-nine-cell
+`cells` array is immutable during a run and contains forty-one entries. The v0.35
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/31/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/31/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/32/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/32/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -444,7 +444,7 @@ authority.
 The v0.34 frontier appends `EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE`.
 It adopts immutable `kimjooyoon/gooo-reflexive-compiler-slice@v0.3.0` release
 `380150043`, whose annotated tag object
-`79f60bc1821a8461330cc67a086f9a8ad3b1503f` resolves to target
+`d7e2bd301f5d1634e92b0de90d54798a35db424a` resolves to target
 `0cf44db8b0d6cd96d190e9f902312d0be9394029`. The release lock pins all six
 assets by API ID, size, URL, and digest. The upstream release report closes
 its scoped improvement and records `18/18` terminal executions while retaining
@@ -464,9 +464,33 @@ giving `CLOSED37/UNKNOWN1/REFUTED2`; cumulative local validation remains `2`,
 the planner invocation is generator-only, and local Go/schema/conformance
 execution counts remain zero.
 
-The non-completeness capability evidence registry is a separate nineteen-entry
+The v0.35 frontier appends `TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE`. It
+adopts immutable upstream release `v0.1.1` (release ID `380148091`) from
+`kimjooyoon/gooo-two-generation-bootstrap`, with annotated tag object
+`8b89c283ece9ac7321858308366395946265400f` resolving to target
+`6d2bc764f144900862ba5e127cfa19d4cec248b9`. Both evidence assets are pinned
+by API ID, size, URL, and SHA-256 digest. The upstream evidence preserves equal
+stage-1/stage-2 IR digest `sha256:cf0d124e7e37ec79edf657b0372f8c72f477a646762c98a22f1dc5090dade34f`,
+equal generated-artifact digest
+`sha256:8c637d379b21cfae4e549ad1c8087de43427c56349982643a73587431cd7ea6b`,
+and a terminal corpus of `CLOSED2/UNKNOWN2/REFUTED2` with all six UNKNOWN
+fields, precedence, frontier, and counterexample digests. Bootstrap conformance
+is `PASS`; whole-language improvement and external utility remain
+`UNKNOWN`/`NOT_MADE`.
+
+The adoption is executed by immutable planner v0.3.0 using the v3 transaction
+manifest. Five semantic targets remain append-only and two derived report/history
+projections may be replaced only in caller-owned temporary output after exact
+before-digest and semantic-source-digest checks. The planner records `7/7`
+planned/changed paths, `5` AST nodes, zero replay mismatches, zero planning
+repository writes, and an exact rollback-ready receipt. The new cell is CLOSED,
+giving `CLOSED38/UNKNOWN1/REFUTED2`; cumulative local validation remains `2`,
+the planner invocation is generator-only, and local Go/schema/conformance
+execution counts remain zero.
+
+The non-completeness capability evidence registry is a separate twenty-entry
 external-input ledger. Its count and dispositions never alter this fixed
-forty-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+forty-one-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

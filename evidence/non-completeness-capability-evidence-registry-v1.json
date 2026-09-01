@@ -430,9 +430,28 @@
         "target_commit_sha": "0cf44db8b0d6cd96d190e9f902312d0be9394029"
       },
       "state": "CLOSED"
+    },
+    {
+      "entry_id": "two-generation-bootstrap-v0.1.1",
+      "evidence": [
+        "immutable release API and annotated tag",
+        "release evidence archive and SHA256SUMS",
+        "stage1/stage2 fixed-point IR and generated artifact digests",
+        "six-case terminal corpus with UNKNOWN six-field frontier and counterexample digest preservation"
+      ],
+      "observed": {
+        "corpus": "2 CLOSED / 2 UNKNOWN / 2 REFUTED",
+        "generated_artifact_digest": "sha256:8c637d379b21cfae4e549ad1c8087de43427c56349982643a73587431cd7ea6b",
+        "release_assets": 2,
+        "release_immutable": true,
+        "stage1_ir_digest": "sha256:cf0d124e7e37ec79edf657b0372f8c72f477a646762c98a22f1dc5090dade34f",
+        "stage2_ir_digest": "sha256:cf0d124e7e37ec79edf657b0372f8c72f477a646762c98a22f1dc5090dade34f",
+        "target_commit_sha": "6d2bc764f144900862ba5e127cfa19d4cec248b9"
+      },
+      "state": "CLOSED"
     }
   ],
-  "entry_count": 19,
+  "entry_count": 20,
   "frontier_additions": [
     "receipt-schema-migration-v0.1.1",
     "receipt-schema-migration-v0.2.2",
@@ -444,7 +463,8 @@
     "adoption-regression-v0.1.0",
     "adoption-regression-v0.1.1",
     "structural-ledger-append-planner-v0.2.0",
-    "explanation-carrying-compiler-v0.3.0"
+    "explanation-carrying-compiler-v0.3.0",
+    "two-generation-bootstrap-v0.1.1"
   ],
   "lineage": [
     {

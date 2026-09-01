@@ -6212,6 +6212,33 @@
       "tag_object_sha": "398577621c42eb7450416bdf086b9304c8c1e42a",
       "target_commit_sha": "f8e1f8aebb67abbda237073893a4a855a8659df5"
     },
+    "two_generation_bootstrap_durable_release": {
+      "assets": [
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-two-generation-bootstrap/releases/download/v0.1.1/gooo-two-generation-release-v0.1.1-evidence.tar.gz",
+          "id": 538734713,
+          "name": "gooo-two-generation-release-v0.1.1-evidence.tar.gz",
+          "role": "release-evidence",
+          "sha256": "sha256:66fed9217a3a632e412a00feae80b87ac66fbf9fd63d4ee6e147b8d6a059ae9c",
+          "size_bytes": 5823
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-two-generation-bootstrap/releases/download/v0.1.1/gooo-two-generation-release-v0.1.1-SHA256SUMS",
+          "id": 538734714,
+          "name": "gooo-two-generation-release-v0.1.1-SHA256SUMS",
+          "role": "release-checksums",
+          "sha256": "sha256:e28154200027dd298aa56dc5cc8c045f177c259a105166cfa8d8dce46e39ebc3",
+          "size_bytes": 117
+        }
+      ],
+      "immutable": true,
+      "release_id": 380148091,
+      "release_url": "https://github.com/kimjooyoon/gooo-two-generation-bootstrap/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-two-generation-bootstrap",
+      "tag": "v0.1.1",
+      "tag_object_sha": "8b89c283ece9ac7321858308366395946265400f",
+      "target_commit_sha": "6d2bc764f144900862ba5e127cfa19d4cec248b9"
+    },
     "unknown_resolution_lattice_release": {
       "assets": [
         {

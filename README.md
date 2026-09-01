@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 40 named cells, each bound one-to-one to
+language. The denominator is exactly 41 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -33,11 +33,12 @@ The fixed axes are:
 `REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE`, and
 `EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE`, and
 `STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE`, and
-`EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE`.
+`EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE`, and
+`TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `39 -> 40` with
+The denominator migration is explicit and append-only: `40 -> 41` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/31/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/31/5`.
+`4/32/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/32/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -539,7 +540,7 @@ remain zero; GitHub Actions is the validation authority.
 The v0.34 frontier appends `EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE`.
 It adopts immutable `kimjooyoon/gooo-reflexive-compiler-slice@v0.3.0` release
 `380150043`, binding annotated tag object
-`79f60bc1821a8461330cc67a086f9a8ad3b1503f` to target
+`d7e2bd301f5d1634e92b0de90d54798a35db424a` to target
 `0cf44db8b0d6cd96d190e9f902312d0be9394029`. All six release assets are pinned
 by API ID, byte size, download URL, and SHA-256 digest. The compiler report
 records `18/18` terminal executions with a preserved corpus of
@@ -559,8 +560,29 @@ an exact rollback-ready receipt. The new ledger cell is `CLOSED`, yielding
 planner invocation is generator-only, process state remains `REFUTED`, and
 local schema/conformance plus Go test/build/vet executions remain zero.
 
+The v0.35 frontier appends `TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE`. It
+adopts immutable `kimjooyoon/gooo-two-generation-bootstrap@v0.1.1` release
+`380148091`, binding annotated tag object
+`8b89c283ece9ac7321858308366395946265400f` to target
+`6d2bc764f144900862ba5e127cfa19d4cec248b9`. Both release assets are pinned
+by API ID, byte size, download URL, and SHA-256 digest. The upstream evidence
+preserves equal stage1/stage2 IR digest `sha256:cf0d124e7e37ec79edf657b0372f8c72f477a646762c98a22f1dc5090dade34f`, equal generated-artifact digest
+`sha256:8c637d379b21cfae4e549ad1c8087de43427c56349982643a73587431cd7ea6b`,
+and a terminal corpus of `CLOSED2/UNKNOWN2/REFUTED2` with all six UNKNOWN
+fields, its minimal frontier, and counterexample digest.
+
+The v0.35 adoption is executed by immutable planner v0.3.0 using the v3
+manifest. It plans and changes exactly `7/7` paths, replaces only the two
+caller-owned report/history projections after exact before/source digest
+checks, adds `5` AST nodes, records zero replay mismatches and zero planner
+repository writes, and produces an exact rollback-ready receipt. The new cell
+is `CLOSED`, yielding `CLOSED38/UNKNOWN1/REFUTED2`; cumulative local
+validation remains `2`, the planner invocation is generator-only, process
+state remains `REFUTED`, and local schema/conformance plus Go test/build/vet
+executions remain zero.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
-nineteen independent evidence inputs without treating its entry count as the portfolio
+twenty independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
 REFUTED`: the three historical v0.1.0 refutations remain preserved and are
 linked to immutable v0.1.1 successor locks; the immutable receipt-schema-
@@ -587,7 +609,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the thirty-seven immutable inputs
+commit, and consumer asset identities for the thirty-eight immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope
