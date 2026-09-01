@@ -32,9 +32,16 @@ evaluate_one() {
   tag=$(jq -r --arg key "$key" '.releases[$key].tag' "$lock")
   release_url=$(jq -r --arg key "$key" '.releases[$key].release_url' "$lock")
   release_id=$(jq -r --arg key "$key" '.releases[$key].release_id // empty' "$lock")
-  if jq -e --arg tag "$tag" --arg url "$release_url" --argjson release_id "$release_id" \
-    '.id==$release_id and .tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==true' \
-    "$release_file" >/dev/null; then
+  if [ -n "$release_id" ]; then
+    release_matches=$(jq -e --arg tag "$tag" --arg url "$release_url" --argjson release_id "$release_id" \
+      '.id==$release_id and .tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==true' \
+      "$release_file" >/dev/null; echo "$?")
+  else
+    release_matches=$(jq -e --arg tag "$tag" --arg url "$release_url" \
+      '.tag_name==$tag and .html_url==$url and .draft==false and .prerelease==false and .immutable==true' \
+      "$release_file" >/dev/null; echo "$?")
+  fi
+  if [ "$release_matches" -eq 0 ]; then
     jq -S -n --arg key "$key" --arg repo "$repo" --arg tag "$tag" \
       --argjson observed "$(jq '{id,tag_name,html_url,draft,prerelease,immutable}' "$release_file")" \
       '{lock_id:$key,state:"CLOSED",verified:true,repository:$repo,tag:$tag,observed:$observed}' > "$result_file"
