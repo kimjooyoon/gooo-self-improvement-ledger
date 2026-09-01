@@ -1121,7 +1121,6 @@ jobs:
         run: |
           set -Eeuo pipefail
           bash scripts/verify-v049-products.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
-          bash scripts/verify-v0490-release-input.sh --artifact "$ARTIFACT_ROOT"
 
       - name: Verify separate thirty-entry non-completeness capability evidence registry
         shell: bash
@@ -1209,6 +1208,14 @@ jobs:
       - name: Preserve v0.49.0 atomic two-cell adoption wave evidence
         shell: bash
         run: cp evidence/atomic-v0490-wave-v1.json "$ARTIFACT_ROOT/atomic-v0490-wave-v1.json"
+
+      - name: Final v0.49 release input preflight after artifact materialization
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          bash scripts/verify-v0490-release-input.sh --artifact "$ARTIFACT_ROOT"
 
       - name: Upload human-readable evidence
         if: always()
