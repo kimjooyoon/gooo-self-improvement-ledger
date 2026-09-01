@@ -796,7 +796,11 @@ jq -e '
       {id:538734713,name:"gooo-two-generation-release-v0.1.1-evidence.tar.gz",size_bytes:5823,sha256:"sha256:66fed9217a3a632e412a00feae80b87ac66fbf9fd63d4ee6e147b8d6a059ae9c",download_url:"https://github.com/kimjooyoon/gooo-two-generation-bootstrap/releases/download/v0.1.1/gooo-two-generation-release-v0.1.1-evidence.tar.gz",role:"release-evidence"},
       {id:538734714,name:"gooo-two-generation-release-v0.1.1-SHA256SUMS",size_bytes:117,sha256:"sha256:e28154200027dd298aa56dc5cc8c045f177c259a105166cfa8d8dce46e39ebc3",download_url:"https://github.com/kimjooyoon/gooo-two-generation-bootstrap/releases/download/v0.1.1/gooo-two-generation-release-v0.1.1-SHA256SUMS",role:"release-checksums"}
     ]
-  } and .releases.hygienic_origin_resolver_durable_release == {
+  }
+' "$repository/contracts/release-locks-v1.json" >/dev/null
+echo "conformance: release lock contract passed"
+jq -e '
+  .releases.hygienic_origin_resolver_durable_release == {
     repository:"kimjooyoon/gooo-hygienic-origin-resolver",
     tag:"v0.1.1",
     release_id:380148937,
@@ -812,7 +816,7 @@ jq -e '
     ]
   }
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
-echo "conformance: release lock contract passed"
+echo "conformance: hygienic origin resolver release lock passed"
 
 echo "conformance: verify emitted report"
 jq -e '
