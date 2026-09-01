@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 60 named cells, each bound one-to-one to
+language. The denominator is exactly 62 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -53,11 +53,13 @@ The fixed axes are:
 `BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE`,
 `PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE`,
 `DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE`, and
-`IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE`.
+`IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE`,
+`MEASUREMENT_BOUNDARY_PROJECTOR_DURABLE_RELEASE`, and
+`CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `53 -> 60` with
-`ADD7/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/51/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/51/5`.
+The denominator migration is explicit and append-only: `53 -> 62` with
+`ADD9/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
+`4/53/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/53/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -163,6 +165,17 @@ The live external
 retains exactly `stage`, `step`, `reason`, `unknown_class`, `next_operation`,
 and a minimal non-empty `blocked_by` frontier. A missing or contradictory
 locked release cannot close a cell.
+
+The v0.49.0 wave appends two CLOSED adoption cells atomically. It binds the
+immutable `gooo-measurement-boundary-projector@v0.1.1` release `380734248` and
+`gooo-content-addressed-proof-reuse@v0.1.2` release `380721158` to their
+annotated tag objects, targets, release assets, source CI artifacts, and
+successful release workflows. In the same GitHub Actions job, the released
+proof-reuse consumer runs against the v0.48 parent fixture plus the two new
+ledger locks; the measurement receipt is generated from that observed run and
+contains exact before/after pairs for `wall_ms`, `peak_rss_kib`, `requests`,
+`bytes_read`, `bytes_downloaded`, `selected`, `executed`, and `reused`. No
+aggregate score or whole-language improvement is claimed.
 
 The resolved event binds merged/admin PR #614, dev commit
 `e440cbc99f24ceb8385f1b89c70f8cdada10cdbb`, successful dev CI #3408, and its

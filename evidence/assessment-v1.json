@@ -1366,6 +1366,37 @@
         "parent-v0.47.1:release=380630346:tag=v0.47.1:target=004edebd21d1935bfcec9d9d923292e555bc66fe:state=CLOSED",
         "structural-append:cell=IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE:activity=AdoptImprovementDominanceLatticeDurableRelease:lock=improvement_dominance_lattice_durable_release"
       ]
+    },
+    {
+      "cell_id": "MEASUREMENT_BOUNDARY_PROJECTOR_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "measurement_boundary_projector_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-measurement-boundary-projector:tag=v0.1.1:release=380734248:tag_object=1772a10b322590987f874319ba9d3fff96c64d2a:target=5100200ff3d23a665f838847af68e6d4cca03547:immutable=true",
+        "upstream-assets:539965803:27434:sha256:6ac9d76ad60d0ec993e22abcbe737b1912bc7e1f8547e4debe9898ad5be6eee4,539965805:1220:sha256:30c72398d585a725a678eea7edab2fdfee125cc56ec360983e54d80f44290bf1,539965802:218:sha256:896eacf38be4a66a0a5aa5d9f767d7eb853f5eae732a630a39914c35a39cdaa3",
+        "measurement-boundary-cases:total=10:selected=10:executed=10:reused=0:closed=3:unknown=4:refuted=3:precedence=REFUTED>UNKNOWN>CLOSED",
+        "measurement-boundary-ci:run_id=33544032678:job=99977026416:artifact=9814741846:artifact_size=6169:artifact_digest=sha256:241e7e47acde5bc7385b0679aee201cb2d34e888cf1802c6cb982b2c23aa42e6:release_run=33544122558:release_job=99977324252:release_artifact=9814775280:release_artifact_size=2727098:release_artifact_digest=sha256:b758ff3786d38392208e9575ad35886f0113fb7c2bfd45b68ae6679c67e885dc",
+        "measurement-authority:generated_single_authority=CLOSED:consumer_receipts_exact=true:generated_collector_ran=true:measured_once_per_metric=true:repository_writes=0:local_validation_commands=0",
+        "measurement-boundary-operational-refuted:exact_count=1:stage=AUTHORING:step=OPEN_IMPLEMENTATION_PR_BEFORE_MAIN_INTEGRATION:reason=INITIAL_IMPLEMENTATION_PUSH_PRECEDED_PR:initial_main_run_id=33540259958:preserved=true",
+        "scope:MEASUREMENT_BOUNDARY_PROJECTOR_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN",
+        "parent-v0.48.0:release=380694027:tag=v0.48.0:tag_object=e18e19e3ff58c4c7643d5028b5fc9bf39e83e769:target=1985612b1f9eb8184e04626b426c88b91901bdd4:asset=539891522:54641017:sha256:3792b53a77d88b3471e6f4889baf24679dcdcfba8314abb32d0dd3469ccdc3aa:state=CLOSED",
+        "structural-append:cell=MEASUREMENT_BOUNDARY_PROJECTOR_DURABLE_RELEASE:activity=AdoptMeasurementBoundaryProjectorDurableRelease:lock=measurement_boundary_projector_durable_release"
+      ]
+    },
+    {
+      "cell_id": "CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "content_addressed_proof_reuse_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-content-addressed-proof-reuse:tag=v0.1.2:release=380721158:tag_object=c883340dc4649de59c614d0d71fbc8c6dbafcf2a:target=1c84bd91613ac765a43396b6ab5b1da64e8b2097:immutable=true",
+        "upstream-assets:539940491:23101:sha256:5c150df58732907729eafd81b10329ce1771a6441b09ea76a2d7f38677f75c26,539940493:424:sha256:c74bd5cb9ea1cb46b559a21b01f2fe4613c8725fa4ce493a35512370865590f7,539940494:122:sha256:de80ad8fa1a3c3627a6314e2437b096c718a7740822d5bfad46697884118a2d6",
+        "content-reuse-cases:denominator=9:closed=3:unknown=3:refuted=3:parent_fixture_locks=57:runtime_observation=generated_by_same_ci_job:semantic_root_and_canonical_evidence=observed",
+        "content-reuse-ci:run_id=33541874496:job=99969850441:artifact=9813910958:artifact_size=6178759:artifact_digest=sha256:e5914df7656e82c7ab5683c3ff741c6e68d8403d2ac85b504ccf33ddfd03d630:release_run=33541947055:release_job=99970086956",
+        "content-reuse-authority:repository_writes=0:local_build_test_verification=0:cross_project_required_gates=0:verification=GITHUB_ACTIONS:github_token=github.token:failed_history_preserved=true",
+        "content-reuse-scope:CONTENT_ADDRESSED_PROOF_REUSE_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN",
+        "parent-v0.48.0:release=380694027:tag=v0.48.0:tag_object=e18e19e3ff58c4c7643d5028b5fc9bf39e83e769:target=1985612b1f9eb8184e04626b426c88b91901bdd4:asset=539891522:54641017:sha256:3792b53a77d88b3471e6f4889baf24679dcdcfba8314abb32d0dd3469ccdc3aa:state=CLOSED",
+        "structural-append:cell=CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE:activity=AdoptContentAddressedProofReuseDurableRelease:lock=content_addressed_proof_reuse_durable_release"
+      ]
     }
   ],
   "core_refutation_observation_events": [
@@ -1433,12 +1464,12 @@
     }
   ],
   "denominator_migration": {
-    "add": 7,
+    "add": 9,
     "append_only": true,
     "from": 53,
     "retire": 0,
     "split": 0,
-    "to": 60
+    "to": 62
   },
   "local_validation_followup": {
     "inspection_only": true,

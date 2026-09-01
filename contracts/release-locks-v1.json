@@ -7442,6 +7442,105 @@
       "tag": "v0.1.2",
       "tag_object_sha": "0293fd1b7c81d04fbae40e051a73fb5589f1897f",
       "target_commit_sha": "048b10c0a19faf9dfec8a72266845715f14f2725"
+    },
+    "measurement_boundary_projector_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-measurement-boundary-projector/releases/download/v0.1.1/gooo-measurement-boundary-projector-v0.1.1.tar.gz","id":539965803,"name":"gooo-measurement-boundary-projector-v0.1.1.tar.gz","sha256":"sha256:6ac9d76ad60d0ec993e22abcbe737b1912bc7e1f8547e4debe9898ad5be6eee4","size_bytes":27434},
+        {"download_url":"https://github.com/kimjooyoon/gooo-measurement-boundary-projector/releases/download/v0.1.1/release-manifest.json","id":539965805,"name":"release-manifest.json","sha256":"sha256:30c72398d585a725a678eea7edab2fdfee125cc56ec360983e54d80f44290bf1","size_bytes":1220},
+        {"download_url":"https://github.com/kimjooyoon/gooo-measurement-boundary-projector/releases/download/v0.1.1/SHA256SUMS","id":539965802,"name":"SHA256SUMS","sha256":"sha256:896eacf38be4a66a0a5aa5d9f767d7eb853f5eae732a630a39914c35a39cdaa3","size_bytes":218}
+      ],
+      "immutable": true,
+      "release_id": 380734248,
+      "release_url": "https://github.com/kimjooyoon/gooo-measurement-boundary-projector/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-measurement-boundary-projector",
+      "tag": "v0.1.1",
+      "tag_object_sha": "1772a10b322590987f874319ba9d3fff96c64d2a",
+      "target_commit_sha": "5100200ff3d23a665f838847af68e6d4cca03547",
+      "source_run": {
+        "run_id": 33544032678,
+        "run_url": "https://github.com/kimjooyoon/gooo-measurement-boundary-projector/actions/runs/33544032678",
+        "workflow_url": "https://github.com/kimjooyoon/gooo-measurement-boundary-projector/actions/runs/33544032678",
+        "head_sha": "da72a5499046b27f5262ad22d2c88164ceae0bab",
+        "conclusion": "success",
+        "job_id": 99977026416,
+        "job_name": "conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-measurement-boundary-projector/actions/runs/33544032678/job/99977026416",
+        "artifact_ids": [9814741846]
+      },
+      "source_artifact": {
+        "run_id": 33544032678,
+        "artifact_id": 9814741846,
+        "name": "measurement-boundary-ci-evidence-33544032678",
+        "size_bytes": 6169,
+        "sha256": "sha256:241e7e47acde5bc7385b0679aee201cb2d34e888cf1802c6cb982b2c23aa42e6"
+      },
+      "release_run": {
+        "run_id": 33544122558,
+        "run_url": "https://github.com/kimjooyoon/gooo-measurement-boundary-projector/actions/runs/33544122558",
+        "head_sha": "da72a5499046b27f5262ad22d2c88164ceae0bab",
+        "conclusion": "success",
+        "job_id": 99977324252,
+        "job_name": "Draft, audit, and publish immutable release",
+        "job_url": "https://github.com/kimjooyoon/gooo-measurement-boundary-projector/actions/runs/33544122558/job/99977324252"
+      },
+      "release_artifact": {
+        "run_id": 33544122558,
+        "artifact_id": 9814775280,
+        "name": "measurement-boundary-release-v0.1.1",
+        "size_bytes": 2727098,
+        "sha256": "sha256:b758ff3786d38392208e9575ad35886f0113fb7c2bfd45b68ae6679c67e885dc"
+      },
+      "preserved_failed_history": {
+        "run_id": 33543839199,
+        "conclusion": "failure",
+        "preserved": true,
+        "is_product_validation": false
+      }
+    },
+    "content_addressed_proof_reuse_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-content-addressed-proof-reuse/releases/download/v0.1.2/gooo-content-addressed-proof-reuse-v0.1.2.tar.gz","id":539940491,"name":"gooo-content-addressed-proof-reuse-v0.1.2.tar.gz","sha256":"sha256:5c150df58732907729eafd81b10329ce1771a6441b09ea76a2d7f38677f75c26","size_bytes":23101},
+        {"download_url":"https://github.com/kimjooyoon/gooo-content-addressed-proof-reuse/releases/download/v0.1.2/release-manifest.json","id":539940493,"name":"release-manifest.json","sha256":"sha256:c74bd5cb9ea1cb46b559a21b01f2fe4613c8725fa4ce493a35512370865590f7","size_bytes":424},
+        {"download_url":"https://github.com/kimjooyoon/gooo-content-addressed-proof-reuse/releases/download/v0.1.2/SHA256SUMS","id":539940494,"name":"SHA256SUMS","sha256":"sha256:de80ad8fa1a3c3627a6314e2437b096c718a7740822d5bfad46697884118a2d6","size_bytes":122}
+      ],
+      "immutable": true,
+      "release_id": 380721158,
+      "release_url": "https://github.com/kimjooyoon/gooo-content-addressed-proof-reuse/releases/tag/v0.1.2",
+      "repository": "kimjooyoon/gooo-content-addressed-proof-reuse",
+      "tag": "v0.1.2",
+      "tag_object_sha": "c883340dc4649de59c614d0d71fbc8c6dbafcf2a",
+      "target_commit_sha": "1c84bd91613ac765a43396b6ab5b1da64e8b2097",
+      "source_run": {
+        "run_id": 33541874496,
+        "run_url": "https://github.com/kimjooyoon/gooo-content-addressed-proof-reuse/actions/runs/33541874496",
+        "workflow_url": "https://github.com/kimjooyoon/gooo-content-addressed-proof-reuse/actions/runs/33541874496",
+        "head_sha": "1c84bd91613ac765a43396b6ab5b1da64e8b2097",
+        "conclusion": "success",
+        "job_id": 99969850441,
+        "job_name": "verify",
+        "job_url": "https://github.com/kimjooyoon/gooo-content-addressed-proof-reuse/actions/runs/33541874496/job/99969850441",
+        "artifact_ids": [9813910958]
+      },
+      "source_artifact": {
+        "run_id": 33541874496,
+        "artifact_id": 9813910958,
+        "name": "content-addressed-proof-reuse-33541874496-1",
+        "size_bytes": 6178759,
+        "sha256": "sha256:e5914df7656e82c7ab5683c3ff741c6e68d8403d2ac85b504ccf33ddfd03d630"
+      },
+      "release_run": {
+        "run_id": 33541947055,
+        "run_url": "https://github.com/kimjooyoon/gooo-content-addressed-proof-reuse/actions/runs/33541947055",
+        "head_sha": "1c84bd91613ac765a43396b6ab5b1da64e8b2097",
+        "conclusion": "success",
+        "job_id": 99970086956,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-content-addressed-proof-reuse/actions/runs/33541947055/job/99970086956"
+      },
+      "preserved_failed_history": {
+        "preserved": true,
+        "is_product_validation": false
+      }
     }
   },
   "schema": "gooo/self-improvement-portfolio/release-locks/v1"
