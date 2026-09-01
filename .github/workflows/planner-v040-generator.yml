@@ -97,6 +97,16 @@ jobs:
           test "$(jq -r '.rollback_ready' "$RUNNER_TEMP/planner-output/replay-receipt.json")" = true
           test "$(find "$RUNNER_TEMP/planner-output/repository" -type f | wc -l | tr -d ' ')" = 7
 
+      - name: Preserve planner outputs for assertion diagnosis
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: gooo-ledger-append-planner-v0.40.0-output-debug
+          path: |
+            ${{ runner.temp }}/planner-output
+            ${{ runner.temp }}/planner-cli-result.json
+          if-no-files-found: error
+
       - name: Upload planner outputs and receipts
         uses: actions/upload-artifact@v4
         with:
