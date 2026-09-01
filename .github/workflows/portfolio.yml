@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify thirty-seven immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify thirty-eight immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,7 +78,7 @@ jobs:
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:37,verified:37,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:38,verified:38,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           planner_dir="$ARTIFACT_ROOT/releases/structural_ledger_append_planner_durable_release/assets"
           test "$(cat "$planner_dir/SHA256SUMS")" = $'25274148049853e3147618e6278570259cf3238fb578b8f808231e47c2488da8  release/gooo-ledger-append-planner-linux-amd64-v0.2.0\nf01a5ad3350a507aca5f91142e8cd09cbaf7ab923507a85f8209084d873663f7  release/gooo-ledger-append-planner-source-v0.2.0.tar.gz'
@@ -679,7 +679,41 @@ jobs:
           test "$(awk '$2=="refs/tags/v0.3.0^{}" {print $1}' <<< "$compiler_refs")" = 0cf44db8b0d6cd96d190e9f902312d0be9394029
           echo "upstream explanation-carrying compiler v0.3.0 release and 18/18 terminal evidence verified"
 
-      - name: Verify separate nineteen-entry non-completeness capability evidence registry
+      - name: Verify two-generation bootstrap v0.1.1 release and terminal corpus
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          bootstrap_repo="kimjooyoon/gooo-two-generation-bootstrap"
+          bootstrap_dir="$ARTIFACT_ROOT/releases/two_generation_bootstrap_durable_release/assets"
+          bootstrap_release_json="$ARTIFACT_ROOT/releases/two_generation_bootstrap_durable_release.release.json"
+          jq -e '.id==380148091 and .tag_name=="v0.1.1" and .html_url=="https://github.com/kimjooyoon/gooo-two-generation-bootstrap/releases/tag/v0.1.1" and .draft==false and .prerelease==false and .immutable==true and (.assets|length)==2 and ([.assets[]|{id,name,size,digest,browser_download_url}]|sort_by(.id))==([{id:538734713,name:"gooo-two-generation-release-v0.1.1-evidence.tar.gz",size:5823,digest:"sha256:66fed9217a3a632e412a00feae80b87ac66fbf9fd63d4ee6e147b8d6a059ae9c",browser_download_url:"https://github.com/kimjooyoon/gooo-two-generation-bootstrap/releases/download/v0.1.1/gooo-two-generation-release-v0.1.1-evidence.tar.gz"},{id:538734714,name:"gooo-two-generation-release-v0.1.1-SHA256SUMS",size:117,digest:"sha256:e28154200027dd298aa56dc5cc8c045f177c259a105166cfa8d8dce46e39ebc3",browser_download_url:"https://github.com/kimjooyoon/gooo-two-generation-bootstrap/releases/download/v0.1.1/gooo-two-generation-release-v0.1.1-SHA256SUMS"}]|sort_by(.id))' "$bootstrap_release_json" >/dev/null
+          test "$(cat "$bootstrap_dir/gooo-two-generation-release-v0.1.1-SHA256SUMS")" = $'66fed9217a3a632e412a00feae80b87ac66fbf9fd63d4ee6e147b8d6a059ae9c  gooo-two-generation-release-v0.1.1-evidence.tar.gz'
+          test "$(wc -c < "$bootstrap_dir/gooo-two-generation-release-v0.1.1-evidence.tar.gz" | tr -d ' ')" = 5823
+          test "$(sha256sum "$bootstrap_dir/gooo-two-generation-release-v0.1.1-evidence.tar.gz" | awk '{print $1}')" = 66fed9217a3a632e412a00feae80b87ac66fbf9fd63d4ee6e147b8d6a059ae9c
+          test "$(wc -c < "$bootstrap_dir/gooo-two-generation-release-v0.1.1-SHA256SUMS" | tr -d ' ')" = 117
+          test "$(sha256sum "$bootstrap_dir/gooo-two-generation-release-v0.1.1-SHA256SUMS" | awk '{print $1}')" = e28154200027dd298aa56dc5cc8c045f177c259a105166cfa8d8dce46e39ebc3
+          bootstrap_evidence_dir="$RUNNER_TEMP/gooo-two-generation-evidence"
+          mkdir -p "$bootstrap_evidence_dir"
+          tar --no-xattrs -xzf "$bootstrap_dir/gooo-two-generation-release-v0.1.1-evidence.tar.gz" -C "$bootstrap_evidence_dir"
+          jq -e '.stage=="stage1" and .status=="CLOSED" and .ir_digest=="sha256:cf0d124e7e37ec79edf657b0372f8c72f477a646762c98a22f1dc5090dade34f" and .generated_artifact_digest=="sha256:8c637d379b21cfae4e549ad1c8087de43427c56349982643a73587431cd7ea6b"' "$bootstrap_evidence_dir/artifacts/stage1/stage1-result.json" >/dev/null
+          jq -e '.stage=="stage2" and .status=="CLOSED" and .ir_digest=="sha256:cf0d124e7e37ec79edf657b0372f8c72f477a646762c98a22f1dc5090dade34f" and .generated_artifact_digest=="sha256:8c637d379b21cfae4e549ad1c8087de43427c56349982643a73587431cd7ea6b"' "$bootstrap_evidence_dir/artifacts/stage2/stage2-result.json" >/dev/null
+          jq -e '.status=="CLOSED" and .stage1_ir_digest=="sha256:cf0d124e7e37ec79edf657b0372f8c72f477a646762c98a22f1dc5090dade34f" and .stage2_ir_digest=="sha256:cf0d124e7e37ec79edf657b0372f8c72f477a646762c98a22f1dc5090dade34f" and .stage1_generated_artifact_digest=="sha256:8c637d379b21cfae4e549ad1c8087de43427c56349982643a73587431cd7ea6b" and .stage2_generated_artifact_digest=="sha256:8c637d379b21cfae4e549ad1c8087de43427c56349982643a73587431cd7ea6b" and .semantic_ir_equal==true and .generated_artifact_equal==true' "$bootstrap_evidence_dir/artifacts/fixed-point.json" >/dev/null
+          jq -e '.status=="CLOSED" and ([.cases[].status]|sort)==["CLOSED","CLOSED","REFUTED","REFUTED","UNKNOWN","UNKNOWN"] and all(.cases[];.pass==true) and all(.cases[]|select(.status=="UNKNOWN"); (.unknown|keys|sort)==["blocked_by","next_operation","reason","stage","step","unknown_class"] and (.unknown.blocked_by|length)>0)' "$bootstrap_evidence_dir/artifacts/conformance.json" >/dev/null
+          jq -e '.status=="PASS" and .canonical_cases==3 and .precedence==["REFUTED","UNKNOWN","CLOSED"]' "$bootstrap_evidence_dir/artifacts/bootstrap-conformance.json" >/dev/null
+          jq -e '.fixed_point_status=="CLOSED" and .corpus_status=="CLOSED" and .authority_boundary.local_test_executions==0 and .authority_boundary.input_repository_modified==false and .authority_boundary.output_directory=="caller-owned-temporary" and .digests.stage1_generated_artifact=="sha256:8c637d379b21cfae4e549ad1c8087de43427c56349982643a73587431cd7ea6b" and .digests.stage2_generated_artifact=="sha256:8c637d379b21cfae4e549ad1c8087de43427c56349982643a73587431cd7ea6b"' "$bootstrap_evidence_dir/selfhost-evidence.json" >/dev/null
+          tag_json="$RUNNER_TEMP/gooo-two-generation-bootstrap-v011-tag.json"
+          gh api "repos/$bootstrap_repo/git/ref/tags/v0.1.1" > "$tag_json"
+          jq -e '.object.sha=="8b89c283ece9ac7321858308366395946265400f" and .object.type=="tag"' "$tag_json" >/dev/null
+          gh api "repos/$bootstrap_repo/git/tags/8b89c283ece9ac7321858308366395946265400f" > "$RUNNER_TEMP/gooo-two-generation-bootstrap-v011-tag-object.json"
+          jq -e '.object.sha=="6d2bc764f144900862ba5e127cfa19d4cec248b9" and .object.type=="commit"' "$RUNNER_TEMP/gooo-two-generation-bootstrap-v011-tag-object.json" >/dev/null
+          bootstrap_refs=$(git ls-remote "https://github.com/$bootstrap_repo.git" refs/tags/v0.1.1 'refs/tags/v0.1.1^{}')
+          test "$(awk '$2=="refs/tags/v0.1.1" {print $1}' <<< "$bootstrap_refs")" = 8b89c283ece9ac7321858308366395946265400f
+          test "$(awk '$2=="refs/tags/v0.1.1^{}" {print $1}' <<< "$bootstrap_refs")" = 6d2bc764f144900862ba5e127cfa19d4cec248b9
+          echo "upstream two-generation bootstrap v0.1.1 release and terminal corpus verified"
+
+      - name: Verify separate twenty-entry non-completeness capability evidence registry
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -718,7 +752,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:40,closed:37,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:41,closed:38,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"

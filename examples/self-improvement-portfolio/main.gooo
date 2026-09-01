@@ -44,3 +44,4 @@ activity AdoptReflexiveCompilerGraphTopologySelfImprovement(PortfolioInput) -> P
 activity AdoptExecutableEvolutionTrialClosedLoop(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptStructuralLedgerAppendPlannerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptExplanationCarryingCompilerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptTwoGenerationBootstrapDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
