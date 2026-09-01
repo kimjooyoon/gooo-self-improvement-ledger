@@ -671,11 +671,11 @@ jobs:
           jq -e '.schema=="gooo/reflexive-release/v1" and .version=="0.3.0" and .tag=="v0.3.0" and .commit=="0cf44db8b0d6cd96d190e9f902312d0be9394029" and .phase=="reflexive.normalize.v2" and .scope=="ONE_COMPILER_PHASE_ONLY" and .self_hosting=="NOT_MADE" and .external_utility=="UNKNOWN" and .global_self_hosting=="UNKNOWN"' "$compiler_dir/version.json" >/dev/null
           tag_json="$RUNNER_TEMP/gooo-reflexive-compiler-v030-tag.json"
           gh api "repos/$compiler_repo/git/ref/tags/v0.3.0" > "$tag_json"
-          jq -e '.object.sha=="79f60bc1821a8461330cc67a086f9a8ad3b1503f" and .object.type=="tag"' "$tag_json" >/dev/null
-          gh api "repos/$compiler_repo/git/tags/79f60bc1821a8461330cc67a086f9a8ad3b1503f" > "$RUNNER_TEMP/gooo-reflexive-compiler-v030-tag-object.json"
+          jq -e '.object.sha=="d7e2bd301f5d1634e92b0de90d54798a35db424a" and .object.type=="tag"' "$tag_json" >/dev/null
+          gh api "repos/$compiler_repo/git/tags/d7e2bd301f5d1634e92b0de90d54798a35db424a" > "$RUNNER_TEMP/gooo-reflexive-compiler-v030-tag-object.json"
           jq -e '.object.sha=="0cf44db8b0d6cd96d190e9f902312d0be9394029" and .object.type=="commit"' "$RUNNER_TEMP/gooo-reflexive-compiler-v030-tag-object.json" >/dev/null
           compiler_refs=$(git ls-remote "https://github.com/$compiler_repo.git" refs/tags/v0.3.0 'refs/tags/v0.3.0^{}')
-          test "$(awk '$2=="refs/tags/v0.3.0" {print $1}' <<< "$compiler_refs")" = 79f60bc1821a8461330cc67a086f9a8ad3b1503f
+          test "$(awk '$2=="refs/tags/v0.3.0" {print $1}' <<< "$compiler_refs")" = d7e2bd301f5d1634e92b0de90d54798a35db424a
           test "$(awk '$2=="refs/tags/v0.3.0^{}" {print $1}' <<< "$compiler_refs")" = 0cf44db8b0d6cd96d190e9f902312d0be9394029
           echo "upstream explanation-carrying compiler v0.3.0 release and 18/18 terminal evidence verified"
 
