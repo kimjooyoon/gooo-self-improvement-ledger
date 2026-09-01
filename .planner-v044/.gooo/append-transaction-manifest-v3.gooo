@@ -37,17 +37,17 @@ after-invariant projection-source-semantic-digest-exact
 after-invariant projection-regenerate-deterministic
 after-invariant unexpected-deletes-refuted
 
-target v0.42.0
+target v0.43.0
 target-repository "kimjooyoon/gooo-self-improvement-ledger"
-target-tag "v0.42.0"
-target-commit-sha "6319c757f694a5a91d2fc43af94f8ba841bf093e"
-target-before-digest "sha256:9a3544bef8aed00f3aea2c831e0fcdbf0663ce61102b0c04fae14f4ea8387b5c"
-expected-denominator 48
-expected-state-count CLOSED=45 UNKNOWN=1 REFUTED=2
+target-tag "v0.43.0"
+target-commit-sha "8de54d1adb544be8506e938522e6e247a7b1a216"
+target-before-digest "sha256:73c4f3b1f3a44c1d2cf89fb92e9a2de86afdc97be7038ee3bcf002e030365a6f"
+expected-denominator 49
+expected-state-count CLOSED=46 UNKNOWN=1 REFUTED=2
 anchor profile.first_cell_id "CORE_SEMANTIC_AUTHORITY"
-anchor profile.last_cell_id "ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE"
-anchor assessment.last_cell_id "ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE"
-anchor registry.last_entry_id "error-directed-evolution-planner-v0.1.1"
-anchor activity.last_activity "AdoptErrorDirectedEvolutionPlannerDurableRelease"
-anchor release_map.last_key "error_directed_evolution_planner_durable_release"
+anchor profile.last_cell_id "INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE"
+anchor assessment.last_cell_id "INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE"
+anchor registry.last_entry_id "incremental-module-compiler-v0.1.1"
+anchor activity.last_activity "AdoptIncrementalModuleCompilerDurableRelease"
+anchor release_map.last_key "incremental_module_compiler_durable_release"
 end-target
