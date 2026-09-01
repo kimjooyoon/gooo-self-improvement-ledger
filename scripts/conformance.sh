@@ -1799,7 +1799,7 @@ jq -e '
 ' "$repository/evidence/assessment-v1.json" >/dev/null
 
 start=$(date +%s%N)
-if ! /usr/bin/time -f '%M' -o "$artifact/report-peak-rss" "$binary" \
+if ! /usr/bin/time -f '%M' -o "$probe/report-peak-rss" "$binary" \
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
   -activities "$repository/examples/self-improvement-portfolio/main.gooo" \
   -assessment "$repository/evidence/assessment-v1.json" \
@@ -1815,7 +1815,7 @@ fi
 end=$(date +%s%N)
 report_wall=$(( (end - start) / 1000000 ))
 report_raw=$((end - start))
-report_rss=$(cat "$artifact/report-peak-rss")
+report_rss=$(cat "$probe/report-peak-rss")
 
 jq --argjson wall "$report_wall" --argjson raw "$report_raw" --argjson rss "$report_rss" \
   '.timing.report={wall_ms:$wall,duration_ns:$raw,peak_rss_kib:$rss}' \
