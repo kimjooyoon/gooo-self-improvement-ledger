@@ -1,14 +1,17 @@
 {
-  "repository": "kimjooyoon/gooo-incremental-module-compiler",
-  "tag": "v0.1.3",
-  "release_id": 380177397,
-  "release_url": "https://github.com/kimjooyoon/gooo-incremental-module-compiler/releases/tag/v0.1.3",
-  "target_commit_sha": "336669ce954917fc0d34b0b190da8ab5487ab095",
-  "tag_object_sha": "985f914ae5beb0e2d2c9c48a39da0a1897c4af3a",
+  "repository": "kimjooyoon/gooo-self-improvement-ledger",
+  "tag": "v0.42.0",
+  "release_id": 380309582,
+  "release_url": "https://github.com/kimjooyoon/gooo-self-improvement-ledger/releases/tag/v0.42.0",
+  "target_commit_sha": "6319c757f694a5a91d2fc43af94f8ba841bf093e",
+  "tag_object_sha": "39c0926b1ed8de6cff7bf4b1033199d8d15ba6c3",
   "immutable": true,
-  "source_archive_sha256": "sha256:a67200de2eff5a481b2245eb9e0839ea12ba1aa8a9b934aec4b3fb0a183aa75b",
   "source_tree_sha256": "sha256:9a3544bef8aed00f3aea2c831e0fcdbf0663ce61102b0c04fae14f4ea8387b5c",
-  "release_asset_id": 539208324,
-  "release_asset_sha256": "sha256:a67200de2eff5a481b2245eb9e0839ea12ba1aa8a9b934aec4b3fb0a183aa75b"
+  "source_archive": {
+    "sha256": "sha256:a67200de2eff5a481b2245eb9e0839ea12ba1aa8a9b934aec4b3fb0a183aa75b"
+  },
+  "release_asset": {
+    "id": 539208324,
+    "sha256": "sha256:a67200de2eff5a481b2245eb9e0839ea12ba1aa8a9b934aec4b3fb0a183aa75b"
+  }
 }
-

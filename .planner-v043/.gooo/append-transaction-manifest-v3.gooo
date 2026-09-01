@@ -9,13 +9,13 @@ target-file SEMANTIC_APPEND_ONLY assessment "evidence/assessment-v1.json"
 target-file SEMANTIC_APPEND_ONLY registry "evidence/non-completeness-capability-evidence-registry-v1.json"
 target-file DERIVED_PROJECTION report "evidence/report-v1.json"
 projection-kind report "assessment-report"
-projection-before-digest report "sha256:1613b529ab63bfdca1d95aea03aa36802535496b484bfb1b3c6964c00a3ac094"
-projection-source-semantic-digest report "sha256:37f03987831b6ce901cddcbba694c2f5d05a6a782acf186099116d283c2dab09"
+projection-before-digest report "sha256:68b7e15b0ae1dd31d771d767357f8732e6b5777ce06607d8dac7bd84a805b6d8"
+projection-source-semantic-digest report "sha256:95b0a406e4369a771a785950a4d40cd6ed4eab18cdce15bd20cd29d03c3e4e3d"
 projection-after-invariant report "deterministic-regenerate-from-post-append-semantic-source"
 target-file DERIVED_PROJECTION history "evidence/history-v1.json"
 projection-kind history "append-history"
-projection-before-digest history "sha256:dee7ecab024059ce417e13a3883e1eb527059d2cfa53d1cf051791975f33ebb8"
-projection-source-semantic-digest history "sha256:37f03987831b6ce901cddcbba694c2f5d05a6a782acf186099116d283c2dab09"
+projection-before-digest history "sha256:5a30b2bb32f1bf5e6069269ecb12fc3ee0454274d6317b9b89c6c77ee1a2d368"
+projection-source-semantic-digest history "sha256:95b0a406e4369a771a785950a4d40cd6ed4eab18cdce15bd20cd29d03c3e4e3d"
 projection-after-invariant history "deterministic-regenerate-from-post-append-semantic-source"
 
 after-invariant append-one-cell
@@ -51,4 +51,3 @@ anchor registry.last_entry_id "error-directed-evolution-planner-v0.1.1"
 anchor activity.last_activity "AdoptErrorDirectedEvolutionPlannerDurableRelease"
 anchor release_map.last_key "error_directed_evolution_planner_durable_release"
 end-target
-
