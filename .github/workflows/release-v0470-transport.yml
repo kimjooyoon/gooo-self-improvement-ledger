@@ -76,11 +76,11 @@ jobs:
           extracted="$RUNNER_TEMP/v047-source-evidence"
           mkdir -p "$extracted"
           unzip -q "$asset_path" -d "$extracted"
-          report_json=$(find "$extracted" -name report.json -type f -not -path '*/capability-registry/*' -print -quit)
-          denominator_json=$(find "$extracted" -name semantic-denominator.json -type f -print -quit)
-          assertions_json=$(find "$extracted" -name generated-assertions.json -type f -print -quit)
-          events_json=$(find "$extracted" -name projection-events.ndjson -type f -print -quit)
-          test -n "$report_json" -a -n "$denominator_json" -a -n "$assertions_json" -a -n "$events_json"
+          report_json="$extracted/report.json"
+          denominator_json="$extracted/semantic-denominator-projector/semantic-denominator.json"
+          assertions_json="$extracted/semantic-denominator-projector/generated-assertions.json"
+          events_json="$extracted/semantic-denominator-projector/projection-events.ndjson"
+          test -f "$report_json" -a -f "$denominator_json" -a -f "$assertions_json" -a -f "$events_json"
           jq -e '.summary=={total:53,closed:50,unknown:1,refuted:2}' "$report_json" >/dev/null
           jq -e '.scenario_denominator==53 and .state_counts=={total:53,closed:50,unknown:1,refuted:2} and .proof_totals=={FOUNDATION:4,COHERENCE:44,REGRESSION:5} and .indicator_totals=={DRIVER:4,OUTCOME:44,GUARDRAIL:5}' "$denominator_json" >/dev/null
           jq -e '.exact_match.report_summary=={total:53,closed:50,unknown:1,refuted:2} and (.exact_match.report_cells|length)==53' "$assertions_json" >/dev/null
