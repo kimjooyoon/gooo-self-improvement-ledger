@@ -14,8 +14,8 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 52 and
-  .denominator_migration == {from:51,to:52,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 53 and
+  .denominator_migration == {from:52,to:53,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
@@ -35,8 +35,9 @@ jq -e '
   .cells[49].id == "SELF_REWRITE_SANDBOX_DURABLE_RELEASE" and
   .cells[50].id == "RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE" and
   .cells[51].id == "INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:43,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:43,GUARDRAIL:5} and
+  .cells[52].id == "SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE" and
+  .proof_totals == {FOUNDATION:4,COHERENCE:44,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:44,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -77,6 +78,7 @@ jq -e '
   and (.cells|map(select(.id=="SELF_REWRITE_SANDBOX_DURABLE_RELEASE" and .release_key=="self_rewrite_sandbox_durable_release" and .ordinal==50 and .activity=="AdoptSelfRewriteSandboxDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE" and .release_key=="release_transport_conformer_durable_release" and .ordinal==51 and .activity=="AdoptReleaseTransportConformerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE" and .release_key=="incremental_release_proof_durable_release" and .ordinal==52 and .activity=="AdoptIncrementalReleaseProofDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE" and .release_key=="semantic_denominator_projector_durable_release" and .ordinal==53 and .activity=="AdoptSemanticDenominatorProjectorDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -156,7 +158,7 @@ jq -e '
   .schema == "gooo-self-improvement-portfolio/incremental-release-proof-measurement/v1" and
   .toolchain == "go1.27.0/linux/amd64" and .runner_digest == "sha256:947e4cfcb533070a0ccbc3ba49864f71051c5db733cf486b22f32feecc353291" and
   .full_verification.pair_metrics == {remote_lookup_count:48,verified_lock_count:48,reused_lock_count:0} and
-  .full_verification.summary == {total:49,verified:49,unknown:0,refuted:0} and
+  .full_verification.summary == {total:50,verified:50,unknown:0,refuted:0} and
   .incremental_proof.pair_metrics == {remote_lookup_count:1,verified_lock_count:1,reused_lock_count:48} and
   .incremental_proof.summary == {total_cases:9,closed:3,unknown:3,refuted:3,tests_total:9,tests_selected:9,tests_executed:7,tests_reused:2,tests_failed:3,tests_unknown:3} and
   .fixture_pair.status == "CLOSED" and .fixture_pair.before == {wall_ms:100,peak_rss_kib:400,remote_lookup_count:48,verified_lock_count:48,reused_lock_count:0} and .fixture_pair.after == {wall_ms:90,peak_rss_kib:350,remote_lookup_count:1,verified_lock_count:1,reused_lock_count:48} and
@@ -1189,7 +1191,7 @@ echo "conformance: differential semantics runtime release lock passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:51,to:52,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:52,to:53,add:1,retire:0,split:0,append_only:true} and
   .local_validation_followup == {local_validation_executions:0,inspection_only:true,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
@@ -1453,7 +1455,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 52 and
+  (.cells|length) == 53 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1996,6 +1998,50 @@ if test "$final_report_status" -ne 0; then
 fi
 end=$(date +%s%N)
 
+echo "conformance: verify released semantic denominator projector exact matches"
+projector="$artifact/semantic-denominator-projector"
+test -f "$projector/semantic-denominator.json"
+test -f "$projector/semantic-distribution.json"
+test -f "$projector/generated-assertions.json"
+test -f "$projector/projection-events.ndjson"
+test -f "$projector/report.md"
+jq -e --slurpfile expected "$projector/generated-assertions.json" '
+  .summary == $expected[0].exact_match.report_summary and
+  (.cells|map({ordinal,id,activity,proof,indicator,state,numerator,denominator})) == $expected[0].exact_match.report_cells and
+  .bindings == $expected[0].exact_match.report_bindings and
+  (.proof_counts|map_values(.denominator)) == $expected[0].exact_match.report_proof_denominators and
+  (.indicator_counts|map_values(.denominator)) == $expected[0].exact_match.report_indicator_denominators and
+  .releases == $expected[0].exact_match.report_release_summary
+' "$artifact/report.json" >/dev/null
+jq -s -e --slurpfile expected "$projector/generated-assertions.json" \
+  '. == $expected[0].exact_match.ndjson_events' "$projector/projection-events.ndjson" >/dev/null
+jq -e '
+  .schema == "gooo/self-improvement-portfolio/semantic-denominator/v1" and
+  .authority == "RELEASED_GOOO" and
+  .projector_contract == {release:"v0.1.0",source_asset:"semantic-denominator-projector.gooo",digest:"sha256:d55994e252915558beaca61666e77946f10e61fb294cee6d7e29e4ce5b3d275c",activities:12,cells:12,rules:9,cases:12,external_required_gates:0,repository_writes:0} and
+  .scenario_denominator == .state_counts.total and
+  .expected_state_counts == .state_counts and
+  (.cells|length) == .state_counts.total
+' "$projector/semantic-denominator.json" >/dev/null
+jq -e '
+  .schema == "gooo/self-improvement-portfolio/semantic-denominator-projector-provenance/v1" and
+  .release == {repository:"kimjooyoon/gooo-semantic-denominator-projector",tag:"v0.1.0",release_id:380501283,immutable:true,annotated_tag_object_sha:"bde8a7e98e2e4572e438eb6b4c7da4aebd388f16",peeled_commit_sha:"60ef02caae58811c1e716b3356af121f09cc605d",projector_contract_digest:"sha256:d55994e252915558beaca61666e77946f10e61fb294cee6d7e29e4ce5b3d275c"} and
+  .source_ci == {run_id:33511085673,job_id:99866617691,artifact_id:9801649738,artifact_name:"gooo-semantic-denominator-projector-evidence-60ef02caae58811c1e716b3356af121f09cc605d",artifact_size_bytes:14625,artifact_digest:"sha256:3b552c1cf5ca8d90e6c72b8a0260804e4c5e82be27396024301c0b4975c4e2a3",commit:"60ef02caae58811c1e716b3356af121f09cc605d",conclusion:"success"} and
+  .verification_ci == {run_id:33511709706,job_id:99868732834,artifact_id:9801892833,artifact_name:"gooo-semantic-denominator-projector-release-verification-33511709706",artifact_size_bytes:1002,artifact_digest:"sha256:b2b14ed0ca1e967648647c314434244becf5e41641466fe07716e17400996df7",conclusion:"success"} and
+  .operational_refuted.local_validation_commands == 1 and .operational_refuted.operator_api_attempts == null and .operational_refuted.operator_api_attempts_state == "UNKNOWN" and
+  (.operational_refuted.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
+  .authority == {verification:"GITHUB_ACTIONS",github_token:"github.token",repository_writes:0,cross_project_required_gates:0}
+' "$projector/provenance.json" >/dev/null
+jq -e '
+  .schema == "gooo/self-improvement-ledger/semantic-denominator-projector-adoption/v1" and
+  .release.release_id == 380501283 and .assets.projector.id == 539559482 and .assets.denominator.id == 539559498 and .assets.assertions.id == 539559406 and
+  .shared_projection.expected_state_counts == {total:53,closed:50,unknown:1,refuted:2} and
+  .shared_projection.expected_proof_totals == {FOUNDATION:4,COHERENCE:44,REGRESSION:5} and
+  .shared_projection.expected_indicator_totals == {DRIVER:4,OUTCOME:44,GUARDRAIL:5} and
+  .operational_refuted.local_validation_commands == 1 and .operational_refuted.operator_api_attempts == null and .operational_refuted.operator_api_attempts_state == "UNKNOWN"
+' "$repository/evidence/semantic-denominator-projector-v1.json" >/dev/null
+echo "conformance: released semantic denominator projector exact matches passed"
+
 echo "conformance: emitted report diagnostics"
 jq '{schema,profile_id,decision,summary,proof_counts,indicator_counts,bindings,releases,authority,local_execution_counts}' "$artifact/report.json"
 
@@ -2008,12 +2054,12 @@ jq -e '
   .semantic_audit.parent_asset_current_bytes_state == "UNKNOWN" and
   (.semantic_audit.parent_asset_current_bytes_unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
   .semantic_audit.current_release_asset_bytes.state == "CLOSED" and
-  .summary == {total:52,closed:49,unknown:1,refuted:2} and
+  .summary == {total:53,closed:50,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 52 and
+  (.cells|length) == 53 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 49 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 50 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -2068,16 +2114,17 @@ jq -e '
     INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE:"CLOSED",
     SELF_REWRITE_SANDBOX_DURABLE_RELEASE:"CLOSED",
     RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE:"CLOSED",
-    INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE:"CLOSED"
+    INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE:"CLOSED",
+    SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:52,activities:52,unique_axes:52,unique_metrics:52,source_bindings:52,ir_bindings:52,generated_artifact_bindings:52,evaluator_bindings:52} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 43 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 43 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:49,verified:49,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:53,activities:53,unique_axes:53,unique_metrics:53,source_bindings:53,ir_bindings:53,generated_artifact_bindings:53,evaluator_bindings:53} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 44 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 44 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:50,verified:50,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

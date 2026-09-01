@@ -56,3 +56,4 @@ activity AdoptIncrementalModuleCompilerDurableRelease(PortfolioInput) -> Portfol
 activity AdoptSelfRewriteSandboxDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SELF_REWRITE_SANDBOX_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptReleaseTransportConformerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptIncrementalReleaseProofDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptSemanticDenominatorProjectorDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"

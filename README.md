@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 52 named cells, each bound one-to-one to
+language. The denominator is exactly 53 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -45,11 +45,12 @@ The fixed axes are:
 `INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE`, and
 `SELF_REWRITE_SANDBOX_DURABLE_RELEASE`, and
 `RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE`, and
-`INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE`.
+`INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE`, and
+`SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `51 -> 52` with
+The denominator migration is explicit and append-only: `52 -> 53` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/43/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/43/5`.
+`4/44/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/44/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -957,8 +958,8 @@ attempts as append-only counterexample references; those runs are never
 closure-gated. The reflexive-loop v0.3 lock also
 binds its source Actions artifact and upstream release-manifest lock digest.
 A later immutable release updates the evidence lock and assessment input; it
-does not change the fixed denominator unless an explicit append-only migration
-updates the profile.
+does not change the fixed fifty-three-cell denominator unless an explicit
+append-only migration updates the profile.
 
 GitHub Actions is the verification authority. The workflow uses Go 1.27 and
 records integer directory/file counts, Go/Gooo physical files and lines (root
@@ -970,3 +971,25 @@ exact CI build/test commands, durations, test-event counts, and peak-RSS
 observations in `ci-observations.json`. It emits exact
 closed/unknown/refuted counts and the complete human-readable cell table; it
 does not emit a percentage or score.
+
+The v0.47 frontier appends `SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE`
+through `AdoptSemanticDenominatorProjectorDurableRelease`. It adopts immutable
+upstream `kimjooyoon/gooo-semantic-denominator-projector@v0.1.0`, release
+`380501283`, whose annotated tag object
+`bde8a7e98e2e4572e438eb6b4c7da4aebd388f16` resolves to
+`60ef02caae58811c1e716b3356af121f09cc605d`. The released `.gooo` contract is
+asset `539559482` with digest
+`sha256:d55994e252915558beaca61666e77946f10e61fb294cee6d7e29e4ce5b3d275c`;
+the denominator and generated-assertions assets are `539559498` and `539559406`.
+
+CI downloads and verifies that immutable `.gooo` graph, then derives the ledger
+denominator, state counts, proof buckets, and indicator classes from the
+current profile, assessment, and release verification. It exact-matches report
+JSON and `projection-events.ndjson`, preventing stale manual `.cells == N`
+assertions. The current derived state is `53 total / 50 CLOSED / 1 UNKNOWN /
+2 REFUTED`, with proof and indicator totals `4/44/5`. Upstream source CI is
+run `33511085673`/job `99866617691`/artifact `9801649738`; public release
+verification is run `33511709706`/job `99868732834`/artifact `9801892833`.
+The upstream operational record remains `REFUTED` for one local YAML parser
+invocation; operator API attempts remain `null` with an explicit `UNKNOWN`
+reconciliation frontier.

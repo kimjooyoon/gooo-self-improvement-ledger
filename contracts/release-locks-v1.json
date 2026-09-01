@@ -7276,6 +7276,75 @@
       "tag": "v0.1.2",
       "tag_object_sha": "3d9bf3374b4ad7e649499ff4a2538b9ff16fab7a",
       "target_commit_sha": "5252c202d8f7e3637209037c1b0bf9595b7da661"
+    },
+    "semantic_denominator_projector_durable_release": {
+      "assets": [
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-semantic-denominator-projector/releases/download/v0.1.0/semantic-denominator-projector.gooo",
+          "id": 539559482,
+          "name": "semantic-denominator-projector.gooo",
+          "sha256": "sha256:d55994e252915558beaca61666e77946f10e61fb294cee6d7e29e4ce5b3d275c",
+          "size_bytes": 7535
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-semantic-denominator-projector/releases/download/v0.1.0/semantic-denominator.json",
+          "id": 539559498,
+          "name": "semantic-denominator.json",
+          "sha256": "sha256:71d2570193d382840f1f8056365a83ac6ff609157d8c4b639abeca7cebe78714",
+          "size_bytes": 121854
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-semantic-denominator-projector/releases/download/v0.1.0/generated-assertions.json",
+          "id": 539559406,
+          "name": "generated-assertions.json",
+          "sha256": "sha256:c72b4d7c72da7fa12364bb158b0ce66ce0bbe1b2e287df3d1de280be6d74f128",
+          "size_bytes": 7395
+        }
+      ],
+      "immutable": true,
+      "release_id": 380501283,
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-denominator-projector/releases/tag/v0.1.0",
+      "repository": "kimjooyoon/gooo-semantic-denominator-projector",
+      "source_run": {
+        "artifact_ids": [9801649738],
+        "conclusion": "success",
+        "head_branch": "main",
+        "head_sha": "60ef02caae58811c1e716b3356af121f09cc605d",
+        "job_id": 99866617691,
+        "job_name": "Go 1.27 semantic conformance",
+        "job_url": "https://github.com/kimjooyoon/gooo-semantic-denominator-projector/actions/runs/33511085673/job/99866617691",
+        "run_id": 33511085673,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-semantic-denominator-projector/actions/runs/33511085673",
+        "expected_head_sha": "60ef02caae58811c1e716b3356af121f09cc605d"
+      },
+      "source_artifact": {
+        "artifact_id": 9801649738,
+        "name": "gooo-semantic-denominator-projector-evidence-60ef02caae58811c1e716b3356af121f09cc605d",
+        "run_id": 33511085673,
+        "sha256": "sha256:3b552c1cf5ca8d90e6c72b8a0260804e4c5e82be27396024301c0b4975c4e2a3",
+        "size_bytes": 14625
+      },
+      "release_run": {
+        "conclusion": "success",
+        "head_branch": "main",
+        "head_sha": "31dcbe3601714343fdd60067b2f232e6d903707d",
+        "job_id": 99868732834,
+        "job_name": "verify",
+        "job_url": "https://github.com/kimjooyoon/gooo-semantic-denominator-projector/actions/runs/33511709706/job/99868732834",
+        "run_id": 33511709706,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-semantic-denominator-projector/actions/runs/33511709706",
+        "expected_head_sha": "31dcbe3601714343fdd60067b2f232e6d903707d"
+      },
+      "release_artifact": {
+        "artifact_id": 9801892833,
+        "name": "gooo-semantic-denominator-projector-release-verification-33511709706",
+        "run_id": 33511709706,
+        "sha256": "sha256:b2b14ed0ca1e967648647c314434244becf5e41641466fe07716e17400996df7",
+        "size_bytes": 1002
+      },
+      "tag": "v0.1.0",
+      "tag_object_sha": "bde8a7e98e2e4572e438eb6b4c7da4aebd388f16",
+      "target_commit_sha": "60ef02caae58811c1e716b3356af121f09cc605d"
     }
   },
   "schema": "gooo/self-improvement-portfolio/release-locks/v1"

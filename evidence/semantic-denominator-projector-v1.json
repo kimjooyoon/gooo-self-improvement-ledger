@@ -1,0 +1,104 @@
+{
+  "schema": "gooo/self-improvement-ledger/semantic-denominator-projector-adoption/v1",
+  "cell_id": "SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE",
+  "activity": "AdoptSemanticDenominatorProjectorDurableRelease",
+  "release": {
+    "repository": "kimjooyoon/gooo-semantic-denominator-projector",
+    "tag": "v0.1.0",
+    "release_id": 380501283,
+    "immutable": true,
+    "annotated_tag_object_sha": "bde8a7e98e2e4572e438eb6b4c7da4aebd388f16",
+    "peeled_commit_sha": "60ef02caae58811c1e716b3356af121f09cc605d"
+  },
+  "assets": {
+    "projector": {
+      "id": 539559482,
+      "name": "semantic-denominator-projector.gooo",
+      "size_bytes": 7535,
+      "digest": "sha256:d55994e252915558beaca61666e77946f10e61fb294cee6d7e29e4ce5b3d275c"
+    },
+    "denominator": {
+      "id": 539559498,
+      "name": "semantic-denominator.json",
+      "size_bytes": 121854,
+      "digest": "sha256:71d2570193d382840f1f8056365a83ac6ff609157d8c4b639abeca7cebe78714"
+    },
+    "assertions": {
+      "id": 539559406,
+      "name": "generated-assertions.json",
+      "size_bytes": 7395,
+      "digest": "sha256:c72b4d7c72da7fa12364bb158b0ce66ce0bbe1b2e287df3d1de280be6d74f128"
+    }
+  },
+  "source_ci": {
+    "run_id": 33511085673,
+    "job_id": 99866617691,
+    "artifact_id": 9801649738,
+    "artifact_size_bytes": 14625,
+    "artifact_digest": "sha256:3b552c1cf5ca8d90e6c72b8a0260804e4c5e82be27396024301c0b4975c4e2a3",
+    "commit": "60ef02caae58811c1e716b3356af121f09cc605d",
+    "conclusion": "success"
+  },
+  "verification_ci": {
+    "run_id": 33511709706,
+    "job_id": 99868732834,
+    "artifact_id": 9801892833,
+    "artifact_size_bytes": 1002,
+    "artifact_digest": "sha256:b2b14ed0ca1e967648647c314434244becf5e41641466fe07716e17400996df7",
+    "head_sha": "31dcbe3601714343fdd60067b2f232e6d903707d",
+    "conclusion": "success"
+  },
+  "released_gooo_contract": {
+    "digest": "sha256:d55994e252915558beaca61666e77946f10e61fb294cee6d7e29e4ce5b3d275c",
+    "graph_id": "gooo://semantic-denominator-projector/graph/v1",
+    "activities": 12,
+    "cells": 12,
+    "rules": 9,
+    "cases": 12,
+    "external_required_gates": 0,
+    "repository_writes": 0
+  },
+  "upstream_ci_metrics": {
+    "toolchain": "go1.27.0",
+    "runner": "Linux/ubuntu-latest",
+    "tests": {"total": 12, "selected": 12, "executed": 12, "reused": 0, "failed": 0, "unknown": 0},
+    "compile": {"wall_ms": 8379, "peak_rss_kib": 276932},
+    "build": {"wall_ms": 5984, "peak_rss_kib": 272360},
+    "test": {"wall_ms": 148, "peak_rss_kib": 91164},
+    "conformance": {"wall_ms": 9, "peak_rss_kib": 9416},
+    "integration": {"wall_ms": 23, "peak_rss_kib": 9396}
+  },
+  "shared_projection": {
+    "source": "examples/self-improvement-portfolio/main.gooo",
+    "inputs": ["contracts/self-improvement-portfolio-v1.json", "evidence/assessment-v1.json", "releases/verification.json"],
+    "outputs": ["semantic-denominator.json", "semantic-distribution.json", "generated-assertions.json", "projection-events.ndjson", "report.md"],
+    "derivation": "CI projector derives denominator, state, proof, and indicator counts from the current profile and assessment.",
+    "expected_state_counts": {"total": 53, "closed": 50, "unknown": 1, "refuted": 2},
+    "expected_proof_totals": {"FOUNDATION": 4, "COHERENCE": 44, "REGRESSION": 5},
+    "expected_indicator_totals": {"DRIVER": 4, "OUTCOME": 44, "GUARDRAIL": 5},
+    "exact_report_json_match": true,
+    "exact_projection_events_ndjson_match": true,
+    "stale_manual_denominator_errors": "BLOCKED"
+  },
+  "operational_refuted": {
+    "local_validation_commands": 1,
+    "known_failures": ["local YAML syntax parser invoked once during workflow diagnosis"],
+    "operator_api_attempts": null,
+    "operator_api_attempts_state": "UNKNOWN",
+    "operator_api_attempts_unknown": {
+      "stage": "EVIDENCE_RECONCILIATION",
+      "step": "RECONCILE_OPERATOR_API_ATTEMPTS",
+      "reason": "PUBLIC_UPSTREAM_EVIDENCE_CONFLICTS_WITH_SHARED_LEDGER_PROVENANCE",
+      "unknown_class": "CONTRADICTORY",
+      "next_operation": "RECONCILE_RELEASE_API_ATTEMPT_LOG",
+      "blocked_by": ["upstream-ci-evidence", "shared-ledger-provenance"]
+    }
+  },
+  "authority": {
+    "verification": "GITHUB_ACTIONS",
+    "github_token": "github.token",
+    "repository_writes": 0,
+    "cross_project_required_gates": 0,
+    "local_product_validation_executions": 0
+  }
+}
