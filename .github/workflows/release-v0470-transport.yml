@@ -142,7 +142,7 @@ jobs:
         shell: bash
         run: |
           set -Eeuo pipefail
-          draft_releases=$(gh api 'repos/$REPOSITORY/releases?per_page=100')
+          draft_releases=$(gh api "repos/$REPOSITORY/releases?per_page=100")
           release_id=$(jq -er --arg tag "$RELEASE_TAG" '[.[] | select(.tag_name==$tag and .draft==true)] | if length==1 then .[0].id else error("expected one draft release") end' <<< "$draft_releases")
           upload_url=$(gh api "repos/$REPOSITORY/releases/$release_id" --jq '.upload_url' | sed 's/{.*//')
           gh api --method POST "$upload_url?name=$ASSET_NAME" -H 'Content-Type: application/zip' --input "$ASSET_PATH" >/dev/null
