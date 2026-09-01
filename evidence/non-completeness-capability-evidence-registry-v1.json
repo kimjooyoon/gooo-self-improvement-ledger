@@ -415,9 +415,24 @@
         "target_commit_sha": "5486b346aa193875383cdafa0763f3bd371c2fc1"
       },
       "state": "CLOSED"
+    },
+    {
+      "entry_id": "explanation-carrying-compiler-v0.3.0",
+      "evidence": [
+        "immutable release API and annotated tag",
+        "release manifest/report and six verified assets",
+        "18/18 terminal corpus executions",
+        "UNKNOWN six-field frontier and counterexample digest preservation"
+      ],
+      "observed": {
+        "release_assets": 6,
+        "release_immutable": true,
+        "target_commit_sha": "0cf44db8b0d6cd96d190e9f902312d0be9394029"
+      },
+      "state": "CLOSED"
     }
   ],
-  "entry_count": 18,
+  "entry_count": 19,
   "frontier_additions": [
     "receipt-schema-migration-v0.1.1",
     "receipt-schema-migration-v0.2.2",
@@ -428,7 +443,8 @@
     "semantic-observer-v0.1.1",
     "adoption-regression-v0.1.0",
     "adoption-regression-v0.1.1",
-    "structural-ledger-append-planner-v0.2.0"
+    "structural-ledger-append-planner-v0.2.0",
+    "explanation-carrying-compiler-v0.3.0"
   ],
   "lineage": [
     {

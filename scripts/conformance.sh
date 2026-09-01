@@ -14,16 +14,17 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 39 and
-  .denominator_migration == {from:38,to:39,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 40 and
+  .denominator_migration == {from:39,to:40,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
     "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE","SELF_REPAIR_INTEGRATION_RELEASE","OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE","LANGUAGE_DELTA_FORGE_DURABLE_RELEASE","OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE","REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE","CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE","EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE","REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE","EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE"
   ] and .cells[38].id == "STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:30,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:30,GUARDRAIL:5} and
+  .cells[39].id == "EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE" and
+  .proof_totals == {FOUNDATION:4,COHERENCE:31,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:31,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -50,7 +51,8 @@ jq -e '
   (.cells|map(select(.id=="EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE" and .release_key=="executable_evolution_trial_counterexample_durable_release"))|length)==1 and
   (.cells|map(select(.id=="REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE" and .release_key=="reflexive_compiler_graph_topology_self_improvement_durable_release"))|length)==1 and
   (.cells|map(select(.id=="EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE" and .release_key=="executable_evolution_trial_closed_loop_durable_release" and .ordinal==38 and .activity=="AdoptExecutableEvolutionTrialClosedLoop" and .proof=="COHERENCE" and .indicator=="OUTCOME"))|length)==1 and
-  (.cells|map(select(.id=="STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE" and .release_key=="structural_ledger_append_planner_durable_release" and .ordinal==39 and .activity=="AdoptStructuralLedgerAppendPlannerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  (.cells|map(select(.id=="STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE" and .release_key=="structural_ledger_append_planner_durable_release" and .ordinal==39 and .activity=="AdoptStructuralLedgerAppendPlannerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1 and
+  (.cells|map(select(.id=="EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE" and .release_key=="explanation_carrying_compiler_durable_release" and .ordinal==40 and .activity=="AdoptExplanationCarryingCompilerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -735,6 +737,14 @@ jq -e '
   .releases.structural_ledger_append_planner_durable_release.immutable == true and
   (.releases.structural_ledger_append_planner_durable_release.assets|map({id,size_bytes,sha256})) == [{id:538748262,size_bytes:6300811,sha256:"sha256:25274148049853e3147618e6278570259cf3238fb578b8f808231e47c2488da8"},{id:538748260,size_bytes:402726,sha256:"sha256:f01a5ad3350a507aca5f91142e8cd09cbaf7ab923507a85f8209084d873663f7"},{id:538748261,size_bytes:242,sha256:"sha256:58eaa0009d817797ebc8d05d6d2d304ddd8b1ed1c455e6d70c620ca21cd568e2"}] and
   (.releases.structural_ledger_append_planner_durable_release.assets|map(.download_url)) == ["https://github.com/kimjooyoon/gooo-ledger-append-planner/releases/download/v0.2.0/gooo-ledger-append-planner-linux-amd64-v0.2.0","https://github.com/kimjooyoon/gooo-ledger-append-planner/releases/download/v0.2.0/gooo-ledger-append-planner-source-v0.2.0.tar.gz","https://github.com/kimjooyoon/gooo-ledger-append-planner/releases/download/v0.2.0/SHA256SUMS"] and
+  .releases.explanation_carrying_compiler_durable_release.release_id == 380150043 and
+  .releases.explanation_carrying_compiler_durable_release.tag == "v0.3.0" and
+  .releases.explanation_carrying_compiler_durable_release.release_url == "https://github.com/kimjooyoon/gooo-reflexive-compiler-slice/releases/tag/v0.3.0" and
+  .releases.explanation_carrying_compiler_durable_release.target_commit_sha == "0cf44db8b0d6cd96d190e9f902312d0be9394029" and
+  .releases.explanation_carrying_compiler_durable_release.tag_object_sha == "d7e2bd301f5d1634e92b0de90d54798a35db424a" and
+  .releases.explanation_carrying_compiler_durable_release.immutable == true and
+  (.releases.explanation_carrying_compiler_durable_release.assets|map({id,size_bytes,sha256})) == [{id:538741020,size_bytes:2647664,sha256:"sha256:e03b605c14f5d4d0faf262e57556506f8cf7765756aee49a4ceb99fd700ae862"},{id:538741018,size_bytes:38820,sha256:"sha256:62c45b663084690ff0ad964991d9d7fda1c30ee361876f31fc4f10ef34b68dbc"},{id:538741021,size_bytes:795,sha256:"sha256:4d3bbafb7e31f1fabf83d39ff4f7ea918c658fed1ded18d9b9d177e7d9e95231"},{id:538741019,size_bytes:11497,sha256:"sha256:6a20f41e9f5700f7e400597833e72b055d1d495aeada5f0c57ea4fae5842d514"},{id:538741023,size_bytes:506,sha256:"sha256:560883657ad1bda5053d903beb113615f90bd8a2b4ac59c269abfce8c786d3c7"},{id:538741017,size_bytes:315,sha256:"sha256:32519d4c2b0372e3b5abe6a5a188b04d7f0be3f7d6cd037e53a3ab73b6223195"}] and
+  (.releases.explanation_carrying_compiler_durable_release.assets|map(.download_url)) == ["https://github.com/kimjooyoon/gooo-reflexive-compiler-slice/releases/download/v0.3.0/gooo-reflexive-compiler-slice-linux-amd64-v0.3.0.tar.gz","https://github.com/kimjooyoon/gooo-reflexive-compiler-slice/releases/download/v0.3.0/gooo-reflexive-compiler-slice-source-v0.3.0.tar.gz","https://github.com/kimjooyoon/gooo-reflexive-compiler-slice/releases/download/v0.3.0/release-manifest-v0.3.0.json","https://github.com/kimjooyoon/gooo-reflexive-compiler-slice/releases/download/v0.3.0/release-report-v0.3.0.json","https://github.com/kimjooyoon/gooo-reflexive-compiler-slice/releases/download/v0.3.0/SHA256SUMS","https://github.com/kimjooyoon/gooo-reflexive-compiler-slice/releases/download/v0.3.0/version.json"] and
   (.failed_release_triggers|length) == 1 and
   .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
   .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
@@ -775,7 +785,7 @@ echo "conformance: release lock contract passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:38,to:39,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:39,to:40,add:1,retire:0,split:0,append_only:true} and
   .local_validation_followup == {local_validation_executions:2,inspection_only:false,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
@@ -1039,7 +1049,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 39 and
+  (.cells|length) == 40 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1226,6 +1236,24 @@ jq -e '
     ($planner.evidence | index("missing-binding-case:state=UNKNOWN:unknown_fields=stage/step/reason/unknown_class/next_operation/blocked_by:preserved=true")) != null and
     ($planner.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null and
     ($planner.evidence | index("planner-tool-executions:current_task=1:classification=generator_only:not_validation=true")) != null) and
+  ((.cells[] | select(.cell_id == "EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE")) as $compiler |
+    $compiler.state == "CLOSED" and
+    $compiler.release_key == "explanation_carrying_compiler_durable_release" and
+    ($compiler.evidence | index("upstream-release:repo=kimjooyoon/gooo-reflexive-compiler-slice:tag=v0.3.0:release=380150043:tag_object=d7e2bd301f5d1634e92b0de90d54798a35db424a:target=0cf44db8b0d6cd96d190e9f902312d0be9394029:immutable=true")) != null and
+    ($compiler.evidence | index("upstream-assets:538741020:2647664:sha256:e03b605c14f5d4d0faf262e57556506f8cf7765756aee49a4ceb99fd700ae862,538741018:38820:sha256:62c45b663084690ff0ad964991d9d7fda1c30ee361876f31fc4f10ef34b68dbc,538741021:795:sha256:4d3bbafb7e31f1fabf83d39ff4f7ea918c658fed1ded18d9b9d177e7d9e95231,538741019:11497:sha256:6a20f41e9f5700f7e400597833e72b055d1d495aeada5f0c57ea4fae5842d514,538741023:506:sha256:560883657ad1bda5053d903beb113615f90bd8a2b4ac59c269abfce8c786d3c7,538741017:315:sha256:32519d4c2b0372e3b5abe6a5a188b04d7f0be3f7d6cd037e53a3ab73b6223195")) != null and
+    ($compiler.evidence | index("terminal-corpus:executions=18/18:cases=9:closed=2:unknown=5:refuted=2:unknown_fields=stage/step/reason/unknown_class/next_operation/blocked_by:frontier_digest=true:counterexample_digest=true")) != null and
+    ($compiler.evidence | index("terminal-record:winning-state=REFUTED>UNKNOWN>CLOSED:minimal_frontier=true:counterexample_digest=true:unknown_six_fields=true")) != null and
+    ($compiler.evidence | index("resolution-pairs:valid-topologies=1->2:accepted-trial-candidates=0->3:localization-stages=1->2:source-contract-toolchain-digests=equal")) != null and
+    ($compiler.evidence | index("scope:ONE_COMPILER_PHASE_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN")) != null and
+    ($compiler.evidence | index("projection-replacements:count=2:report=replace:history=replace")) != null and
+    ($compiler.evidence | index("projection-before-digests:report=sha256:94999f6037cfeb8875ed1bc4323a146e4a7b3bcac9208bfcd209020c1f5ee4df:history=sha256:ea4a0e784a21ffd6aeede799918e8ee058e13117fcc91768627ce115ea18ef4a")) != null and
+    ($compiler.evidence | index("projection-source-semantic-digests:report=sha256:217d611a973b5edd64b571269e396cb82570a0e84203f7a48286c6ef9ec5ad90:history=sha256:217d611a973b5edd64b571269e396cb82570a0e84203f7a48286c6ef9ec5ad90")) != null and
+    ($compiler.evidence | index("projection-after-invariants:report=deterministic-regenerate-from-post-append-semantic-source:history=deterministic-regenerate-from-post-append-semantic-source")) != null and
+    ($compiler.evidence | index("ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0")) != null and
+    ($compiler.evidence | index("rollback-receipt:rollback_ready=true")) != null and
+    ($compiler.evidence | index("planner-tool-executions:current_task=1:classification=generator_only:not_validation=true")) != null and
+    ($compiler.evidence | index("input-repository-writes:0")) != null and
+    ($compiler.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -1297,12 +1325,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:39,closed:36,unknown:1,refuted:2} and
+  .summary == {total:40,closed:37,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 39 and
+  (.cells|length) == 40 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 36 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 37 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -1344,16 +1372,17 @@ jq -e '
     EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE:"CLOSED",
     REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE:"CLOSED",
     EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE:"CLOSED",
-    STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE:"CLOSED"
+    STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE:"CLOSED",
+    EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:39,activities:39,unique_axes:39,unique_metrics:39,source_bindings:39,ir_bindings:39,generated_artifact_bindings:39,evaluator_bindings:39} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 30 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 30 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:36,verified:36,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:40,activities:40,unique_axes:40,unique_metrics:40,source_bindings:40,ir_bindings:40,generated_artifact_bindings:40,evaluator_bindings:40} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 31 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 31 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:37,verified:37,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

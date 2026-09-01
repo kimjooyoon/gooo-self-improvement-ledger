@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for thirty-nine specifically named capabilities.
+The portfolio is an evidence ledger for forty specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains thirty-nine entries. The v0.33
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-eight-cell
+`cells` array is immutable during a run and contains forty entries. The v0.34
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-nine-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/30/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/30/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/31/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/31/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -441,9 +441,32 @@ at `2`, the current planner run is generator-only, and local schema/conformance
 and Go execution counts remain zero; GitHub Actions remains the validation
 authority.
 
-The non-completeness capability evidence registry is a separate eighteen-entry
+The v0.34 frontier appends `EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE`.
+It adopts immutable `kimjooyoon/gooo-reflexive-compiler-slice@v0.3.0` release
+`380150043`, whose annotated tag object
+`79f60bc1821a8461330cc67a086f9a8ad3b1503f` resolves to target
+`0cf44db8b0d6cd96d190e9f902312d0be9394029`. The release lock pins all six
+assets by API ID, size, URL, and digest. The upstream release report closes
+its scoped improvement and records `18/18` terminal executions while retaining
+`CLOSED2/UNKNOWN5/REFUTED2`, the six-field UNKNOWN frontier, minimal cause-edge
+frontier, counterexample digest, and resolution pairs `1 -> 2`, `0 -> 3`, and
+`1 -> 2` for topology cardinality, accepted trial candidates, and localization
+stages. Whole-language improvement, global self-hosting, and external utility
+remain UNKNOWN/NOT_MADE.
+
+The adoption is executed by immutable planner v0.3.0 using transaction-manifest
+v3. Five semantic targets remain append-only and two derived report/history
+projections may be replaced only in caller-owned temporary output after exact
+before-digest and semantic-source-digest checks. The planner records `7/7`
+planned/changed paths, `5` AST nodes, zero replay mismatches, zero planning
+repository writes, and an exact rollback-ready receipt. The new cell is CLOSED,
+giving `CLOSED37/UNKNOWN1/REFUTED2`; cumulative local validation remains `2`,
+the planner invocation is generator-only, and local Go/schema/conformance
+execution counts remain zero.
+
+The non-completeness capability evidence registry is a separate nineteen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-thirty-nine-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+forty-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
