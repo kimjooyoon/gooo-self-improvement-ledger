@@ -47,7 +47,7 @@ expected-state-count CLOSED=46 UNKNOWN=1 REFUTED=2
 anchor profile.first_cell_id "CORE_SEMANTIC_AUTHORITY"
 anchor profile.last_cell_id "INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE"
 anchor assessment.last_cell_id "INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE"
-anchor registry.last_entry_id "incremental-module-compiler-v0.1.1"
+anchor registry.last_entry_id "incremental-module-compiler-v0.1.3"
 anchor activity.last_activity "AdoptIncrementalModuleCompilerDurableRelease"
 anchor release_map.last_key "incremental_module_compiler_durable_release"
 end-target
