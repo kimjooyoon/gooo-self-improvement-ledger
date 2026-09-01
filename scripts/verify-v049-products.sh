@@ -12,6 +12,7 @@ repository=$(realpath "$2")
 products="$artifact_root/v049-products"
 measurement_root="$products/measurement-boundary"
 reuse_root="$products/content-addressed-reuse"
+audit_receipt="$artifact_root/v0490-release-audit-receipt.json"
 mkdir -p "$measurement_root/assets" "$reuse_root/assets"
 
 command -v gh >/dev/null
@@ -22,6 +23,12 @@ command -v sha256sum >/dev/null
 command -v tar >/dev/null
 command -v unzip >/dev/null
 test -n "${GH_TOKEN:-}"
+test -s "$audit_receipt"
+jq -e '
+  .schema=="gooo/self-improvement-ledger/v049-release-audit-receipt/v1" and
+  (.primary.state=="CLOSED" or .primary.state=="UNKNOWN" or .primary.state=="REFUTED") and
+  (.api_observation | has("requests") and has("reused") and has("selected") and has("executed") and has("rate_limit"))
+' "$audit_receipt" >/dev/null
 
 download_locked_release() {
   local key=$1 destination=$2
@@ -318,8 +325,9 @@ jq -e '
   all(.consumers[]; (.name=="content-reuse-run.json" or .name=="v049-measurement-report.json"))
 ' "$measurement_run/collection/collection.json" >/dev/null
 
-jq -S -n --argjson evaluation "$(cat "$measurement_run/evaluation.json")" --argjson collection "$(cat "$measurement_run/collection/collection.json")" --argjson observation "$(cat "$reuse_observation")" --arg archive_digest "$(jq -r --arg key "$measurement_key" '.releases[$key].assets[0].sha256' "$repository/contracts/release-locks-v1.json")" \
-  '{schema:"gooo/self-improvement-ledger/v049-measurement-receipt/v1",source:{release_asset:"gooo-measurement-boundary-projector-v0.1.1.tar.gz",release_asset_digest:$archive_digest,projector_source:"RELEASED_GOOO",observed_in_same_ci_job:true},observed_pairs:($evaluation.metrics|map({measurement_id,before,after,delta,unit,scope,authority,receipt_digests,consumer_artifacts})),metric_vector:["wall_ms","peak_rss_kib","requests","bytes_read","bytes_downloaded","selected","executed","reused"],semantic:{decision:$evaluation.decision,fail_closed:$evaluation.fail_closed,aggregate_policy:$evaluation.aggregate_policy},single_receipt_chain:{collector_generated:$collection.collector.generated,measured_once:$collection.collector.measured_once,source_authority:"content-reuse-run.json",report_authority:"measurement-evaluation.json",verification_authority:"measurement-evaluation.json",report_verification_authority_same:true,consumer_receipts_exact:true},content_reuse_observation:$observation,authority:{repository_writes:0,local_product_validation_executions:0,cross_project_required_gates:0,caller_owned_temp_output_only:true,verification:"GITHUB_ACTIONS",github_token:"github.token"}}' \
+audit_receipt_json=$(cat "$audit_receipt")
+jq -S -n --argjson evaluation "$(cat "$measurement_run/evaluation.json")" --argjson collection "$(cat "$measurement_run/collection/collection.json")" --argjson observation "$(cat "$reuse_observation")" --argjson audit "$audit_receipt_json" --arg archive_digest "$(jq -r --arg key "$measurement_key" '.releases[$key].assets[0].sha256' "$repository/contracts/release-locks-v1.json")" \
+  '{schema:"gooo/self-improvement-ledger/v049-measurement-receipt/v1",source:{release_asset:"gooo-measurement-boundary-projector-v0.1.1.tar.gz",release_asset_digest:$archive_digest,projector_source:"RELEASED_GOOO",observed_in_same_ci_job:true},observed_pairs:($evaluation.metrics|map({measurement_id,before,after,delta,unit,scope,authority,receipt_digests,consumer_artifacts})),metric_vector:["wall_ms","peak_rss_kib","requests","bytes_read","bytes_downloaded","selected","executed","reused"],semantic:{decision:$evaluation.decision,fail_closed:$evaluation.fail_closed,aggregate_policy:$evaluation.aggregate_policy},single_receipt_chain:{collector_generated:$collection.collector.generated,measured_once:$collection.collector.measured_once,source_authority:"content-reuse-run.json",report_authority:"measurement-evaluation.json",verification_authority:"measurement-evaluation.json",report_verification_authority_same:true,consumer_receipts_exact:true},content_reuse_observation:$observation,api_observation:$audit.api_observation,release_audit:$audit,authority:{repository_writes:0,local_product_validation_executions:0,cross_project_required_gates:0,caller_owned_temp_output_only:true,verification:"GITHUB_ACTIONS",github_token:"github.token"}}' \
   > "$measurement_root/measurement-receipt.json"
 
 measurement_lock=$(jq -c --arg key "$measurement_key" '.releases[$key]' "$repository/contracts/release-locks-v1.json")
@@ -327,8 +335,8 @@ reuse_lock=$(jq -c --arg key "$reuse_key" '.releases[$key]' "$repository/contrac
 jq -S -n --argjson measurement_lock "$measurement_lock" --argjson reuse_lock "$reuse_lock" \
   --argjson measurement_source_run "$(cat "$measurement_root/source_run.json")" --argjson measurement_source_job "$(cat "$measurement_root/source_run-job.json")" --argjson measurement_source_artifact "$(cat "$measurement_root/source_artifact-artifact.json")" --argjson measurement_release_run "$(cat "$measurement_root/release_run.json")" --argjson measurement_release_job "$(cat "$measurement_root/release_run-job.json")" --argjson measurement_release_artifact "$(cat "$measurement_root/release_artifact-artifact.json")" \
   --argjson reuse_source_run "$(cat "$reuse_root/source_run.json")" --argjson reuse_source_job "$(cat "$reuse_root/source_run-job.json")" --argjson reuse_source_artifact "$(cat "$reuse_root/source_artifact-artifact.json")" --argjson reuse_release_run "$(cat "$reuse_root/release_run.json")" --argjson reuse_release_job "$(cat "$reuse_root/release_run-job.json")" \
-  --argjson observation "$(cat "$reuse_root/v049-content-reuse-observation.json")" --argjson receipt "$(cat "$measurement_root/measurement-receipt.json")" \
-  '{schema:"gooo/self-improvement-ledger/v049-product-integration/v1",products:{measurement_boundary_projector:{lock:$measurement_lock,source_run:$measurement_source_run,source_job:$measurement_source_job,source_artifact:$measurement_source_artifact,release_run:$measurement_release_run,release_job:$measurement_release_job,release_artifact:$measurement_release_artifact},content_addressed_proof_reuse:{lock:$reuse_lock,source_run:$reuse_source_run,source_job:$reuse_source_job,source_artifact:$reuse_source_artifact,release_run:$reuse_release_run,release_job:$reuse_release_job}},adoption:{parent_profile:{release_tag:"v0.48.0",lock_count:57},current_lock_count:$observation.current_lock_count,baseline:$observation.baseline.metrics,candidate:$observation.candidate.metrics,canonical_comparison:$observation.canonical_comparison,measurement_receipt:$receipt},authority:{verification:"GITHUB_ACTIONS",github_token:"github.token",repository_writes:0,local_product_validation_executions:0,cross_project_required_gates:0,caller_owned_temp_output_only:true}}' \
+  --argjson observation "$(cat "$reuse_root/v049-content-reuse-observation.json")" --argjson receipt "$(cat "$measurement_root/measurement-receipt.json")" --argjson audit "$audit_receipt_json" \
+  '{schema:"gooo/self-improvement-ledger/v049-product-integration/v1",products:{measurement_boundary_projector:{lock:$measurement_lock,source_run:$measurement_source_run,source_job:$measurement_source_job,source_artifact:$measurement_source_artifact,release_run:$measurement_release_run,release_job:$measurement_release_job,release_artifact:$measurement_release_artifact},content_addressed_proof_reuse:{lock:$reuse_lock,source_run:$reuse_source_run,source_job:$reuse_source_job,source_artifact:$reuse_source_artifact,release_run:$reuse_release_run,release_job:$reuse_release_job}},adoption:{parent_profile:{release_tag:"v0.48.0",lock_count:57},current_lock_count:$observation.current_lock_count,baseline:$observation.baseline.metrics,candidate:$observation.candidate.metrics,canonical_comparison:$observation.canonical_comparison,measurement_receipt:$receipt,release_audit:$audit},authority:{verification:"GITHUB_ACTIONS",github_token:"github.token",repository_writes:0,local_product_validation_executions:0,cross_project_required_gates:0,caller_owned_temp_output_only:true}}' \
   > "$products/product-integration.json"
 
 jq -e '.schema=="gooo/self-improvement-ledger/v049-product-integration/v1" and .adoption.parent_profile.lock_count==57 and .adoption.current_lock_count==59 and .adoption.baseline.selected==59 and .adoption.candidate.selected==2 and .adoption.candidate.reused==57 and .adoption.canonical_comparison.canonical_evidence_equal==true and .adoption.measurement_receipt.semantic.decision=="CLOSED" and .authority.repository_writes==0 and .authority.local_product_validation_executions==0' "$products/product-integration.json" >/dev/null
