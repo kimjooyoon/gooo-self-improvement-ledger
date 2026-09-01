@@ -68,6 +68,34 @@ jq -e '
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
+echo "conformance: verify preserved release transport failure envelope"
+jq -e '
+  .schema == "gooo/self-improvement-ledger/release-transport-envelope/v1" and
+  .event_type == "RELEASE_TRANSPORT_FAILURE" and
+  .semantic_state == {total_cells:46,closed:43,unknown:1,refuted:2} and
+  .preserved_failure == {
+    tag:"v0.40.0",
+    release_id:380259706,
+    immutable:true,
+    asset_count:0,
+    tag_object_sha:"ca691484122c408d60b694ed7a5a9179a4a613d5",
+    target_commit_sha:"7883b07a3ebc0101acc516a4a5662f01296c63a9",
+    state:"REFUTED",
+    reason:"RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD",
+    preserved:true,
+    mutation_policy:"NO_DELETE_NO_OVERWRITE"
+  } and
+  .correction == {
+    workflow:".github/workflows/release-transport.yml",
+    target_tag:"v0.40.1",
+    ordering:["DRAFT_RELEASE_CREATE","EXACT_ASSET_UPLOAD","PUBLISH_RELEASE","API_IMMUTABLE_VERIFY"],
+    source:"SUCCESSFUL_MAIN_GITHUB_ACTIONS_ARTIFACT",
+    semantic_cell_additions:0
+  } and
+  .authority == {verification:"GITHUB_ACTIONS",local_go_test:0,local_go_build:0,local_go_vet:0,local_conformance:0,repository_writes:0}
+' "$repository/evidence/release-transport-v1.json" >/dev/null
+echo "conformance: preserved release transport failure envelope passed"
+
 echo "conformance: verify release lock contract"
 jq -e '
   .releases.counterfactual_change_release.release_id == 379663025 and .releases.counterfactual_change_release.tag_object_sha == "b9ddb3bf434988508fa848ed0e3891a38092d09d" and

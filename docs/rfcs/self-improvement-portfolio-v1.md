@@ -607,6 +607,16 @@ zero input-repository writes, and a rollback-ready receipt. The adoption yields
 `CLOSED43/UNKNOWN1/REFUTED2`; cumulative local validation remains `2`, process
 state remains `REFUTED`, and local Go/schema/conformance executions remain zero.
 
+The v0.40.0 release transport is a separate preserved envelope event. Release
+`380259706` and annotated tag `v0.40.0` are immutable with zero assets because
+publication preceded asset upload. The event is `REFUTED` with reason
+`RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD`, recorded in
+`evidence/release-transport-v1.json`, and is not deleted, modified, or
+overwritten. The correction workflow targets v0.40.1 and enforces draft
+creation, exact main-CI asset upload, publication, and immutable API
+verification in that order; it adds no portfolio cell and leaves the semantic
+state at 46 cells, 43 CLOSED, 1 UNKNOWN, and 2 REFUTED.
+
 The non-completeness capability evidence registry is a separate twenty-five-entry
 external-input ledger. Its count and dispositions never alter this fixed
 forty-six-cell denominator; unavailable inputs remain `UNKNOWN`, while known
