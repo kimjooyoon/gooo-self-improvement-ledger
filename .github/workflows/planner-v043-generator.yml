@@ -1,0 +1,118 @@
+name: v0.43.0 planner generator-only
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/self-improvement-ledger-v043
+
+permissions:
+  contents: read
+
+jobs:
+  planner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out v0.43 authorities
+        uses: actions/checkout@v4
+
+      - name: Download and verify immutable planner v0.3.0
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          planner="$RUNNER_TEMP/gooo-ledger-append-planner-v0.3.0"
+          curl --fail --location --retry 3 --silent --show-error \
+            https://github.com/kimjooyoon/gooo-ledger-append-planner/releases/download/v0.3.0/gooo-ledger-append-planner-linux-amd64-v0.3.0 \
+            -o "$planner"
+          test "$(wc -c < "$planner" | tr -d ' ')" = 6357744
+          test "$(sha256sum "$planner" | awk '{print $1}')" = 29c3ae03c1ccb02cd64803011a55d8bc2fd9508652d6e707928ce87ca872c7a3
+          chmod +x "$planner"
+
+      - name: Create independent planner CI proof artifact
+        id: planner-proof
+        shell: bash
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -Eeuo pipefail
+          jq -S -n \
+            --arg schema "gooo/ledger-append-planner/ci-proof/v1" \
+            --arg workflow "${{ github.workflow }}" \
+            --arg run_id "${{ github.run_id }}" \
+            --arg run_url "$RUN_URL" \
+            --arg planner_release "v0.3.0" \
+            --arg planner_asset_sha256 "sha256:29c3ae03c1ccb02cd64803011a55d8bc2fd9508652d6e707928ce87ca872c7a3" \
+            --arg baseline_commit "6319c757f694a5a91d2fc43af94f8ba841bf093e" \
+          --arg transaction_id "incremental-module-compiler-durable-release-v0.43.0" \
+            '{schema:$schema,workflow:$workflow,run_id:$run_id,run_url:$run_url,planner_release:$planner_release,planner_asset_sha256:$planner_asset_sha256,baseline_commit:$baseline_commit,transaction_id:$transaction_id}' \
+            > "$RUNNER_TEMP/planner-ci-proof.json"
+
+      - name: Upload independent planner CI proof artifact
+        id: planner-proof-upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: gooo-ledger-append-planner-v0.43.0-ci-proof
+          path: ${{ runner.temp }}/planner-ci-proof.json
+          if-no-files-found: error
+
+      - name: Bind CI artifact identity into transaction evidence
+        id: transaction
+        shell: bash
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RUN_ID: ${{ github.run_id }}
+          WORKFLOW: ${{ github.workflow }}
+          ARTIFACT_ID: ${{ steps.planner-proof-upload.outputs.artifact-id }}
+          ARTIFACT_DIGEST: ${{ steps.planner-proof-upload.outputs.artifact-digest }}
+        run: |
+          set -Eeuo pipefail
+          ci="planner-ci:workflow=${WORKFLOW}:run_id=${RUN_ID}:run_url=${RUN_URL}:artifact_id=${ARTIFACT_ID}:artifact_digest=${ARTIFACT_DIGEST}"
+          jq --arg ci "$ci" '.outcome.evidence += [$ci]' \
+            .planner-v043/transaction-v0.43.0.json \
+            > "$RUNNER_TEMP/transaction-v0.43.0.json"
+
+      - name: Materialize clean v0.42.0 input repository
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mkdir -p "$RUNNER_TEMP/input"
+          git fetch --no-tags --depth=1 origin 6319c757f694a5a91d2fc43af94f8ba841bf093e
+          git archive FETCH_HEAD | tar -x -C "$RUNNER_TEMP/input"
+
+      - name: Run planner v0.3.0 generator-only against clean v0.42.0
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mkdir -p "$RUNNER_TEMP/planner-output"
+          "$RUNNER_TEMP/gooo-ledger-append-planner-v0.3.0" \
+            -transaction "$RUNNER_TEMP/transaction-v0.43.0.json" \
+            -repository "$RUNNER_TEMP/input" \
+            -metacode "$GITHUB_WORKSPACE/.planner-v043/.gooo/append-planner.gooo" \
+            -baseline-lock "$GITHUB_WORKSPACE/.planner-v043/contracts/upstream-lock-v0.42.0.json" \
+            -output-dir "$RUNNER_TEMP/planner-output" \
+            | tee "$RUNNER_TEMP/planner-cli-result.json"
+          test "$(jq -r '.decision' "$RUNNER_TEMP/planner-output/patch-plan.json")" = CLOSED
+          test "$(jq -r '.portfolio_decision' "$RUNNER_TEMP/planner-output/patch-plan.json")" = REFUTED
+          test "$(jq -r '.metrics.exact_files_planned' "$RUNNER_TEMP/planner-output/patch-plan.json")" = 7
+          test "$(jq -r '.metrics.replay_mismatches' "$RUNNER_TEMP/planner-output/patch-plan.json")" = 0
+          test "$(jq -r '.rollback_ready' "$RUNNER_TEMP/planner-output/replay-receipt.json")" = true
+          test "$(jq -r '.files | length' "$RUNNER_TEMP/planner-output/patch-plan.json")" = 7
+
+      - name: Preserve planner outputs for assertion diagnosis
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: gooo-ledger-append-planner-v0.43.0-output-debug
+          path: |
+            ${{ runner.temp }}/planner-output
+            ${{ runner.temp }}/planner-cli-result.json
+          if-no-files-found: error
+
+      - name: Upload planner outputs and receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: gooo-ledger-append-planner-v0.43.0-output
+          path: |
+            ${{ runner.temp }}/planner-output
+            ${{ runner.temp }}/planner-cli-result.json
+          if-no-files-found: error
