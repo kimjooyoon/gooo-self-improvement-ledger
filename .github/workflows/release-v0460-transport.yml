@@ -55,7 +55,9 @@ jobs:
           set -Eeuo pipefail
           test "$RELEASE_TAG" = "v0.46.0"
           test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT_SHA"
-          test "$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')" = "$SOURCE_COMMIT_SHA"
+          if test "$RESUME_EXISTING" != "true"; then
+            test "$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')" = "$SOURCE_COMMIT_SHA"
+          fi
           run_json=$(gh api "repos/$REPOSITORY/actions/runs/$SOURCE_RUN_ID")
           jq -e --arg sha "$SOURCE_COMMIT_SHA" --arg run_id "$SOURCE_RUN_ID" \
             '.id==($run_id|tonumber) and .event=="push" and .head_branch=="main" and .head_sha==$sha and .status=="completed" and .conclusion=="success"' \
