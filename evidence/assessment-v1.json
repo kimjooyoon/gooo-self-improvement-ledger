@@ -1059,6 +1059,36 @@
       ],
       "release_key": "error_directed_evolution_planner_durable_release",
       "state": "CLOSED"
+    },
+    {
+      "cell_id": "INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-incremental-module-compiler:tag=v0.1.3:release=380177397:tag_object=985f914ae5beb0e2d2c9c48a39da0a1897c4af3a:target=336669ce954917fc0d34b0b190da8ab5487ab095:immutable=true",
+        "upstream-assets:538832233:9473:sha256:704329d78a0468b2cf3292d10fc8cce73a5a9542d1f30daf067c39baffba9dc6,538832237:31899:sha256:16e23ecf2562cac1e6dde050e7e3789a80976209623bb39663f613d8c18f9a11,538832232:33195:sha256:2533b316ba05c110d465c8dd051874e9499e62aa11ee3bd5a18c2cb19398aae1,538832236:434:sha256:6310ca6099b0c14add8355e10d9a259205f50903fb136f507bee1247e6f7359f",
+        "upstream-ci:workflow=gooo-incremental-module-compiler-ci:run_id=33463205917:job=99717581340:commit=336669ce954917fc0d34b0b190da8ab5487ab095:success",
+        "upstream-ci-artifact:9783911351:16509:sha256:da8f814094a687755e349f06f7baa83a445da864123729dbc6bc5efab6987ab2",
+        "upstream-manifest:ci_evidence_sha256=sha256:704329d78a0468b2cf3292d10fc8cce73a5a9542d1f30daf067c39baffba9dc6:source_sha256=sha256:16e23ecf2562cac1e6dde050e7e3789a80976209623bb39663f613d8c18f9a11:manifest_sha256=sha256:2533b316ba05c110d465c8dd051874e9499e62aa11ee3bd5a18c2cb19398aae1:checksums_sha256=sha256:6310ca6099b0c14add8355e10d9a259205f50903fb136f507bee1247e6f7359f:upstream_lock_sha256=sha256:81f2a28d5fcc2a743820079938d359be37ad2d2c6cc8d5294bcbc28b6095c490",
+        "corpus:cases=5:selected=5:executed=5:closed=3:unknown=1:refuted=1:replay=0:overall=CLOSED",
+        "runtime:compile=4:build=193:test=263:conformance=5:integration=464:peak_rss_kib=150308",
+        "inventory:go=15/2790:gooo=18/197:regular_files=44:subdirectories=20",
+        "generated-artifacts:count=5:bytes=2421",
+        "tests:total=15:selected=6:executed=6:reused=9:failed=0:unknown=0",
+        "upstream-improvement:status=CLOSED:reason=MATCHED_EXACT_PAIR",
+        "authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0",
+        "structural-append:cell=INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE:activity=AdoptIncrementalModuleCompilerDurableRelease:lock=incremental_module_compiler_durable_release",
+        "immutable-v0.42.0-baseline:semantic-source-bound",
+        "derived-projection-regeneration:report-and-history-replaced-in-caller-copy",
+        "projection-replacements:count=2:report=replace:history=replace",
+        "ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0",
+        "rollback-receipt:rollback_ready=true",
+        "replay-mismatches:0",
+        "input-repository-writes:0",
+        "planner-tool-executions:version=v0.3.0:current_task=1:classification=generator_only:not_validation=true",
+        "local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0",
+        "planner-ci:workflow=v0.43.0 planner generator-only:run_id=33486099504:run_url=https://github.com/kimjooyoon/gooo-self-improvement-ledger/actions/runs/33486099504:artifact_id=9791810587:artifact_digest=f70286380682101739b1c19b84219f0d09dc09f5dfaca1d1327ecb7ff8767b3c"
+      ],
+      "release_key": "incremental_module_compiler_durable_release",
+      "state": "CLOSED"
     }
   ],
   "core_refutation_observation_events": [
@@ -1128,10 +1158,10 @@
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 47,
+    "from": 48,
     "retire": 0,
     "split": 0,
-    "to": 48
+    "to": 49
   },
   "local_validation_followup": {
     "inspection_only": false,

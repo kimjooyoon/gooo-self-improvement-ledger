@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify forty-five immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify forty-six immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,7 +78,7 @@ jobs:
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:45,verified:45,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:46,verified:46,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           planner_dir="$ARTIFACT_ROOT/releases/structural_ledger_append_planner_durable_release/assets"
           test "$(cat "$planner_dir/SHA256SUMS")" = $'25274148049853e3147618e6278570259cf3238fb578b8f808231e47c2488da8  release/gooo-ledger-append-planner-linux-amd64-v0.2.0\nf01a5ad3350a507aca5f91142e8cd09cbaf7ab923507a85f8209084d873663f7  release/gooo-ledger-append-planner-source-v0.2.0.tar.gz'
@@ -951,7 +951,40 @@ jobs:
           test "$(awk '$2=="refs/tags/v0.1.1^{}" {print $1}' <<< "$planner_refs")" = 72350a2cbc53190cadc9cc5e4ac9f60875418289
           echo "upstream error-directed evolution planner v0.1.1 release and six exact assets verified"
 
-      - name: Verify separate twenty-seven-entry non-completeness capability evidence registry
+      - name: Verify incremental module compiler v0.1.3 release and four exact assets
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          compiler_repo="kimjooyoon/gooo-incremental-module-compiler"
+          compiler_dir="$ARTIFACT_ROOT/releases/incremental_module_compiler_durable_release/assets"
+          compiler_release_json="$ARTIFACT_ROOT/releases/incremental_module_compiler_durable_release.release.json"
+          jq -e '.id==380177397 and .tag_name=="v0.1.3" and .html_url=="https://github.com/kimjooyoon/gooo-incremental-module-compiler/releases/tag/v0.1.3" and .target_commitish=="336669ce954917fc0d34b0b190da8ab5487ab095" and .draft==false and .prerelease==false and .immutable==true and ([.assets[]|{id,name,size,digest,browser_download_url}]|sort_by(.id))==([{id:538832232,name:"release-manifest-v0.1.3.json",size:33195,digest:"sha256:2533b316ba05c110d465c8dd051874e9499e62aa11ee3bd5a18c2cb19398aae1",browser_download_url:"https://github.com/kimjooyoon/gooo-incremental-module-compiler/releases/download/v0.1.3/release-manifest-v0.1.3.json"},{id:538832233,name:"gooo-ci-evidence-v0.1.3.tar.gz",size:9473,digest:"sha256:704329d78a0468b2cf3292d10fc8cce73a5a9542d1f30daf067c39baffba9dc6",browser_download_url:"https://github.com/kimjooyoon/gooo-incremental-module-compiler/releases/download/v0.1.3/gooo-ci-evidence-v0.1.3.tar.gz"},{id:538832236,name:"SHA256SUMS-v0.1.3",size:434,digest:"sha256:6310ca6099b0c14add8355e10d9a259205f50903fb136f507bee1247e6f7359f",browser_download_url:"https://github.com/kimjooyoon/gooo-incremental-module-compiler/releases/download/v0.1.3/SHA256SUMS-v0.1.3"},{id:538832237,name:"gooo-incremental-module-compiler-v0.1.3.tar.gz",size:31899,digest:"sha256:16e23ecf2562cac1e6dde050e7e3789a80976209623bb39663f613d8c18f9a11",browser_download_url:"https://github.com/kimjooyoon/gooo-incremental-module-compiler/releases/download/v0.1.3/gooo-incremental-module-compiler-v0.1.3.tar.gz"}]|sort_by(.id))' "$compiler_release_json" >/dev/null
+          while IFS='|' read -r asset_name asset_size asset_sha; do
+            test "$(wc -c < "$compiler_dir/$asset_name" | tr -d ' ')" = "$asset_size"
+            test "$(sha256sum "$compiler_dir/$asset_name" | awk '{print $1}')" = "$asset_sha"
+          done <<'EOF'
+          release-manifest-v0.1.3.json|33195|2533b316ba05c110d465c8dd051874e9499e62aa11ee3bd5a18c2cb19398aae1
+          gooo-ci-evidence-v0.1.3.tar.gz|9473|704329d78a0468b2cf3292d10fc8cce73a5a9542d1f30daf067c39baffba9dc6
+          SHA256SUMS-v0.1.3|434|6310ca6099b0c14add8355e10d9a259205f50903fb136f507bee1247e6f7359f
+          gooo-incremental-module-compiler-v0.1.3.tar.gz|31899|16e23ecf2562cac1e6dde050e7e3789a80976209623bb39663f613d8c18f9a11
+          EOF
+          test "$(awk 'NF {print NF}' "$compiler_dir/SHA256SUMS-v0.1.3" | sort -u)" = 2
+          while read -r declared_digest asset_path; do
+            asset_name=${asset_path##*/}
+            case "$asset_name" in
+              release-manifest-v0.1.3.json|gooo-ci-evidence-v0.1.3.tar.gz|SHA256SUMS-v0.1.3|gooo-incremental-module-compiler-v0.1.3.tar.gz) ;;
+              *) exit 1 ;;
+            esac
+            test "$(sha256sum "$compiler_dir/$asset_name" | awk '{print $1}')" = "$declared_digest"
+          done < <(awk '{print $1" "$2}' "$compiler_dir/SHA256SUMS-v0.1.3")
+          compiler_refs=$(git ls-remote "https://github.com/$compiler_repo.git" refs/tags/v0.1.3 'refs/tags/v0.1.3^{}')
+          test "$(awk '$2=="refs/tags/v0.1.3" {print $1}' <<< "$compiler_refs")" = 985f914ae5beb0e2d2c9c48a39da0a1897c4af3a
+          test "$(awk '$2=="refs/tags/v0.1.3^{}" {print $1}' <<< "$compiler_refs")" = 336669ce954917fc0d34b0b190da8ab5487ab095
+          echo "upstream incremental module compiler v0.1.3 release and four exact assets verified"
+
+      - name: Verify separate twenty-eight-entry non-completeness capability evidence registry
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -990,11 +1023,15 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:48,closed:45,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:49,closed:46,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/capability-registry/verification.json" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Preserve v0.43 candidate-stage planner operational history
+        shell: bash
+        run: cp evidence/planner-v043-candidate-history.json "$ARTIFACT_ROOT/planner-v043-candidate-history.json"
 
       - name: Upload human-readable evidence
         if: always()

@@ -1,0 +1,73 @@
+{
+  "schema": "gooo/ledger-append-planner/candidate-operational-history/v1",
+  "transaction_id": "incremental-module-compiler-durable-release-v0.43.0",
+  "semantic_cell_adoption_state": "CLOSED",
+  "portfolio_decision": "REFUTED",
+  "selected_final_authority": {
+    "run_id": 33486099504,
+    "job_id": 99786411834,
+    "output_artifact_id": 9791811978,
+    "output_artifact_size_bytes": 372843,
+    "output_artifact_digest": "sha256:35d0afa42f9e5befc4200bf1589bf1769766782004481eb180bb2bf1e832a250"
+  },
+  "events": [
+    {
+      "run_id": 33485864986,
+      "event": "CANDIDATE_STAGE_PLANNER_REFUTED",
+      "trigger": "push",
+      "head_sha": "dc87dad46eae7e98c9c2228cf2e167d05d0a8488",
+      "job_id": 99785663488,
+      "failure_step": "Run planner v0.3.0 generator-only against clean v0.42.0",
+      "selected": false,
+      "output_debug_artifact": {
+        "id": 9791723768,
+        "size_bytes": 5976,
+        "digest": "sha256:a3ee5a924e63330ff4913b7b66007a3efff35302e2ab4030f75ee49da6392262"
+      },
+      "ci_proof_artifact": {
+        "id": 9791723101,
+        "size_bytes": 475,
+        "digest": "sha256:1428d18e60164f73cfb872d527c9b729fc10bb20233836a61d3970703201ab23"
+      },
+      "decision": "REFUTED",
+      "reasons": [
+        {"stage":"VERIFY","step":"COMPARE_BASELINE_LOCK","reason":"BASELINE_LOCK_MISMATCH","counterexample":"release/tag/source digest identity differs from the immutable lock"},
+        {"stage":"VERIFY","step":"CHECK_PROJECTION_BEFORE_DIGEST","reason":"PROJECTION_BEFORE_DIGEST_MISMATCH","counterexample":"report observed=sha256:68b7e15b0ae1dd31d771d767357f8732e6b5777ce06607d8dac7bd84a805b6d8 expected=sha256:1613b529ab63bfdca1d95aea03aa36802535496b484bfb1b3c6964c00a3ac094"},
+        {"stage":"VERIFY","step":"CHECK_PROJECTION_SOURCE_SEMANTIC_DIGEST","reason":"PROJECTION_SOURCE_SEMANTIC_DIGEST_MISMATCH","counterexample":"report observed=sha256:95b0a406e4369a771a785950a4d40cd6ed4eab18cdce15bd20cd29d03c3e4e3d expected=sha256:37f03987831b6ce901cddcbba694c2f5d05a6a782acf186099116d283c2dab09"},
+        {"stage":"VERIFY","step":"CHECK_PROJECTION_BEFORE_DIGEST","reason":"PROJECTION_BEFORE_DIGEST_MISMATCH","counterexample":"history observed=sha256:5a30b2bb32f1bf5e6069269ecb12fc3ee0454274d6317b9b89c6c77ee1a2d368 expected=sha256:dee7ecab024059ce417e13a3883e1eb527059d2cfa53d1cf051791975f33ebb8"},
+        {"stage":"VERIFY","step":"CHECK_PROJECTION_SOURCE_SEMANTIC_DIGEST","reason":"PROJECTION_SOURCE_SEMANTIC_DIGEST_MISMATCH","counterexample":"history observed=sha256:95b0a406e4369a771a785950a4d40cd6ed4eab18cdce15bd20cd29d03c3e4e3d expected=sha256:37f03987831b6ce901cddcbba694c2f5d05a6a782acf186099116d283c2dab09"}
+      ],
+      "repository_writes": 0,
+      "local_execution_counts": {"go_test":0,"go_build":0,"go_vet":0,"conformance":0}
+    },
+    {
+      "run_id": 33485874832,
+      "event": "CANDIDATE_STAGE_PLANNER_REFUTED",
+      "trigger": "workflow_dispatch",
+      "head_sha": "dc87dad46eae7e98c9c2228cf2e167d05d0a8488",
+      "job_id": 99785704911,
+      "failure_step": "Run planner v0.3.0 generator-only against clean v0.42.0",
+      "selected": false,
+      "output_debug_artifact": {
+        "id": 9791729823,
+        "size_bytes": 5976,
+        "digest": "sha256:a5a464f8fdcaacf6d246810a059620b723514866b4e527b3961c4298408768d9"
+      },
+      "ci_proof_artifact": {
+        "id": 9791728832,
+        "size_bytes": 474,
+        "digest": "sha256:51f2f0891597b83ed5ec2e0a06ece4e7cec802795461a4a3ac5e52f04839311b"
+      },
+      "decision": "REFUTED",
+      "reasons": [
+        {"stage":"VERIFY","step":"COMPARE_BASELINE_LOCK","reason":"BASELINE_LOCK_MISMATCH","counterexample":"release/tag/source digest identity differs from the immutable lock"},
+        {"stage":"VERIFY","step":"CHECK_PROJECTION_BEFORE_DIGEST","reason":"PROJECTION_BEFORE_DIGEST_MISMATCH","counterexample":"report observed=sha256:68b7e15b0ae1dd31d771d767357f8732e6b5777ce06607d8dac7bd84a805b6d8 expected=sha256:1613b529ab63bfdca1d95aea03aa36802535496b484bfb1b3c6964c00a3ac094"},
+        {"stage":"VERIFY","step":"CHECK_PROJECTION_SOURCE_SEMANTIC_DIGEST","reason":"PROJECTION_SOURCE_SEMANTIC_DIGEST_MISMATCH","counterexample":"report observed=sha256:95b0a406e4369a771a785950a4d40cd6ed4eab18cdce15bd20cd29d03c3e4e3d expected=sha256:37f03987831b6ce901cddcbba694c2f5d05a6a782acf186099116d283c2dab09"},
+        {"stage":"VERIFY","step":"CHECK_PROJECTION_BEFORE_DIGEST","reason":"PROJECTION_BEFORE_DIGEST_MISMATCH","counterexample":"history observed=sha256:5a30b2bb32f1bf5e6069269ecb12fc3ee0454274d6317b9b89c6c77ee1a2d368 expected=sha256:dee7ecab024059ce417e13a3883e1eb527059d2cfa53d1cf051791975f33ebb8"},
+        {"stage":"VERIFY","step":"CHECK_PROJECTION_SOURCE_SEMANTIC_DIGEST","reason":"PROJECTION_SOURCE_SEMANTIC_DIGEST_MISMATCH","counterexample":"history observed=sha256:95b0a406e4369a771a785950a4d40cd6ed4eab18cdce15bd20cd29d03c3e4e3d expected=sha256:37f03987831b6ce901cddcbba694c2f5d05a6a782acf186099116d283c2dab09"}
+      ],
+      "repository_writes": 0,
+      "local_execution_counts": {"go_test":0,"go_build":0,"go_vet":0,"conformance":0}
+    }
+  ]
+}
