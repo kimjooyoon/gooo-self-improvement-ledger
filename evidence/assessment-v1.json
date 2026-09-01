@@ -1218,6 +1218,30 @@
       "parent-v0.44.0-current-asset-bytes:null:state=UNKNOWN:stage=RELEASE_TRANSPORT:step=FETCH_PARENT_ASSET_BYTES:reason=V0_45_0_RELEASE_RUN_DID_NOT_OBSERVE_CURRENT_V0_44_0_PARENT_ASSET_BYTES:unknown_class=DIRECT_MISSING:next_operation=FETCH_AND_MATCH_PARENT_ASSET_BYTES:blocked_by=release-transport-run-v0.45.0",
       "v0.45.0-current-asset-bytes:state=CLOSED:observed=true:size=30371159:sha256=sha256:3c09f571e62b977aee8838943138cfbd5474ed896edbe99b645a3a873a589f8c:source_artifact=9799629633:release_asset=539498552"
       ]
+    },
+    {
+      "cell_id": "INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "incremental_release_proof_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-incremental-release-proof:tag=v0.1.0:release=380438321:tag_object=956e8788945f6c02d93aed0125ec43aa1c74366d:target=f9e2e34e8d11621133e8188e7c3f464709ad3f12:immutable=true",
+        "upstream-assets:539453787:34279:sha256:87d3a3aa151bc54bbb45074b25d5b352c075337e018f6d609b34df001cab29c3,539453796:2643285:sha256:11b3e16956e4305f8553ad577791022ebadbb14881b666e557a0f410a2c5224c,539453805:6286:sha256:c59b08901596bb0639202b13789da860f505edde33a7079347a4bcabf065d41c",
+        "upstream-ci:run_id=33502454307:job=99838693487:commit=f9e2e34e8d11621133e8188e7c3f464709ad3f12:artifact=9798252157:2705734:sha256:e867a5095df4e32d3fc54d9292ade55b454c25c011f0c70e181fbbe3023bc75e:success",
+        "upstream-release-ci:run_id=33502572374:job=99839068173:commit=f9e2e34e8d11621133e8188e7c3f464709ad3f12:receipt_artifact=9798297440:5386113:sha256:f01fed43f0ca799ca4692ac4f53d6c92a19a3304b416f3a57c04e70f03004c12:success",
+        "upstream-contract:schema=gooo/incremental-release-proof/v1:digest=sha256:0a14b7fe02296264e2d5a073c17c9c350c9c51107d67f99ebff9a9d579df0ef2:cases=9:CLOSED3/UNKNOWN3/REFUTED3:activities=12:generated=9/57192:tests=9/9/7/2/3/3",
+        "fixed-48-release-fixture:corpus=incremental-release-proof-v1:digest=sha256:414c06a81eff9a7ea8f1a49ed604b08751406e885c0fe3b01fec69221dd42a22:parent=parent-48:releases=48:parent_lock_root=sha256:76a4a5708dc196ef3e1278cdc416d98457f5275ee5f9591ce7ffab9b90351868:current_lock_root=sha256:8ef70850654b125cde49fb4eeea2e8240db36268f3d92e8e6bdf8b106f4722ce",
+        "incremental-proof-roots:lock_merkle=sha256:a8bd7f3c854ce1436df6dbdca3512335ad69980724a2d1c36c3a10e4208b3119:lock_root=sha256:841ee7638b4001e6b8ee2ceb8de086658c1522ce70a5549f0df8ebe376a64608",
+        "incremental-proof-measurement-identity:source=sha256:87d3a3aa151bc54bbb45074b25d5b352c075337e018f6d609b34df001cab29c3:contract=sha256:0a14b7fe02296264e2d5a073c17c9c350c9c51107d67f99ebff9a9d579df0ef2:fixture=sha256:414c06a81eff9a7ea8f1a49ed604b08751406e885c0fe3b01fec69221dd42a22:toolchain=go1.27.0/linux/amd64:runner=sha256:947e4cfcb533070a0ccbc3ba49864f71051c5db733cf486b22f32feecc353291",
+        "incremental-proof-exact-pair:status=CLOSED:before=wall100/rss400/remote48/verified48/reused0:after=wall90/rss350/remote1/verified1/reused48",
+        "incremental-proof-guardrails:semantic_output_equivalence=true:root_equivalence=true:guardrails_same=true:missing_measurements=false:zero_coercion=false",
+        "authority:token=github.token:repository_writes=0:local_product_validation_executions=0:cross_project_required_gates=0",
+        "structural-append:cell=INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE:activity=AdoptIncrementalReleaseProofDurableRelease:lock=incremental_release_proof_durable_release",
+        "parent-v0.45.1:release=380480877:tag_object=1fbb3b54e4de73bb58a85e01096f73963693925a:target=83a6023efdfd5ad5a082e2a38b1fb8275ce4f999:asset=539524194:30373286:sha256:a7dedc0a5f8da93bacd332b5ea86bb7f01f199f6239f148db7859014ad428b5f:immutable=true",
+        "parent-v0.45.1-transport:run_id=33508260014:job=99857430202:receipt_artifact=9800499180:1412:sha256:d74d4b982baf202f8f6f610bc1c106f79f9e5ffad80349dc27a7e6b3610a803a",
+        "parent-v0.45.1-current-asset-bytes:state=CLOSED:observed=true:size=30373286:sha256=sha256:a7dedc0a5f8da93bacd332b5ea86bb7f01f199f6239f148db7859014ad428b5f:source_artifact=9800477318:release_asset=539524194",
+        "preserved-v0.40.0-transport:release=380259706:state=REFUTED:reason=RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD:mutation_policy=NO_DELETE_NO_OVERWRITE",
+        "preserved-parent-byte-frontier:parent_asset_current_bytes=null:state=UNKNOWN:stage=RELEASE_TRANSPORT:step=FETCH_PARENT_ASSET_BYTES:reason=V0_45_0_RELEASE_RUN_DID_NOT_OBSERVE_CURRENT_V0_44_0_PARENT_ASSET_BYTES:unknown_class=DIRECT_MISSING:next_operation=FETCH_AND_MATCH_PARENT_ASSET_BYTES:blocked_by=release-transport-run-v0.45.0"
+      ]
     }
   ],
   "core_refutation_observation_events": [
@@ -1287,10 +1311,10 @@
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 50,
+    "from": 51,
     "retire": 0,
     "split": 0,
-    "to": 51
+    "to": 52
   },
   "local_validation_followup": {
     "inspection_only": true,
