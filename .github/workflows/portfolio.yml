@@ -42,19 +42,19 @@ jobs:
           mkdir -p "$ARTIFACT_ROOT"
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-before"
 
-      - name: Preflight v0.50 release input before network audit
+      - name: Preflight v0.51 release input before network audit
         shell: bash
         run: |
           set -Eeuo pipefail
-          bash scripts/verify-v0500-release-input.sh --repository "$GITHUB_WORKSPACE"
+          bash scripts/verify-v0510-release-input.sh --repository "$GITHUB_WORKSPACE"
 
-      - name: Prepare v0.50 immutable parent lock receipt
+      - name: Prepare v0.50 immutable parent receipt for v0.51 reuse
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -Eeuo pipefail
-          bash scripts/prepare-v0500-parent-receipt.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
+          bash scripts/prepare-v0510-parent-receipt.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
 
       - name: Verify formatting, vet, tests, and build in CI
         shell: bash
@@ -99,8 +99,9 @@ jobs:
             echo "reused immutable v0.49 parent lock receipt; no 59-lock live fetch is required"
             printf '0\n' > "$ARTIFACT_ROOT/release-verify-peak-rss"
           else
+            jq -S ' .releases |= with_entries(select(.key != "measurement_boundary_v2_projector_durable_release" and .key != "operational_provenance_projector_durable_release" and .key != "self_improvement_frontier_projector_durable_release")) ' contracts/release-locks-v1.json > "$RUNNER_TEMP/v050-locks.json"
             /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
-            bash scripts/verify-releases-parallel.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
+            bash scripts/verify-releases-parallel.sh "$RUNNER_TEMP/v050-locks.json" "$ARTIFACT_ROOT/releases"
             bash scripts/finalize-v0500-parent-receipt.sh "$ARTIFACT_ROOT"
           fi
           if test "$(jq -r '.primary.state' "$ARTIFACT_ROOT/v0500-parent-lock-receipt.json")" = CLOSED; then
@@ -1115,6 +1116,14 @@ jobs:
           set -Eeuo pipefail
           bash scripts/verify-incremental-release-proof.sh "$ARTIFACT_ROOT"
 
+      - name: Verify v0.51 parent reuse and only three changed locks
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          bash scripts/verify-v0510-changed-locks.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
+
       - name: Generate current ledger denominator from released semantic projector
         shell: bash
         env:
@@ -1162,7 +1171,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:64,closed:61,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:67,closed:64,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
@@ -1175,6 +1184,14 @@ jobs:
         run: |
           set -Eeuo pipefail
           bash scripts/verify-v050-products.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
+
+      - name: Verify v0.51 released product adoption and actual receipts
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          bash scripts/verify-v0510-products.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
 
       - name: Preserve v0.43 candidate-stage planner operational history
         shell: bash
@@ -1222,13 +1239,17 @@ jobs:
         shell: bash
         run: cp evidence/atomic-v0500-wave-v1.json "$ARTIFACT_ROOT/atomic-v0500-wave-v1.json"
 
-      - name: Final v0.50 release input preflight after artifact materialization
+      - name: Preserve v0.51.0 atomic three-cell adoption wave evidence
+        shell: bash
+        run: cp evidence/atomic-v0510-wave-v1.json "$ARTIFACT_ROOT/atomic-v0510-wave-v1.json"
+
+      - name: Final v0.51 release input preflight after artifact materialization
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -Eeuo pipefail
-          bash scripts/verify-v0500-release-input.sh --artifact "$ARTIFACT_ROOT"
+          bash scripts/verify-v0510-release-input.sh --artifact "$ARTIFACT_ROOT"
 
       - name: Upload human-readable evidence
         if: always()

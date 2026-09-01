@@ -1,0 +1,182 @@
+name: Publish v0.51.0 atomic three-project release
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful main evidence workflow run
+        required: true
+        type: string
+      source_artifact_id:
+        description: Exact main evidence artifact id
+        required: true
+        type: string
+      source_commit_sha:
+        description: Main commit validated by the source run
+        required: true
+        type: string
+      release_tag:
+        description: Immutable release tag
+        required: true
+        default: v0.51.0
+        type: string
+      resume_existing:
+        description: Resume verification of an already published release
+        required: false
+        default: false
+        type: boolean
+      resume_draft:
+        description: Resume an existing draft after a failed upload attempt
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  actions: read
+  contents: write
+
+env:
+  REPOSITORY: kimjooyoon/gooo-self-improvement-ledger
+  SOURCE_RUN_ID: ${{ inputs.source_run_id }}
+  SOURCE_ARTIFACT_ID: ${{ inputs.source_artifact_id }}
+  SOURCE_COMMIT_SHA: ${{ inputs.source_commit_sha }}
+  RELEASE_TAG: ${{ inputs.release_tag }}
+  RESUME_EXISTING: ${{ inputs.resume_existing }}
+  RESUME_DRAFT: ${{ inputs.resume_draft }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out source commit
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.source_commit_sha }}
+          fetch-depth: 1
+
+      - name: Resolve and verify exact main evidence artifact
+        id: source
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          test "$RELEASE_TAG" = v0.51.0
+          test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT_SHA"
+          if test "$RESUME_EXISTING" != true && test "$RESUME_DRAFT" != true; then
+            test "$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')" = "$SOURCE_COMMIT_SHA"
+          fi
+          run_json=$(gh api "repos/$REPOSITORY/actions/runs/$SOURCE_RUN_ID")
+          jq -e --arg run "$SOURCE_RUN_ID" --arg sha "$SOURCE_COMMIT_SHA" '.id==($run|tonumber) and .event=="push" and .head_branch=="main" and .head_sha==$sha and .status=="completed" and .conclusion=="success"' <<< "$run_json" >/dev/null
+          artifact_json=$(gh api "repos/$REPOSITORY/actions/artifacts/$SOURCE_ARTIFACT_ID")
+          jq -e --arg id "$SOURCE_ARTIFACT_ID" --arg run "$SOURCE_RUN_ID" --arg sha "$SOURCE_COMMIT_SHA" '.id==($id|tonumber) and .workflow_run.id==($run|tonumber) and .workflow_run.head_sha==$sha and .expired==false and (.size_in_bytes|tonumber)>0 and (.digest|startswith("sha256:"))' <<< "$artifact_json" >/dev/null
+          artifact_name=$(jq -r '.name' <<< "$artifact_json")
+          artifact_size=$(jq -r '.size_in_bytes' <<< "$artifact_json")
+          artifact_digest=$(jq -r '.digest' <<< "$artifact_json")
+          source_job_id=$(gh api "repos/$REPOSITORY/actions/runs/$SOURCE_RUN_ID/jobs" | jq -r '[.jobs[]|select(.name=="evidence" and .conclusion=="success")]|if length==1 then .[0].id else error("expected one evidence job") end')
+          asset_path="$RUNNER_TEMP/$artifact_name.zip"
+          gh api "repos/$REPOSITORY/actions/artifacts/$SOURCE_ARTIFACT_ID/zip" > "$asset_path"
+          test "$(wc -c < "$asset_path" | tr -d ' ')" = "$artifact_size"
+          test "sha256:$(sha256sum "$asset_path" | awk '{print $1}')" = "$artifact_digest"
+          extracted="$RUNNER_TEMP/v051-source-evidence"
+          rm -rf "$extracted"
+          mkdir -p "$extracted"
+          unzip -q "$asset_path" -d "$extracted"
+          bash scripts/verify-v0510-release-input.sh --artifact "$extracted"
+          {
+            echo "artifact_name=$artifact_name"
+            echo "artifact_size=$artifact_size"
+            echo "artifact_digest=$artifact_digest"
+            echo "source_job_id=$source_job_id"
+            echo "asset_path=$asset_path"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Refuse overwrite of existing v0.51.0 release or tag
+        if: inputs.resume_existing != true && inputs.resume_draft != true
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          if gh api "repos/$REPOSITORY/releases/tags/$RELEASE_TAG" >/dev/null 2>&1; then exit 1; fi
+          if gh api "repos/$REPOSITORY/git/ref/tags/$RELEASE_TAG" >/dev/null 2>&1; then exit 1; fi
+
+      - name: Create annotated v0.51.0 tag
+        if: inputs.resume_existing != true && inputs.resume_draft != true
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          tag_json=$(gh api --method POST "repos/$REPOSITORY/git/tags" -f tag="$RELEASE_TAG" -f message="$RELEASE_TAG: three-project projector adoption wave" -f object="$SOURCE_COMMIT_SHA" -f type=commit)
+          tag_object=$(jq -r '.sha' <<< "$tag_json")
+          test -n "$tag_object" -a "$tag_object" != null
+          gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$RELEASE_TAG" -f sha="$tag_object" >/dev/null
+
+      - name: Create v0.51.0 draft release before upload
+        if: inputs.resume_existing != true && inputs.resume_draft != true
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          body="$RELEASE_TAG is one atomic wave containing CLOSED MEASUREMENT_BOUNDARY_V2_PROJECTOR_DURABLE_RELEASE, OPERATIONAL_PROVENANCE_PROJECTOR_DURABLE_RELEASE, and SELF_IMPROVEMENT_FRONTIER_PROJECTOR_DURABLE_RELEASE cells (65-67). The generated profile is 67 total / 64 CLOSED / 1 UNKNOWN / 2 REFUTED, with proof FOUNDATION 4 / COHERENCE 58 / REGRESSION 5 and indicators DRIVER 4 / OUTCOME 58 / GUARDRAIL 5. The immutable v0.50 parent is exact release 380866481 at target e93768f4204e8a88214026ffa22febad7ecedcbd, with 59 parent locks reused and only the three changed locks selected and executed live. The measurement projector v0.2.0 is evaluated from actual bounded stage receipts and remains UNKNOWN for improvement because no exact before/after pair exists. The operational provenance projector v0.1.2 preserves the 4/4/4 CLOSED/UNKNOWN/REFUTED denominator, null operator API attempts, and zero runtime authority. The frontier projector v0.2.0 is run against the immutable v0.50 parent and a separate v0.51 candidate graph; candidate-only packaging does not claim an immutable candidate release. External utility remains UNKNOWN, no aggregate score or percentage is published, and historical refutations remain preserved under no-delete/no-overwrite policy."
+          gh api --method POST "repos/$REPOSITORY/releases" -f tag_name="$RELEASE_TAG" -f target_commitish=main -f name="$RELEASE_TAG" -f body="$body" -F draft=true -F prerelease=false >/dev/null
+
+      - name: Upload exact main evidence artifact and publish
+        if: inputs.resume_existing != true
+        env:
+          ASSET_PATH: ${{ steps.source.outputs.asset_path }}
+          ASSET_NAME: ${{ steps.source.outputs.artifact_name }}
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          release_id=""
+          for attempt in $(seq 1 12); do
+            releases=$(gh api "repos/$REPOSITORY/releases?per_page=100")
+            release_id=$(jq -r --arg tag "$RELEASE_TAG" '[.[]|select(.tag_name==$tag and .draft==true)]|if length==1 then .[0].id else empty end' <<< "$releases")
+            if test -n "$release_id"; then break; fi
+            sleep 5
+          done
+          test -n "$release_id"
+          release_json=$(gh api "repos/$REPOSITORY/releases/$release_id")
+          upload_url=$(jq -r '.upload_url' <<< "$release_json" | sed 's/{.*//')
+          if ! jq -e --arg name "$ASSET_NAME" '[.assets[]|select(.name==$name)]|length==1' <<< "$release_json" >/dev/null; then
+            gh api --method POST "$upload_url?name=$ASSET_NAME" -H 'Content-Type: application/zip' --input "$ASSET_PATH" >/dev/null
+          fi
+          gh api --method PATCH "repos/$REPOSITORY/releases/$release_id" -F draft=false >/dev/null
+
+      - name: Verify immutable v0.51.0 release, public refs, and emit receipt
+        env:
+          ASSET_NAME: ${{ steps.source.outputs.artifact_name }}
+          ASSET_SIZE: ${{ steps.source.outputs.artifact_size }}
+          ASSET_DIGEST: ${{ steps.source.outputs.artifact_digest }}
+          SOURCE_JOB_ID: ${{ steps.source.outputs.source_job_id }}
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          evidence_root="$RUNNER_TEMP/v051-source-evidence"
+          product_receipt="$evidence_root/v051-products/product-integration.json"
+          release_json=""
+          for attempt in $(seq 1 12); do
+            if release_json=$(gh api "repos/$REPOSITORY/releases/tags/$RELEASE_TAG"); then break; fi
+            sleep 5
+          done
+          release_id=$(jq -r '.id' <<< "$release_json")
+          asset_id=$(jq -r --arg name "$ASSET_NAME" '.assets[]|select(.name==$name)|.id' <<< "$release_json")
+          jq -e --arg tag "$RELEASE_TAG" --arg name "$ASSET_NAME" --arg digest "$ASSET_DIGEST" --argjson size "$ASSET_SIZE" --argjson release_id "$release_id" --argjson asset_id "$asset_id" '.id==$release_id and .tag_name==$tag and .draft==false and .prerelease==false and .immutable==true and (.assets|length)==1 and .assets[0].id==$asset_id and .assets[0].name==$name and .assets[0].size==$size and .assets[0].digest==$digest' <<< "$release_json" >/dev/null
+          tag_ref=$(gh api "repos/$REPOSITORY/git/ref/tags/$RELEASE_TAG")
+          tag_object=$(jq -r '.object.sha' <<< "$tag_ref")
+          jq -e '.object.type=="tag"' <<< "$tag_ref" >/dev/null
+          tag_record=$(gh api "repos/$REPOSITORY/git/tags/$tag_object")
+          jq -e --arg commit "$SOURCE_COMMIT_SHA" '.object.sha==$commit and .object.type=="commit"' <<< "$tag_record" >/dev/null
+          refs=$(git ls-remote "https://github.com/$REPOSITORY.git" "refs/tags/$RELEASE_TAG" "refs/tags/$RELEASE_TAG^{}")
+          test "$(awk -v ref="refs/tags/$RELEASE_TAG" '$2==ref {print $1}' <<< "$refs")" = "$tag_object"
+          test "$(awk -v ref="refs/tags/$RELEASE_TAG^{}" '$2==ref {print $1}' <<< "$refs")" = "$SOURCE_COMMIT_SHA"
+          jq -e '.schema=="gooo/self-improvement-ledger/v0510-product-integration/v1" and .products.measurement_boundary_v2_projector.release_id==380839207 and .products.operational_provenance_projector.release_id==380835618 and .products.self_improvement_frontier_projector.release_id==380832128 and .receipts.measurement_boundary_v2.improvement.state=="UNKNOWN" and .receipts.operational_provenance.project_report.summary=={closed:4,unknown:4,refuted:4} and .receipts.self_improvement_frontier.v050_parent.release_id==380866481 and .receipts.self_improvement_frontier.v051_candidate.source_release=="v0.51.0-candidate" and .receipts.packaging.candidate_only==true and .claims.candidate_release_immutable==false' "$product_receipt" >/dev/null
+          jq -n --arg tag "$RELEASE_TAG" --argjson release_id "$release_id" --argjson asset_id "$asset_id" --arg name "$ASSET_NAME" --argjson size "$ASSET_SIZE" --arg digest "$ASSET_DIGEST" --arg tag_object "$tag_object" --arg commit "$SOURCE_COMMIT_SHA" --argjson source_run "$SOURCE_RUN_ID" --argjson source_job "$SOURCE_JOB_ID" --argjson source_artifact "$SOURCE_ARTIFACT_ID" --argjson products "$(cat "$product_receipt")" \
+            '{schema:"gooo/self-improvement-ledger/v0510-release-transport-receipt/v1",release:{tag:$tag,release_id:$release_id,immutable:true,asset_count:1,asset:{id:$asset_id,name:$name,size_bytes:$size,digest:$digest},tag_object_sha:$tag_object,target_commit_sha:$commit,source_run_id:$source_run,source_job_id:$source_job,source_artifact_id:$source_artifact},semantic_state:{total_cells:67,closed:64,unknown:1,refuted:2,proof_totals:{FOUNDATION:4,COHERENCE:58,REGRESSION:5},indicator_totals:{DRIVER:4,OUTCOME:58,GUARDRAIL:5}},parent_receipt:{release_id:380866481,tag:"v0.50.0",target_commit_sha:"e93768f4204e8a88214026ffa22febad7ecedcbd",asset_sha256:"sha256:80575837d8ebb8d838bab912ff7802946fb37b2d90d923e8a9cec27bdf543e25",lock_count:59,primary_selected:0,primary_executed:0,primary_reused:59},changed_lock_wave:{selected:3,executed:3,reused:0,full_62_lock_audit:false},products:$products,authority:{verification:"GITHUB_ACTIONS",github_token:"github.token",repository_writes:0,runtime_writes:0,cross_project_required_gates:0}}' > "$RUNNER_TEMP/release-transport-receipt.json"
+          cat "$RUNNER_TEMP/release-transport-receipt.json" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload v0.51.0 transport receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-transport-receipt-${{ inputs.release_tag }}
+          path: ${{ runner.temp }}/release-transport-receipt.json
+          if-no-files-found: ignore
+          retention-days: 30

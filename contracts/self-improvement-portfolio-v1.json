@@ -1038,21 +1038,69 @@
       "proof": "COHERENCE",
       "release_key": null,
       "source": "examples/self-improvement-portfolio/main.gooo#ProjectContentAddressedReleaseProjection"
+    },
+    {
+      "activity": "AdoptMeasurementBoundaryV2ProjectorDurableRelease",
+      "axis": "MEASUREMENT_BOUNDARY_V2_PROJECTOR_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "measurement-boundary-v2-projector",
+      "generated_artifact": "evidence/cells/MEASUREMENT_BOUNDARY_V2_PROJECTOR_DURABLE_RELEASE.json",
+      "id": "MEASUREMENT_BOUNDARY_V2_PROJECTOR_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptMeasurementBoundaryV2ProjectorDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.measurement-boundary-v2-projector-durable-release.v1",
+      "ordinal": 65,
+      "proof": "COHERENCE",
+      "release_key": "measurement_boundary_v2_projector_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptMeasurementBoundaryV2ProjectorDurableRelease"
+    },
+    {
+      "activity": "AdoptOperationalProvenanceProjectorDurableRelease",
+      "axis": "OPERATIONAL_PROVENANCE_PROJECTOR_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "operational-provenance-projector",
+      "generated_artifact": "evidence/cells/OPERATIONAL_PROVENANCE_PROJECTOR_DURABLE_RELEASE.json",
+      "id": "OPERATIONAL_PROVENANCE_PROJECTOR_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptOperationalProvenanceProjectorDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.operational-provenance-projector-durable-release.v1",
+      "ordinal": 66,
+      "proof": "COHERENCE",
+      "release_key": "operational_provenance_projector_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptOperationalProvenanceProjectorDurableRelease"
+    },
+    {
+      "activity": "AdoptSelfImprovementFrontierProjectorDurableRelease",
+      "axis": "SELF_IMPROVEMENT_FRONTIER_PROJECTOR_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "self-improvement-frontier-projector",
+      "generated_artifact": "evidence/cells/SELF_IMPROVEMENT_FRONTIER_PROJECTOR_DURABLE_RELEASE.json",
+      "id": "SELF_IMPROVEMENT_FRONTIER_PROJECTOR_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptSelfImprovementFrontierProjectorDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.self-improvement-frontier-projector-durable-release.v1",
+      "ordinal": 67,
+      "proof": "COHERENCE",
+      "release_key": "self_improvement_frontier_projector_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptSelfImprovementFrontierProjectorDurableRelease"
     }
   ],
   "denominator_migration": {
-    "add": 11,
+    "add": 14,
     "append_only": true,
     "from": 53,
     "retire": 0,
     "split": 0,
-    "to": 64
+    "to": 67
   },
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
   "indicator_totals": {
     "DRIVER": 4,
     "GUARDRAIL": 5,
-    "OUTCOME": 55
+    "OUTCOME": 58
   },
   "policy": {
     "aggregate_percentage": false,
@@ -1070,10 +1118,10 @@
   ],
   "profile_id": "self-improvement-portfolio-v1",
   "proof_totals": {
-    "COHERENCE": 55,
+    "COHERENCE": 58,
     "FOUNDATION": 4,
     "REGRESSION": 5
   },
   "schema": "gooo/self-improvement-portfolio/contract/v1",
-  "total_cells": 64
+  "total_cells": 67
 }
