@@ -1397,6 +1397,33 @@
         "parent-v0.48.0:release=380694027:tag=v0.48.0:tag_object=e18e19e3ff58c4c7643d5028b5fc9bf39e83e769:target=1985612b1f9eb8184e04626b426c88b91901bdd4:asset=539891522:54641017:sha256:3792b53a77d88b3471e6f4889baf24679dcdcfba8314abb32d0dd3469ccdc3aa:state=CLOSED",
         "structural-append:cell=CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE:activity=AdoptContentAddressedProofReuseDurableRelease:lock=content_addressed_proof_reuse_durable_release"
       ]
+    },
+    {
+      "cell_id": "PARENT_LOCK_RECEIPT_CONTINUITY",
+      "state": "CLOSED",
+      "release_key": null,
+      "evidence": [
+        "parent-v0.49.0:release=380810861:tag_object=36f4fa271a72616a39a703c9658e905b670f5f64:target=036d2d1e25df72a5568aeb16f6ac0a077ce4471f:immutable=true",
+        "parent-release-asset:id=540115901:size=84127616:sha256=sha256:e680c234fee34e36bae27685a29c716208cf83bb67e9375a31a9ee5194ca5208",
+        "parent-source-artifact:id=9819745734:run=33556630730:job=100018938289:size=84127616:sha256=sha256:e680c234fee34e36bae27685a29c716208cf83bb67e9375a31a9ee5194ca5208",
+        "parent-release-lock-manifest-digest:sha256:7fbcb681ac47f1ae26935615229c824b21d4aca08ea41cb7639d74ea5bdf38a3",
+        "parent-lock-set-digest:sha256:5d36775c847acd70597cf92717106265f50e3719daa45d2d0fc29f8cc595cf71",
+        "current-lock-set:count=59:exact_match=true:selected=0:executed=0:reused=59:full_fallback=false",
+        "authority:verification=GITHUB_ACTIONS:github_token=github.token:repository_writes=0:local_test_executions=0:cross_project_required_gates=0"
+      ]
+    },
+    {
+      "cell_id": "CONTENT_ADDRESSED_RELEASE_PROJECTION",
+      "state": "CLOSED",
+      "release_key": null,
+      "evidence": [
+        "released-utility:repo=kimjooyoon/gooo-content-addressed-evidence-projector:tag=v0.1.1:release=380750147:tag_object=03dbbe7cd13549d4791e5e6086e036c81db3eac9:target=f3bfd2c6c05a45214fc7ed0732f2c3f0770bf463:immutable=true",
+        "released-utility-assets:tarball=539995619:26063:sha256:a1d83f2503755bc6ea591d32cd4ef5d7a088e936da2a843d9d80af947acbe435:manifest=539995666:594:sha256:b5b0eab05a67d10bc64f2105a8f7939c012764ba53028085b1f0fe1d80e6cc67:sha256sums=539995651:224:sha256:ee856476a058d7e301fd3ee05f525e523bbf89717bc8056810c2c28aa24c9c6d",
+        "same-job-packaging:scenario=v0.50-evidence-inputs:baseline=LEGACY_FULL_COPY:candidate=CONTENT_ADDRESSED_MANIFEST_PROJECTION:published=CANDIDATE_ONLY",
+        "semantic-root-equality=true:inclusion-proofs=verified:replay-equality=true",
+        "external-utility=UNKNOWN:independent-user-evidence=false",
+        "authority:verification=GITHUB_ACTIONS:github_token=github.token:repository_writes=0:local_test_executions=0:cross_project_required_gates=0"
+      ]
     }
   ],
   "core_refutation_observation_events": [
@@ -1464,12 +1491,12 @@
     }
   ],
   "denominator_migration": {
-    "add": 9,
+    "add": 11,
     "append_only": true,
     "from": 53,
     "retire": 0,
     "split": 0,
-    "to": 62
+    "to": 64
   },
   "local_validation_followup": {
     "inspection_only": false,

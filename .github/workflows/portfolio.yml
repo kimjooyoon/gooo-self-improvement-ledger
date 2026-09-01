@@ -41,19 +41,19 @@ jobs:
           mkdir -p "$ARTIFACT_ROOT"
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-before"
 
-      - name: Preflight v0.49 release input before network audit
+      - name: Preflight v0.50 release input before network audit
         shell: bash
         run: |
           set -Eeuo pipefail
-          bash scripts/verify-v0490-release-input.sh --repository "$GITHUB_WORKSPACE" --output "$ARTIFACT_ROOT/v0490-source-preflight.json"
+          bash scripts/verify-v0500-release-input.sh --repository "$GITHUB_WORKSPACE"
 
-      - name: Prepare v0.49 immutable parent evidence cache
+      - name: Prepare v0.50 immutable parent lock receipt
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -Eeuo pipefail
-          bash scripts/prepare-v0490-parent-cache.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
+          bash scripts/prepare-v0500-parent-receipt.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
 
       - name: Verify formatting, vet, tests, and build in CI
         shell: bash
@@ -94,12 +94,13 @@ jobs:
         run: |
           set -Eeuo pipefail
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
-          if test "$(jq -r '.primary.state' "$ARTIFACT_ROOT/v0490-release-audit-receipt.json")" = CLOSED; then
-            echo "reused immutable parent release evidence; live frontier is verified by the v0.49 product gate"
+          if test "$(jq -r '.primary.state' "$ARTIFACT_ROOT/v0500-parent-lock-receipt.json")" = CLOSED; then
+            echo "reused immutable v0.49 parent lock receipt; no 59-lock live fetch is required"
+            printf '0\n' > "$ARTIFACT_ROOT/release-verify-peak-rss"
           else
             /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
             bash scripts/verify-releases-parallel.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-            bash scripts/finalize-v0490-release-audit.sh "$ARTIFACT_ROOT"
+            bash scripts/finalize-v0500-parent-receipt.sh "$ARTIFACT_ROOT"
           fi
           jq -e '.summary=={total:59,verified:59,unknown:0,refuted:0} and .release_lock_snapshot.snapshot_semantic_equivalence.state=="CLOSED" and .release_lock_snapshot.snapshot_semantic_equivalence.same_snapshot==true and .release_lock_snapshot.parallel_live_metrics.max_in_flight==8 and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
@@ -1114,14 +1115,6 @@ jobs:
           set -Eeuo pipefail
           bash scripts/verify-semantic-denominator-projector.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
 
-      - name: Verify v0.49 products and same-job adoption measurements
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -Eeuo pipefail
-          bash scripts/verify-v049-products.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
-
       - name: Verify separate thirty-entry non-completeness capability evidence registry
         shell: bash
         env:
@@ -1161,11 +1154,19 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:62,closed:59,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:64,closed:61,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/capability-registry/verification.json" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verify v0.50 same-job content-addressed release projection
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          bash scripts/verify-v050-products.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
 
       - name: Preserve v0.43 candidate-stage planner operational history
         shell: bash
@@ -1209,13 +1210,17 @@ jobs:
         shell: bash
         run: cp evidence/atomic-v0490-wave-v1.json "$ARTIFACT_ROOT/atomic-v0490-wave-v1.json"
 
-      - name: Final v0.49 release input preflight after artifact materialization
+      - name: Preserve v0.50.0 atomic two-cell adoption wave evidence
+        shell: bash
+        run: cp evidence/atomic-v0500-wave-v1.json "$ARTIFACT_ROOT/atomic-v0500-wave-v1.json"
+
+      - name: Final v0.50 release input preflight after artifact materialization
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -Eeuo pipefail
-          bash scripts/verify-v0490-release-input.sh --artifact "$ARTIFACT_ROOT"
+          bash scripts/verify-v0500-release-input.sh --artifact "$ARTIFACT_ROOT"
 
       - name: Upload human-readable evidence
         if: always()
