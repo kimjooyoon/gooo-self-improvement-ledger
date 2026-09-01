@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for forty-eight specifically named capabilities.
+The portfolio is an evidence ledger for forty-nine specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains forty-eight entries. The v0.42
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-seven-cell
+`cells` array is immutable during a run and contains forty-nine entries. The v0.43
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-eight-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/39/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/39/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/40/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/40/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -639,6 +639,19 @@ repository writes, and rollback ready. The adoption yields
 `CLOSED45/UNKNOWN1/REFUTED2`; local Go/schema/conformance execution counts
 remain zero.
 
+The v0.43 frontier appends `INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE` and
+adopts immutable upstream `kimjooyoon/gooo-incremental-module-compiler@v0.1.3`,
+release `380177397`, annotated tag object
+`985f914ae5beb0e2d2c9c48a39da0a1897c4af3a`, and target
+`336669ce954917fc0d34b0b190da8ab5487ab095`. Its four release assets and the
+upstream CI run `33463205917`/job `99717581340` are digest-bound; the upstream
+corpus is `CLOSED3/UNKNOWN1/REFUTED1` with overall `CLOSED`.
+Immutable planner v0.3.0 generator-only run `33486099504`/job `99786411834`
+records `7/7` planned/changed paths, `5` AST nodes, zero replay mismatches,
+zero input-repository writes, and rollback ready. The adoption yields
+`CLOSED46/UNKNOWN1/REFUTED2`; the two unselected candidate-stage `REFUTED`
+runs are preserved in `evidence/planner-v043-candidate-history.json`.
+
 The v0.40.0 release transport is a separate preserved envelope event. Release
 `380259706` and annotated tag `v0.40.0` are immutable with zero assets because
 publication preceded asset upload. The event is `REFUTED` with reason
@@ -649,9 +662,9 @@ creation, exact main-CI asset upload, publication, and immutable API
 verification in that order; it adds no portfolio cell and leaves the semantic
 state at 46 cells, 43 CLOSED, 1 UNKNOWN, and 2 REFUTED.
 
-The non-completeness capability evidence registry is a separate twenty-seven-entry
+The non-completeness capability evidence registry is a separate twenty-eight-entry
 external-input ledger. Its count and dispositions never alter this fixed
-forty-eight-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+forty-nine-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

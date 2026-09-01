@@ -680,9 +680,36 @@
         "unknown_cases": 2
       },
       "state": "CLOSED"
+    },
+    {
+      "entry_id": "incremental-module-compiler-v0.1.3",
+      "evidence": [
+        "immutable release API and annotated tag",
+        "gooo-ci-evidence-v0.1.3.tar.gz, source, release manifest, and SHA256SUMS-v0.1.3 release assets",
+        "five-case corpus preserves 3 CLOSED, 1 UNKNOWN, and 1 REFUTED",
+        "upstream improvement pair is CLOSED with exact incremental compilation evidence"
+      ],
+      "observed": {
+        "child_cases": 5,
+        "ci_evidence_digest": "sha256:704329d78a0468b2cf3292d10fc8cce73a5a9542d1f30daf067c39baffba9dc6",
+        "closed_cases": 3,
+        "cross_project_required_gates": 0,
+        "local_test_executions": 0,
+        "overall_status": "CLOSED",
+        "refuted_cases": 1,
+        "release_assets": 4,
+        "release_id": 380177397,
+        "release_immutable": true,
+        "repository_writes": 0,
+        "source_digest": "sha256:16e23ecf2562cac1e6dde050e7e3789a80976209623bb39663f613d8c18f9a11",
+        "tag_object_sha": "985f914ae5beb0e2d2c9c48a39da0a1897c4af3a",
+        "target_commit_sha": "336669ce954917fc0d34b0b190da8ab5487ab095",
+        "unknown_cases": 1
+      },
+      "state": "CLOSED"
     }
   ],
-  "entry_count": 27,
+  "entry_count": 28,
   "frontier_additions": [
     "receipt-schema-migration-v0.1.1",
     "receipt-schema-migration-v0.2.2",
@@ -702,7 +729,8 @@
     "semantic-counterexample-reducer-v0.1.1",
     "differential-semantics-runtime-v0.1.2",
     "staged-quasiquote-slice-v0.1.0",
-    "error-directed-evolution-planner-v0.1.1"
+    "error-directed-evolution-planner-v0.1.1",
+    "incremental-module-compiler-v0.1.3"
   ],
   "lineage": [
     {
