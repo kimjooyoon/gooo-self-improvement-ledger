@@ -946,6 +946,29 @@
       ],
       "release_key": "deterministic_module_linker_durable_release",
       "state": "CLOSED"
+    },
+    {
+      "cell_id": "SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-semantic-counterexample-reducer:tag=v0.1.1:release=380148374:tag_object=cc225db786718083a81264398096b75a23301646:target=395f3faba810f0dd8f091cb6180527c7240eee61:immutable=true",
+        "upstream-assets:538735547:181:sha256:3be38f5674e2c063ce74f0bb5b42ffbc2550c69589d7438e9b0023657fe4e2e1,538735550:28172:sha256:0d90dcad2c2aa072b8c0f46378e227813bd439e41e81cc7b3fe5f0111cb38454,538735549:9529:sha256:1124d7378125128900827e82f8ab87ab3751b7ab0c06b9fd29e081ed9d28a37c,538735548:793:sha256:dbedbe01c851718fcd1ce09a6fea329d026e75cc6abc06242174e32c8fe4531b,538735551:482:sha256:e3a9dc202ad28cd961be76d3eefd5edaa72149978db5cd89ffe83e2808742454,538735563:258:sha256:da7549433fadd2ecb62ee2854a45c8d7c3033c77ec30d93833f7271ca5d010f9",
+        "child-corpus:cases=2:selected=2:executed=2:reduction=CLOSED2:improvement=UNKNOWN2:4-activity=nodes=7-\u003e4:edges=4-\u003e0:bytes=1425-\u003e530:oracle=30:capture-escalation=nodes=4-\u003e3:edges=3-\u003e2:bytes=1067-\u003e672:oracle=36",
+        "child-verdicts:4-activity=baseline=REFUTED:final=REFUTED:reason_digest_same=true:capture-escalation=baseline=REFUTED:final=REFUTED:reason_digest_same=true",
+        "child-unknown-fields:stage/step/reason/unknown_class/next_operation/blocked_by",
+        "authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0",
+        "structural-append:cell=SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE:activity=AdoptSemanticCounterexampleReducerDurableRelease:lock=semantic_counterexample_reducer_durable_release",
+        "immutable-v0.38.0-baseline:semantic-source-bound",
+        "derived-projection-regeneration:report-and-history-replaced-in-caller-copy",
+        "projection-replacements:count=2:report=replace:history=replace",
+        "ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0",
+        "rollback-receipt:rollback_ready=true",
+        "replay-mismatches:0",
+        "input-repository-writes:0",
+        "planner-tool-executions:current_task=1:classification=generator_only:not_validation=true",
+        "local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0"
+      ],
+      "release_key": "semantic_counterexample_reducer_durable_release",
+      "state": "CLOSED"
     }
   ],
   "core_refutation_observation_events": [
@@ -1015,10 +1038,10 @@
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 43,
+    "from": 44,
     "retire": 0,
     "split": 0,
-    "to": 44
+    "to": 45
   },
   "local_validation_followup": {
     "inspection_only": false,

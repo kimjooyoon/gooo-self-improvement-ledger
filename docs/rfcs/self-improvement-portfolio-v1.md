@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for forty-four specifically named capabilities.
+The portfolio is an evidence ledger for forty-five specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains forty-four entries. The v0.38
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-three-cell
+`cells` array is immutable during a run and contains forty-five entries. The v0.39
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-four-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/35/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/35/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/36/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/36/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -562,9 +562,37 @@ invocation. The new cell is `CLOSED`, yielding `CLOSED41/UNKNOWN1/REFUTED2`;
 cumulative local validation remains `2`, process state remains `REFUTED`, and
 local schema/conformance plus Go test/build/vet execution counts remain zero.
 
-The non-completeness capability evidence registry is a separate twenty-three-entry
+The v0.39 frontier appends `SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE`.
+It adopts immutable `kimjooyoon/gooo-semantic-counterexample-reducer@v0.1.1`,
+release `380148374`, annotated tag object
+`cc225db786718083a81264398096b75a23301646`, and target
+`395f3faba810f0dd8f091cb6180527c7240eee61`. The six release assets are locked
+by API ID, size, URL, and SHA-256: source `538735550`/`28172`/
+`sha256:0d90dcad2c2aa072b8c0f46378e227813bd439e41e81cc7b3fe5f0111cb38454`,
+report `538735549`/`9529`/
+`sha256:1124d7378125128900827e82f8ab87ab3751b7ab0c06b9fd29e081ed9d28a37c`,
+manifest `538735548`/`793`/
+`sha256:dbedbe01c851718fcd1ce09a6fea329d026e75cc6abc06242174e32c8fe4531b`,
+CI metrics `538735547`/`181`/
+`sha256:3be38f5674e2c063ce74f0bb5b42ffbc2550c69589d7438e9b0023657fe4e2e1`,
+SHA256SUMS `538735551`/`482`/
+`sha256:e3a9dc202ad28cd961be76d3eefd5edaa72149978db5cd89ffe83e2808742454`,
+and version `538735563`/`258`/
+`sha256:da7549433fadd2ecb62ee2854a45c8d7c3033c77ec30d93833f7271ca5d010f9`.
+Its selected/executed child corpus is `2/2`, with reduction `CLOSED2` and
+improvement `UNKNOWN2`; the two reductions are `7/4/1425 -> 4/0/530` with
+oracle `30` and `4/3/1067 -> 3/2/672` with oracle `36`. Baseline and final
+verdicts remain `REFUTED` with equal reason digests, and the six UNKNOWN fields
+are preserved. The immutable v0.38.0 baseline is semantically append-only; two
+caller-owned projections are replaced, with `7/7` planned/changed paths, `5`
+AST nodes, zero replay mismatches, zero planner repository writes, and an exact
+rollback receipt. The adoption yields `CLOSED42/UNKNOWN1/REFUTED2`; cumulative
+local validation remains `2`, process state remains `REFUTED`, and local
+Go/schema/conformance execution counts remain zero.
+
+The non-completeness capability evidence registry is a separate twenty-four-entry
 external-input ledger. Its count and dispositions never alter this fixed
-forty-four-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+forty-five-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
