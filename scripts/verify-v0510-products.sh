@@ -181,7 +181,7 @@ jq -e '.schema=="gooo/self-improvement-frontier/conformance-report/v1" and .tota
 frontier_ops="$temp_root/frontier-operational-events.json"
 jq -S '[.operational_events[] | select(.state=="OPERATIONAL_REFUTED")]' "$frontier_source_dir/fixtures/inputs/immutable-ledger-v0490.json" > "$frontier_ops"
 frontier_parent_input="$temp_root/immutable-ledger-v0500.json"
-jq -S --slurpfile report "$artifact_root/v050-parent-report.json" --slurpfile ops "$frontier_ops" '
+jq -S -n --slurpfile report "$artifact_root/v050-parent-report.json" --slurpfile ops "$frontier_ops" '
   def tuple: {stage:(.stage//""),step:(.step//""),reason:(.reason//""),unknown_class:(.unknown_class//""),next_operation:(.next_operation//""),blocked_by:(.blocked_by//[])};
   ($report[0].cells | map({ordinal,id,axis,proof,indicator,activity,state,numerator,denominator} + (if .state=="UNKNOWN" then {unknown:(.unknown|tuple)} elif .state=="REFUTED" then {refutation:(.refutation|tuple)} else {} end))) as $cells |
   ($ops[0] + [{id:"operational:v050-parent-cache-reuse",state:"CLOSED",historical:false,stage:"v050-parent-artifact-preflight",step:"parent-release-reuse",reason:"",unknown_class:"",next_operation:"",blocked_by:[],source:"v0510-parent-lock-receipt.json#primary"}]) as $events |
