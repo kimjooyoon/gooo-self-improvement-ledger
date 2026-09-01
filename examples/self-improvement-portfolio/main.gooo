@@ -57,3 +57,14 @@ activity AdoptSelfRewriteSandboxDurableRelease(PortfolioInput) -> PortfolioEvide
 activity AdoptReleaseTransportConformerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptIncrementalReleaseProofDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptSemanticDenominatorProjectorDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+// verifier-policy concurrency_bound=8 retry_max_attempts=3 retry_backoff_ms=250 timeout_seconds=30
+// verifier-policy canonical_lock_order=release_lock_id:ascending state_precedence=REFUTED>UNKNOWN>CLOSED
+// verifier-policy snapshot_single_fetch=true completion_order_ignored=true semantic_equivalence_required=true
+// verifier-unknown-frontier stage=RELEASE_FETCH step=READ_RELEASE_API reason=RELEASE_RESPONSE_NOT_OBSERVED_WITHIN_RETRY_TIMEOUT unknown_class=TRANSIENT next_operation=RETRY_RELEASE_FETCH blocked_by=release-api-response
+activity AdoptSemanticChangeConfluenceDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_CHANGE_CONFLUENCE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptBootstrapFixedPointDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=BOOTSTRAP_FIXED_POINT_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptSemanticMigrationCompilerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_MIGRATION_COMPILER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptBoundedSelfChangeCompilerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptProofAwareTestReuseDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptDeterministicProofFetchSchedulerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptImprovementDominanceLatticeDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"

@@ -36,8 +36,19 @@ fetch_start=$(date +%s%N)
 for key in $(jq -r '.releases | keys[]' "$lock"); do
   repo=$(jq -r --arg key "$key" '.releases[$key].repository' "$lock")
   tag=$(jq -r --arg key "$key" '.releases[$key].tag' "$lock")
-  /usr/bin/time -f '%M' -o "$output/$key.fetch-rss" \
-    gh api "repos/$repo/releases/tags/$tag" > "$output/$key.release.json"
+  if [ -n "${GOOO_RELEASE_SNAPSHOT_DIR:-}" ]; then
+    snapshot_release="$GOOO_RELEASE_SNAPSHOT_DIR/$key.release.json"
+    test -s "$snapshot_release"
+    cp "$snapshot_release" "$output/$key.release.json"
+    if [ -f "$GOOO_RELEASE_SNAPSHOT_DIR/$key.fetch-rss" ]; then
+      cp "$GOOO_RELEASE_SNAPSHOT_DIR/$key.fetch-rss" "$output/$key.fetch-rss"
+    else
+      printf '0\n' > "$output/$key.fetch-rss"
+    fi
+  else
+    /usr/bin/time -f '%M' -o "$output/$key.fetch-rss" \
+      gh api "repos/$repo/releases/tags/$tag" > "$output/$key.release.json"
+  fi
 done
 for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_id' "$lock"); do
   repo=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .repository' "$lock")
@@ -496,8 +507,14 @@ done
 fetch_peak=$(for file in "$output"/*.fetch-rss; do cat "$file"; done | sort -n | tail -1)
 fetch_timing=$(measurement "$fetch_start" "$fetch_end" "$fetch_peak")
 verify_timing=$(measurement "$verify_start" "$verify_end")
+printf '%s\n' "$releases" > "$output/.releases.json"
+printf '%s\n' "$counterexample_results" > "$output/.counterexamples.json"
+printf '%s\n' "$counterexample_run_results" > "$output/.counterexample-runs.json"
+printf '%s\n' "$failed_release_trigger_results" > "$output/.failed-release-triggers.json"
+printf '%s\n' "$fetch_timing" > "$output/.fetch-timing.json"
+printf '%s\n' "$verify_timing" > "$output/.verify-timing.json"
 jq -S -n \
   --arg schema "gooo/self-improvement-portfolio/release-verification/v1" \
-  --argjson releases "$releases" --argjson counterexamples "$counterexample_results" --argjson counterexample_runs "$counterexample_run_results" --argjson failed_release_triggers "$failed_release_trigger_results" --argjson fetch "$fetch_timing" --argjson verify "$verify_timing" \
-  '{schema:$schema,releases:$releases,counterexamples:$counterexamples,counterexample_runs:$counterexample_runs,failed_release_triggers:$failed_release_triggers,summary:{total:($releases|length),verified:([ $releases[] | select(.state=="CLOSED") ]|length),unknown:([ $releases[] | select(.state=="UNKNOWN") ]|length),refuted:([ $releases[] | select(.state=="REFUTED") ]|length)},timing:{fetch:$fetch,verify:$verify,report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}}}' \
+  --slurpfile releases "$output/.releases.json" --slurpfile counterexamples "$output/.counterexamples.json" --slurpfile counterexample_runs "$output/.counterexample-runs.json" --slurpfile failed_release_triggers "$output/.failed-release-triggers.json" --slurpfile fetch "$output/.fetch-timing.json" --slurpfile verify "$output/.verify-timing.json" \
+  '{schema:$schema,releases:$releases[0],counterexamples:$counterexamples[0],counterexample_runs:$counterexample_runs[0],failed_release_triggers:$failed_release_triggers[0],summary:{total:($releases[0]|length),verified:([ $releases[0][] | select(.state=="CLOSED") ]|length),unknown:([ $releases[0][] | select(.state=="UNKNOWN") ]|length),refuted:([ $releases[0][] | select(.state=="REFUTED") ]|length)},timing:{fetch:$fetch[0],verify:$verify[0],report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}}}' \
   > "$output/verification.json"

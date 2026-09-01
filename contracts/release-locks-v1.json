@@ -7345,6 +7345,103 @@
       "tag": "v0.1.0",
       "tag_object_sha": "bde8a7e98e2e4572e438eb6b4c7da4aebd388f16",
       "target_commit_sha": "60ef02caae58811c1e716b3356af121f09cc605d"
+    },
+    "semantic_change_confluence_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-semantic-change-confluence/releases/download/v0.1.0/gooo-semantic-change-confluence-linux-amd64-v0.1.0.tar.gz","id":539651396,"name":"gooo-semantic-change-confluence-linux-amd64-v0.1.0.tar.gz","sha256":"sha256:17ba77862b6a8dbad7a6bf57df284cd193a88a7886461a9d914aaba533202349","size_bytes":5045918},
+        {"download_url":"https://github.com/kimjooyoon/gooo-semantic-change-confluence/releases/download/v0.1.0/gooo-semantic-change-confluence-source-v0.1.0.tar.gz","id":539651397,"name":"gooo-semantic-change-confluence-source-v0.1.0.tar.gz","sha256":"sha256:d0d681e8df4972fd27bfc6cb9b1d5f606047f24ff15d5c5c5e926e8d6e2c833f","size_bytes":17113},
+        {"download_url":"https://github.com/kimjooyoon/gooo-semantic-change-confluence/releases/download/v0.1.0/release-manifest-v0.1.0.json","id":539651394,"name":"release-manifest-v0.1.0.json","sha256":"sha256:e8ca5cda3b189063f07fef0dd99332a3d8ec956858ad819cc01e17e93f773884","size_bytes":812},
+        {"download_url":"https://github.com/kimjooyoon/gooo-semantic-change-confluence/releases/download/v0.1.0/release-report-v0.1.0.json","id":539651399,"name":"release-report-v0.1.0.json","sha256":"sha256:7eed80832ad1eb3f3baf90e18205b07d9eaf436abd1b64584e11d2d883804bb0","size_bytes":4659},
+        {"download_url":"https://github.com/kimjooyoon/gooo-semantic-change-confluence/releases/download/v0.1.0/release-report-v0.1.0.md","id":539651418,"name":"release-report-v0.1.0.md","sha256":"sha256:05f9b2f80bef1a8f5b2a93fc0cf8ea2d5529acc495b1c90dd488e7223d8a499b","size_bytes":1370},
+        {"download_url":"https://github.com/kimjooyoon/gooo-semantic-change-confluence/releases/download/v0.1.0/SHA256SUMS","id":539651395,"name":"SHA256SUMS","sha256":"sha256:a4080897efeac32cafe969c68f510432be0fd78d53ac7dc89639261d978132a3","size_bytes":522}
+      ],
+      "immutable": true,
+      "release_id": 380565951,
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-change-confluence/releases/tag/v0.1.0",
+      "repository": "kimjooyoon/gooo-semantic-change-confluence",
+      "tag": "v0.1.0",
+      "tag_object_sha": "b67530de32df6f1d7ea8888749dba6b9e232a200",
+      "target_commit_sha": "e4834ac28224e49fb0b7d3e17542e56bd6cfa36c"
+    },
+    "bootstrap_fixed_point_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-bootstrap-fixed-point/releases/download/v0.1.1/gooo-bootstrap-fixed-point-v0.1.1.tar.gz","id":539651576,"name":"gooo-bootstrap-fixed-point-v0.1.1.tar.gz","sha256":"sha256:423eff16267c69f243315230edc4df03dcb839a286fe1e5c184ebb630feff2ce","size_bytes":8824},
+        {"download_url":"https://github.com/kimjooyoon/gooo-bootstrap-fixed-point/releases/download/v0.1.1/release-provenance-v0.1.1.json","id":539652526,"name":"release-provenance-v0.1.1.json","sha256":"sha256:93ed143baf1c1c73a544c0f1517abf4e14d5873ae52e63bf0d06a3a2ad7b0a8b","size_bytes":5886},
+        {"download_url":"https://github.com/kimjooyoon/gooo-bootstrap-fixed-point/releases/download/v0.1.1/release-report-v0.1.1.json","id":539652495,"name":"release-report-v0.1.1.json","sha256":"sha256:2f8184edb525f07122dde9e3f6d127b4c9633214c6df5b243d6c25b5a27aa837","size_bytes":12926},
+        {"download_url":"https://github.com/kimjooyoon/gooo-bootstrap-fixed-point/releases/download/v0.1.1/release-report-v0.1.1.md","id":539652494,"name":"release-report-v0.1.1.md","sha256":"sha256:a72fbd6d09442b1994a654a93d0833c5981aae7b4e9579aa248549497fff07d4","size_bytes":1150}
+      ],
+      "immutable": true,
+      "release_id": 380565963,
+      "release_url": "https://github.com/kimjooyoon/gooo-bootstrap-fixed-point/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-bootstrap-fixed-point",
+      "tag": "v0.1.1",
+      "tag_object_sha": "31f1f93bcb30a65d12de0882127361c7469ac47d",
+      "target_commit_sha": "82b26d87d08405a3317598b7979a55fe2e9b42f1"
+    },
+    "semantic_migration_compiler_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-semantic-migration-compiler/releases/download/v0.1.1/gooo-semantic-migration-compiler-v0.1.1-linux-amd64.tar.gz","id":539662132,"name":"gooo-semantic-migration-compiler-v0.1.1-linux-amd64.tar.gz","sha256":"sha256:e0ff9681616e2f22091c7ad9bc6dbfa0e6b205a0cc88607e65183feff34982c2","size_bytes":2694484},
+        {"download_url":"https://github.com/kimjooyoon/gooo-semantic-migration-compiler/releases/download/v0.1.1/gooo-semantic-migration-compiler-v0.1.1-linux-amd64.tar.gz.sha256","id":539662131,"name":"gooo-semantic-migration-compiler-v0.1.1-linux-amd64.tar.gz.sha256","sha256":"sha256:3b114d6690a1089e72d25dcda8039b718e64f72194ce676beb808a99f0503791","size_bytes":125},
+        {"download_url":"https://github.com/kimjooyoon/gooo-semantic-migration-compiler/releases/download/v0.1.1/release-manifest.json","id":539662134,"name":"release-manifest.json","sha256":"sha256:0835ccf6e704bc99999555314aaf09ab92d618b5106b3b030b2412816b52e24d","size_bytes":396}
+      ],
+      "immutable": true,
+      "release_id": 380573346,
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-migration-compiler/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-semantic-migration-compiler",
+      "tag": "v0.1.1",
+      "tag_object_sha": "656f4de6621ce1010bae12e92fa1beebf8044169",
+      "target_commit_sha": "647d470f9812206bbbb022d4dc454f18b01a78ac"
+    },
+    "bounded_self_change_compiler_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-bounded-self-change-compiler/releases/download/v0.1.1/gooo-bounded-self-change-compiler-v0.1.1-ci-evidence.tar.gz","id":539665415,"name":"gooo-bounded-self-change-compiler-v0.1.1-ci-evidence.tar.gz","sha256":"sha256:5bc660ae5f574ecd0f6aa82adf2a3228d27e383a1498252bb3751618e15131fe","size_bytes":5341}
+      ],
+      "immutable": true,
+      "release_id": 380575903,
+      "release_url": "https://github.com/kimjooyoon/gooo-bounded-self-change-compiler/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-bounded-self-change-compiler",
+      "tag": "v0.1.1",
+      "tag_object_sha": "dc1d6fac07f25c17ba3bdb69021d44ee4a5262cb",
+      "target_commit_sha": "e4b74d44c3a38b506e62040bd205d5e8d7976989"
+    },
+    "proof_aware_test_reuse_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-proof-aware-test-reuse/releases/download/v0.1.2/gooo-proof-aware-test-reuse-evidence.tar.gz","id":539694215,"name":"gooo-proof-aware-test-reuse-evidence.tar.gz","sha256":"sha256:4a3c2f144cb0900ac394e2737fde2175560397554a7a7d5bba5faa76f83a9cd1","size_bytes":2645413}
+      ],
+      "immutable": true,
+      "release_id": 380592431,
+      "release_url": "https://github.com/kimjooyoon/gooo-proof-aware-test-reuse/releases/tag/v0.1.2",
+      "repository": "kimjooyoon/gooo-proof-aware-test-reuse",
+      "tag": "v0.1.2",
+      "tag_object_sha": "2c66e0c8527fe0bc80600f0a90d560ac82cadb6a",
+      "target_commit_sha": "4ed2a1c2f95e1a08863c84c7e54ddc8348c684c4"
+    },
+    "deterministic_proof_fetch_scheduler_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-deterministic-proof-fetch-scheduler/releases/download/v1.0.0/evidence-v1.0.0.tar.gz","id":539708363,"name":"evidence-v1.0.0.tar.gz","sha256":"sha256:ce586b4d282dcf099d98aaaa26640fbc46d8154cd6d35135232554bb6d51bd39","size_bytes":6407},
+        {"download_url":"https://github.com/kimjooyoon/gooo-deterministic-proof-fetch-scheduler/releases/download/v1.0.0/evidence-v1.0.0.tar.gz.sha256","id":539708359,"name":"evidence-v1.0.0.tar.gz.sha256","sha256":"sha256:5c6b4c474297a7ddc0fa9f71b4ca445eb05f26c4442a07dbe57ed0337c97d5b8","size_bytes":113}
+      ],
+      "immutable": true,
+      "release_id": 380600706,
+      "release_url": "https://github.com/kimjooyoon/gooo-deterministic-proof-fetch-scheduler/releases/tag/v1.0.0",
+      "repository": "kimjooyoon/gooo-deterministic-proof-fetch-scheduler",
+      "tag": "v1.0.0",
+      "tag_object_sha": "ba0f19b2709e8d3cd0dcc91acb1d46caea33edba",
+      "target_commit_sha": "d724931f0013cedc0cc1b85700537b0a653b1c36"
+    },
+    "improvement_dominance_lattice_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-improvement-dominance-lattice/releases/download/v0.1.2/gooo-improvement-dominance-lattice-v0.1.2-evidence.tar.gz","id":539762514,"name":"gooo-improvement-dominance-lattice-v0.1.2-evidence.tar.gz","sha256":"sha256:4f8d9fe9b348dee117ad04a298455efebaf72232cf7bab4351a6311edf8e5191","size_bytes":22358},
+        {"download_url":"https://github.com/kimjooyoon/gooo-improvement-dominance-lattice/releases/download/v0.1.2/gooo-improvement-dominance-lattice-v0.1.2-manifest.json","id":539762515,"name":"gooo-improvement-dominance-lattice-v0.1.2-manifest.json","sha256":"sha256:673370839b4d1a8136135fb2a0032269d91c9292d7f3f5082abd55f6e7865582","size_bytes":2122},
+        {"download_url":"https://github.com/kimjooyoon/gooo-improvement-dominance-lattice/releases/download/v0.1.2/manifest.sha256","id":539762517,"name":"manifest.sha256","sha256":"sha256:699efbbecba8ee7261907a0bae7eb69a466c0393997b4c33ffb059bd2ae2342d","size_bytes":162}
+      ],
+      "immutable": true,
+      "release_id": 380630405,
+      "release_url": "https://github.com/kimjooyoon/gooo-improvement-dominance-lattice/releases/tag/v0.1.2",
+      "repository": "kimjooyoon/gooo-improvement-dominance-lattice",
+      "tag": "v0.1.2",
+      "tag_object_sha": "0293fd1b7c81d04fbae40e051a73fb5589f1897f",
+      "target_commit_sha": "048b10c0a19faf9dfec8a72266845715f14f2725"
     }
   },
   "schema": "gooo/self-improvement-portfolio/release-locks/v1"

@@ -1260,6 +1260,112 @@
         "authority:verification=GITHUB_ACTIONS:github_token=github.token:repository_writes=0:cross_project_required_gates=0:local_product_validation_executions=0",
         "structural-append:cell=SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE:activity=AdoptSemanticDenominatorProjectorDurableRelease:lock=semantic_denominator_projector_durable_release"
       ]
+    },
+    {
+      "cell_id": "SEMANTIC_CHANGE_CONFLUENCE_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "semantic_change_confluence_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-semantic-change-confluence:tag=v0.1.0:release=380565951:tag_object=b67530de32df6f1d7ea8888749dba6b9e232a200:target=e4834ac28224e49fb0b7d3e17542e56bd6cfa36c:immutable=true",
+        "upstream-assets:539651396:5045918:sha256:17ba77862b6a8dbad7a6bf57df284cd193a88a7886461a9d914aaba533202349,539651397:17113:sha256:d0d681e8df4972fd27bfc6cb9b1d5f606047f24ff15d5c5c5e926e8d6e2c833f,539651394:812:sha256:e8ca5cda3b189063f07fef0dd99332a3d8ec956858ad819cc01e17e93f773884,539651399:4659:sha256:7eed80832ad1eb3f3baf90e18205b07d9eaf436abd1b64584e11d2d883804bb0,539651418:1370:sha256:05f9b2f80bef1a8f5b2a93fc0cf8ea2d5529acc495b1c90dd488e7223d8a499b,539651395:522:sha256:a4080897efeac32cafe969c68f510432be0fd78d53ac7dc89639261d978132a3",
+        "upstream-confluence-cases:normal=3:CLOSED:unknown=3:UNKNOWN:refuted=3:REFUTED:external-utility=UNKNOWN:local_validation_commands=0:cross_project_required_gates=0:runtime_writes=0",
+        "scope:SEMANTIC_CHANGE_CONFLUENCE_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN",
+        "authority:verification=GITHUB_ACTIONS:github_token=github.token:repository_writes=0:cross_project_required_gates=0:local_product_validation_executions=0",
+        "parent-v0.47.1:release=380630346:tag=v0.47.1:target=004edebd21d1935bfcec9d9d923292e555bc66fe:state=CLOSED",
+        "preserved-v0.47.0:release=380601504:tag=v0.47.0:target=a8104f3b22177e3bb193559e38180cbed13e5f36:state=REFUTED:mutation_policy=NO_DELETE_NO_OVERWRITE",
+        "structural-append:cell=SEMANTIC_CHANGE_CONFLUENCE_DURABLE_RELEASE:activity=AdoptSemanticChangeConfluenceDurableRelease:lock=semantic_change_confluence_durable_release"
+      ]
+    },
+    {
+      "cell_id": "BOOTSTRAP_FIXED_POINT_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "bootstrap_fixed_point_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-bootstrap-fixed-point:tag=v0.1.1:release=380565963:tag_object=31f1f93bcb30a65d12de0882127361c7469ac47d:target=82b26d87d08405a3317598b7979a55fe2e9b42f1:immutable=true",
+        "upstream-assets:539651576:8824:sha256:423eff16267c69f243315230edc4df03dcb839a286fe1e5c184ebb630feff2ce,539652526:5886:sha256:93ed143baf1c1c73a544c0f1517abf4e14d5873ae52e63bf0d06a3a2ad7b0a8b,539652495:12926:sha256:2f8184edb525f07122dde9e3f6d127b4c9633214c6df5b243d6c25b5a27aa837,539652494:1150:sha256:a72fbd6d09442b1994a654a93d0833c5981aae7b4e9579aa248549497fff07d4",
+        "preserved-bootstrap-history:v0.1.0:immutable=false:state=UNKNOWN:activation_attempts=1",
+        "bootstrap-trust:state=UNKNOWN:utility=UNKNOWN:upstream-release-report-preserved=true",
+        "scope:BOOTSTRAP_FIXED_POINT_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN",
+        "authority:verification=GITHUB_ACTIONS:github_token=github.token:repository_writes=0:cross_project_required_gates=0:local_product_validation_executions=0",
+        "parent-v0.47.1:release=380630346:tag=v0.47.1:target=004edebd21d1935bfcec9d9d923292e555bc66fe:state=CLOSED",
+        "structural-append:cell=BOOTSTRAP_FIXED_POINT_DURABLE_RELEASE:activity=AdoptBootstrapFixedPointDurableRelease:lock=bootstrap_fixed_point_durable_release"
+      ]
+    },
+    {
+      "cell_id": "SEMANTIC_MIGRATION_COMPILER_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "semantic_migration_compiler_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-semantic-migration-compiler:tag=v0.1.1:release=380573346:tag_object=656f4de6621ce1010bae12e92fa1beebf8044169:target=647d470f9812206bbbb022d4dc454f18b01a78ac:immutable=true",
+        "upstream-assets:539662132:2694484:sha256:e0ff9681616e2f22091c7ad9bc6dbfa0e6b205a0cc88607e65183feff34982c2,539662131:125:sha256:3b114d6690a1089e72d25dcda8039b718e64f72194ce676beb808a99f0503791,539662134:396:sha256:0835ccf6e704bc99999555314aaf09ab92d618b5106b3b030b2412816b52e24d",
+        "migration-release-manifest:immutable=true:cross_project_required_gates=0:release_asset_verified=true",
+        "preserved-migration-history:v0.1.0:immutable=false:state=UNKNOWN",
+        "scope:SEMANTIC_MIGRATION_COMPILER_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN",
+        "authority:verification=GITHUB_ACTIONS:github_token=github.token:repository_writes=0:cross_project_required_gates=0:local_product_validation_executions=0",
+        "parent-v0.47.1:release=380630346:tag=v0.47.1:target=004edebd21d1935bfcec9d9d923292e555bc66fe:state=CLOSED",
+        "structural-append:cell=SEMANTIC_MIGRATION_COMPILER_DURABLE_RELEASE:activity=AdoptSemanticMigrationCompilerDurableRelease:lock=semantic_migration_compiler_durable_release"
+      ]
+    },
+    {
+      "cell_id": "BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "bounded_self_change_compiler_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-bounded-self-change-compiler:tag=v0.1.1:release=380575903:tag_object=dc1d6fac07f25c17ba3bdb69021d44ee4a5262cb:target=e4b74d44c3a38b506e62040bd205d5e8d7976989:immutable=true",
+        "upstream-assets:539665415:5341:sha256:5bc660ae5f574ecd0f6aa82adf2a3228d27e383a1498252bb3751618e15131fe",
+        "bounded-compiler-cases:normal=3:CLOSED:unknown=3:UNKNOWN:refuted=3:REFUTED:exact_before_after=CLOSED:external-utility=UNKNOWN",
+        "bounded-compiler-authority:local_test=0:local_build=0:local_vet=0:local_format=0:local_check=0:local_conformance=0:local_integration=0:runtime_writes=0:cross_project_required_gates=0",
+        "scope:BOUNDED_SELF_CHANGE_COMPILER_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN",
+        "parent-v0.47.1:release=380630346:tag=v0.47.1:target=004edebd21d1935bfcec9d9d923292e555bc66fe:state=CLOSED",
+        "structural-append:cell=BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE:activity=AdoptBoundedSelfChangeCompilerDurableRelease:lock=bounded_self_change_compiler_durable_release"
+      ]
+    },
+    {
+      "cell_id": "PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "proof_aware_test_reuse_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-proof-aware-test-reuse:tag=v0.1.2:release=380592431:tag_object=2c66e0c8527fe0bc80600f0a90d560ac82cadb6a:target=4ed2a1c2f95e1a08863c84c7e54ddc8348c684c4:immutable=true",
+        "upstream-assets:539694215:2645413:sha256:4a3c2f144cb0900ac394e2737fde2175560397554a7a7d5bba5faa76f83a9cd1",
+        "preserved-initial-operational-refutation:state=REFUTED:exact_count=1:stage=AUTHORING:step=OPEN_IMPLEMENTATION_PR_BEFORE_MAIN_INTEGRATION:reason=INITIAL_IMPLEMENTATION_PUSH_PRECEDED_PR",
+        "indicator-vector:build_wall=CLOSED:build_peak_rss=REFUTED:test_wall=NOT_CLAIMED:test_peak_rss=CLOSED:selected=CLOSED:executed=CLOSED:reused=CLOSED:aggregate_improvement=false",
+        "matched-pair:before=selected1/executed1/reused0/build_wall127/build_peak_rss65500/test_wall5/test_peak_rss3480:after=selected0/executed0/reused1/build_wall119/build_peak_rss67576/test_wall5/test_peak_rss3428",
+        "proof-aware-reuse-cases:closed=3:unknown=3:refuted=3:operational_refuted_preserved=true:external-utility=UNKNOWN",
+        "authority:verification=GITHUB_ACTIONS:github_token=github.token:repository_writes=0:cross_project_required_gates=0:local_product_validation_executions=0",
+        "parent-v0.47.1:release=380630346:tag=v0.47.1:target=004edebd21d1935bfcec9d9d923292e555bc66fe:state=CLOSED",
+        "structural-append:cell=PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE:activity=AdoptProofAwareTestReuseDurableRelease:lock=proof_aware_test_reuse_durable_release"
+      ]
+    },
+    {
+      "cell_id": "DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "deterministic_proof_fetch_scheduler_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-deterministic-proof-fetch-scheduler:tag=v1.0.0:release=380600706:tag_object=ba0f19b2709e8d3cd0dcc91acb1d46caea33edba:target=d724931f0013cedc0cc1b85700537b0a653b1c36:immutable=true",
+        "upstream-assets:539708363:6407:sha256:ce586b4d282dcf099d98aaaa26640fbc46d8154cd6d35135232554bb6d51bd39,539708359:113:sha256:5c6b4c474297a7ddc0fa9f71b4ca445eb05f26c4442a07dbe57ed0337c97d5b8",
+        "scheduler-fixture-upstream-only:locks=53:baseline_wall_ms=1047:candidate_wall_ms=235:baseline_peak_rss_kib=34676:candidate_peak_rss_kib=34676:requests=52:max_in_flight=8:completed=46:reused=3:unknown=3:refuted=1:semantic_root_equal=true",
+        "local-network-improvement:state=UNKNOWN:reason=NO_MATCHED_LIVE_BEFORE_AFTER_PAIR:fixture_is_not_local_attribution=true",
+        "scheduler-policy:concurrency_bound=8:retry_max_attempts=2:retry_backoff_ms=2:canonical_order=lock-001..lock-053",
+        "authority:verification=GITHUB_ACTIONS:github_token=github.token:repository_writes=0:cross_project_required_gates=0:local_product_validation_executions=0",
+        "parent-v0.47.1:release=380630346:tag=v0.47.1:target=004edebd21d1935bfcec9d9d923292e555bc66fe:state=CLOSED",
+        "structural-append:cell=DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE:activity=AdoptDeterministicProofFetchSchedulerDurableRelease:lock=deterministic_proof_fetch_scheduler_durable_release"
+      ]
+    },
+    {
+      "cell_id": "IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "improvement_dominance_lattice_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-improvement-dominance-lattice:tag=v0.1.2:release=380630405:tag_object=0293fd1b7c81d04fbae40e051a73fb5589f1897f:target=048b10c0a19faf9dfec8a72266845715f14f2725:immutable=true",
+        "upstream-assets:539762514:22358:sha256:4f8d9fe9b348dee117ad04a298455efebaf72232cf7bab4351a6311edf8e5191,539762515:2122:sha256:673370839b4d1a8136135fb2a0032269d91c9292d7f3f5082abd55f6e7865582,539762517:162:sha256:699efbbecba8ee7261907a0bae7eb69a466c0393997b4c33ffb059bd2ae2342d",
+        "lattice-cases:normal=3:CLOSED:unknown=3:UNKNOWN:refuted=3:REFUTED:rss_non_increase=REFUTED:rss_plus_4096_kib_budget=DOMINATES/CLOSED",
+        "lattice-ci:run_id=33527002064:job=99920284887:artifact=9808115404:release_once=true:tag_once=true:rewrite=false:cross_project_required_gates=0",
+        "preserved-failed-runs:33525071820,33525113174,33525240400,33525349966,33525462227",
+        "scope:IMPROVEMENT_DOMINANCE_LATTICE_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN",
+        "authority:verification=GITHUB_ACTIONS:github_token=github.token:repository_writes=0:cross_project_required_gates=0:local_product_validation_executions=0",
+        "parent-v0.47.1:release=380630346:tag=v0.47.1:target=004edebd21d1935bfcec9d9d923292e555bc66fe:state=CLOSED",
+        "structural-append:cell=IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE:activity=AdoptImprovementDominanceLatticeDurableRelease:lock=improvement_dominance_lattice_durable_release"
+      ]
     }
   ],
   "core_refutation_observation_events": [
@@ -1327,12 +1433,12 @@
     }
   ],
   "denominator_migration": {
-    "add": 1,
+    "add": 7,
     "append_only": true,
-    "from": 52,
+    "from": 53,
     "retire": 0,
     "split": 0,
-    "to": 53
+    "to": 60
   },
   "local_validation_followup": {
     "inspection_only": true,

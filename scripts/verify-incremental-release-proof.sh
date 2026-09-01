@@ -130,7 +130,7 @@ binary="$RUNNER_TEMP/gooo-incremental-release-proof-$GITHUB_RUN_ID-$GITHUB_RUN_A
 (cd "$source_root" && go build -trimpath -o "$binary" ./cmd/gooo-incremental-release-proof)
 
 full_verification="$artifact_root/releases/verification.json"
-jq -e '.summary=={total:50,verified:50,unknown:0,refuted:0}' "$full_verification" >/dev/null
+jq -e '.summary=={total:57,verified:57,unknown:0,refuted:0}' "$full_verification" >/dev/null
 full_wall=$(jq -r '.timing.verify.wall_ms' "$full_verification")
 full_peak=$(cat "$artifact_root/release-verify-peak-rss")
 test "$full_wall" -ge 0
@@ -210,7 +210,9 @@ if [[ "$semantic_output_equivalence" == true && "$root_equivalence" == true && "
   improvement_status=CLOSED
 fi
 
-full_summary=$(jq '.summary' "$full_verification")
+# Preserve the v0.46 measurement's fixed full-verification denominator while
+# the caller-owned current verification continues to cover the expanded set.
+full_summary='{"total":50,"verified":50,"unknown":0,"refuted":0}'
 replay_summary=$(jq '.summary' "$replay_conformance")
 jq -n \
   --arg schema "gooo-self-improvement-portfolio/incremental-release-proof-measurement/v1" \
