@@ -96,10 +96,10 @@ jq -e --arg commit "$target_commit" --arg tag_object "$tag_object" --argjson rel
 fetch_artifact() {
   local id=$1 name=$2 run_id=$3 size=$4 digest=$5 path
   path="$proof_root/$name.zip"
-  artifact_json=$(gh api "repos/kimjooyoon/gooo-self-improvement-ledger/actions/artifacts/$id")
+  artifact_json=$(gh api "repos/$repository/actions/artifacts/$id")
   jq -e --argjson id "$id" --arg name "$name" --argjson run_id "$run_id" --argjson size "$size" --arg digest "$digest" \
     '.id==$id and .name==$name and .size_in_bytes==$size and .digest==$digest and .workflow_run.id==$run_id and .expired==false' <<< "$artifact_json" >/dev/null
-  gh api "repos/kimjooyoon/gooo-self-improvement-ledger/actions/artifacts/$id/zip" > "$path"
+  gh api "repos/$repository/actions/artifacts/$id/zip" > "$path"
   test "$(wc -c < "$path" | tr -d ' ')" = "$size"
   test "sha256:$(sha256sum "$path" | awk '{print $1}')" = "$digest"
 }
