@@ -1151,6 +1151,7 @@
         "input-repository-writes:0",
         "planner-tool-executions:version=v0.3.0:current_task=1:classification=generator_only:not_validation=true",
         "local-validation-followup:local_validation_executions=0:inspection_only=true:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0",
+        "planner-ci:workflow=v0.45.0 planner generator-only:run_id=33496371281:run_url=https://github.com/kimjooyoon/gooo-self-improvement-ledger/actions/runs/33496371281:artifact_id=9795870562:artifact_digest=sha256:62bdfdefdd21f09f8d6cfd844ea37b44686a480638f74b87eacc89b1b77c9a26",
         "measurement-frontier:missing_peak_rss=peak_rss_kib:null:measurement_state=UNKNOWN:unknown_fields=stage,step,reason,unknown_class,next_operation,blocked_by:no_zero_coercion=true"
       ]
     }

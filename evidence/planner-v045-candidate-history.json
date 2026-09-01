@@ -1,0 +1,61 @@
+{
+  "schema": "gooo/ledger-append-planner/candidate-operational-history/v1",
+  "transaction_id": "release-transport-conformer-durable-release-v0.45.0",
+  "semantic_cell_adoption_state": "CLOSED",
+  "portfolio_decision": "REFUTED",
+  "selected_final_authority": {
+    "run_id": 33496371281,
+    "job_id": 99819409408,
+    "output_artifact_id": 9795872540,
+    "output_artifact_size_bytes": 393421,
+    "output_artifact_digest": "sha256:ca604a192be8b150293f17ae4ca23f6243d70aadaf896322cac1622be1c0dfea",
+    "output_debug_artifact_id": 9795871741,
+    "output_debug_artifact_size_bytes": 393421,
+    "output_debug_artifact_digest": "sha256:b95a62f56b9be320f7621ea05837a2a2b02b8266243ee463a34ecd82ac679eac",
+    "ci_proof_artifact_id": 9795870562,
+    "ci_proof_artifact_size_bytes": 470,
+    "ci_proof_artifact_digest": "sha256:62bdfdefdd21f09f8d6cfd844ea37b44686a480638f74b87eacc89b1b77c9a26"
+  },
+  "events": [
+    {
+      "run_id": 33496371281,
+      "event": "SELECTED_AUTHORITY_PLANNER_CLOSED",
+      "trigger": "push",
+      "head_sha": "cac435eb5ace80035e0eac75ffdb8dd11be93fc9",
+      "job_id": 99819409408,
+      "failure_step": null,
+      "selected": true,
+      "output_artifact": {
+        "id": 9795872540,
+        "size_bytes": 393421,
+        "digest": "sha256:ca604a192be8b150293f17ae4ca23f6243d70aadaf896322cac1622be1c0dfea"
+      },
+      "output_debug_artifact": {
+        "id": 9795871741,
+        "size_bytes": 393421,
+        "digest": "sha256:b95a62f56b9be320f7621ea05837a2a2b02b8266243ee463a34ecd82ac679eac"
+      },
+      "ci_proof_artifact": {
+        "id": 9795870562,
+        "size_bytes": 470,
+        "digest": "sha256:62bdfdefdd21f09f8d6cfd844ea37b44686a480638f74b87eacc89b1b77c9a26"
+      },
+      "decision": "CLOSED",
+      "portfolio_decision": "REFUTED",
+      "metrics": {
+        "exact_files_planned": 7,
+        "exact_files_changed": 7,
+        "ast_nodes_added": 5,
+        "replay_mismatches": 0,
+        "repository_writes": 0
+      },
+      "repository_writes": 0,
+      "local_execution_counts": {
+        "go_test": 0,
+        "go_build": 0,
+        "go_vet": 0,
+        "conformance": 0
+      }
+    }
+  ]
+}

@@ -844,6 +844,40 @@ the semantic cell decision or the product runtime authority counts, which remain
 GitHub Actions-only with local Go run/compile/build/test/vet/conformance/
 integration all zero.
 
+The v0.45 frontier appends `RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE` through
+`AdoptReleaseTransportConformerDurableRelease`. It adopts immutable upstream
+`kimjooyoon/gooo-release-transport-conformer@v0.1.3`, release ID `380375220`,
+with annotated tag object `036d3f9dcfb81511b64a34ae360ecd58b0e58fdd` resolving to
+target `932c98e97ca61bd4f64764a9793c3dabfd05c359`. Its source asset
+`539322857` is `27484` bytes with digest
+`sha256:309b0868bfca9ff51048c66db76c758e321f4df513455f666012fbab15ac66c6`,
+the evidence asset `539322868` is `7518` bytes with digest
+`sha256:acebe4be411d0690991fed517daa4610b5dcca72ff185a372d0f9ff0e749ccc4`,
+and `SHA256SUMS` asset `539322879` is `176` bytes with digest
+`sha256:725f0a4ef23360a48ca717aa48a8ab605d1b5404917e035372152630aceadbb6`.
+The source Conformance run `33493203961`/job `99809287369`, release run
+`33493273460`/job `99809518165`, and evidence artifact `9794616120` (`2654153`
+bytes, digest `sha256:a844d2ffc9c346aeccba1bfb53ca9b79b537b01f7f2b6b4d2c3b284e46102936`)
+are all bound to the target. The upstream v5 contract has 20 scenarios with
+`CLOSED8/UNKNOWN3/REFUTED9`, tests `20/20/20/0/0/0`, twelve exactly-once
+activities, inventory `10` directories, `20` regular files, Go `7/1659`, Gooo
+`1/38`, and root README excluded. Its authoring audit remains a separate
+`REFUTED` record with local test invocations/executions `2/1` and static
+validation invocations/executions `2/2`.
+
+Immutable planner v0.3.0 generator-only authority is Actions run
+`33496371281`/job `99819409408`, output artifact `9795872540` (`393421` bytes,
+digest `sha256:ca604a192be8b150293f17ae4ca23f6243d70aadaf896322cac1622be1c0dfea`),
+debug artifact `9795871741`, and proof artifact `9795870562` (`470` bytes,
+digest `sha256:62bdfdefdd21f09f8d6cfd844ea37b44686a480638f74b87eacc89b1b77c9a26`).
+The planner records exactly `7/7` planned/changed files, `5` AST nodes, zero
+replay mismatches and input-repository writes, and a rollback-ready receipt.
+The new cell is `CLOSED`, yielding `CLOSED48/UNKNOWN1/REFUTED2`; the immutable
+v0.44.0 parent and the v0.40.0 published-before-assets `REFUTED` envelope remain
+append-only. Product validation and the missing peak-RSS frontier remain
+GitHub Actions-only; missing peak RSS is `null` with the exact six-field
+`UNKNOWN` measurement state and is never coerced to zero.
+
 The v0.40.0 release transport is preserved separately from semantic portfolio
 state. Release `380259706` and annotated tag `v0.40.0` are immutable, but the
 release has zero assets because it was published before the main-CI asset was
@@ -856,7 +890,7 @@ release API. It adds no semantic cell and does not change
 the v0.40.1 baseline `46 / 43 CLOSED / 1 UNKNOWN / 2 REFUTED`.
 
 The separate `non-completeness-capability-evidence-registry-v1` records
-twenty-nine independent evidence inputs without treating its entry count as the portfolio
+thirty independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `25 CLOSED / 0 UNKNOWN / 4
 REFUTED`: the three historical v0.1.0 refutations remain preserved and are
 linked to immutable v0.1.1 successor locks; the immutable receipt-schema-
