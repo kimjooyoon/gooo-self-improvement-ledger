@@ -1229,7 +1229,7 @@
     "to": 51
   },
   "local_validation_followup": {
-    "inspection_only": false,
+    "inspection_only": true,
     "local_conformance_replays": 0,
     "local_go_build": 0,
     "local_go_conformance": 0,
