@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 38 named cells, each bound one-to-one to
+language. The denominator is exactly 39 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -31,11 +31,12 @@ The fixed axes are:
 `CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE`, and
 `EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE`, and
 `REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE`, and
-`EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE`.
+`EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE`, and
+`STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `37 -> 38` with
+The denominator migration is explicit and append-only: `38 -> 39` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/29/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/29/5`.
+`4/30/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/30/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -513,8 +514,29 @@ validation follow-up is recorded as cumulative `local_validation_executions=2`
 with `inspection_only=false`; it preserves `REFUTED` and keeps local
 schema/conformance and Go execution counts at zero.
 
+The v0.33 frontier appends `STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE`.
+It adopts the immutable `gooo-ledger-append-planner@v0.2.0` release `380152259`,
+binding annotated tag object `aaf26d3047e91deaf757dbc1976f1ada573c450b` to
+target `893042983ac5666abaefeb035e8efaf6d9f6cd62`. The lock pins the planner
+binary, source archive, and `SHA256SUMS` assets by API ID, byte size, download
+URL, and SHA-256 digest. The v0.2 transaction manifest locks the immutable
+v0.32 baseline and appends exactly one activity, one profile cell, one
+assessment outcome, one registry entry, and the generated history/report
+projections: `7/7` planned/changed paths, `5` AST nodes, `0` replay mismatches,
+`0` planner repository writes, and an exact rollback-ready receipt. The planner
+operation is `CLOSED`; the portfolio decision remains `REFUTED` because the
+preserved bootstrap development process is `REFUTED` with
+`BOOTSTRAP_SCOPE_VIOLATION`. The v0.1-to-v0.2 immutable target binding is
+matched exactly; the wrong-digest case remains `REFUTED`, and the missing
+binding case remains `UNKNOWN` with all six required unknown fields. The new
+ledger cell is `CLOSED`, yielding `CLOSED36/UNKNOWN1/REFUTED2`; whole-language
+improvement and external utility remain `UNKNOWN`/`NOT_MADE`. Cumulative local
+validation remains `2`, the current planner execution is recorded as
+generator-only, and local schema/conformance plus Go test/build/vet counts
+remain zero; GitHub Actions is the validation authority.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
-seventeen independent evidence inputs without treating its entry count as the portfolio
+eighteen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
 REFUTED`: the three historical v0.1.0 refutations remain preserved and are
 linked to immutable v0.1.1 successor locks; the immutable receipt-schema-
@@ -541,7 +563,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the thirty-five immutable inputs
+commit, and consumer asset identities for the thirty-six immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

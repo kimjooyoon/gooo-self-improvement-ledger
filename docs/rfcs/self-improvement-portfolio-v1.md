@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for thirty-eight specifically named capabilities.
+The portfolio is an evidence ledger for thirty-nine specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains thirty-eight entries. The v0.32
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-seven-cell
+`cells` array is immutable during a run and contains thirty-nine entries. The v0.33
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-eight-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/29/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/29/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/30/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/30/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -422,9 +422,28 @@ A separate current-ledger validation follow-up records cumulative
 `local_validation_executions=2` with `inspection_only=false`, while preserving
 `REFUTED` and zero local schema/conformance and Go executions.
 
-The non-completeness capability evidence registry is a separate seventeen-entry
+The v0.33 frontier appends `STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE`.
+It adopts immutable `gooo-ledger-append-planner@v0.2.0` release `380152259`,
+whose annotated tag object `aaf26d3047e91deaf757dbc1976f1ada573c450b` resolves
+to `893042983ac5666abaefeb035e8efaf6d9f6cd62`. The release lock pins the
+planner binary, source archive, and `SHA256SUMS` by API identity, size, URL,
+and digest. Its v0.2 transaction manifest locks the immutable v0.32 baseline
+and records an exact `7/7` planned/changed-path AST patch with `5` AST nodes,
+zero replay mismatches, zero planner repository writes, and rollback ready.
+The planner operation is `CLOSED`, while the portfolio remains `REFUTED` due
+to the preserved bootstrap development process and
+`BOOTSTRAP_SCOPE_VIOLATION`. The v0.1-to-v0.2 immutable target binding matches
+exactly; the wrong-digest counterexample remains `REFUTED`, and the missing
+binding remains `UNKNOWN` with all six required unknown fields. The new cell is
+`CLOSED`, giving `CLOSED36/UNKNOWN1/REFUTED2`; whole-language improvement and
+external utility remain `UNKNOWN`/`NOT_MADE`. Cumulative local validation stays
+at `2`, the current planner run is generator-only, and local schema/conformance
+and Go execution counts remain zero; GitHub Actions remains the validation
+authority.
+
+The non-completeness capability evidence registry is a separate eighteen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-thirty-eight-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+thirty-nine-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
