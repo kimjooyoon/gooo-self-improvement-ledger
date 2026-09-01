@@ -14,8 +14,8 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 46 and
-  .denominator_migration == {from:45,to:46,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 47 and
+  .denominator_migration == {from:46,to:47,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
@@ -29,8 +29,9 @@ jq -e '
   .cells[43].id == "DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE" and
   .cells[44].id == "SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE" and
   .cells[45].id == "DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:37,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:37,GUARDRAIL:5} and
+  .cells[46].id == "STAGED_QUASIQUOTE_DURABLE_RELEASE" and
+  .proof_totals == {FOUNDATION:4,COHERENCE:38,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:38,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -65,8 +66,21 @@ jq -e '
   (.cells|map(select(.id=="DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE" and .release_key=="deterministic_module_linker_durable_release" and .ordinal==44 and .activity=="AdoptDeterministicModuleLinkerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE" and .release_key=="semantic_counterexample_reducer_durable_release" and .ordinal==45 and .activity=="AdoptSemanticCounterexampleReducerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE" and .release_key=="differential_semantics_runtime_durable_release" and .ordinal==46 and .activity=="AdoptDifferentialSemanticsRuntimeDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="STAGED_QUASIQUOTE_DURABLE_RELEASE" and .release_key=="staged_quasiquote_durable_release" and .ordinal==47 and .activity=="AdoptStagedQuasiquoteDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
+
+echo "conformance: verify staged quasiquote release lock"
+jq -e '
+  .releases.staged_quasiquote_durable_release.release_id == 380175121 and
+  .releases.staged_quasiquote_durable_release.repository == "kimjooyoon/gooo-staged-quasiquote-slice" and
+  .releases.staged_quasiquote_durable_release.tag == "v0.1.0" and
+  .releases.staged_quasiquote_durable_release.tag_object_sha == "f3041976c533b87d0110598c06bb7e320abe30ee" and
+  .releases.staged_quasiquote_durable_release.target_commit_sha == "a6dbb1f696feacaf6702aafd1b759a09c70bd917" and
+  .releases.staged_quasiquote_durable_release.immutable == true and
+  ([.releases.staged_quasiquote_durable_release.assets[] | {id,name,size_bytes,sha256}] | sort_by(.id)) ==
+  ([{id:538825432,name:"gooo-staged-quasiquote-slice-v0.1.0-contract.gooo",size_bytes:10029,sha256:"sha256:fa0c1735c4ba26a6ab1b459a96f41087e8e27fd62b5e627f8bba467fb80f84de"},{id:538825434,name:"gooo-staged-quasiquote-slice-v0.1.0-manifest.json",size_bytes:251,sha256:"sha256:e3b922b930ec5ad21b045cdc9cec65e0639610dce77e36b95e6836d966e5016f"},{id:538825435,name:"SHA256SUMS",size_bytes:590,sha256:"sha256:f87253473d129ceae0eaf7adcaebea8fb1be6d3282ae9a73fd64b58606f01012"},{id:538825436,name:"gooo-staged-quasiquote-slice-v0.1.0-terminal-record-schema.json",size_bytes:1378,sha256:"sha256:75b98b3d6945c6fac581d14824cf9a36b4a4bbac47cbd8d6a5eff69471c33ebf"},{id:538825438,name:"gooo-staged-quasiquote-slice-v0.1.0-oracle-lock.json",size_bytes:793,sha256:"sha256:d9b6981e40aa70b6f26b2c33134aa7c1fe0a3d34b2b34f9800d4b8300614b8ae"},{id:538825447,name:"gooo-staged-quasiquote-slice-v0.1.0.tar.gz",size_bytes:21644,sha256:"sha256:11abe1335a8f52120b9201365c6943087f02f313061acc4134aeae477f6ba87d"}] | sort_by(.id))
+' "$repository/contracts/release-locks-v1.json" >/dev/null
 
 echo "conformance: verify preserved release transport failure envelope"
 jq -e '
@@ -1191,7 +1205,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 46 and
+  (.cells|length) == 47 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1531,6 +1545,32 @@ jq -e '
     ($runtime.evidence | index("planner-tool-executions:version=v0.3.0:current_task=1:classification=generator_only:not_validation=true")) != null and
     ($runtime.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null and
     ($runtime.evidence | index("planner-ci:workflow=v0.40.0 planner generator-only:run_id=33476918995:run_url=https://github.com/kimjooyoon/gooo-self-improvement-ledger/actions/runs/33476918995:artifact_id=9788480373:artifact_digest=03b6a43461dafb833304d0406861f338c57168bf0694596abfd0d9a507287711")) != null) and
+  ((.cells[] | select(.cell_id == "STAGED_QUASIQUOTE_DURABLE_RELEASE")) as $quasiquote |
+    $quasiquote.state == "CLOSED" and
+    $quasiquote.release_key == "staged_quasiquote_durable_release" and
+    ($quasiquote.evidence | index("upstream-release:repo=kimjooyoon/gooo-staged-quasiquote-slice:tag=v0.1.0:release=380175121:tag_object=f3041976c533b87d0110598c06bb7e320abe30ee:target=a6dbb1f696feacaf6702aafd1b759a09c70bd917:immutable=true")) != null and
+    ($quasiquote.evidence | index("upstream-assets:538825432:10029:sha256:fa0c1735c4ba26a6ab1b459a96f41087e8e27fd62b5e627f8bba467fb80f84de,538825434:251:sha256:e3b922b930ec5ad21b045cdc9cec65e0639610dce77e36b95e6836d966e5016f,538825438:793:sha256:d9b6981e40aa70b6f26b2c33134aa7c1fe0a3d34b2b34f9800d4b8300614b8ae,538825436:1378:sha256:75b98b3d6945c6fac581d14824cf9a36b4a4bbac47cbd8d6a5eff69471c33ebf,538825447:21644:sha256:11abe1335a8f52120b9201365c6943087f02f313061acc4134aeae477f6ba87d,538825435:590:sha256:f87253473d129ceae0eaf7adcaebea8fb1be6d3282ae9a73fd64b58606f01012")) != null and
+    ($quasiquote.evidence | index("upstream-ci:workflow=CI:run_id=33462845515:job=99716479817:commit=a6dbb1f696feacaf6702aafd1b759a09c70bd917:success")) != null and
+    ($quasiquote.evidence | index("optional-origin-oracle:workflow=Optional origin oracle:run_id=33462930216:job=99716741052:artifact=9783807803:artifact_digest=sha256:54fb20a8d95ac7caab02ab33ab47a06824e9e1e7e956e663e70e7375a8b4dfdf:advisory=true")) != null and
+    ($quasiquote.evidence | index("semantic-contract:path=gooo-staged-quasiquote-slice-v0.1.0-contract.gooo:digest=sha256:fa0c1735c4ba26a6ab1b459a96f41087e8e27fd62b5e627f8bba467fb80f84de")) != null and
+    ($quasiquote.evidence | index("resolver-oracle:path=gooo-hygienic-origin-resolver-v0.1.1.tar.gz:digest=sha256:83b3b2b13c5dabe41b4730eeb4ef9371d1f0d04e20c86e52c7da099377e7ceac:advisory=true")) != null and
+    ($quasiquote.evidence | index("corpus:cases=6:selected=6:executed=6:closed=3:unknown=1:refuted=2:replay=1:overall=REFUTED")) != null and
+    ($quasiquote.evidence | index("runtime:compile=8940:build=415:test=231:conformance=7:integration=854:peak_rss_kib=272672/88580/97008/7000/67772")) != null and
+    ($quasiquote.evidence | index("inventory:go=10/1349:gooo=7/322:regular_files=34:subdirectories=14")) != null and
+    ($quasiquote.evidence | index("generated-artifacts:count=19:bytes=80351")) != null and
+    ($quasiquote.evidence | index("upstream-improvement:status=UNKNOWN:reason=no matched scenario/source/contract/toolchain before/after integer pair")) != null and
+    ($quasiquote.evidence | index("authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0")) != null and
+    ($quasiquote.evidence | index("structural-append:cell=STAGED_QUASIQUOTE_DURABLE_RELEASE:activity=AdoptStagedQuasiquoteDurableRelease:lock=staged_quasiquote_durable_release")) != null and
+    ($quasiquote.evidence | index("immutable-v0.40.1-baseline:semantic-source-bound")) != null and
+    ($quasiquote.evidence | index("derived-projection-regeneration:report-and-history-replaced-in-caller-copy")) != null and
+    ($quasiquote.evidence | index("projection-replacements:count=2:report=replace:history=replace")) != null and
+    ($quasiquote.evidence | index("ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0")) != null and
+    ($quasiquote.evidence | index("rollback-receipt:rollback_ready=true")) != null and
+    ($quasiquote.evidence | index("replay-mismatches:0")) != null and
+    ($quasiquote.evidence | index("input-repository-writes:0")) != null and
+    ($quasiquote.evidence | index("planner-tool-executions:version=v0.3.0:current_task=1:classification=generator_only:not_validation=true")) != null and
+    ($quasiquote.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null and
+    ($quasiquote.evidence | index("planner-ci:workflow=v0.41.0 planner generator-only:run_id=33479819018:run_url=https://github.com/kimjooyoon/gooo-self-improvement-ledger/actions/runs/33479819018:artifact_id=9789487893:artifact_digest=87c6b57cce621bdd250e7c4666164b7130a6d5a5c72e0d8b7d21b72249cfa04f")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -1602,12 +1642,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:46,closed:43,unknown:1,refuted:2} and
+  .summary == {total:47,closed:44,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 46 and
+  (.cells|length) == 47 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 43 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 44 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -1656,16 +1696,17 @@ jq -e '
     CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE:"CLOSED",
     DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE:"CLOSED",
     SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE:"CLOSED",
-    DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE:"CLOSED"
+    DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE:"CLOSED",
+    STAGED_QUASIQUOTE_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:46,activities:46,unique_axes:46,unique_metrics:46,source_bindings:46,ir_bindings:46,generated_artifact_bindings:46,evaluator_bindings:46} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 37 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 37 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:43,verified:43,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:47,activities:47,unique_axes:47,unique_metrics:47,source_bindings:47,ir_bindings:47,generated_artifact_bindings:47,evaluator_bindings:47} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 38 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 38 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:44,verified:44,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

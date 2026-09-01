@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for forty-six specifically named capabilities.
+The portfolio is an evidence ledger for forty-seven specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains forty-six entries. The v0.40
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-five-cell
+`cells` array is immutable during a run and contains forty-seven entries. The v0.41
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-six-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/37/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/37/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/38/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/38/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -607,6 +607,23 @@ zero input-repository writes, and a rollback-ready receipt. The adoption yields
 `CLOSED43/UNKNOWN1/REFUTED2`; cumulative local validation remains `2`, process
 state remains `REFUTED`, and local Go/schema/conformance executions remain zero.
 
+The v0.41 frontier appends `STAGED_QUASIQUOTE_DURABLE_RELEASE`. It adopts
+immutable upstream `kimjooyoon/gooo-staged-quasiquote-slice@v0.1.0`, release
+`380175121`, annotated tag object
+`f3041976c533b87d0110598c06bb7e320abe30ee`, and target
+`a6dbb1f696feacaf6702aafd1b759a09c70bd917`. Its six release assets are bound
+by API identity and downloaded digest: contract `538825432`/`10029`, manifest
+`538825434`/`251`, oracle lock `538825438`/`793`, terminal schema
+`538825436`/`1378`, source `538825447`/`21644`, and `SHA256SUMS`
+`538825435`/`590`. The upstream CI run `33462845515`/job `99716479817` is
+successful on the target; its six-case corpus is `CLOSED3/UNKNOWN1/REFUTED2`
+with replay `CLOSED` and overall `REFUTED`. The optional origin oracle remains
+advisory and digest-bound. Immutable planner v0.3.0 run `33479819018` records
+`7/7` planned/changed paths, `5` AST nodes, zero replay mismatches, zero input
+repository writes, and rollback ready. The adoption yields
+`CLOSED44/UNKNOWN1/REFUTED2`; local Go/schema/conformance execution counts
+remain zero.
+
 The v0.40.0 release transport is a separate preserved envelope event. Release
 `380259706` and annotated tag `v0.40.0` are immutable with zero assets because
 publication preceded asset upload. The event is `REFUTED` with reason
@@ -617,9 +634,9 @@ creation, exact main-CI asset upload, publication, and immutable API
 verification in that order; it adds no portfolio cell and leaves the semantic
 state at 46 cells, 43 CLOSED, 1 UNKNOWN, and 2 REFUTED.
 
-The non-completeness capability evidence registry is a separate twenty-five-entry
+The non-completeness capability evidence registry is a separate twenty-six-entry
 external-input ledger. Its count and dispositions never alter this fixed
-forty-six-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+forty-seven-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
