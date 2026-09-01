@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 62 named cells, each bound one-to-one to
+language. The denominator is exactly 64 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -55,11 +55,13 @@ The fixed axes are:
 `DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE`, and
 `IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE`,
 `MEASUREMENT_BOUNDARY_PROJECTOR_DURABLE_RELEASE`, and
-`CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE`.
+`CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE`,
+`PARENT_LOCK_RECEIPT_CONTINUITY`, and
+`CONTENT_ADDRESSED_RELEASE_PROJECTION`.
 
-The denominator migration is explicit and append-only: `53 -> 62` with
-`ADD9/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/53/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/53/5`.
+The denominator migration is explicit and append-only: `53 -> 64` with
+`ADD11/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
+`4/55/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/55/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -176,6 +178,24 @@ ledger locks; the measurement receipt is generated from that observed run and
 contains exact before/after pairs for `wall_ms`, `peak_rss_kib`, `requests`,
 `bytes_read`, `bytes_downloaded`, `selected`, `executed`, and `reused`. No
 aggregate score or whole-language improvement is claimed.
+
+The v0.50.0 atomic wave appends `PARENT_LOCK_RECEIPT_CONTINUITY` and
+`CONTENT_ADDRESSED_RELEASE_PROJECTION` as CLOSED semantic cells. The parent
+receipt binds immutable v0.49.0 release `380810861`, annotated tag object
+`36f4fa271a72616a39a703c9658e905b670f5f64`, target
+`036d2d1e25df72a5568aeb16f6ac0a077ce4471f`, release asset/source artifact
+`sha256:e680c234fee34e36bae27685a29c716208cf83bb67e9375a31a9ee5194ca5208`,
+release-lock manifest digest, and exact 59-lock-set digest. Because the lock
+set is unchanged, the primary content-addressed path selects `0`, executes
+`0`, and reuses `59`; no 59-lock live fallback is required. The same job then
+packages the exact v0.50 evidence inputs with a legacy full-copy baseline and
+the released `gooo-content-addressed-evidence-projector@v0.1.1` candidate,
+verifying semantic-root, inclusion-proof, replay, and exact-pair equality.
+Only candidate receipts are published; the baseline is measurement-only. The
+packaging indicators are scoped to this same job and are not compared with
+v0.49 without exact identity equality. The external utility remains
+`UNKNOWN`, both historical semantic `REFUTED` cells remain preserved, and the
+five-command v0.49 operational `REFUTED` record is retained separately.
 
 The resolved event binds merged/admin PR #614, dev commit
 `e440cbc99f24ceb8385f1b89c70f8cdada10cdbb`, successful dev CI #3408, and its

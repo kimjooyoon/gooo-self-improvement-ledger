@@ -1006,21 +1006,53 @@
       "proof": "COHERENCE",
       "release_key": "content_addressed_proof_reuse_durable_release",
       "source": "examples/self-improvement-portfolio/main.gooo#AdoptContentAddressedProofReuseDurableRelease"
+    },
+    {
+      "activity": "RecordParentLockReceiptContinuity",
+      "axis": "PARENT_LOCK_RECEIPT_CONTINUITY",
+      "depends_on": [],
+      "evaluator": "parent-lock-receipt-continuity",
+      "generated_artifact": "evidence/cells/PARENT_LOCK_RECEIPT_CONTINUITY.json",
+      "id": "PARENT_LOCK_RECEIPT_CONTINUITY",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/RecordParentLockReceiptContinuity",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.parent-lock-receipt-continuity.v1",
+      "ordinal": 63,
+      "proof": "COHERENCE",
+      "release_key": null,
+      "source": "examples/self-improvement-portfolio/main.gooo#RecordParentLockReceiptContinuity"
+    },
+    {
+      "activity": "ProjectContentAddressedReleaseProjection",
+      "axis": "CONTENT_ADDRESSED_RELEASE_PROJECTION",
+      "depends_on": [],
+      "evaluator": "content-addressed-release-projection",
+      "generated_artifact": "evidence/cells/CONTENT_ADDRESSED_RELEASE_PROJECTION.json",
+      "id": "CONTENT_ADDRESSED_RELEASE_PROJECTION",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/ProjectContentAddressedReleaseProjection",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.content-addressed-release-projection.v1",
+      "ordinal": 64,
+      "proof": "COHERENCE",
+      "release_key": null,
+      "source": "examples/self-improvement-portfolio/main.gooo#ProjectContentAddressedReleaseProjection"
     }
   ],
   "denominator_migration": {
-    "add": 9,
+    "add": 11,
     "append_only": true,
     "from": 53,
     "retire": 0,
     "split": 0,
-    "to": 62
+    "to": 64
   },
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
   "indicator_totals": {
     "DRIVER": 4,
     "GUARDRAIL": 5,
-    "OUTCOME": 53
+    "OUTCOME": 55
   },
   "policy": {
     "aggregate_percentage": false,
@@ -1038,10 +1070,10 @@
   ],
   "profile_id": "self-improvement-portfolio-v1",
   "proof_totals": {
-    "COHERENCE": 53,
+    "COHERENCE": 55,
     "FOUNDATION": 4,
     "REGRESSION": 5
   },
   "schema": "gooo/self-improvement-portfolio/contract/v1",
-  "total_cells": 62
+  "total_cells": 64
 }

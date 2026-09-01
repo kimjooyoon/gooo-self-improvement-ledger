@@ -70,3 +70,5 @@ activity AdoptDeterministicProofFetchSchedulerDurableRelease(PortfolioInput) -> 
 activity AdoptImprovementDominanceLatticeDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptMeasurementBoundaryProjectorDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=MEASUREMENT_BOUNDARY_PROJECTOR_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptContentAddressedProofReuseDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity RecordParentLockReceiptContinuity(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=PARENT_LOCK_RECEIPT_CONTINUITY;proof=COHERENCE;indicator=OUTCOME"
+activity ProjectContentAddressedReleaseProjection(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CONTENT_ADDRESSED_RELEASE_PROJECTION;proof=COHERENCE;indicator=OUTCOME"

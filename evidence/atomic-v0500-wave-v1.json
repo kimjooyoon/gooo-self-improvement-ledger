@@ -1,0 +1,126 @@
+{
+  "schema": "gooo/self-improvement-ledger/atomic-v0500-adoption-wave/v1",
+  "wave": {
+    "release_tag": "v0.50.0",
+    "atomic": true,
+    "cell_count": 2,
+    "ordinals": [63, 64],
+    "cell_state": "CLOSED",
+    "parent_profile_state": {"total": 62, "closed": 59, "unknown": 1, "refuted": 2},
+    "projected_profile_state": {"total": 64, "closed": 61, "unknown": 1, "refuted": 2},
+    "proof_totals": {"FOUNDATION": 4, "COHERENCE": 55, "REGRESSION": 5},
+    "indicator_totals": {"DRIVER": 4, "OUTCOME": 55, "GUARDRAIL": 5}
+  },
+  "cells": [
+    {
+      "ordinal": 63,
+      "cell_id": "PARENT_LOCK_RECEIPT_CONTINUITY",
+      "activity": "RecordParentLockReceiptContinuity",
+      "axis": "PARENT_LOCK_RECEIPT_CONTINUITY",
+      "release_key": null,
+      "state": "CLOSED",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "evidence": {
+        "parent_release": {
+          "repository": "kimjooyoon/gooo-self-improvement-ledger",
+          "tag": "v0.49.0",
+          "release_id": 380810861,
+          "tag_object_sha": "36f4fa271a72616a39a703c9658e905b670f5f64",
+          "target_commit_sha": "036d2d1e25df72a5568aeb16f6ac0a077ce4471f",
+          "immutable": true
+        },
+        "parent_release_asset": {
+          "id": 540115901,
+          "size_bytes": 84127616,
+          "sha256": "sha256:e680c234fee34e36bae27685a29c716208cf83bb67e9375a31a9ee5194ca5208"
+        },
+        "parent_source_artifact": {
+          "id": 9819745734,
+          "run_id": 33556630730,
+          "job_id": 100018938289,
+          "size_bytes": 84127616,
+          "sha256": "sha256:e680c234fee34e36bae27685a29c716208cf83bb67e9375a31a9ee5194ca5208"
+        },
+        "parent_release_lock_manifest_digest": "sha256:7fbcb681ac47f1ae26935615229c824b21d4aca08ea41cb7639d74ea5bdf38a3",
+        "parent_lock_set_digest": "sha256:5d36775c847acd70597cf92717106265f50e3719daa45d2d0fc29f8cc595cf71",
+        "current_lock_set": {"count": 59, "exact_match": true},
+        "primary_content_addressed_path": {"selected": 0, "executed": 0, "reused": 59, "full_fallback": false}
+      }
+    },
+    {
+      "ordinal": 64,
+      "cell_id": "CONTENT_ADDRESSED_RELEASE_PROJECTION",
+      "activity": "ProjectContentAddressedReleaseProjection",
+      "axis": "CONTENT_ADDRESSED_RELEASE_PROJECTION",
+      "release_key": null,
+      "state": "CLOSED",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME",
+      "evidence": {
+        "released_utility": {
+          "repository": "kimjooyoon/gooo-content-addressed-evidence-projector",
+          "tag": "v0.1.1",
+          "release_id": 380750147,
+          "tag_object_sha": "03dbbe7cd13549d4791e5e6086e036c81db3eac9",
+          "target_commit_sha": "f3bfd2c6c05a45214fc7ed0732f2c3f0770bf463",
+          "immutable": true,
+          "asset": {"id": 539995619, "size_bytes": 26063, "sha256": "sha256:a1d83f2503755bc6ea591d32cd4ef5d7a088e936da2a843d9d80af947acbe435"}
+        },
+        "same_job_packaging": {
+          "scenario": "v0.50-evidence-inputs",
+          "baseline": "LEGACY_FULL_COPY",
+          "candidate": "CONTENT_ADDRESSED_MANIFEST_PROJECTION",
+          "published": "CANDIDATE_ONLY",
+          "semantic_root_equality": true,
+          "inclusion_proofs_verified": true,
+          "replay_equality": true,
+          "improvement_vs_v049": {"state": "UNKNOWN", "reason": "NO_EXACT_V049_IDENTITY_MATCH"}
+        },
+        "external_utility": {"state": "UNKNOWN", "independent_user_evidence": false}
+      }
+    }
+  ],
+  "operational_refuted": {
+    "state": "REFUTED",
+    "source_deviation_id": "V0490_LOCAL_STATIC_VALIDATION_OPERATIONAL_REFUTED-v1",
+    "exact_local_static_validation_commands": 5,
+    "commands_preserved": [
+      {"kind": "shell_syntax_check", "count": 1, "command": "bash -n scripts/prepare-v0490-parent-cache.sh scripts/finalize-v0490-release-audit.sh scripts/verify-v0490-release-input.sh scripts/verify-v049-products.sh"},
+      {"kind": "local_json_assertion", "count": 1, "command": "/usr/bin/jq -e '(.adoption.release_audit.api_observation | has(\"requests\") and has(\"reused\"))' /tmp/v0490-parent-product.json >/dev/null"},
+      {"kind": "local_static_check", "count": 3, "command": "git diff --check"}
+    ],
+    "preserved": true,
+    "separate_from_semantic_summary": true,
+    "next_operation": "USE_GITHUB_ACTIONS_ONLY_FOR_ALL_VALIDATION"
+  },
+  "preservation": {
+    "parent_v0_49_0": {
+      "release_id": 380810861,
+      "tag": "v0.49.0",
+      "immutable": true,
+      "tag_object_sha": "36f4fa271a72616a39a703c9658e905b670f5f64",
+      "target_commit_sha": "036d2d1e25df72a5568aeb16f6ac0a077ce4471f",
+      "asset_id": 540115901,
+      "asset_size_bytes": 84127616,
+      "asset_sha256": "sha256:e680c234fee34e36bae27685a29c716208cf83bb67e9375a31a9ee5194ca5208",
+      "source_artifact_id": 9819745734,
+      "source_run_id": 33556630730,
+      "source_job_id": 100018938289,
+      "state": "CLOSED"
+    },
+    "v0_49_semantic_summary": {"total": 62, "closed": 59, "unknown": 1, "refuted": 2},
+    "historical_refuted_cells": ["CORE_SEMANTIC_AUTHORITY", "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS"],
+    "external_utility_state": "UNKNOWN",
+    "failed_history_preserved": true,
+    "mutation_policy": "NO_DELETE_NO_OVERWRITE"
+  },
+  "authority": {
+    "verification": "GITHUB_ACTIONS",
+    "github_token": "github.token",
+    "repository_writes": 0,
+    "local_test_executions": 0,
+    "cross_project_required_gates": 0,
+    "caller_owned_temp_outputs_only": true
+  }
+}

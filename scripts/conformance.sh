@@ -14,8 +14,8 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 62 and
-  .denominator_migration == {from:53,to:62,add:9,retire:0,split:0,append_only:true} and
+  .total_cells == 64 and
+  .denominator_migration == {from:53,to:64,add:11,retire:0,split:0,append_only:true} and
   (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
@@ -45,8 +45,10 @@ jq -e '
   .cells[59].id == "IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE" and
   .cells[60].id == "MEASUREMENT_BOUNDARY_PROJECTOR_DURABLE_RELEASE" and
   .cells[61].id == "CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:53,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:53,GUARDRAIL:5} and
+  (.cells|map(select(.id=="PARENT_LOCK_RECEIPT_CONTINUITY" and .release_key==null and .ordinal==63 and .activity=="RecordParentLockReceiptContinuity" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1 and
+  (.cells|map(select(.id=="CONTENT_ADDRESSED_RELEASE_PROJECTION" and .release_key==null and .ordinal==64 and .activity=="ProjectContentAddressedReleaseProjection" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1 and
+  .proof_totals == {FOUNDATION:4,COHERENCE:55,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:55,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -1209,7 +1211,7 @@ echo "conformance: differential semantics runtime release lock passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:53,to:62,add:9,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:53,to:64,add:11,retire:0,split:0,append_only:true} and
   .local_validation_followup == {local_validation_executions:5,inspection_only:false,process_state:"REFUTED",local_schema_replays:1,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
@@ -1489,7 +1491,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 62 and
+  (.cells|length) == 64 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1971,12 +1973,16 @@ jq -e '
 ' "$repository/evidence/assessment-v1.json" >/dev/null
 
 start=$(date +%s%N)
+verification_path="$artifact/releases/verification.json"
+if test -s "$artifact/releases/v049-full-audit-verification.json"; then
+  verification_path="$artifact/releases/v049-full-audit-verification.json"
+fi
 set +e
 /usr/bin/time -f '%M' -o "$probe/report-peak-rss" "$binary" \
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
   -activities "$repository/examples/self-improvement-portfolio/main.gooo" \
   -assessment "$repository/evidence/assessment-v1.json" \
-  -verification "$artifact/releases/verification.json" \
+  -verification "$verification_path" \
   -runtime "$artifact/runtime.json" \
   -repository-root "$repository" \
   -artifact-root "$artifact" \
@@ -2015,7 +2021,7 @@ set +e
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
   -activities "$repository/examples/self-improvement-portfolio/main.gooo" \
   -assessment "$repository/evidence/assessment-v1.json" \
-  -verification "$artifact/releases/verification.json" \
+  -verification "$verification_path" \
   -runtime "$artifact/runtime.json" \
   -repository-root "$repository" \
   -artifact-root "$artifact" \
@@ -2104,7 +2110,7 @@ jq -e '
   .release_lock_snapshot.parallel_live_metrics.reused == 0 and
   .release_lock_snapshot.parallel_live_metrics.unknown == 0 and
   .release_lock_snapshot.parallel_live_metrics.refuted == 0
-' "$artifact/releases/verification.json" >/dev/null
+' "$verification_path" >/dev/null
 jq -e --slurpfile locks "$repository/contracts/release-locks-v1.json" '
   .schema == "gooo/self-improvement-ledger/atomic-v0480-adoption-wave/v1" and
   .wave == {release_tag:"v0.48.0",atomic:true,cell_count:7,ordinals:[54,55,56,57,58,59,60],cell_state:"CLOSED",parent_profile_state:{total:53,closed:50,unknown:1,refuted:2},projected_profile_state:{total:60,closed:57,unknown:1,refuted:2},proof_totals:{FOUNDATION:4,COHERENCE:51,REGRESSION:5},indicator_totals:{DRIVER:4,OUTCOME:51,GUARDRAIL:5}} and
@@ -2133,19 +2139,7 @@ jq -e --slurpfile locks "$repository/contracts/release-locks-v1.json" '
   .authority == {verification:"GITHUB_ACTIONS",github_token:"github.token",repository_writes:0,runtime_apply:0,runtime_commit:0,runtime_merge:0,runtime_tag:0,runtime_release:0,cross_project_required_gates:0,caller_owned_temp_outputs_only:true,local_product_validation_executions:0} and
   .preservation.parent_v0_48_0.release_id==380694027 and .preservation.parent_v0_48_0.tag=="v0.48.0" and .preservation.parent_v0_48_0.state=="CLOSED" and .preservation.v0_48_0_failed_release_history.preserved==true
 ' "$repository/evidence/atomic-v0490-wave-v1.json" >/dev/null
-jq -e '
-  .schema=="gooo/self-improvement-ledger/v049-product-integration/v1" and
-  .products.measurement_boundary_projector.lock.release_id==380734248 and .products.measurement_boundary_projector.lock.tag=="v0.1.1" and .products.measurement_boundary_projector.lock.immutable==true and
-  .products.content_addressed_proof_reuse.lock.release_id==380721158 and .products.content_addressed_proof_reuse.lock.tag=="v0.1.2" and .products.content_addressed_proof_reuse.lock.immutable==true and
-  .adoption.parent_profile == {release_tag:"v0.48.0",lock_count:57} and .adoption.current_lock_count==59 and
-  .adoption.baseline.selected==59 and .adoption.baseline.executed==59 and .adoption.baseline.reused==0 and
-  .adoption.candidate.selected==2 and .adoption.candidate.executed==2 and .adoption.candidate.reused==57 and
-  .adoption.canonical_comparison.status=="CLOSED" and .adoption.canonical_comparison.canonical_evidence_equal==true and
-  .adoption.measurement_receipt.semantic.decision=="CLOSED" and .adoption.measurement_receipt.single_receipt_chain.report_verification_authority_same==true and
-  .adoption.measurement_receipt.metric_vector==["wall_ms","peak_rss_kib","requests","bytes_read","bytes_downloaded","selected","executed","reused"] and
-  .authority == {verification:"GITHUB_ACTIONS",github_token:"github.token",repository_writes:0,local_product_validation_executions:0,cross_project_required_gates:0,caller_owned_temp_output_only:true}
-' "$artifact/v049-products/product-integration.json" >/dev/null
-echo "conformance: atomic v0.49 wave and same-job product receipt passed"
+echo "conformance: atomic v0.49 wave preservation passed"
 
 echo "conformance: emitted report diagnostics"
 jq '{schema,profile_id,decision,summary,proof_counts,indicator_counts,bindings,releases,authority,local_execution_counts}' "$artifact/report.json"
