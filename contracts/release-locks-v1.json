@@ -7539,8 +7539,49 @@
       },
       "preserved_failed_history": {
         "preserved": true,
-        "is_product_validation": false
+      "is_product_validation": false
       }
+    },
+    "measurement_boundary_v2_projector_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-measurement-boundary-projector/releases/download/v0.2.0/gooo-measurement-boundary-projector-v0.2.0.tar.gz","id":540176712,"name":"gooo-measurement-boundary-projector-v0.2.0.tar.gz","sha256":"sha256:90acd1f0a56ab38afe6c2b2b2033bd48b361b9dc43dc1257f606568f89076658","size_bytes":50378},
+        {"download_url":"https://github.com/kimjooyoon/gooo-measurement-boundary-projector/releases/download/v0.2.0/release-manifest.json","id":540176709,"name":"release-manifest.json","sha256":"sha256:f4513680b4603f1bf3a5429c652a1d3218ea0854ab7847eabd95c734f46f8b69","size_bytes":2012},
+        {"download_url":"https://github.com/kimjooyoon/gooo-measurement-boundary-projector/releases/download/v0.2.0/SHA256SUMS","id":540176708,"name":"SHA256SUMS","sha256":"sha256:f46491b22a54ff610d6f3d63826a92f7975a4f16264febcd27349bd965db7a68","size_bytes":218}
+      ],
+      "immutable": true,
+      "release_id": 380839207,
+      "release_url": "https://github.com/kimjooyoon/gooo-measurement-boundary-projector/releases/tag/v0.2.0",
+      "repository": "kimjooyoon/gooo-measurement-boundary-projector",
+      "tag": "v0.2.0",
+      "tag_object_sha": "1bacf104da7ea9d6cf3ebd130801608b8e5afb14",
+      "target_commit_sha": "1cff6318e748fec494dd9d28ec65db98b94293e0"
+    },
+    "operational_provenance_projector_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-operational-provenance-projector/releases/download/v0.1.2/gooo-operational-provenance-projector-evidence.tar.gz","id":540170176,"name":"gooo-operational-provenance-projector-evidence.tar.gz","sha256":"sha256:23ed475552506ff279ae84210c1b825b44335db0b1ed258d407b88a59db1de16","size_bytes":14601},
+        {"download_url":"https://github.com/kimjooyoon/gooo-operational-provenance-projector/releases/download/v0.1.2/release-audit.json","id":540170177,"name":"release-audit.json","sha256":"sha256:88af337623e89ea5f2e5c83c9e5ff3f2ae12244bb2abd2ac03e5a7427ba79d06","size_bytes":3043}
+      ],
+      "immutable": true,
+      "release_id": 380835618,
+      "release_url": "https://github.com/kimjooyoon/gooo-operational-provenance-projector/releases/tag/v0.1.2",
+      "repository": "kimjooyoon/gooo-operational-provenance-projector",
+      "tag": "v0.1.2",
+      "tag_object_sha": "7f21cb959ab8d45c82a9790046a4eb86308c4622",
+      "target_commit_sha": "36126b2a4b177d2b6f44713ffbf6908eb490af4b"
+    },
+    "self_improvement_frontier_projector_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-self-improvement-frontier-projector/releases/download/v0.2.0/frontier-projector-evidence.tar.gz","id":540161705,"name":"frontier-projector-evidence.tar.gz","sha256":"sha256:112564378170baddfba44a1b3f5bd39216af65aefbc1f43f13732dbbbd5695a3","size_bytes":18846},
+        {"download_url":"https://github.com/kimjooyoon/gooo-self-improvement-frontier-projector/releases/download/v0.2.0/frontier-projector-source.tar.gz","id":540161738,"name":"frontier-projector-source.tar.gz","sha256":"sha256:51240e7d8c39a5d6e807c2233cc1cee19e5bc9e7157bc4b2c4d611a0ba0cc2f9","size_bytes":38900},
+        {"download_url":"https://github.com/kimjooyoon/gooo-self-improvement-frontier-projector/releases/download/v0.2.0/release-manifest-v0.2.0.json","id":540161755,"name":"release-manifest-v0.2.0.json","sha256":"sha256:d0df22bfc53909eb8df6b5a5726df6a942b4c4dfc988ccf80c3214cc90b823d6","size_bytes":493}
+      ],
+      "immutable": true,
+      "release_id": 380832128,
+      "release_url": "https://github.com/kimjooyoon/gooo-self-improvement-frontier-projector/releases/tag/v0.2.0",
+      "repository": "kimjooyoon/gooo-self-improvement-frontier-projector",
+      "tag": "v0.2.0",
+      "tag_object_sha": "042ca1bf7dfb432bd2ec0abef9e9884c9abe0286",
+      "target_commit_sha": "98c3529013dad271337e424a7f07d4e5131d7edf"
     }
   },
   "schema": "gooo/self-improvement-portfolio/release-locks/v1"

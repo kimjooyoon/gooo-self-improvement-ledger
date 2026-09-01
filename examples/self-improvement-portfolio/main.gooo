@@ -72,3 +72,6 @@ activity AdoptMeasurementBoundaryProjectorDurableRelease(PortfolioInput) -> Port
 activity AdoptContentAddressedProofReuseDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity RecordParentLockReceiptContinuity(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=PARENT_LOCK_RECEIPT_CONTINUITY;proof=COHERENCE;indicator=OUTCOME"
 activity ProjectContentAddressedReleaseProjection(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CONTENT_ADDRESSED_RELEASE_PROJECTION;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptMeasurementBoundaryV2ProjectorDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=MEASUREMENT_BOUNDARY_V2_PROJECTOR_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptOperationalProvenanceProjectorDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=OPERATIONAL_PROVENANCE_PROJECTOR_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptSelfImprovementFrontierProjectorDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SELF_IMPROVEMENT_FRONTIER_PROJECTOR_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"

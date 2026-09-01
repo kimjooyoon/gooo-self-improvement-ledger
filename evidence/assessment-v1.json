@@ -1424,6 +1424,44 @@
         "external-utility=UNKNOWN:independent-user-evidence=false",
         "authority:verification=GITHUB_ACTIONS:github_token=github.token:repository_writes=0:local_test_executions=0:cross_project_required_gates=0"
       ]
+    },
+    {
+      "cell_id": "MEASUREMENT_BOUNDARY_V2_PROJECTOR_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "measurement_boundary_v2_projector_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-measurement-boundary-projector:tag=v0.2.0:release=380839207:tag_object=1bacf104da7ea9d6cf3ebd130801608b8e5afb14:target=1cff6318e748fec494dd9d28ec65db98b94293e0:immutable=true",
+        "upstream-assets:540176712:50378:sha256:90acd1f0a56ab38afe6c2b2b2033bd48b361b9dc43dc1257f606568f89076658,540176709:2012:sha256:f4513680b4603f1bf3a5429c652a1d3218ea0854ab7847eabd95c734f46f8b69,540176708:218:sha256:f46491b22a54ff610d6f3d63826a92f7975a4f16264febcd27349bd965db7a68",
+        "measurement-boundary-v2:denominator=12:closed=4:unknown=4:refuted=4:precedence=REFUTED>UNKNOWN>CLOSED",
+        "measurement-boundary-v2-ci:actual-stage=GITHUB_ACTIONS:runtime-authority=zero:positive-work-zero-wall=UNKNOWN:zero-work-zero-duration=CLOSED",
+        "measurement-boundary-v2-scope:stage-boundary-and-process-tree-receipts:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN",
+        "structural-append:cell=MEASUREMENT_BOUNDARY_V2_PROJECTOR_DURABLE_RELEASE:activity=AdoptMeasurementBoundaryV2ProjectorDurableRelease:lock=measurement_boundary_v2_projector_durable_release"
+      ]
+    },
+    {
+      "cell_id": "OPERATIONAL_PROVENANCE_PROJECTOR_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "operational_provenance_projector_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-operational-provenance-projector:tag=v0.1.2:release=380835618:tag_object=7f21cb959ab8d45c82a9790046a4eb86308c4622:target=36126b2a4b177d2b6f44713ffbf6908eb490af4b:immutable=true",
+        "upstream-assets:540170176:14601:sha256:23ed475552506ff279ae84210c1b825b44335db0b1ed258d407b88a59db1de16,540170177:3043:sha256:88af337623e89ea5f2e5c83c9e5ff3f2ae12244bb2abd2ac03e5a7427ba79d06",
+        "operational-provenance:denominator=12:closed=4:unknown=4:refuted=4:precedence=REFUTED>UNKNOWN>CLOSED",
+        "operational-provenance-ci-runtime:actual-ci-receipt=bounded:signed=digested:repository_writes=0:local_test_executions=0",
+        "operational-provenance-authority:operator_api_attempts=null:operator_api_attempts_state=UNKNOWN:orchestrator_local_validation_events=0",
+        "structural-append:cell=OPERATIONAL_PROVENANCE_PROJECTOR_DURABLE_RELEASE:activity=AdoptOperationalProvenanceProjectorDurableRelease:lock=operational_provenance_projector_durable_release"
+      ]
+    },
+    {
+      "cell_id": "SELF_IMPROVEMENT_FRONTIER_PROJECTOR_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "self_improvement_frontier_projector_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-self-improvement-frontier-projector:tag=v0.2.0:release=380832128:tag_object=042ca1bf7dfb432bd2ec0abef9e9884c9abe0286:target=98c3529013dad271337e424a7f07d4e5131d7edf:immutable=true",
+        "upstream-assets:540161705:18846:sha256:112564378170baddfba44a1b3f5bd39216af65aefbc1f43f13732dbbbd5695a3,540161738:38900:sha256:51240e7d8c39a5d6e807c2233cc1cee19e5bc9e7157bc4b2c4d611a0ba0cc2f9,540161755:493:sha256:d0df22bfc53909eb8df6b5a5726df6a942b4c4dfc988ccf80c3214cc90b823d6",
+        "frontier-projector-v2:parent-v0.50-cache=RESOLVED:external-utility=ACTIONABLE_UNKNOWN:historical-refutations=EXCLUDED_FROM_ACTION",
+        "frontier-projector-conformance:denominator=12:closed=4:unknown=4:refuted=4:replay=true:runtime-authority=zero",
+        "structural-append:cell=SELF_IMPROVEMENT_FRONTIER_PROJECTOR_DURABLE_RELEASE:activity=AdoptSelfImprovementFrontierProjectorDurableRelease:lock=self_improvement_frontier_projector_durable_release"
+      ]
     }
   ],
   "core_refutation_observation_events": [
