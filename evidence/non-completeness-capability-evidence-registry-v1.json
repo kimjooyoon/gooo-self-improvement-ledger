@@ -597,9 +597,37 @@
         ]
       },
       "state": "CLOSED"
+    },
+    {
+      "entry_id": "differential-semantics-runtime-v0.1.2",
+      "evidence": [
+        "immutable release API and annotated tag",
+        "differential-evidence.json release asset",
+        "nine-case corpus preserves 4 normal, 2 unknown, 2 refuted, replay byte-identical, overall UNKNOWN",
+        "matched semantic contract and toolchain; no improvement claim"
+      ],
+      "observed": {
+        "asset_id": 538817960,
+        "asset_sha256": "sha256:931f4bbf36aeaaeb153077e9e5588c2fa021e1e512408d45a3161aea7c554b40",
+        "asset_size_bytes": 1844,
+        "child_cases": 9,
+        "cross_project_required_gates": 0,
+        "local_test_executions": 0,
+        "normal_cases": 4,
+        "overall_status": "UNKNOWN",
+        "refuted_cases": 2,
+        "release_id": 380172619,
+        "release_immutable": true,
+        "replay_byte_identical": true,
+        "repository_writes": 0,
+        "tag_object_sha": "965abb84f065783db1183271fcf71a989a7637ff",
+        "target_commit_sha": "33e0f5a9b54f22824c1a34c914e74d8e0f931b62",
+        "unknown_cases": 2
+      },
+      "state": "CLOSED"
     }
   ],
-  "entry_count": 24,
+  "entry_count": 25,
   "frontier_additions": [
     "receipt-schema-migration-v0.1.1",
     "receipt-schema-migration-v0.2.2",
@@ -616,7 +644,8 @@
     "hygienic-origin-resolver-v0.1.1",
     "capability-effect-checker-v0.1.1",
     "deterministic-module-linker-v0.1.1",
-    "semantic-counterexample-reducer-v0.1.1"
+    "semantic-counterexample-reducer-v0.1.1",
+    "differential-semantics-runtime-v0.1.2"
   ],
   "lineage": [
     {

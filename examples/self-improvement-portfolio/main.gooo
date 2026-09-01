@@ -49,3 +49,4 @@ activity AdoptHygienicOriginResolverDurableRelease(PortfolioInput) -> PortfolioE
 activity AdoptCapabilityEffectCheckerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptDeterministicModuleLinkerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptSemanticCounterexampleReducerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptDifferentialSemanticsRuntimeDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
