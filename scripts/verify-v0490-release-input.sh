@@ -24,7 +24,7 @@ if [ "$mode" = --repository ]; then
   test -s "$contract" -a -s "$portfolio"
   lock_set_digest=$(jq -cS '.releases' "$contract" | sha256sum | awk '{print $1}')
   jq -e '
-    .schema=="gooo/self-improvement-ledger/release-locks/v1" and (.releases|length)==59
+    .schema=="gooo/self-improvement-portfolio/release-locks/v1" and (.releases|length)==59
   ' "$contract" >/dev/null
   jq -e '
     .total_cells==62 and .denominator_migration=={from:53,to:62,add:9,retire:0,split:0,append_only:true} and
