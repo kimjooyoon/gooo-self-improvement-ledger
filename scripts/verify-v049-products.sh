@@ -68,7 +68,7 @@ fetch_run_and_job() {
   repo=$(jq -r --arg key "$key" '.releases[$key].repository' "$repository/contracts/release-locks-v1.json")
   run_id=$(jq -r --arg key "$key" --arg kind "$run_kind" '.releases[$key][$kind].run_id' "$repository/contracts/release-locks-v1.json")
   job_id=$(jq -r --arg key "$key" --arg kind "$run_kind" '.releases[$key][$kind].job_id' "$repository/contracts/release-locks-v1.json")
-  run_url=$(jq -r --arg key "$key" --arg kind "$run_kind" '.releases[$key][$kind].run_url' "$repository/contracts/release-locks-v1.json")
+  run_url=$(jq -r --arg key "$key" --arg kind "$run_kind" '.releases[$key][$kind].workflow_url' "$repository/contracts/release-locks-v1.json")
   job_url=$(jq -r --arg key "$key" --arg kind "$run_kind" '.releases[$key][$kind].job_url' "$repository/contracts/release-locks-v1.json")
   head=$(jq -r --arg key "$key" --arg kind "$run_kind" '.releases[$key][$kind].head_sha' "$repository/contracts/release-locks-v1.json")
   name=$(jq -r --arg key "$key" --arg kind "$run_kind" '.releases[$key][$kind].job_name' "$repository/contracts/release-locks-v1.json")
