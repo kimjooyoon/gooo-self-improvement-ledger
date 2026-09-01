@@ -7159,6 +7159,82 @@
       "tag_object_sha": "036d3f9dcfb81511b64a34ae360ecd58b0e58fdd",
       "target_commit_sha": "932c98e97ca61bd4f64764a9793c3dabfd05c359"
     },
+    "incremental_release_proof_durable_release": {
+      "assets": [
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-incremental-release-proof/releases/download/v0.1.0/gooo-incremental-release-proof-source-v0.1.0.tar.gz",
+          "id": 539453787,
+          "name": "gooo-incremental-release-proof-source-v0.1.0.tar.gz",
+          "role": "release-source",
+          "sha256": "sha256:87d3a3aa151bc54bbb45074b25d5b352c075337e018f6d609b34df001cab29c3",
+          "size_bytes": 34279
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-incremental-release-proof/releases/download/v0.1.0/gooo-incremental-release-proof-ci-evidence-v0.1.0.tar.gz",
+          "id": 539453796,
+          "name": "gooo-incremental-release-proof-ci-evidence-v0.1.0.tar.gz",
+          "role": "release-evidence",
+          "sha256": "sha256:11b3e16956e4305f8553ad577791022ebadbb14881b666e557a0f410a2c5224c",
+          "size_bytes": 2643285
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-incremental-release-proof/releases/download/v0.1.0/gooo-incremental-release-proof-lock-v0.1.0.json",
+          "id": 539453805,
+          "name": "gooo-incremental-release-proof-lock-v0.1.0.json",
+          "role": "release-lock",
+          "sha256": "sha256:c59b08901596bb0639202b13789da860f505edde33a7079347a4bcabf065d41c",
+          "size_bytes": 6286
+        }
+      ],
+      "immutable": true,
+      "release_id": 380438321,
+      "release_url": "https://github.com/kimjooyoon/gooo-incremental-release-proof/releases/tag/v0.1.0",
+      "repository": "kimjooyoon/gooo-incremental-release-proof",
+      "source_run": {
+        "artifact_id": 9798252157,
+        "artifact_name": "gooo-incremental-release-proof-evidence-33502454307",
+        "artifact_size_bytes": 2705734,
+        "artifact_sha256": "sha256:e867a5095df4e32d3fc54d9292ade55b454c25c011f0c70e181fbbe3023bc75e",
+        "artifact_ids": [9798252157],
+        "conclusion": "success",
+        "head_branch": "main",
+        "head_sha": "f9e2e34e8d11621133e8188e7c3f464709ad3f12",
+        "job_id": 99838693487,
+        "job_name": "verify",
+        "job_url": "https://github.com/kimjooyoon/gooo-incremental-release-proof/actions/runs/33502454307/job/99838693487",
+        "run_id": 33502454307,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-incremental-release-proof/actions/runs/33502454307",
+        "expected_head_sha": "f9e2e34e8d11621133e8188e7c3f464709ad3f12"
+      },
+      "source_artifact": {
+        "artifact_id": 9798252157,
+        "name": "gooo-incremental-release-proof-evidence-33502454307",
+        "run_id": 33502454307,
+        "sha256": "sha256:e867a5095df4e32d3fc54d9292ade55b454c25c011f0c70e181fbbe3023bc75e",
+        "size_bytes": 2705734
+      },
+      "release_run": {
+        "conclusion": "success",
+        "head_branch": "main",
+        "head_sha": "f9e2e34e8d11621133e8188e7c3f464709ad3f12",
+        "job_id": 99839068173,
+        "job_name": "release",
+        "job_url": "https://github.com/kimjooyoon/gooo-incremental-release-proof/actions/runs/33502572374/job/99839068173",
+        "run_id": 33502572374,
+        "workflow_url": "https://github.com/kimjooyoon/gooo-incremental-release-proof/actions/runs/33502572374",
+        "expected_head_sha": "f9e2e34e8d11621133e8188e7c3f464709ad3f12"
+      },
+      "release_artifact": {
+        "artifact_id": 9798297440,
+        "name": "gooo-incremental-release-proof-release-evidence-33502572374",
+        "run_id": 33502572374,
+        "sha256": "sha256:f01fed43f0ca799ca4692ac4f53d6c92a19a3304b416f3a57c04e70f03004c12",
+        "size_bytes": 5386113
+      },
+      "tag": "v0.1.0",
+      "tag_object_sha": "956e8788945f6c02d93aed0125ec43aa1c74366d",
+      "target_commit_sha": "f9e2e34e8d11621133e8188e7c3f464709ad3f12"
+    },
     "verification_reuse_release": {
       "assets": [
         {

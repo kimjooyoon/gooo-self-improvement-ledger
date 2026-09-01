@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for fifty-one specifically named capabilities.
+The portfolio is an evidence ledger for fifty-two specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains fifty-one entries. The v0.45
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior fifty-cell
+`cells` array is immutable during a run and contains fifty-two entries. The v0.46
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior fifty-one-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/42/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/42/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/43/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/43/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -741,9 +741,26 @@ an evidence-boundary correction, not a new semantic cell: the denominator and
 counts remain `51 / 48 CLOSED / 1 UNKNOWN / 2 REFUTED`, and the v0.40.0
 published-before-assets `REFUTED` history is preserved.
 
+The v0.46 frontier appends `INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE` through
+`AdoptIncrementalReleaseProofDurableRelease`. It adopts immutable upstream
+`kimjooyoon/gooo-incremental-release-proof@v0.1.0`, release `380438321`, whose
+annotated tag object `956e8788945f6c02d93aed0125ec43aa1c74366d` resolves to
+`f9e2e34e8d11621133e8188e7c3f464709ad3f12`. The three assets, source/release
+Actions runs `33502454307`/`99838693487` and `33502572374`/`99839068173`, and
+their exact artifact identities are locked in `contracts/release-locks-v1.json`.
+The nine-case upstream contract is `CLOSED3/UNKNOWN3/REFUTED3` with twelve
+activities and `9/57192` generated files/bytes. The fixed parent-48 conformance
+proof records the exact integer pair
+`100/400/48/48/0 -> 90/350/1/1/48` for wall time, peak RSS, remote lookups,
+verified locks, and reused locks, with semantic output, root, and guardrail
+equivalence required for `CLOSED`; otherwise the improvement is `UNKNOWN`.
+The adoption yields `CLOSED49/UNKNOWN1/REFUTED2` while preserving the v0.45.1
+immutable parent, the explicit `parent_asset_current_bytes=null` UNKNOWN
+frontier, and the v0.40.0 transport REFUTED history.
+
 The non-completeness capability evidence registry is a separate thirty-entry
 external-input ledger. Its count and dispositions never alter this fixed
-fifty-one-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+fifty-two-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

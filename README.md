@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 51 named cells, each bound one-to-one to
+language. The denominator is exactly 52 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -44,11 +44,12 @@ The fixed axes are:
 `ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE`, and
 `INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE`, and
 `SELF_REWRITE_SANDBOX_DURABLE_RELEASE`, and
-`RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE`.
+`RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE`, and
+`INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `50 -> 51` with
+The denominator migration is explicit and append-only: `51 -> 52` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/42/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/42/5`.
+`4/43/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/43/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -888,6 +889,26 @@ the live Actions artifact and upload. This audit adds no cell and keeps the
 semantic counts at `51 / 48 CLOSED / 1 UNKNOWN / 2 REFUTED`; it is carried by
 `evidence/release-transport-audit-v0451-v1.json` and the immutable v0.45.1
 transport receipt.
+
+The v0.46 frontier appends `INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE` through
+`AdoptIncrementalReleaseProofDurableRelease`. It adopts immutable upstream
+`kimjooyoon/gooo-incremental-release-proof@v0.1.0`, release `380438321`, with
+annotated tag object `956e8788945f6c02d93aed0125ec43aa1c74366d` resolving to
+`f9e2e34e8d11621133e8188e7c3f464709ad3f12`. The source, CI evidence, and lock
+assets are locked by ID, size, URL, and digest; the source and release Actions
+runs are `33502454307`/`99838693487` and `33502572374`/`99839068173`, with
+artifacts `9798252157` and `9798297440`.
+
+The fixed parent-48 proof contract has nine cases (`CLOSED3/UNKNOWN3/REFUTED3`),
+twelve activities, generated output `9` files/`57192` bytes, and exact identity
+matching for source, contract, corpus, Go `1.27.0/linux/amd64`, and the fixed
+runner digest. Its exact integer pair is before
+`wall=100ms/rss=400KiB/remote=48/verified=48/reused=0` and after
+`wall=90ms/rss=350KiB/remote=1/verified=1/reused=48`; semantic output, roots,
+and guardrails must all match in the same GitHub Actions job or the improvement
+remains `UNKNOWN`. The adoption yields `CLOSED49/UNKNOWN1/REFUTED2` and keeps
+the v0.45.1 immutable parent, the explicit `parent_asset_current_bytes=null`
+`UNKNOWN` frontier, and the v0.40.0 transport `REFUTED` history unchanged.
 
 The v0.40.0 release transport is preserved separately from semantic portfolio
 state. Release `380259706` and annotated tag `v0.40.0` are immutable, but the

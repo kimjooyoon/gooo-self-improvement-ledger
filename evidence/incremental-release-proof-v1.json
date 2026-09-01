@@ -1,0 +1,66 @@
+{
+  "schema": "gooo/self-improvement-ledger/incremental-release-proof-adoption/v1",
+  "cell_id": "INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE",
+  "activity": "AdoptIncrementalReleaseProofDurableRelease",
+  "release": {
+    "repository": "kimjooyoon/gooo-incremental-release-proof",
+    "tag": "v0.1.0",
+    "release_id": 380438321,
+    "immutable": true,
+    "annotated_tag_object_sha": "956e8788945f6c02d93aed0125ec43aa1c74366d",
+    "peeled_commit_sha": "f9e2e34e8d11621133e8188e7c3f464709ad3f12",
+    "lock_merkle_root": "sha256:a8bd7f3c854ce1436df6dbdca3512335ad69980724a2d1c36c3a10e4208b3119",
+    "lock_root": "sha256:841ee7638b4001e6b8ee2ceb8de086658c1522ce70a5549f0df8ebe376a64608"
+  },
+  "assets": {
+    "source": {"id":539453787,"name":"gooo-incremental-release-proof-source-v0.1.0.tar.gz","size_bytes":34279,"digest":"sha256:87d3a3aa151bc54bbb45074b25d5b352c075337e018f6d609b34df001cab29c3"},
+    "evidence": {"id":539453796,"name":"gooo-incremental-release-proof-ci-evidence-v0.1.0.tar.gz","size_bytes":2643285,"digest":"sha256:11b3e16956e4305f8553ad577791022ebadbb14881b666e557a0f410a2c5224c"},
+    "lock": {"id":539453805,"name":"gooo-incremental-release-proof-lock-v0.1.0.json","size_bytes":6286,"digest":"sha256:c59b08901596bb0639202b13789da860f505edde33a7079347a4bcabf065d41c"}
+  },
+  "source_ci": {"run_id":33502454307,"job_id":99838693487,"artifact_id":9798252157,"artifact_size_bytes":2705734,"artifact_digest":"sha256:e867a5095df4e32d3fc54d9292ade55b454c25c011f0c70e181fbbe3023bc75e","commit":"f9e2e34e8d11621133e8188e7c3f464709ad3f12","conclusion":"success"},
+  "release_ci": {"run_id":33502572374,"job_id":99839068173,"receipt_artifact_id":9798297440,"receipt_artifact_size_bytes":5386113,"receipt_artifact_digest":"sha256:f01fed43f0ca799ca4692ac4f53d6c92a19a3304b416f3a57c04e70f03004c12","commit":"f9e2e34e8d11621133e8188e7c3f464709ad3f12","conclusion":"success"},
+  "contract": {
+    "schema": "gooo/incremental-release-proof/v1",
+    "digest": "sha256:0a14b7fe02296264e2d5a073c17c9c350c9c51107d67f99ebff9a9d579df0ef2",
+    "cases": {"total":9,"closed":3,"unknown":3,"refuted":3},
+    "activities": 12,
+    "generated": {"files":9,"bytes":57192},
+    "tests": {"total":9,"selected":9,"executed":7,"reused":2,"failed":3,"unknown":3}
+  },
+  "fixed_48_release_fixture": {
+    "corpus_id": "incremental-release-proof-v1",
+    "corpus_digest": "sha256:414c06a81eff9a7ea8f1a49ed604b08751406e885c0fe3b01fec69221dd42a22",
+    "parent_checkpoint_id": "parent-48",
+    "parent_release_count": 48,
+    "parent_merkle_root": "sha256:6104d533cdf56179001e43a3ecf510cfba5ec391f63df85fd56e062a9f514905",
+    "parent_lock_root": "sha256:76a4a5708dc196ef3e1278cdc416d98457f5275ee5f9591ce7ffab9b90351868",
+    "current_lock_root": "sha256:8ef70850654b125cde49fb4eeea2e8240db36268f3d92e8e6bdf8b106f4722ce"
+  },
+  "measurement_identity": {
+    "source_digest": "sha256:87d3a3aa151bc54bbb45074b25d5b352c075337e018f6d609b34df001cab29c3",
+    "contract_digest": "sha256:0a14b7fe02296264e2d5a073c17c9c350c9c51107d67f99ebff9a9d579df0ef2",
+    "fixture_digest": "sha256:414c06a81eff9a7ea8f1a49ed604b08751406e885c0fe3b01fec69221dd42a22",
+    "toolchain": "go1.27.0/linux/amd64",
+    "runner_digest": "sha256:947e4cfcb533070a0ccbc3ba49864f71051c5db733cf486b22f32feecc353291"
+  },
+  "exact_before_after_pair": {
+    "status": "CLOSED",
+    "basis": "fixed parent-48 corpus case parent-checkpoint-proven; current Actions replay must preserve semantic output, roots, and guardrails",
+    "before": {"wall_ms":100,"peak_rss_kib":400,"remote_lookup_count":48,"verified_lock_count":48,"reused_lock_count":0},
+    "after": {"wall_ms":90,"peak_rss_kib":350,"remote_lookup_count":1,"verified_lock_count":1,"reused_lock_count":48}
+  },
+  "upstream_ci_metrics": {
+    "go_version": "go1.27.0",
+    "runner_digest": "sha256:947e4cfcb533070a0ccbc3ba49864f71051c5db733cf486b22f32feecc353291",
+    "root_readme_excluded": true,
+    "inventory": {"go_files":7,"gooo_files":1,"go_physical_lines":1287,"gooo_physical_lines":36,"descendant_dirs":11,"regular_files":24},
+    "stages": {"compile":{"wall_ms":6150,"peak_rss_kib":280680},"build":{"wall_ms":5470,"peak_rss_kib":272488},"test":{"wall_ms":40,"peak_rss_kib":27900},"conformance":{"wall_ms":50,"peak_rss_kib":13676},"integration":{"wall_ms":80,"peak_rss_kib":3756}},
+    "repository_writes": 0,
+    "local_verification_executions": 0,
+    "cross_project_required_gates": 0
+  },
+  "authority": {"github_actions_token":"github.token","repository_writes":0,"local_product_validation_executions":0,"cross_project_required_gates":0},
+  "parent_v0451": {"release_id":380480877,"tag":"v0.45.1","immutable":true,"tag_object_sha":"1fbb3b54e4de73bb58a85e01096f73963693925a","target_commit_sha":"83a6023efdfd5ad5a082e2a38b1fb8275ce4f999","asset_id":539524194,"asset_size_bytes":30373286,"asset_digest":"sha256:a7dedc0a5f8da93bacd332b5ea86bb7f01f199f6239f148db7859014ad428b5f","transport_run_id":33508260014,"transport_job_id":99857430202,"receipt_artifact_id":9800499180,"receipt_artifact_size_bytes":1412,"receipt_artifact_digest":"sha256:d74d4b982baf202f8f6f610bc1c106f79f9e5ffad80349dc27a7e6b3610a803a"},
+  "preserved_parent_byte_frontier": {"state":"UNKNOWN","parent_asset_current_bytes":null,"unknown":{"stage":"RELEASE_TRANSPORT","step":"FETCH_PARENT_ASSET_BYTES","reason":"V0_45_0_RELEASE_RUN_DID_NOT_OBSERVE_CURRENT_V0_44_0_PARENT_ASSET_BYTES","unknown_class":"DIRECT_MISSING","next_operation":"FETCH_AND_MATCH_PARENT_ASSET_BYTES","blocked_by":["release-transport-run-v0.45.0"]}},
+  "preserved_failure": {"tag":"v0.40.0","release_id":380259706,"immutable":true,"asset_count":0,"state":"REFUTED","reason":"RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD","mutation_policy":"NO_DELETE_NO_OVERWRITE"}
+}

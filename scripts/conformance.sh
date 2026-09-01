@@ -14,8 +14,8 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 51 and
-  .denominator_migration == {from:50,to:51,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 52 and
+  .denominator_migration == {from:51,to:52,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
@@ -34,8 +34,9 @@ jq -e '
   .cells[48].id == "INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE" and
   .cells[49].id == "SELF_REWRITE_SANDBOX_DURABLE_RELEASE" and
   .cells[50].id == "RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:42,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:42,GUARDRAIL:5} and
+  .cells[51].id == "INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE" and
+  .proof_totals == {FOUNDATION:4,COHERENCE:43,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:43,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -75,6 +76,7 @@ jq -e '
   and (.cells|map(select(.id=="INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE" and .release_key=="incremental_module_compiler_durable_release" and .ordinal==49 and .activity=="AdoptIncrementalModuleCompilerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="SELF_REWRITE_SANDBOX_DURABLE_RELEASE" and .release_key=="self_rewrite_sandbox_durable_release" and .ordinal==50 and .activity=="AdoptSelfRewriteSandboxDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE" and .release_key=="release_transport_conformer_durable_release" and .ordinal==51 and .activity=="AdoptReleaseTransportConformerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE" and .release_key=="incremental_release_proof_durable_release" and .ordinal==52 and .activity=="AdoptIncrementalReleaseProofDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -124,6 +126,43 @@ jq -e '
   (.evidence | index("v0.45.0-current-asset-bytes:state=CLOSED:observed=true:size=30371159:sha256=sha256:3c09f571e62b977aee8838943138cfbd5474ed896edbe99b645a3a873a589f8c:source_artifact=9799629633:release_asset=539498552")) != null
 ' <<< "$last_cell" >/dev/null
 echo "conformance: v0.45.1 semantic audit boundary passed"
+
+echo "conformance: verify v0.46.0 incremental release proof adoption"
+jq -e '
+  .schema == "gooo/self-improvement-ledger/incremental-release-proof-adoption/v1" and
+  .cell_id == "INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE" and
+  .activity == "AdoptIncrementalReleaseProofDurableRelease" and
+  .release == {repository:"kimjooyoon/gooo-incremental-release-proof",tag:"v0.1.0",release_id:380438321,immutable:true,annotated_tag_object_sha:"956e8788945f6c02d93aed0125ec43aa1c74366d",peeled_commit_sha:"f9e2e34e8d11621133e8188e7c3f464709ad3f12",lock_merkle_root:"sha256:a8bd7f3c854ce1436df6dbdca3512335ad69980724a2d1c36c3a10e4208b3119",lock_root:"sha256:841ee7638b4001e6b8ee2ceb8de086658c1522ce70a5549f0df8ebe376a64608"} and
+  .contract.schema == "gooo/incremental-release-proof/v1" and .contract.digest == "sha256:0a14b7fe02296264e2d5a073c17c9c350c9c51107d67f99ebff9a9d579df0ef2" and .contract.cases == {total:9,closed:3,unknown:3,refuted:3} and .contract.activities == 12 and .contract.generated == {files:9,bytes:57192} and .contract.tests == {total:9,selected:9,executed:7,reused:2,failed:3,unknown:3} and
+  .fixed_48_release_fixture.parent_checkpoint_id == "parent-48" and .fixed_48_release_fixture.parent_release_count == 48 and .fixed_48_release_fixture.corpus_digest == "sha256:414c06a81eff9a7ea8f1a49ed604b08751406e885c0fe3b01fec69221dd42a22" and
+  .measurement_identity == {source_digest:"sha256:87d3a3aa151bc54bbb45074b25d5b352c075337e018f6d609b34df001cab29c3",contract_digest:"sha256:0a14b7fe02296264e2d5a073c17c9c350c9c51107d67f99ebff9a9d579df0ef2",fixture_digest:"sha256:414c06a81eff9a7ea8f1a49ed604b08751406e885c0fe3b01fec69221dd42a22",toolchain:"go1.27.0/linux/amd64",runner_digest:"sha256:947e4cfcb533070a0ccbc3ba49864f71051c5db733cf486b22f32feecc353291"} and
+  .exact_before_after_pair.status == "CLOSED" and .exact_before_after_pair.before == {wall_ms:100,peak_rss_kib:400,remote_lookup_count:48,verified_lock_count:48,reused_lock_count:0} and .exact_before_after_pair.after == {wall_ms:90,peak_rss_kib:350,remote_lookup_count:1,verified_lock_count:1,reused_lock_count:48} and
+  .authority == {github_actions_token:"github.token",repository_writes:0,local_product_validation_executions:0,cross_project_required_gates:0} and
+  .preserved_parent_byte_frontier.parent_asset_current_bytes == null and .preserved_parent_byte_frontier.state == "UNKNOWN" and .preserved_failure.state == "REFUTED"
+' "$repository/evidence/incremental-release-proof-v1.json" >/dev/null
+jq -e '
+  .transaction_id == "incremental-release-proof-durable-release-v0.46.0" and .decision == "CLOSED" and .portfolio_decision == "REFUTED" and
+  .migration == {operation:"ADD1",from:51,to:52,add:1,retire:0,split:0,append_only:true} and
+  .new_cell.id == "INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE" and .new_cell.ordinal == 52 and .new_activity.name == "AdoptIncrementalReleaseProofDurableRelease" and
+  .summary == {closed:49,refuted:2,total:52,unknown:1} and .proof_totals == {COHERENCE:43,FOUNDATION:4,REGRESSION:5} and .indicator_totals == {DRIVER:4,GUARDRAIL:5,OUTCOME:43} and
+  .baseline.tag == "v0.45.1" and .baseline.release_id == 380480877 and .baseline.immutable == true and
+  .incremental_release_proof.exact_before_after_pair.status == "CLOSED" and .authority.repository_writes == 0 and .authority.local_product_validation_executions == 0
+' "$repository/evidence/report-v0460-v1.json" >/dev/null
+test -f "$artifact/incremental-release-proof/measurement.json"
+jq -e '
+  .schema == "gooo/self-improvement-portfolio/incremental-release-proof-measurement/v1" and
+  .toolchain == "go1.27.0/linux/amd64" and .runner_digest == "sha256:947e4cfcb533070a0ccbc3ba49864f71051c5db733cf486b22f32feecc353291" and
+  .full_verification.pair_metrics == {remote_lookup_count:48,verified_lock_count:48,reused_lock_count:0} and
+  .full_verification.summary == {total:49,verified:49,unknown:0,refuted:0} and
+  .incremental_proof.pair_metrics == {remote_lookup_count:1,verified_lock_count:1,reused_lock_count:48} and
+  .incremental_proof.summary == {total_cases:9,closed:3,unknown:3,refuted:3,tests_total:9,tests_selected:9,tests_executed:7,tests_reused:2,tests_failed:3,tests_unknown:3} and
+  .fixture_pair.status == "CLOSED" and .fixture_pair.before == {wall_ms:100,peak_rss_kib:400,remote_lookup_count:48,verified_lock_count:48,reused_lock_count:0} and .fixture_pair.after == {wall_ms:90,peak_rss_kib:350,remote_lookup_count:1,verified_lock_count:1,reused_lock_count:48} and
+  (.exact_before_after_pair.before.wall_ms|type) == "number" and (.exact_before_after_pair.before.peak_rss_kib|type) == "number" and (.exact_before_after_pair.after.wall_ms|type) == "number" and (.exact_before_after_pair.after.peak_rss_kib|type) == "number" and
+  (.improvement.status == "CLOSED" and .semantic_output_equivalence == true and .root_equivalence == true and .guardrails_same == true and .improvement.exact_pair == true and .improvement.unknown == null or
+   .improvement.status == "UNKNOWN" and .improvement.exact_pair == false and (.improvement.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"]) and
+  .authority == {github_actions_token:"github.token",repository_writes:0,local_product_validation_executions:0,cross_project_required_gates:0}
+' "$artifact/incremental-release-proof/measurement.json" >/dev/null
+echo "conformance: v0.46.0 incremental release proof adoption passed"
 
 echo "conformance: verify preserved v0.43 candidate-stage planner refutations"
 jq -e '
@@ -1147,7 +1186,7 @@ echo "conformance: differential semantics runtime release lock passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:50,to:51,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:51,to:52,add:1,retire:0,split:0,append_only:true} and
   .local_validation_followup == {local_validation_executions:0,inspection_only:true,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
@@ -1966,12 +2005,12 @@ jq -e '
   .semantic_audit.parent_asset_current_bytes_state == "UNKNOWN" and
   (.semantic_audit.parent_asset_current_bytes_unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
   .semantic_audit.current_release_asset_bytes.state == "CLOSED" and
-  .summary == {total:51,closed:48,unknown:1,refuted:2} and
+  .summary == {total:52,closed:49,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 51 and
+  (.cells|length) == 52 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 48 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 49 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -2025,16 +2064,17 @@ jq -e '
     ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE:"CLOSED",
     INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE:"CLOSED",
     SELF_REWRITE_SANDBOX_DURABLE_RELEASE:"CLOSED",
-    RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE:"CLOSED"
+    RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE:"CLOSED",
+    INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:51,activities:51,unique_axes:51,unique_metrics:51,source_bindings:51,ir_bindings:51,generated_artifact_bindings:51,evaluator_bindings:51} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 42 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 42 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:48,verified:48,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:52,activities:52,unique_axes:52,unique_metrics:52,source_bindings:52,ir_bindings:52,generated_artifact_bindings:52,evaluator_bindings:52} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 43 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 43 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:49,verified:49,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
