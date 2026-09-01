@@ -1,0 +1,222 @@
+name: Immutable release transport
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful main GitHub Actions run that produced the source artifact
+        required: true
+        type: string
+      source_artifact_id:
+        description: Exact artifact ID from the successful main run
+        required: true
+        type: string
+      source_commit_sha:
+        description: Main commit checked by the source run
+        required: true
+        type: string
+      release_tag:
+        description: New correction release tag
+        required: true
+        default: v0.40.1
+        type: string
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPOSITORY: ${{ github.repository }}
+      SOURCE_RUN_ID: ${{ inputs.source_run_id }}
+      SOURCE_ARTIFACT_ID: ${{ inputs.source_artifact_id }}
+      SOURCE_COMMIT_SHA: ${{ inputs.source_commit_sha }}
+      RELEASE_TAG: ${{ inputs.release_tag }}
+    steps:
+      - name: Check out the source commit
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.source_commit_sha }}
+          fetch-depth: 1
+
+      - name: Resolve the successful main artifact
+        id: source
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          test "$RELEASE_TAG" = "v0.40.1"
+          test "$(git rev-parse HEAD)" = "$SOURCE_COMMIT_SHA"
+          main_sha=$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')
+          test "$main_sha" = "$SOURCE_COMMIT_SHA"
+          run_json=$(gh api "repos/$REPOSITORY/actions/runs/$SOURCE_RUN_ID")
+          jq -e --arg sha "$SOURCE_COMMIT_SHA" --arg run_id "$SOURCE_RUN_ID" '
+            .id == ($run_id|tonumber) and .event == "push" and
+            .head_branch == "main" and .head_sha == $sha and
+            .status == "completed" and .conclusion == "success"
+          ' <<< "$run_json" >/dev/null
+          artifact_json=$(gh api "repos/$REPOSITORY/actions/artifacts/$SOURCE_ARTIFACT_ID")
+          jq -e --arg sha "$SOURCE_COMMIT_SHA" --arg run_id "$SOURCE_RUN_ID" --arg artifact_id "$SOURCE_ARTIFACT_ID" '
+            .id == ($artifact_id|tonumber) and
+            .workflow_run.id == ($run_id|tonumber) and .workflow_run.head_sha == $sha and
+            .expired == false and (.size_in_bytes|tonumber) > 0 and
+            (.digest|startswith("sha256:"))
+          ' <<< "$artifact_json" >/dev/null
+          artifact_name=$(jq -r '.name' <<< "$artifact_json")
+          artifact_size=$(jq -r '.size_in_bytes' <<< "$artifact_json")
+          artifact_digest=$(jq -r '.digest' <<< "$artifact_json")
+          asset_name="$artifact_name.zip"
+          asset_path="$RUNNER_TEMP/$asset_name"
+          gh api "repos/$REPOSITORY/actions/artifacts/$SOURCE_ARTIFACT_ID/zip" > "$asset_path"
+          test "$(wc -c < "$asset_path" | tr -d ' ')" = "$artifact_size"
+          actual_digest="sha256:$(sha256sum "$asset_path" | awk '{print $1}')"
+          test "$actual_digest" = "$artifact_digest"
+          {
+            echo "artifact_name=$artifact_name"
+            echo "artifact_size=$artifact_size"
+            echo "artifact_digest=$artifact_digest"
+            echo "asset_name=$asset_name"
+            echo "asset_path=$asset_path"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Preserve the v0.40.0 failed release envelope
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          jq -e '
+            .schema == "gooo/self-improvement-ledger/release-transport-envelope/v1" and
+            .event_type == "RELEASE_TRANSPORT_FAILURE" and
+            .semantic_state == {total_cells:46,closed:43,unknown:1,refuted:2} and
+            .preserved_failure == {
+              tag:"v0.40.0", release_id:380259706, immutable:true, asset_count:0,
+              tag_object_sha:"ca691484122c408d60b694ed7a5a9179a4a613d5",
+              target_commit_sha:"7883b07a3ebc0101acc516a4a5662f01296c63a9",
+              state:"REFUTED", reason:"RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD",
+              preserved:true, mutation_policy:"NO_DELETE_NO_OVERWRITE"
+            } and .correction.target_tag == "v0.40.1" and
+            .correction.semantic_cell_additions == 0
+          ' evidence/release-transport-v1.json >/dev/null
+          gh api "repos/$REPOSITORY/releases/tags/v0.40.0" > "$RUNNER_TEMP/v0400-release.json"
+          jq -e '.id==380259706 and .tag_name=="v0.40.0" and .immutable==true and (.assets|length)==0' "$RUNNER_TEMP/v0400-release.json" >/dev/null
+          gh api "repos/$REPOSITORY/git/ref/tags/v0.40.0" > "$RUNNER_TEMP/v0400-ref.json"
+          jq -e '.object.sha=="ca691484122c408d60b694ed7a5a9179a4a613d5" and .object.type=="tag"' "$RUNNER_TEMP/v0400-ref.json" >/dev/null
+          gh api "repos/$REPOSITORY/git/tags/ca691484122c408d60b694ed7a5a9179a4a613d5" > "$RUNNER_TEMP/v0400-tag.json"
+          jq -e '.object.sha=="7883b07a3ebc0101acc516a4a5662f01296c63a9" and .object.type=="commit"' "$RUNNER_TEMP/v0400-tag.json" >/dev/null
+
+      - name: Refuse to overwrite an existing correction release
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          if gh api "repos/$REPOSITORY/releases/tags/$RELEASE_TAG" > "$RUNNER_TEMP/existing-release.json" 2>/dev/null; then
+            echo "release $RELEASE_TAG already exists; refusing to overwrite it" >&2
+            exit 1
+          fi
+          if gh api "repos/$REPOSITORY/git/ref/tags/$RELEASE_TAG" > "$RUNNER_TEMP/existing-ref.json" 2>/dev/null; then
+            echo "tag $RELEASE_TAG already exists; refusing to overwrite it" >&2
+            exit 1
+          fi
+
+      - name: Create the annotated correction tag
+        id: tag
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          tag_json=$(gh api --method POST "repos/$REPOSITORY/git/tags" \
+            -f tag="$RELEASE_TAG" \
+            -f message="$RELEASE_TAG: correct draft-first release transport" \
+            -f object="$SOURCE_COMMIT_SHA" -f type=commit)
+          tag_object=$(jq -r '.sha' <<< "$tag_json")
+          test -n "$tag_object" && test "$tag_object" != null
+          gh api --method POST "repos/$REPOSITORY/git/refs" \
+            -f ref="refs/tags/$RELEASE_TAG" -f sha="$tag_object" >/dev/null
+          echo "tag_object=$tag_object" >> "$GITHUB_OUTPUT"
+
+      - name: Create the draft release before asset upload
+        id: draft
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          release_body=$(cat <<EOF
+          Transport correction for the preserved v0.40.0 assetless release envelope.
+
+          Preserved failure: v0.40.0 release 380259706 is immutable with zero assets because it was published before asset upload; reason RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD. It is not deleted, modified, overwritten, or counted as a semantic cell result.
+
+          Semantic state remains 46 cells, 43 CLOSED, 1 UNKNOWN, 2 REFUTED. Source is successful main CI run $SOURCE_RUN_ID, artifact $SOURCE_ARTIFACT_ID, commit $SOURCE_COMMIT_SHA.
+          EOF
+          )
+          release_json=$(gh api --method POST "repos/$REPOSITORY/releases" \
+            -f tag_name="$RELEASE_TAG" -f target_commitish=main -f name="$RELEASE_TAG" \
+            -f body="$release_body" -F draft=true -F prerelease=false)
+          release_id=$(jq -r '.id' <<< "$release_json")
+          test -n "$release_id" && test "$release_id" != null
+          jq -e --arg tag "$RELEASE_TAG" '.tag_name==$tag and .draft==true and .prerelease==false and (.assets|length)==0' <<< "$release_json" >/dev/null
+          echo "release_id=$release_id" >> "$GITHUB_OUTPUT"
+
+      - name: Upload the exact main CI artifact to the draft release
+        id: upload
+        shell: bash
+        env:
+          ASSET_PATH: ${{ steps.source.outputs.asset_path }}
+          ASSET_NAME: ${{ steps.source.outputs.asset_name }}
+          RELEASE_ID: ${{ steps.draft.outputs.release_id }}
+        run: |
+          set -Eeuo pipefail
+          upload_url=$(gh api "repos/$REPOSITORY/releases/$RELEASE_ID" --jq '.upload_url')
+          upload_url=${upload_url%\{*}
+          upload_json=$(gh api --method POST "$upload_url?name=$ASSET_NAME" \
+            -H 'Content-Type: application/zip' --input "$ASSET_PATH")
+          jq -e --arg name "$ASSET_NAME" '.name==$name and .state=="uploaded"' <<< "$upload_json" >/dev/null
+          echo "asset_id=$(jq -r '.id' <<< "$upload_json")" >> "$GITHUB_OUTPUT"
+
+      - name: Publish the populated release
+        shell: bash
+        env:
+          RELEASE_ID: ${{ steps.draft.outputs.release_id }}
+        run: |
+          set -Eeuo pipefail
+          gh api --method PATCH "repos/$REPOSITORY/releases/$RELEASE_ID" -F draft=false > "$RUNNER_TEMP/published-release.json"
+          jq -e '.draft==false and .prerelease==false' "$RUNNER_TEMP/published-release.json" >/dev/null
+
+      - name: Verify immutable release and exact asset digest
+        shell: bash
+        env:
+          ASSET_NAME: ${{ steps.source.outputs.asset_name }}
+          ASSET_SIZE: ${{ steps.source.outputs.artifact_size }}
+          ASSET_DIGEST: ${{ steps.source.outputs.artifact_digest }}
+          RELEASE_ID: ${{ steps.draft.outputs.release_id }}
+          TAG_OBJECT: ${{ steps.tag.outputs.tag_object }}
+        run: |
+          set -Eeuo pipefail
+          release_json=$(gh api "repos/$REPOSITORY/releases/$RELEASE_ID")
+          jq -e --arg tag "$RELEASE_TAG" --arg name "$ASSET_NAME" --arg digest "$ASSET_DIGEST" --argjson size "$ASSET_SIZE" '
+            .tag_name == $tag and .draft == false and .prerelease == false and .immutable == true and
+            (.assets|length) == 1 and .assets[0].name == $name and
+            .assets[0].size == $size and .assets[0].digest == $digest
+          ' <<< "$release_json" >/dev/null
+          gh api "repos/$REPOSITORY/git/ref/tags/$RELEASE_TAG" > "$RUNNER_TEMP/correction-ref.json"
+          jq -e --arg object "$TAG_OBJECT" '.object.sha==$object and .object.type=="tag"' "$RUNNER_TEMP/correction-ref.json" >/dev/null
+          gh api "repos/$REPOSITORY/git/tags/$TAG_OBJECT" > "$RUNNER_TEMP/correction-tag.json"
+          jq -e --arg commit "$SOURCE_COMMIT_SHA" '.object.sha==$commit and .object.type=="commit"' "$RUNNER_TEMP/correction-tag.json" >/dev/null
+          correction_refs=$(git ls-remote "https://github.com/$REPOSITORY.git" "refs/tags/$RELEASE_TAG" "refs/tags/$RELEASE_TAG^{}")
+          test "$(awk -v ref="refs/tags/$RELEASE_TAG" '$2==ref {print $1}' <<< "$correction_refs")" = "$TAG_OBJECT"
+          test "$(awk -v ref="refs/tags/$RELEASE_TAG^{}" '$2==ref {print $1}' <<< "$correction_refs")" = "$SOURCE_COMMIT_SHA"
+          jq -n \
+            --arg schema 'gooo/self-improvement-ledger/release-transport-receipt/v1' \
+            --arg tag "$RELEASE_TAG" --argjson release_id "$RELEASE_ID" \
+            --arg tag_object "$TAG_OBJECT" --arg commit "$SOURCE_COMMIT_SHA" \
+            --argjson source_run "$SOURCE_RUN_ID" --argjson source_artifact "$SOURCE_ARTIFACT_ID" \
+            --arg asset "$ASSET_NAME" --argjson size "$ASSET_SIZE" --arg digest "$ASSET_DIGEST" \
+            '{schema:$schema,correction:{tag:$tag,release_id:$release_id,immutable:true,asset_count:1,tag_object_sha:$tag_object,target_commit_sha:$commit,source_run_id:$source_run,source_artifact_id:$source_artifact,asset:{name:$asset,size_bytes:$size,digest:$digest}},preserved_failure:{tag:"v0.40.0",release_id:380259706,immutable:true,asset_count:0,state:"REFUTED",reason:"RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD"},semantic_state:{total_cells:46,closed:43,unknown:1,refuted:2},authority:{verification:"GITHUB_ACTIONS",local_go_test:0,local_go_build:0,local_go_vet:0,local_conformance:0}}' \
+            > "$RUNNER_TEMP/release-transport-receipt.json"
+          cat "$RUNNER_TEMP/release-transport-receipt.json" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload release transport receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-transport-receipt-${{ inputs.release_tag }}
+          path: ${{ runner.temp }}/release-transport-receipt.json
+          if-no-files-found: ignore
+          retention-days: 30

@@ -712,6 +712,17 @@ new cell is `CLOSED`, yielding `CLOSED43/UNKNOWN1/REFUTED2`; cumulative local
 validation remains `2`, process state remains `REFUTED`, and local Go
 test/build/vet/conformance executions remain zero.
 
+The v0.40.0 release transport is preserved separately from semantic portfolio
+state. Release `380259706` and annotated tag `v0.40.0` are immutable, but the
+release has zero assets because it was published before the main-CI asset was
+uploaded. This is an append-only `REFUTED` release-envelope event with reason
+`RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD`; it is recorded in
+`evidence/release-transport-v1.json` and is never deleted, modified, or
+overwritten. The correction workflow creates a draft release, uploads the
+exact main Actions artifact, publishes, and then verifies the immutable
+release API. It adds no semantic cell and does not change
+`46 / 43 CLOSED / 1 UNKNOWN / 2 REFUTED`.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
 twenty-five independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
