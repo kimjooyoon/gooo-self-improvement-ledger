@@ -869,9 +869,6 @@ jobs:
           jq -e '.object.sha=="cc225db786718083a81264398096b75a23301646" and .object.type=="tag"' "$reducer_tag_json" >/dev/null
           gh api "repos/$reducer_repo/git/tags/cc225db786718083a81264398096b75a23301646" > "$RUNNER_TEMP/gooo-semantic-counterexample-reducer-v011-tag-object.json"
           jq -e '.object.sha=="395f3faba810f0dd8f091cb6180527c7240eee61" and .object.type=="commit"' "$RUNNER_TEMP/gooo-semantic-counterexample-reducer-v011-tag-object.json" >/dev/null
-          reducer_refs=$(git ls-remote "https://github.com/$reducer_repo.git" refs/tags/v0.1.1 'refs/tags/v0.1.1^{}')
-          test "$(awk '$2=="refs/tags/v0.1.1" {print $1}' <<< "$reducer_refs")" = cc225db786718083a81264398096b75a23301646
-          test "$(awk '$2=="refs/tags/v0.1.1^{}" {print $1}' <<< "$reducer_refs")" = 395f3faba810f0dd8f091cb6180527c7240eee61
           echo "upstream semantic counterexample reducer v0.1.1 release and two-case child corpus verified"
 
       - name: Verify separate twenty-four-entry non-completeness capability evidence registry
