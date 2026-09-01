@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for fifty specifically named capabilities.
+The portfolio is an evidence ledger for fifty-one specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains fifty entries. The v0.44
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-nine-cell
+`cells` array is immutable during a run and contains fifty-one entries. The v0.45
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior fifty-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/41/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/41/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/42/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/42/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -704,9 +704,36 @@ This operational process state is not composed into the semantic portfolio
 decision. Product runtime authority remains GitHub Actions-only, with local Go
 run/compile/build/test/vet/conformance/integration counts all zero.
 
-The non-completeness capability evidence registry is a separate twenty-nine-entry
+The v0.45 frontier appends `RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE` through
+`AdoptReleaseTransportConformerDurableRelease`. It adopts immutable upstream
+`kimjooyoon/gooo-release-transport-conformer@v0.1.3`, release `380375220`,
+annotated tag object `036d3f9dcfb81511b64a34ae360ecd58b0e58fdd`, and target
+`932c98e97ca61bd4f64764a9793c3dabfd05c359`. The three release assets are
+locked by ID, size, URL, and SHA-256; the source and release Actions runs are
+`33493203961`/`99809287369` and `33493273460`/`99809518165`, and the source
+evidence artifact is `9794616120` (`2654153` bytes,
+`sha256:a844d2ffc9c346aeccba1bfb53ca9b79b537b01f7f2b6b4d2c3b284e46102936`).
+The v5 contract has 20 scenarios (`8 CLOSED / 3 UNKNOWN / 9 REFUTED`),
+`20/20/20/0/0/0` tests, twelve exactly-once activities, and inventory
+`10/20/7/1659/1/38` for directories/regular files/Go files/Go lines/Gooo
+files/Gooo lines, with root README excluded. Its authoring audit is preserved
+as a separate `REFUTED` process record.
+
+Immutable planner v0.3.0 generator-only authority is Actions run
+`33496371281`/job `99819409408`; its output artifact is `9795872540` (`393421`
+bytes, `sha256:ca604a192be8b150293f17ae4ca23f6243d70aadaf896322cac1622be1c0dfea`),
+with proof artifact `9795870562`/`470`/
+`sha256:62bdfdefdd21f09f8d6cfd844ea37b44686a480638f74b87eacc89b1b77c9a26`.
+It records `7/7` planned/changed files, five AST nodes, zero replay mismatches,
+zero input-repository writes, and rollback ready. The adoption yields
+`CLOSED48/UNKNOWN1/REFUTED2`; the v0.44 immutable parent and v0.40 transport
+`REFUTED` envelope remain preserved. Product validation remains GitHub
+Actions-only, and missing peak RSS remains `null` with its exact six-field
+`UNKNOWN` measurement state rather than zero coercion.
+
+The non-completeness capability evidence registry is a separate thirty-entry
 external-input ledger. Its count and dispositions never alter this fixed
-fifty-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+fifty-one-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

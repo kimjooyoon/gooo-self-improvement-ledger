@@ -1,0 +1,50 @@
+{
+  "schema": "gooo/self-improvement-ledger/authoring-operational-history/v1",
+  "event_id": "v0.45-authoring-local-validation",
+  "state": "OPERATIONAL_REFUTED",
+  "reason": "LOCAL_AUTHORING_STATIC_CHECKS_EXECUTED_OUTSIDE_GITHUB_ACTIONS",
+  "scope": "authoring/operator process only; not product runtime evidence",
+  "checks": {
+    "local_product_validation": {
+      "gofmt": 0,
+      "diff_check": 0,
+      "go_test": 0,
+      "go_build": 0,
+      "go_vet": 0,
+      "conformance": 0,
+      "integration": 0,
+      "result": "not executed by instruction"
+    },
+    "upstream_authoring_audit": {
+      "local_test_invocations": 2,
+      "local_test_executions": 1,
+      "static_validation_invocations": 2,
+      "static_validation_executions": 2,
+      "result": "preserved from immutable upstream evidence"
+    }
+  },
+  "product_runtime_authority": {
+    "verification": "GITHUB_ACTIONS",
+    "local_go_run_compile": 0,
+    "local_go_build": 0,
+    "local_go_test": 0,
+    "local_go_vet": 0,
+    "local_go_conformance": 0,
+    "local_go_integration": 0,
+    "repository_writes": 0
+  },
+  "measurement_policy": {
+    "missing_peak_rss": "null",
+    "missing_measurement_state": "UNKNOWN",
+    "unknown_fields": [
+      "stage",
+      "step",
+      "reason",
+      "unknown_class",
+      "next_operation",
+      "blocked_by"
+    ],
+    "zero_coercion": false
+  },
+  "resolution": "retain prior v0.43/v0.44 planner and authoring records; use PR and post-merge GitHub Actions as sole product validation authority"
+}

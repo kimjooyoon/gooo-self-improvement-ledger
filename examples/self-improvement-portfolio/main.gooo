@@ -54,3 +54,4 @@ activity AdoptStagedQuasiquoteDurableRelease(PortfolioInput) -> PortfolioEvidenc
 activity AdoptErrorDirectedEvolutionPlannerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptIncrementalModuleCompilerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptSelfRewriteSandboxDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SELF_REWRITE_SANDBOX_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptReleaseTransportConformerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"

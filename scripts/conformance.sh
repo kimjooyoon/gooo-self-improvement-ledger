@@ -14,8 +14,8 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 50 and
-  .denominator_migration == {from:49,to:50,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 51 and
+  .denominator_migration == {from:50,to:51,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
@@ -33,8 +33,9 @@ jq -e '
   .cells[47].id == "ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE" and
   .cells[48].id == "INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE" and
   .cells[49].id == "SELF_REWRITE_SANDBOX_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:41,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:41,GUARDRAIL:5} and
+  .cells[50].id == "RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE" and
+  .proof_totals == {FOUNDATION:4,COHERENCE:42,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:42,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -73,6 +74,7 @@ jq -e '
   and (.cells|map(select(.id=="ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE" and .release_key=="error_directed_evolution_planner_durable_release" and .ordinal==48 and .activity=="AdoptErrorDirectedEvolutionPlannerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE" and .release_key=="incremental_module_compiler_durable_release" and .ordinal==49 and .activity=="AdoptIncrementalModuleCompilerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="SELF_REWRITE_SANDBOX_DURABLE_RELEASE" and .release_key=="self_rewrite_sandbox_durable_release" and .ordinal==50 and .activity=="AdoptSelfRewriteSandboxDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE" and .release_key=="release_transport_conformer_durable_release" and .ordinal==51 and .activity=="AdoptReleaseTransportConformerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -112,6 +114,22 @@ jq -e '
 ' "$repository/evidence/planner-v044-candidate-history.json" >/dev/null
 echo "conformance: v0.44 candidate-stage planner history preserved"
 
+echo "conformance: verify preserved v0.45 candidate-stage planner history"
+jq -e '
+  .schema == "gooo/ledger-append-planner/candidate-operational-history/v1" and
+  .transaction_id == "release-transport-conformer-durable-release-v0.45.0" and
+  .semantic_cell_adoption_state == "CLOSED" and .portfolio_decision == "REFUTED" and
+  .selected_final_authority.run_id == 33496371281 and
+  .selected_final_authority.job_id == 99819409408 and
+  .selected_final_authority.output_artifact_id == 9795872540 and
+  .selected_final_authority.output_debug_artifact_id == 9795871741 and
+  .selected_final_authority.ci_proof_artifact_id == 9795870562 and
+  (.events|length) >= 1 and
+  all(.events[]; .repository_writes == 0 and .local_execution_counts == {go_test:0,go_build:0,go_vet:0,conformance:0}) and
+  (.events|map(select(.selected==true and .decision=="CLOSED" and .portfolio_decision=="REFUTED"))|length) == 1
+' "$repository/evidence/planner-v045-candidate-history.json" >/dev/null
+echo "conformance: v0.45 candidate-stage planner history preserved"
+
 echo "conformance: verify authoring operational history"
 jq -e '
   .schema == "gooo/self-improvement-ledger/authoring-operational-history/v1" and
@@ -127,6 +145,19 @@ jq -e '
   .product_runtime_authority == {verification:"GITHUB_ACTIONS",local_go_run_compile:0,local_go_build:0,local_go_test:0,local_go_vet:0,local_go_conformance:0,local_go_integration:0,repository_writes:0}
 ' "$repository/evidence/authoring-operational-history-v1.json" >/dev/null
 echo "conformance: authoring operational history preserved"
+
+echo "conformance: verify v0.45 authoring operational history"
+jq -e '
+  .schema == "gooo/self-improvement-ledger/authoring-operational-history/v1" and
+  .event_id == "v0.45-authoring-local-validation" and
+  .state == "OPERATIONAL_REFUTED" and
+  .reason == "LOCAL_AUTHORING_STATIC_CHECKS_EXECUTED_OUTSIDE_GITHUB_ACTIONS" and
+  .checks.local_product_validation == {gofmt:0,diff_check:0,go_test:0,go_build:0,go_vet:0,conformance:0,integration:0,result:"not executed by instruction"} and
+  .checks.upstream_authoring_audit == {local_test_invocations:2,local_test_executions:1,static_validation_invocations:2,static_validation_executions:2,result:"preserved from immutable upstream evidence"} and
+  .product_runtime_authority == {verification:"GITHUB_ACTIONS",local_go_run_compile:0,local_go_build:0,local_go_test:0,local_go_vet:0,local_go_conformance:0,local_go_integration:0,repository_writes:0} and
+  .measurement_policy == {missing_peak_rss:"null",missing_measurement_state:"UNKNOWN",unknown_fields:["stage","step","reason","unknown_class","next_operation","blocked_by"],zero_coercion:false}
+' "$repository/evidence/authoring-operational-history-v045-v1.json" >/dev/null
+echo "conformance: v0.45 authoring operational history preserved"
 
 echo "conformance: verify staged quasiquote release lock"
 jq -e '
@@ -193,6 +224,22 @@ jq -e '
   }
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 echo "conformance: self-rewrite sandbox release lock passed"
+
+echo "conformance: verify release transport conformer release lock"
+jq -e '
+  .releases.release_transport_conformer_durable_release.repository == "kimjooyoon/gooo-release-transport-conformer" and
+  .releases.release_transport_conformer_durable_release.tag == "v0.1.3" and
+  .releases.release_transport_conformer_durable_release.release_id == 380375220 and
+  .releases.release_transport_conformer_durable_release.release_url == "https://github.com/kimjooyoon/gooo-release-transport-conformer/releases/tag/v0.1.3" and
+  .releases.release_transport_conformer_durable_release.target_commit_sha == "932c98e97ca61bd4f64764a9793c3dabfd05c359" and
+  .releases.release_transport_conformer_durable_release.tag_object_sha == "036d3f9dcfb81511b64a34ae360ecd58b0e58fdd" and
+  .releases.release_transport_conformer_durable_release.immutable == true and
+  ([.releases.release_transport_conformer_durable_release.assets[] | {id,name,size_bytes,sha256,role}] | sort_by(.id)) ==
+  ([{id:539322857,name:"source-v0.1.3.tar.gz",size_bytes:27484,sha256:"sha256:309b0868bfca9ff51048c66db76c758e321f4df513455f666012fbab15ac66c6",role:"release-source"},{id:539322868,name:"evidence-v0.1.3.tar.gz",size_bytes:7518,sha256:"sha256:acebe4be411d0690991fed517daa4610b5dcca72ff185a372d0f9ff0e749ccc4",role:"release-evidence"},{id:539322879,name:"SHA256SUMS",size_bytes:176,sha256:"sha256:725f0a4ef23360a48ca717aa48a8ab605d1b5404917e035372152630aceadbb6",role:"release-checksums"}] | sort_by(.id)) and
+  .releases.release_transport_conformer_durable_release.source_run == {artifact_id:9794616120,artifact_name:"gooo-release-transport-evidence-33493203961",artifact_size_bytes:2654153,artifact_sha256:"sha256:a844d2ffc9c346aeccba1bfb53ca9b79b537b01f7f2b6b4d2c3b284e46102936",artifact_ids:[9794616120],conclusion:"success",head_branch:"main",head_sha:"932c98e97ca61bd4f64764a9793c3dabfd05c359",job_id:99809287369,job_name:"verify",job_url:"https://github.com/kimjooyoon/gooo-release-transport-conformer/actions/runs/33493203961/job/99809287369",run_id:33493203961,workflow_url:"https://github.com/kimjooyoon/gooo-release-transport-conformer/actions/runs/33493203961",expected_head_sha:"932c98e97ca61bd4f64764a9793c3dabfd05c359"} and
+  .releases.release_transport_conformer_durable_release.release_run == {conclusion:"success",head_branch:"main",head_sha:"932c98e97ca61bd4f64764a9793c3dabfd05c359",job_id:99809518165,job_name:"release",job_url:"https://github.com/kimjooyoon/gooo-release-transport-conformer/actions/runs/33493273460/job/99809518165",run_id:33493273460,workflow_url:"https://github.com/kimjooyoon/gooo-release-transport-conformer/actions/runs/33493273460",expected_head_sha:"932c98e97ca61bd4f64764a9793c3dabfd05c359"}
+' "$repository/contracts/release-locks-v1.json" >/dev/null
+echo "conformance: release transport conformer release lock passed"
 
 echo "conformance: verify preserved release transport failure envelope"
 jq -e '
@@ -1053,8 +1100,8 @@ echo "conformance: differential semantics runtime release lock passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:49,to:50,add:1,retire:0,split:0,append_only:true} and
-  .local_validation_followup == {local_validation_executions:2,inspection_only:false,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
+  .denominator_migration == {from:50,to:51,add:1,retire:0,split:0,append_only:true} and
+  .local_validation_followup == {local_validation_executions:0,inspection_only:true,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -1317,7 +1364,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 50 and
+  (.cells|length) == 51 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1866,12 +1913,12 @@ jq '{schema,profile_id,decision,summary,proof_counts,indicator_counts,bindings,r
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:50,closed:47,unknown:1,refuted:2} and
+  .summary == {total:51,closed:48,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 50 and
+  (.cells|length) == 51 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 47 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 48 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -1924,16 +1971,17 @@ jq -e '
     STAGED_QUASIQUOTE_DURABLE_RELEASE:"CLOSED",
     ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE:"CLOSED",
     INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE:"CLOSED",
-    SELF_REWRITE_SANDBOX_DURABLE_RELEASE:"CLOSED"
+    SELF_REWRITE_SANDBOX_DURABLE_RELEASE:"CLOSED",
+    RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:50,activities:50,unique_axes:50,unique_metrics:50,source_bindings:50,ir_bindings:50,generated_artifact_bindings:50,evaluator_bindings:50} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 41 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 41 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:47,verified:47,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:51,activities:51,unique_axes:51,unique_metrics:51,source_bindings:51,ir_bindings:51,generated_artifact_bindings:51,evaluator_bindings:51} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 42 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 42 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:48,verified:48,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
