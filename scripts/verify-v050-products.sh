@@ -96,9 +96,9 @@ baseline_peak_rss_kib=$(awk '{print $2+0}' "$baseline_time")
 
 fixture_source="$utility_source_dir/fixtures/deterministic-corpus-v1.json"
 test -s "$fixture_source"
-jq -S --rawfile content "$input_manifest" --arg digest "$input_digest" '
-  .cases[0].cells[0].content=$content | .cases[0].cells[1].content=$digest | .cases[0].cells[2].content="replay:"+$digest |
-  .cases[1].cells[0].content=$content | .cases[2].cells[0].content=$content
+jq -S --arg digest "$input_digest" '
+  .cases[0].cells[0].content="input-manifest:"+$digest | .cases[0].cells[1].content=$digest | .cases[0].cells[2].content="replay:"+$digest |
+  .cases[1].cells[0].content="input-manifest:"+$digest | .cases[2].cells[0].content="input-manifest:"+$digest
 ' "$fixture_source" > "$fixture"
 contract_file="$utility_source_dir/.gooo/content-addressed-evidence-projector.gooo"
 contract_digest="sha256:$(sha256sum "$contract_file" | awk '{print $1}')"
