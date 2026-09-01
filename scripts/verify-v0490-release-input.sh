@@ -148,7 +148,7 @@ jq -e '
     .adoption.release_audit.api_observation=={requests:.adoption.release_audit.api_observation.requests,reused:0,selected:59,executed:59,rate_limit:.adoption.release_audit.api_observation.rate_limit,source:"FULL_59_LOCK_AUDIT"} and
     ((.adoption.release_audit.primary.state=="UNKNOWN" and (.adoption.release_audit.primary.unknown|keys|sort)==["blocked_by","next_operation","reason","stage","step","unknown_class"]) or
      (.adoption.release_audit.primary.state=="REFUTED" and (.adoption.release_audit.primary.refuted|keys|sort)==["blocked_by","next_operation","reason","stage","step","unknown_class"]))
-  end
+  end)
 ' "$product" >/dev/null
 
 jq -e '
