@@ -94,7 +94,8 @@ jq -e --arg commit "$target_commit" --arg tag_object "$tag_object" --argjson rel
    .authority=={github_actions_token:"github.token",local_verification_executions:0,repository_writes:0}' "$assets_root/$lock_asset_name" >/dev/null
 
 fetch_artifact() {
-  local id=$1 name=$2 run_id=$3 size=$4 digest=$5 path="$proof_root/$name.zip"
+  local id=$1 name=$2 run_id=$3 size=$4 digest=$5 path
+  path="$proof_root/$name.zip"
   artifact_json=$(gh api "repos/kimjooyoon/gooo-self-improvement-ledger/actions/artifacts/$id")
   jq -e --argjson id "$id" --arg name "$name" --argjson run_id "$run_id" --argjson size "$size" --arg digest "$digest" \
     '.id==$id and .name==$name and .size_in_bytes==$size and .digest==$digest and .workflow_run.id==$run_id and .expired==false' <<< "$artifact_json" >/dev/null
