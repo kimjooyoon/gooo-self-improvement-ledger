@@ -14,16 +14,16 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 38 and
-  .denominator_migration == {from:37,to:38,add:1,retire:0,split:0,append_only:true} and
-  (.cells|map(.id)|.[0:37]) == [
+  .total_cells == 39 and
+  .denominator_migration == {from:38,to:39,add:1,retire:0,split:0,append_only:true} and
+  (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
     "DESIGN_CONSUMER_PATH","OPENTOFU_PLAN_PATH","RELEASE_PROMOTION","EXTERNAL_UTILITY_EVIDENCE",
-    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE","SELF_REPAIR_INTEGRATION_RELEASE","OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE","LANGUAGE_DELTA_FORGE_DURABLE_RELEASE","OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE","REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE","CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE","EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE","REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE"
-  ] and .cells[37].id == "EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:29,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:29,GUARDRAIL:5} and
+    "COUNTERFACTUAL_CHANGE_RELEASE","VERIFICATION_REUSE_RELEASE","SEMANTIC_DRIFT_RELEASE","SEMANTIC_DRIFT_DEVELOPMENT_PROCESS","IMPROVEMENT_FRONTIER_RELEASE","AUTHORITY_BOOTSTRAP_RELEASE","OPENTOFU_ENVELOPE_RELEASE","IMPROVEMENT_PROPOSER_RELEASE","TEST_FRONTIER_RELEASE","CHANGE_BUNDLE_RELEASE","UTILITY_TRIAL_PROTOCOL_RELEASE","REFLEXIVE_MODERN_CYCLE_RELEASE","EXPERIENCE_MEMORY_RELEASE","SEMANTIC_DRIFT_GUARD_RELEASE","SEMANTIC_AUTHORITY_CENSUS_RELEASE","REFLEXIVE_LEARNING_DRIFT_CYCLE_RELEASE","UNKNOWN_RESOLUTION_LATTICE_RELEASE","SELF_REPAIR_INTEGRATION_RELEASE","OPENTOFU_DURABLE_SEMANTIC_ENVELOPE_RELEASE","LANGUAGE_DELTA_FORGE_DURABLE_RELEASE","OPENTOFU_GENERATED_SERVICE_PROJECT_DURABLE_RELEASE","REFLEXIVE_COMPILER_PHASE_DURABLE_RELEASE","CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE","EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE","REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE","EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE"
+  ] and .cells[38].id == "STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE" and
+  .proof_totals == {FOUNDATION:4,COHERENCE:30,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:30,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -49,7 +49,8 @@ jq -e '
   (.cells|map(select(.id=="CAUSAL_VERIFICATION_RUNNER_DURABLE_RELEASE" and .release_key=="causal_verification_runner_durable_release"))|length)==1 and
   (.cells|map(select(.id=="EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE" and .release_key=="executable_evolution_trial_counterexample_durable_release"))|length)==1 and
   (.cells|map(select(.id=="REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE" and .release_key=="reflexive_compiler_graph_topology_self_improvement_durable_release"))|length)==1 and
-  (.cells|map(select(.id=="EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE" and .release_key=="executable_evolution_trial_closed_loop_durable_release" and .ordinal==38 and .activity=="AdoptExecutableEvolutionTrialClosedLoop" and .proof=="COHERENCE" and .indicator=="OUTCOME"))|length)==1
+  (.cells|map(select(.id=="EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE" and .release_key=="executable_evolution_trial_closed_loop_durable_release" and .ordinal==38 and .activity=="AdoptExecutableEvolutionTrialClosedLoop" and .proof=="COHERENCE" and .indicator=="OUTCOME"))|length)==1 and
+  (.cells|map(select(.id=="STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE" and .release_key=="structural_ledger_append_planner_durable_release" and .ordinal==39 and .activity=="AdoptStructuralLedgerAppendPlannerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -726,6 +727,14 @@ jq -e '
   (.releases.executable_evolution_trial_closed_loop_durable_release.assets|map(.id)) == [538638669,538638668,538638665,538638674,538638666,538638667] and
   (.releases.executable_evolution_trial_closed_loop_durable_release.assets|map(.size_bytes)) == [2345,30429,764,469,4134,319] and
   (.releases.executable_evolution_trial_closed_loop_durable_release.assets|map(.sha256)) == ["sha256:7cf59e690e9458eefffcb9cfd536119f6669146bf00aa96a365ee3bc1af688ac","sha256:984ef2a192221adc8ebeaeb8489e6a1bf450238d16036c045c4382fe19429218","sha256:48f4dd0c1391f9ec91654e8d2b25a67942e8e6febd3461c61d0651a35896153f","sha256:bc867402084059cda6fd1f9590f94b45f807725001c2d9e927e13808be8e9aca","sha256:28f5457240fb35d3c24c65373f824cb5df918f003245b60cb5389ca3618e4120","sha256:c11572b368dcc984ea4c2666ec4aa46dc43c3434cd913cac044daf6142bb9f74"] and
+  .releases.structural_ledger_append_planner_durable_release.release_id == 380152259 and
+  .releases.structural_ledger_append_planner_durable_release.tag == "v0.2.0" and
+  .releases.structural_ledger_append_planner_durable_release.release_url == "https://github.com/kimjooyoon/gooo-ledger-append-planner/releases/tag/v0.2.0" and
+  .releases.structural_ledger_append_planner_durable_release.target_commit_sha == "893042983ac5666abaefeb035e8efaf6d9f6cd62" and
+  .releases.structural_ledger_append_planner_durable_release.tag_object_sha == "aaf26d3047e91deaf757dbc1976f1ada573c450b" and
+  .releases.structural_ledger_append_planner_durable_release.immutable == true and
+  (.releases.structural_ledger_append_planner_durable_release.assets|map({id,size_bytes,sha256})) == [{id:538748262,size_bytes:6300811,sha256:"sha256:25274148049853e3147618e6278570259cf3238fb578b8f808231e47c2488da8"},{id:538748260,size_bytes:402726,sha256:"sha256:f01a5ad3350a507aca5f91142e8cd09cbaf7ab923507a85f8209084d873663f7"},{id:538748261,size_bytes:242,sha256:"sha256:58eaa0009d817797ebc8d05d6d2d304ddd8b1ed1c455e6d70c620ca21cd568e2"}] and
+  (.releases.structural_ledger_append_planner_durable_release.assets|map(.download_url)) == ["https://github.com/kimjooyoon/gooo-ledger-append-planner/releases/download/v0.2.0/gooo-ledger-append-planner-linux-amd64-v0.2.0","https://github.com/kimjooyoon/gooo-ledger-append-planner/releases/download/v0.2.0/gooo-ledger-append-planner-source-v0.2.0.tar.gz","https://github.com/kimjooyoon/gooo-ledger-append-planner/releases/download/v0.2.0/SHA256SUMS"] and
   (.failed_release_triggers|length) == 1 and
   .failed_release_triggers[0].counterexample_id == "improvement_proposer_v0.1.0_failed_release_trigger" and
   .failed_release_triggers[0].release_api_status == 404 and .failed_release_triggers[0].release_absent == true and
@@ -766,7 +775,7 @@ echo "conformance: release lock contract passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:37,to:38,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:38,to:39,add:1,retire:0,split:0,append_only:true} and
   .local_validation_followup == {local_validation_executions:2,inspection_only:false,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
@@ -1030,7 +1039,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 38 and
+  (.cells|length) == 39 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1204,6 +1213,19 @@ jq -e '
     ($closed_loop.evidence | index("process:bootstrap_direct_main=1:post_bootstrap_direct_main=0:exact=true:repository_writes=0:upstream_writes=0:local_test_executions=0")) != null and
     ($closed_loop.evidence | index("prior-ledger-consumer-observation:local_validation_executions=1:process=REFUTED:local_schema_replays=0:local_conformance_replays=0")) != null and
     ($closed_loop.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
+  ((.cells[] | select(.cell_id == "STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE")) as $planner |
+    $planner.state == "CLOSED" and
+    $planner.release_key == "structural_ledger_append_planner_durable_release" and
+    ($planner.evidence | index("planner_used=true:version=v0.2.0:tag=v0.2.0:release=380152259:tag_object=aaf26d3047e91deaf757dbc1976f1ada573c450b:target=893042983ac5666abaefeb035e8efaf6d9f6cd62")) != null and
+    ($planner.evidence | index("planner-assets:538748262:6300811:sha256:25274148049853e3147618e6278570259cf3238fb578b8f808231e47c2488da8,538748260:402726:sha256:f01a5ad3350a507aca5f91142e8cd09cbaf7ab923507a85f8209084d873663f7,538748261:242:sha256:58eaa0009d817797ebc8d05d6d2d304ddd8b1ed1c455e6d70c620ca21cd568e2")) != null and
+    ($planner.evidence | index("structural-append:cell=STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE:activity=AdoptStructuralLedgerAppendPlannerDurableRelease:lock=structural_ledger_append_planner_durable_release")) != null and
+    ($planner.evidence | index("ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0")) != null and
+    ($planner.evidence | index("rollback-receipt:rollback_ready=true")) != null and
+    ($planner.evidence | index("matched-immutable-target-bindings:v0.1->v0.2:1->2:exact=true")) != null and
+    ($planner.evidence | index("wrong-digest-case:state=REFUTED:reason=SOURCE_TREE_DIGEST_MISMATCH:preserved=true")) != null and
+    ($planner.evidence | index("missing-binding-case:state=UNKNOWN:unknown_fields=stage/step/reason/unknown_class/next_operation/blocked_by:preserved=true")) != null and
+    ($planner.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null and
+    ($planner.evidence | index("planner-tool-executions:current_task=1:classification=generator_only:not_validation=true")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -1275,12 +1297,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:38,closed:35,unknown:1,refuted:2} and
+  .summary == {total:39,closed:36,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 38 and
+  (.cells|length) == 39 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 35 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 36 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -1327,10 +1349,10 @@ jq -e '
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:38,activities:38,unique_axes:38,unique_metrics:38,source_bindings:38,ir_bindings:38,generated_artifact_bindings:38,evaluator_bindings:38} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 29 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 29 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:35,verified:35,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:39,activities:39,unique_axes:39,unique_metrics:39,source_bindings:39,ir_bindings:39,generated_artifact_bindings:39,evaluator_bindings:39} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 30 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 30 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:36,verified:36,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
