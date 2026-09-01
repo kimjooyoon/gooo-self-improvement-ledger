@@ -75,7 +75,8 @@ jobs:
         run: |
           set -Eeuo pipefail
           mkdir -p "$RUNNER_TEMP/input"
-          git archive 47e424fc506885ac344dfd52f6b6fdc4109eb3db | tar -x -C "$RUNNER_TEMP/input"
+          git fetch --no-tags --depth=1 origin 47e424fc506885ac344dfd52f6b6fdc4109eb3db
+          git archive FETCH_HEAD | tar -x -C "$RUNNER_TEMP/input"
 
       - name: Run planner v0.3.0 generator-only against clean v0.39
         shell: bash
