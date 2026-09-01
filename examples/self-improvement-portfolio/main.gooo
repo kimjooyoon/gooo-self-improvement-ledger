@@ -47,3 +47,4 @@ activity AdoptExplanationCarryingCompilerDurableRelease(PortfolioInput) -> Portf
 activity AdoptTwoGenerationBootstrapDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptHygienicOriginResolverDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptCapabilityEffectCheckerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptDeterministicModuleLinkerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"

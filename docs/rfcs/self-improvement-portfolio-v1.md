@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for forty-three specifically named capabilities.
+The portfolio is an evidence ledger for forty-four specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains forty-three entries. The v0.37
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-two-cell
+`cells` array is immutable during a run and contains forty-four entries. The v0.38
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-three-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/34/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/34/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/35/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/35/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -539,9 +539,32 @@ invocation. The new cell is `CLOSED`, yielding `CLOSED40/UNKNOWN1/REFUTED2`;
 cumulative local validation remains `2`, process state remains `REFUTED`, and
 local schema/conformance plus Go test/build/vet executions remain zero.
 
-The non-completeness capability evidence registry is a separate twenty-two-entry
+The v0.38 frontier appends `DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE`. It
+adopts immutable upstream `kimjooyoon/gooo-module-linker@v0.1.1`, release ID
+`380147845`, with annotated tag object
+`006323188885fe6564c26a47c71b66a3a0dc960e` resolving to target
+`73a2c4f64be92d3dff67e659794f1597427c3148`. The three release assets are pinned
+by API ID, byte size, URL, and SHA-256 digest: evidence `538733980` (`7498`),
+linked IR `538733979` (`2746`), and generated Go `538733978` (`982`). The
+child corpus is `9/9` selected and executed with canonical input-order digest
+`sha256:526c7bf9fe423e2d8487f8a89a68918045ab4ffa28dce8ebd9998e5419feb794`,
+two `UNKNOWN` cases with exactly the six required fields, duplicate/digest/
+release/cycle `REFUTED` cases, and a `CLOSED` generated Go build. The linked IR
+is `CLOSED` and the generated Go preserves the same canonical digest.
+
+The adoption is executed from the immutable v0.37.0 baseline by planner v0.3.0
+using the v3 transaction manifest. Five semantic targets remain append-only and
+two derived report/history projections may be replaced only in caller-owned
+temporary output after exact before/source semantic digest checks. The planner
+records `7/7` planned/changed paths, `5` AST nodes, zero replay mismatches, zero
+planning repository writes, an exact rollback-ready receipt, and a generator-only
+invocation. The new cell is `CLOSED`, yielding `CLOSED41/UNKNOWN1/REFUTED2`;
+cumulative local validation remains `2`, process state remains `REFUTED`, and
+local schema/conformance plus Go test/build/vet execution counts remain zero.
+
+The non-completeness capability evidence registry is a separate twenty-three-entry
 external-input ledger. Its count and dispositions never alter this fixed
-forty-three-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+forty-four-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

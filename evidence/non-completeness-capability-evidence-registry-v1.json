@@ -499,9 +499,44 @@
         "target_commit_sha": "5bd2efb088ec9d38d3d4fc79c3545b61446935e8"
       },
       "state": "CLOSED"
+    },
+    {
+      "entry_id": "deterministic-module-linker-v0.1.1",
+      "evidence": [
+        "immutable release API and annotated tag",
+        "evidence, linked IR, and generated Go release assets",
+        "nine-child corpus preserves 9/9 selected and executed, canonical input-order digest, two UNKNOWN six-field frontiers, and duplicate/digest/release/cycle REFUTED cases",
+        "generated Go build is CLOSED"
+      ],
+      "observed": {
+        "canonical_input_order_digest": "sha256:526c7bf9fe423e2d8487f8a89a68918045ab4ffa28dce8ebd9998e5419feb794",
+        "child_cases_executed": 9,
+        "child_cases_selected": 9,
+        "cross_project_required_gates": 0,
+        "cycle": "REFUTED",
+        "digest": "REFUTED",
+        "duplicate": "REFUTED",
+        "generated_go_build": "CLOSED",
+        "local_test_executions": 0,
+        "release": "REFUTED",
+        "release_assets": 3,
+        "release_immutable": true,
+        "repository_writes": 0,
+        "target_commit_sha": "73a2c4f64be92d3dff67e659794f1597427c3148",
+        "unknown_cases": 2,
+        "unknown_fields": [
+          "stage",
+          "step",
+          "reason",
+          "unknown_class",
+          "next_operation",
+          "blocked_by"
+        ]
+      },
+      "state": "CLOSED"
     }
   ],
-  "entry_count": 22,
+  "entry_count": 23,
   "frontier_additions": [
     "receipt-schema-migration-v0.1.1",
     "receipt-schema-migration-v0.2.2",
@@ -516,7 +551,8 @@
     "explanation-carrying-compiler-v0.3.0",
     "two-generation-bootstrap-v0.1.1",
     "hygienic-origin-resolver-v0.1.1",
-    "capability-effect-checker-v0.1.1"
+    "capability-effect-checker-v0.1.1",
+    "deterministic-module-linker-v0.1.1"
   ],
   "lineage": [
     {
