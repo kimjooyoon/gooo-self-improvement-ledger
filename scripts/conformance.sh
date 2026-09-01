@@ -1941,6 +1941,6 @@ jq -e '
   (has("percentage")|not) and (has("score")|not)
 ' "$artifact/report.json" >/dev/null
 
-jq -S -n --argjson report "$(cat "$artifact/report.json")" --argjson wall "$report_wall" --argjson raw "$((end - start))" \
-  '{schema:"gooo/self-improvement-portfolio/conformance/v1",tests:{executed:1,reused:0,skipped:0},report_decision:$report.decision,summary:$report.summary,report_generation:{wall_ms:$wall,duration_ns:$raw,peak_rss_kib:($report.performance.report.peak_rss_kib|tonumber)},repository_writes:$report.authority.runtime_repository_writes}' \
+jq -S -n --slurpfile report "$artifact/report.json" --argjson wall "$report_wall" --argjson raw "$((end - start))" \
+  '{schema:"gooo-self-improvement-portfolio/conformance/v1",tests:{executed:1,reused:0,skipped:0},report_decision:$report[0].decision,summary:$report[0].summary,report_generation:{wall_ms:$wall,duration_ns:$raw,peak_rss_kib:($report[0].performance.report.peak_rss_kib|tonumber)},repository_writes:$report[0].authority.runtime_repository_writes}' \
   > "$artifact/conformance.json"
