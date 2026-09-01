@@ -83,8 +83,11 @@ jobs:
           test "$(awk '$2=="refs/tags/v0.44.0" {print $1}' <<< "$parent_refs")" = a14d2bc3276ffebc689bbe61d0fe707cda42af6
           test "$(awk '$2=="refs/tags/v0.44.0^{}" {print $1}' <<< "$parent_refs")" = 35a96e54dd8457c13e45b8339a09787f806c4455
           gh api "repos/$REPOSITORY/releases/assets/539347880" -H 'Accept: application/octet-stream' > "$RUNNER_TEMP/v0440-parent.zip"
-          test "$(wc -c < "$RUNNER_TEMP/v0440-parent.zip" | tr -d ' ')" = 30322448
-          test "sha256:$(sha256sum "$RUNNER_TEMP/v0440-parent.zip" | awk '{print $1}')" = sha256:70e995f17de551624497db95caca1da10b56f46eaa058d15bc244b88701b3d24
+          parent_size=$(wc -c < "$RUNNER_TEMP/v0440-parent.zip" | tr -d '[:space:]')
+          parent_digest="sha256:$(sha256sum "$RUNNER_TEMP/v0440-parent.zip" | awk '{print $1}')"
+          echo "v0.44 parent asset size=$parent_size digest=$parent_digest"
+          test "$parent_size" = 30322448
+          test "$parent_digest" = sha256:70e995f17de551624497db95caca1da10b56f46eaa058d15bc244b88701b3d24
 
       - name: Preserve the v0.40.0 failed release envelope
         shell: bash
