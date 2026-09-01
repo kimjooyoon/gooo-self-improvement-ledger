@@ -1297,7 +1297,7 @@
       "release_key": "semantic_migration_compiler_durable_release",
       "evidence": [
         "upstream-release:repo=kimjooyoon/gooo-semantic-migration-compiler:tag=v0.1.1:release=380573346:tag_object=656f4de6621ce1010bae12e92fa1beebf8044169:target=647d470f9812206bbbb022d4dc454f18b01a78ac:immutable=true",
-        "upstream-assets:539662132:2694484:sha256:e0ff9681616e2f22091c7ad9bc6dbfae0b6e205a0cc88607e65183feff34982c2,539662131:125:sha256:3b114d6690a1089e72d25dcda8039b718e64f72194ce676beb808a99f0503791,539662134:396:sha256:0835ccf6e704bc99999555314aaf09ab92d618b5106b3b030b2412816b52e24d",
+        "upstream-assets:539662132:2694484:sha256:e0ff9681616e2f22091c7ad9bc6dbfa0e6b205a0cc88607e65183feff34982c2,539662131:125:sha256:3b114d6690a1089e72d25dcda8039b718e64f72194ce676beb808a99f0503791,539662134:396:sha256:0835ccf6e704bc99999555314aaf09ab92d618b5106b3b030b2412816b52e24d",
         "migration-release-manifest:immutable=true:cross_project_required_gates=0:release_asset_verified=true",
         "preserved-migration-history:v0.1.0:immutable=false:state=UNKNOWN",
         "scope:SEMANTIC_MIGRATION_COMPILER_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN",
