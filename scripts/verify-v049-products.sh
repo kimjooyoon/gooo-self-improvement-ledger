@@ -235,7 +235,7 @@ func main() {
 }
 EOF
 (cd "$reuse_source" && go build -trimpath -o "$reuse_root/v049-wave" ./cmd/v049-wave)
-"$reuse_root/v049-wave" "$reuse_root/v049-content-reuse-observation.json"
+(cd "$reuse_source" && "$reuse_root/v049-wave" "$reuse_root/v049-content-reuse-observation.json")
 jq -e '
   .schema=="gooo/self-improvement-ledger/v049-content-reuse-observation/v1" and .parent_lock_count==57 and .current_lock_count==59 and
   .baseline.status=="CLOSED" and .baseline.metrics.selected==59 and .baseline.metrics.executed==59 and .baseline.metrics.reused==0 and
