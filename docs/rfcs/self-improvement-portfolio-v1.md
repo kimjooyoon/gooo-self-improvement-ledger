@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for forty-seven specifically named capabilities.
+The portfolio is an evidence ledger for forty-eight specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains forty-seven entries. The v0.41
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-six-cell
+`cells` array is immutable during a run and contains forty-eight entries. The v0.42
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-seven-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/38/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/38/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/39/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/39/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -624,6 +624,21 @@ repository writes, and rollback ready. The adoption yields
 `CLOSED44/UNKNOWN1/REFUTED2`; local Go/schema/conformance execution counts
 remain zero.
 
+The v0.42 frontier appends `ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE`.
+It adopts immutable upstream `kimjooyoon/gooo-error-directed-evolution-planner@v0.1.1`,
+release `380175481`, annotated tag object
+`e44041e4cd7d42cc716048b2dc94fb23d9b36fec`, and target
+`72350a2cbc53190cadc9cc5e4ac9f60875418289`. Its six release assets are bound
+by API identity and downloaded digest. The upstream CI run
+`33462832367`/job `99716440307` succeeds on the target; its five-case corpus is
+`CLOSED2/UNKNOWN2/REFUTED1` with replay `CLOSED` and overall `CLOSED`.
+Compiler v0.3.0 and reducer v0.1.1 bindings are immutable and digest-bound.
+Immutable planner v0.3.0 generator-only run `33483134192` records `7/7`
+planned/changed paths, `5` AST nodes, zero replay mismatches, zero input
+repository writes, and rollback ready. The adoption yields
+`CLOSED45/UNKNOWN1/REFUTED2`; local Go/schema/conformance execution counts
+remain zero.
+
 The v0.40.0 release transport is a separate preserved envelope event. Release
 `380259706` and annotated tag `v0.40.0` are immutable with zero assets because
 publication preceded asset upload. The event is `REFUTED` with reason
@@ -634,9 +649,9 @@ creation, exact main-CI asset upload, publication, and immutable API
 verification in that order; it adds no portfolio cell and leaves the semantic
 state at 46 cells, 43 CLOSED, 1 UNKNOWN, and 2 REFUTED.
 
-The non-completeness capability evidence registry is a separate twenty-six-entry
+The non-completeness capability evidence registry is a separate twenty-seven-entry
 external-input ledger. Its count and dispositions never alter this fixed
-forty-seven-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+forty-eight-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

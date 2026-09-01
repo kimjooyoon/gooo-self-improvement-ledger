@@ -1424,6 +1424,65 @@
       "tag_object_sha": "965abb84f065783db1183271fcf71a989a7637ff",
       "target_commit_sha": "33e0f5a9b54f22824c1a34c914e74d8e0f931b62"
     },
+    "error_directed_evolution_planner_durable_release": {
+      "assets": [
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-error-directed-evolution-planner/releases/download/v0.1.1/gooo-error-directed-evolution-planner-linux-amd64-v0.1.1.tar.gz",
+          "id": 538826659,
+          "name": "gooo-error-directed-evolution-planner-linux-amd64-v0.1.1.tar.gz",
+          "role": "release-binary",
+          "sha256": "sha256:5e457e61466c58e2c2fede1cdf9ab94645c4f19648ccdfb397f1e2f8275489f9",
+          "size_bytes": 2763054
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-error-directed-evolution-planner/releases/download/v0.1.1/gooo-error-directed-evolution-planner-source-v0.1.1.tar.gz",
+          "id": 538826660,
+          "name": "gooo-error-directed-evolution-planner-source-v0.1.1.tar.gz",
+          "role": "release-source",
+          "sha256": "sha256:5a753a6f75a9ebe78e857a373890d2be307ccb4c9f91b4939110c71bda9e8594",
+          "size_bytes": 27388
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-error-directed-evolution-planner/releases/download/v0.1.1/planner-report-v0.1.1.json",
+          "id": 538826664,
+          "name": "planner-report-v0.1.1.json",
+          "role": "release-report",
+          "sha256": "sha256:8ec628e0b7fd84cd893b6801a622b207693db68c9c8890386d5382417aad094b",
+          "size_bytes": 67823
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-error-directed-evolution-planner/releases/download/v0.1.1/release-manifest-v0.1.1.json",
+          "id": 538826662,
+          "name": "release-manifest-v0.1.1.json",
+          "role": "release-manifest",
+          "sha256": "sha256:212873c68d9b6a8c7f9fc21a51057ed631832144cd9d2825252dd3263fb1de44",
+          "size_bytes": 834
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-error-directed-evolution-planner/releases/download/v0.1.1/SHA256SUMS",
+          "id": 538826661,
+          "name": "SHA256SUMS",
+          "role": "release-checksums",
+          "sha256": "sha256:bba3d5ff2832d0cb15e8d9488853c9b7dd9a7b0dfc8361826d5073623856cd1e",
+          "size_bytes": 522
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-error-directed-evolution-planner/releases/download/v0.1.1/version.json",
+          "id": 538826671,
+          "name": "version.json",
+          "role": "release-version",
+          "sha256": "sha256:a70099e31a7703dd955626e404bce46fc1bd6699ce882a0c3319100ab975eaf4",
+          "size_bytes": 373
+        }
+      ],
+      "immutable": true,
+      "release_id": 380175481,
+      "release_url": "https://github.com/kimjooyoon/gooo-error-directed-evolution-planner/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-error-directed-evolution-planner",
+      "tag": "v0.1.1",
+      "tag_object_sha": "e44041e4cd7d42cc716048b2dc94fb23d9b36fec",
+      "target_commit_sha": "72350a2cbc53190cadc9cc5e4ac9f60875418289"
+    },
     "executable_evolution_trial_closed_loop_durable_release": {
       "assets": [
         {
