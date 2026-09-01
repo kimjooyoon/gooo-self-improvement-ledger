@@ -1799,7 +1799,7 @@ jq -e '
 ' "$repository/evidence/assessment-v1.json" >/dev/null
 
 start=$(date +%s%N)
-/usr/bin/time -f '%M' -o "$artifact/report-peak-rss" "$binary" \
+if ! /usr/bin/time -f '%M' -o "$artifact/report-peak-rss" "$binary" \
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
   -activities "$repository/examples/self-improvement-portfolio/main.gooo" \
   -assessment "$repository/evidence/assessment-v1.json" \
@@ -1808,7 +1808,10 @@ start=$(date +%s%N)
   -repository-root "$repository" \
   -artifact-root "$artifact" \
   -output-json "$probe/report.json" \
-  -output-markdown "$probe/report.md"
+  -output-markdown "$probe/report.md" 2>"$artifact/report-command.stderr"; then
+  cat "$artifact/report-command.stderr" >&2
+  exit 1
+fi
 end=$(date +%s%N)
 report_wall=$(( (end - start) / 1000000 ))
 report_raw=$((end - start))
@@ -1820,7 +1823,7 @@ jq --argjson wall "$report_wall" --argjson raw "$report_raw" --argjson rss "$rep
 mv "$probe/runtime.json" "$artifact/runtime.json"
 
 start=$(date +%s%N)
-/usr/bin/time -f '%M' -o "$probe/final-report-peak-rss" "$binary" \
+if ! /usr/bin/time -f '%M' -o "$probe/final-report-peak-rss" "$binary" \
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
   -activities "$repository/examples/self-improvement-portfolio/main.gooo" \
   -assessment "$repository/evidence/assessment-v1.json" \
@@ -1829,8 +1832,14 @@ start=$(date +%s%N)
   -repository-root "$repository" \
   -artifact-root "$artifact" \
   -output-json "$artifact/report.json" \
-  -output-markdown "$artifact/report.md"
+  -output-markdown "$artifact/report.md" 2>"$artifact/final-report-command.stderr"; then
+  cat "$artifact/final-report-command.stderr" >&2
+  exit 1
+fi
 end=$(date +%s%N)
+
+echo "conformance: emitted report diagnostics"
+jq '{schema,profile_id,decision,summary,proof_counts,indicator_counts,bindings,releases,authority,local_execution_counts}' "$artifact/report.json"
 
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
