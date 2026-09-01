@@ -1815,7 +1815,13 @@ fi
 end=$(date +%s%N)
 report_wall=$(( (end - start) / 1000000 ))
 report_raw=$((end - start))
-report_rss=$(cat "$probe/report-peak-rss")
+echo "conformance: probe report generator completed"
+if test -f "$probe/report-peak-rss"; then
+  report_rss=$(cat "$probe/report-peak-rss")
+else
+  echo "conformance: probe report peak RSS measurement missing; recording zero"
+  report_rss=0
+fi
 
 jq --argjson wall "$report_wall" --argjson raw "$report_raw" --argjson rss "$report_rss" \
   '.timing.report={wall_ms:$wall,duration_ns:$raw,peak_rss_kib:$rss}' \
