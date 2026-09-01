@@ -48,7 +48,7 @@ jq -e '
   ])
 ' "$repository/evidence/assessment-v1.json" >/dev/null
 jq -e '
-  .schema == "gooo/self-improvement-ledger/release-locks/v1" and
+  .schema == "gooo/self-improvement-portfolio/release-locks/v1" and
   (.releases|length) == 62 and
   .releases.measurement_boundary_v2_projector_durable_release == {
     repository:"kimjooyoon/gooo-measurement-boundary-projector",tag:"v0.2.0",release_id:380839207,immutable:true,
