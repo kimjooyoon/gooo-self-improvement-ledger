@@ -1242,6 +1242,24 @@
         "preserved-v0.40.0-transport:release=380259706:state=REFUTED:reason=RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD:mutation_policy=NO_DELETE_NO_OVERWRITE",
         "preserved-parent-byte-frontier:parent_asset_current_bytes=null:state=UNKNOWN:stage=RELEASE_TRANSPORT:step=FETCH_PARENT_ASSET_BYTES:reason=V0_45_0_RELEASE_RUN_DID_NOT_OBSERVE_CURRENT_V0_44_0_PARENT_ASSET_BYTES:unknown_class=DIRECT_MISSING:next_operation=FETCH_AND_MATCH_PARENT_ASSET_BYTES:blocked_by=release-transport-run-v0.45.0"
       ]
+    },
+    {
+      "cell_id": "SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "semantic_denominator_projector_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-semantic-denominator-projector:tag=v0.1.0:release=380501283:tag_object=bde8a7e98e2e4572e438eb6b4c7da4aebd388f16:target=60ef02caae58811c1e716b3356af121f09cc605d:immutable=true",
+        "upstream-assets:539559482:7535:sha256:d55994e252915558beaca61666e77946f10e61fb294cee6d7e29e4ce5b3d275c,539559498:121854:sha256:71d2570193d382840f1f8056365a83ac6ff609157d8c4b639abeca7cebe78714,539559406:7395:sha256:c72b4d7c72da7fa12364bb158b0ce66ce0bbe1b2e287df3d1de280be6d74f128",
+        "upstream-ci:run_id=33511085673:job=99866617691:commit=60ef02caae58811c1e716b3356af121f09cc605d:artifact=9801649738:14625:sha256:3b552c1cf5ca8d90e6c72b8a0260804e4c5e82be27396024301c0b4975c4e2a3:success",
+        "upstream-release-verification:run_id=33511709706:job=99868732834:commit=31dcbe3601714343fdd60067b2f232e6d903707d:artifact=9801892833:1002:sha256:b2b14ed0ca1e967648647c314434244becf5e41641466fe07716e17400996df7:success",
+        "released-gooo:asset=539559482:digest=sha256:d55994e252915558beaca61666e77946f10e61fb294cee6d7e29e4ce5b3d275c:activities=12:cells=12:rules=9:cases=12:external_required_gates=0:repository_writes=0",
+        "projection-path:source=examples/self-improvement-portfolio/main.gooo:inputs=profile+assessment+release-verification:outputs=semantic-denominator+semantic-distribution+generated-assertions+projection-events+report",
+        "projection-exact-match:report-json=true:projection-events-ndjson=true:manual-denominator-errors=blocked",
+        "operational-refuted:local_validation_commands=1:known_failure=local YAML syntax parser invoked once during workflow diagnosis",
+        "operator-api-attempts:null:state=UNKNOWN:stage=EVIDENCE_RECONCILIATION:step=RECONCILE_OPERATOR_API_ATTEMPTS:reason=PUBLIC_UPSTREAM_EVIDENCE_CONFLICTS_WITH_SHARED_LEDGER_PROVENANCE:unknown_class=CONTRADICTORY:next_operation=RECONCILE_RELEASE_API_ATTEMPT_LOG:blocked_by=upstream-ci-evidence,shared-ledger-provenance",
+        "authority:verification=GITHUB_ACTIONS:github_token=github.token:repository_writes=0:cross_project_required_gates=0:local_product_validation_executions=0",
+        "structural-append:cell=SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE:activity=AdoptSemanticDenominatorProjectorDurableRelease:lock=semantic_denominator_projector_durable_release"
+      ]
     }
   ],
   "core_refutation_observation_events": [
@@ -1311,10 +1329,10 @@
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 51,
+    "from": 52,
     "retire": 0,
     "split": 0,
-    "to": 52
+    "to": 53
   },
   "local_validation_followup": {
     "inspection_only": true,

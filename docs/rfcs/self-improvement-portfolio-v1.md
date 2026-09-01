@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for fifty-two specifically named capabilities.
+The portfolio is an evidence ledger for fifty-three specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains fifty-two entries. The v0.46
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior fifty-one-cell
+`cells` array is immutable during a run and contains fifty-three entries. The v0.47
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior fifty-two-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/43/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/43/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/44/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/44/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -760,7 +760,7 @@ frontier, and the v0.40.0 transport REFUTED history.
 
 The non-completeness capability evidence registry is a separate thirty-entry
 external-input ledger. Its count and dispositions never alter this fixed
-fifty-two-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+fifty-three-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements
@@ -773,3 +773,27 @@ the root README is excluded from line accounting. CI also records exact build,
 test, and peak-RSS observations in `ci-observations.json`. Developer-local
 verification counts remain zero because all build, test, formatting, vet, and
 conformance checks are performed by GitHub Actions.
+
+## v0.47 semantic denominator projector adoption
+
+The v0.47 migration appends `SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE`
+through `AdoptSemanticDenominatorProjectorDurableRelease`. It adopts immutable
+`kimjooyoon/gooo-semantic-denominator-projector@v0.1.0`, release `380501283`,
+with annotated tag object `bde8a7e98e2e4572e438eb6b4c7da4aebd388f16` and target
+`60ef02caae58811c1e716b3356af121f09cc605d`. The released `.gooo` contract is
+asset `539559482` / `7535` bytes /
+`sha256:d55994e252915558beaca61666e77946f10e61fb294cee6d7e29e4ce5b3d275c`;
+the fixed denominator and generated-assertions assets are `539559498` and
+`539559406`.
+
+The CI path downloads the released `.gooo` contract and derives the ledger
+projection from the current profile, assessment, and release verification. It
+then exact-matches `report.json` and `projection-events.ndjson` against the
+generated assertions, so stale manual `.cells == N` checks cannot silently
+survive. The derived denominator is `53`, with `50 CLOSED`, `1 UNKNOWN`, and
+`2 REFUTED`; proof totals are `4/44/5` and indicator totals are `4/44/5`.
+The source CI run/job/artifact are `33511085673`/`99866617691`/`9801649738`;
+public release verification is `33511709706`/`99868732834`/`9801892833`.
+The upstream operational record preserves `local_validation_commands=1` as
+`REFUTED`, while `operator_api_attempts=null` remains an explicit `UNKNOWN`
+reconciliation frontier because the public evidence conflicts.
