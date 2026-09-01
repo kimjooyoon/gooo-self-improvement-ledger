@@ -1098,7 +1098,7 @@ jobs:
         run: |
           set -Eeuo pipefail
           bash scripts/verify-v049-products.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
-          jq -e '.schema=="gooo/self-improvement-ledger/v049-product-integration/v1" and .adoption.parent_profile.lock_count==57 and .adoption.current_lock_count==59 and .adoption.baseline.selected==59 and .adoption.baseline.executed==59 and .adoption.baseline.reused==0 and .adoption.candidate.selected==2 and .adoption.candidate.executed==2 and .adoption.candidate.reused==57 and .adoption.canonical_comparison.canonical_evidence_equal==true and .adoption.measurement_receipt.semantic.decision=="CLOSED" and .authority.repository_writes==0' "$ARTIFACT_ROOT/v049-products/product-integration.json" >/dev/null
+          bash scripts/verify-v0490-release-input.sh "$ARTIFACT_ROOT"
 
       - name: Verify separate thirty-entry non-completeness capability evidence registry
         shell: bash
