@@ -1,0 +1,139 @@
+{
+  "schema": "gooo/ledger-append-transaction/v3",
+  "transaction_id": "staged-quasiquote-durable-release-v0.41.0",
+  "manifest_key": "v0.40.1",
+  "insertion_strategy": "ast",
+  "baseline": {
+    "repository": "kimjooyoon/gooo-self-improvement-ledger",
+    "tag": "v0.40.1",
+    "release_id": 380269147,
+    "tag_object_sha": "764cb37f9feaaff5dc2b4988b191a8c15200d1da",
+    "target_commit_sha": "3b5f31375af9fb3aebc8af1543978747febbe6fa",
+    "immutable": true,
+    "source_archive_sha256": "sha256:4cb94d35ced5feef70bf4e39fbd186291e81e035618c23d5db6ff095389fd9d2",
+    "source_tree_sha256": "sha256:bed257392f78c721bf4e641c0ce37f4f5a43a73c3e1035029ac08964e447e97c",
+    "release_asset_id": 539128575,
+    "release_asset_sha256": "sha256:4cb94d35ced5feef70bf4e39fbd186291e81e035618c23d5db6ff095389fd9d2"
+  },
+  "cell": {
+    "ordinal": 47,
+    "id": "STAGED_QUASIQUOTE_DURABLE_RELEASE",
+    "axis": "STAGED_QUASIQUOTE_DURABLE_RELEASE",
+    "proof": "COHERENCE",
+    "indicator": "OUTCOME",
+    "activity": "AdoptStagedQuasiquoteDurableRelease",
+    "source": "examples/self-improvement-portfolio/main.gooo#AdoptStagedQuasiquoteDurableRelease",
+    "ir": "semantic-ir/activity/AdoptStagedQuasiquoteDurableRelease",
+    "generated_artifact": "evidence/cells/STAGED_QUASIQUOTE_DURABLE_RELEASE.json",
+    "evaluator": "ledger/staged-quasiquote-slice",
+    "metric_id": "gooo.metric.self-improvement.staged-quasiquote-durable-release.v1",
+    "metric_denominator": 1,
+    "release_key": "staged_quasiquote_durable_release",
+    "depends_on": []
+  },
+  "activity": {
+    "name": "AdoptStagedQuasiquoteDurableRelease",
+    "input_type": "PortfolioInput",
+    "output_type": "PortfolioEvidence",
+    "computes": "self-improvement-portfolio:v1;axis=STAGED_QUASIQUOTE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+  },
+  "release_key": "staged_quasiquote_durable_release",
+  "release_lock": {
+    "repository": "kimjooyoon/gooo-staged-quasiquote-slice",
+    "tag": "v0.1.0",
+    "release_id": 380175121,
+    "release_url": "https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/tag/v0.1.0",
+    "target_commit_sha": "a6dbb1f696feacaf6702aafd1b759a09c70bd917",
+    "tag_object_sha": "f3041976c533b87d0110598c06bb7e320abe30ee",
+    "immutable": true,
+    "assets": [
+      {"id":538825432,"name":"gooo-staged-quasiquote-slice-v0.1.0-contract.gooo","size_bytes":10029,"sha256":"sha256:fa0c1735c4ba26a6ab1b459a96f41087e8e27fd62b5e627f8bba467fb80f84de","download_url":"https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/gooo-staged-quasiquote-slice-v0.1.0-contract.gooo","role":"semantic-contract"},
+      {"id":538825434,"name":"gooo-staged-quasiquote-slice-v0.1.0-manifest.json","size_bytes":251,"sha256":"sha256:e3b922b930ec5ad21b045cdc9cec65e0639610dce77e36b95e6836d966e5016f","download_url":"https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/gooo-staged-quasiquote-slice-v0.1.0-manifest.json","role":"release-manifest"},
+      {"id":538825438,"name":"gooo-staged-quasiquote-slice-v0.1.0-oracle-lock.json","size_bytes":793,"sha256":"sha256:d9b6981e40aa70b6f26b2c33134aa7c1fe0a3d34b2b34f9800d4b8300614b8ae","download_url":"https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/gooo-staged-quasiquote-slice-v0.1.0-oracle-lock.json","role":"optional-oracle-lock"},
+      {"id":538825436,"name":"gooo-staged-quasiquote-slice-v0.1.0-terminal-record-schema.json","size_bytes":1378,"sha256":"sha256:75b98b3d6945c6fac581d14824cf9a36b4a4bbac47cbd8d6a5eff69471c33ebf","download_url":"https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/gooo-staged-quasiquote-slice-v0.1.0-terminal-record-schema.json","role":"terminal-record-schema"},
+      {"id":538825447,"name":"gooo-staged-quasiquote-slice-v0.1.0.tar.gz","size_bytes":21644,"sha256":"sha256:11abe1335a8f52120b9201365c6943087f02f313061acc4134aeae477f6ba87d","download_url":"https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/gooo-staged-quasiquote-slice-v0.1.0.tar.gz","role":"source"},
+      {"id":538825435,"name":"SHA256SUMS","size_bytes":590,"sha256":"sha256:f87253473d129ceae0eaf7adcaebea8fb1be6d3282ae9a73fd64b58606f01012","download_url":"https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/SHA256SUMS","role":"checksums"}
+    ]
+  },
+  "outcome": {
+    "state": "CLOSED",
+    "evidence": [
+      "upstream-release:repo=kimjooyoon/gooo-staged-quasiquote-slice:tag=v0.1.0:release=380175121:tag_object=f3041976c533b87d0110598c06bb7e320abe30ee:target=a6dbb1f696feacaf6702aafd1b759a09c70bd917:immutable=true",
+      "upstream-assets:538825432:10029:sha256:fa0c1735c4ba26a6ab1b459a96f41087e8e27fd62b5e627f8bba467fb80f84de,538825434:251:sha256:e3b922b930ec5ad21b045cdc9cec65e0639610dce77e36b95e6836d966e5016f,538825438:793:sha256:d9b6981e40aa70b6f26b2c33134aa7c1fe0a3d34b2b34f9800d4b8300614b8ae,538825436:1378:sha256:75b98b3d6945c6fac581d14824cf9a36b4a4bbac47cbd8d6a5eff69471c33ebf,538825447:21644:sha256:11abe1335a8f52120b9201365c6943087f02f313061acc4134aeae477f6ba87d,538825435:590:sha256:f87253473d129ceae0eaf7adcaebea8fb1be6d3282ae9a73fd64b58606f01012",
+      "upstream-ci:workflow=CI:run_id=33462845515:job=99716479817:commit=a6dbb1f696feacaf6702aafd1b759a09c70bd917:success",
+      "optional-origin-oracle:workflow=Optional origin oracle:run_id=33462930216:job=99716741052:artifact=9783807803:artifact_digest=sha256:54fb20a8d95ac7caab02ab33ab47a06824e9e1e7e956e663e70e7375a8b4dfdf:advisory=true",
+      "semantic-contract:path=gooo-staged-quasiquote-slice-v0.1.0-contract.gooo:digest=sha256:fa0c1735c4ba26a6ab1b459a96f41087e8e27fd62b5e627f8bba467fb80f84de",
+      "resolver-oracle:path=gooo-hygienic-origin-resolver-v0.1.1.tar.gz:digest=sha256:83b3b2b13c5dabe41b4730eeb4ef9371d1f0d04e20c86e52c7da099377e7ceac:advisory=true",
+      "corpus:cases=6:selected=6:executed=6:closed=3:unknown=1:refuted=2:replay=1:overall=REFUTED",
+      "runtime:compile=8940:build=415:test=231:conformance=7:integration=854:peak_rss_kib=272672/88580/97008/7000/67772",
+      "inventory:go=10/1349:gooo=7/322:regular_files=34:subdirectories=14",
+      "generated-artifacts:count=19:bytes=80351",
+      "upstream-improvement:status=UNKNOWN:reason=no matched scenario/source/contract/toolchain before/after integer pair",
+      "authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0",
+      "structural-append:cell=STAGED_QUASIQUOTE_DURABLE_RELEASE:activity=AdoptStagedQuasiquoteDurableRelease:lock=staged_quasiquote_durable_release",
+      "immutable-v0.40.1-baseline:semantic-source-bound",
+      "derived-projection-regeneration:report-and-history-replaced-in-caller-copy",
+      "projection-replacements:count=2:report=replace:history=replace",
+      "ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0",
+      "rollback-receipt:rollback_ready=true",
+      "replay-mismatches:0",
+      "input-repository-writes:0",
+      "planner-tool-executions:version=v0.3.0:current_task=1:classification=generator_only:not_validation=true",
+      "local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0"
+    ]
+  },
+  "registry_entry": {
+    "entry_id": "staged-quasiquote-slice-v0.1.0",
+    "state": "CLOSED",
+    "evidence": [
+      "immutable release API and annotated tag",
+      "contract.gooo, manifest, oracle lock, terminal schema, source, and SHA256SUMS release assets",
+      "six-case corpus preserves 3 CLOSED, 1 UNKNOWN, 2 REFUTED with replay CLOSED",
+      "optional hygienic origin resolver oracle is advisory and digest-bound"
+    ],
+    "observed": {
+      "target_commit_sha": "a6dbb1f696feacaf6702aafd1b759a09c70bd917",
+      "tag_object_sha": "f3041976c533b87d0110598c06bb7e320abe30ee",
+      "release_id": 380175121,
+      "release_immutable": true,
+      "release_assets": 6,
+      "contract_digest": "sha256:fa0c1735c4ba26a6ab1b459a96f41087e8e27fd62b5e627f8bba467fb80f84de",
+      "resolver_oracle_digest": "sha256:83b3b2b13c5dabe41b4730eeb4ef9371d1f0d04e20c86e52c7da099377e7ceac",
+      "child_cases": 6,
+      "closed_cases": 3,
+      "unknown_cases": 1,
+      "refuted_cases": 2,
+      "replay_status": "CLOSED",
+      "overall_status": "REFUTED",
+      "repository_writes": 0,
+      "local_test_executions": 0,
+      "cross_project_required_gates": 0
+    }
+  },
+  "migration": {
+    "operation": "ADD1",
+    "from": 46,
+    "to": 47,
+    "add": 1,
+    "retire": 0,
+    "split": 0
+  },
+  "expected": {
+    "proof_totals": {
+      "FOUNDATION": 4,
+      "COHERENCE": 38,
+      "REGRESSION": 5
+    },
+    "indicator_totals": {
+      "DRIVER": 4,
+      "OUTCOME": 38,
+      "GUARDRAIL": 5
+    },
+    "status_counts": {
+      "CLOSED": 44,
+      "UNKNOWN": 1,
+      "REFUTED": 2
+    },
+    "portfolio_decision": "REFUTED"
+  }
+}
