@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify thirty-nine immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify forty immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,7 +78,7 @@ jobs:
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:39,verified:39,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:40,verified:40,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           planner_dir="$ARTIFACT_ROOT/releases/structural_ledger_append_planner_durable_release/assets"
           test "$(cat "$planner_dir/SHA256SUMS")" = $'25274148049853e3147618e6278570259cf3238fb578b8f808231e47c2488da8  release/gooo-ledger-append-planner-linux-amd64-v0.2.0\nf01a5ad3350a507aca5f91142e8cd09cbaf7ab923507a85f8209084d873663f7  release/gooo-ledger-append-planner-source-v0.2.0.tar.gz'
@@ -753,7 +753,58 @@ jobs:
           test "$(awk '$2=="refs/tags/v0.1.1^{}" {print $1}' <<< "$origin_refs")" = 17933b4e7a724a622652c73de04f7973c524bec9
           echo "upstream hygienic origin resolver v0.1.1 release and child corpus verified"
 
-      - name: Verify separate twenty-one-entry non-completeness capability evidence registry
+      - name: Verify capability effect checker v0.1.1 release and effect corpus
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          checker_repo="kimjooyoon/gooo-capability-effect-checker"
+          checker_dir="$ARTIFACT_ROOT/releases/capability_effect_checker_durable_release/assets"
+          checker_release_json="$ARTIFACT_ROOT/releases/capability_effect_checker_durable_release.release.json"
+          jq -e '.id==380149578 and .tag_name=="v0.1.1" and .html_url=="https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/tag/v0.1.1" and .draft==false and .prerelease==false and .immutable==true and (.assets|length)==5 and ([.assets[]|{id,name,size,digest,browser_download_url}]|sort_by(.id))==([{id:538739362,name:"release-manifest.json",size:872,digest:"sha256:f4a8373e9f5f466a7c77ca09866e59fa344ece00acdf515c5a8c2927d0c86bb9",browser_download_url:"https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/release-manifest.json"},{id:538739363,name:"ci-metrics.json",size:978,digest:"sha256:f2ef6d03150d868d85f8a3e91e6c34a47446f3417937339c291dac2447a61303",browser_download_url:"https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/ci-metrics.json"},{id:538739364,name:"gooo-capability-effect-checker-0.1.1.tar.gz",size:19964,digest:"sha256:ca111a04da52d746223de7ce194433ac628bfc33754aea2655baa3a0e8b6ef2c",browser_download_url:"https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/gooo-capability-effect-checker-0.1.1.tar.gz"},{id:538739365,name:"run-report.json",size:6234,digest:"sha256:26089654c08e8db6353b253afb8a7c674aef6e813bd4d032545df0b973cd0843",browser_download_url:"https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/run-report.json"},{id:538739366,name:"SHA256SUMS",size:362,digest:"sha256:49938f8dd3dc3e6c5818f92cabad028a2a15e6678d76527c107c284122e19139",browser_download_url:"https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/SHA256SUMS"}]|sort_by(.id))' "$checker_release_json" >/dev/null
+          test "$(cat "$checker_dir/SHA256SUMS")" = $'ca111a04da52d746223de7ce194433ac628bfc33754aea2655baa3a0e8b6ef2c  gooo-capability-effect-checker-0.1.1.tar.gz\nf2ef6d03150d868d85f8a3e91e6c34a47446f3417937339c291dac2447a61303  ci-metrics.json\n26089654c08e8db6353b253afb8a7c674aef6e813bd4d032545df0b973cd0843  run-report.json\nf4a8373e9f5f466a7c77ca09866e59fa344ece00acdf515c5a8c2927d0c86bb9  release-manifest.json'
+          test "$(wc -c < "$checker_dir/gooo-capability-effect-checker-0.1.1.tar.gz" | tr -d ' ')" = 19964
+          test "$(sha256sum "$checker_dir/gooo-capability-effect-checker-0.1.1.tar.gz" | awk '{print $1}')" = ca111a04da52d746223de7ce194433ac628bfc33754aea2655baa3a0e8b6ef2c
+          test "$(wc -c < "$checker_dir/ci-metrics.json" | tr -d ' ')" = 978
+          test "$(sha256sum "$checker_dir/ci-metrics.json" | awk '{print $1}')" = f2ef6d03150d868d85f8a3e91e6c34a47446f3417937339c291dac2447a61303
+          test "$(wc -c < "$checker_dir/run-report.json" | tr -d ' ')" = 6234
+          test "$(sha256sum "$checker_dir/run-report.json" | awk '{print $1}')" = 26089654c08e8db6353b253afb8a7c674aef6e813bd4d032545df0b973cd0843
+          test "$(wc -c < "$checker_dir/release-manifest.json" | tr -d ' ')" = 872
+          test "$(sha256sum "$checker_dir/release-manifest.json" | awk '{print $1}')" = f4a8373e9f5f466a7c77ca09866e59fa344ece00acdf515c5a8c2927d0c86bb9
+          test "$(wc -c < "$checker_dir/SHA256SUMS" | tr -d ' ')" = 362
+          test "$(sha256sum "$checker_dir/SHA256SUMS" | awk '{print $1}')" = 49938f8dd3dc3e6c5818f92cabad028a2a15e6678d76527c107c284122e19139
+          jq -e '. == {annotated_tag_object:"a94e28c3bba56886b709838c04723e25abf55c1b",assets:[{bytes:19964,digest:"sha256:ca111a04da52d746223de7ce194433ac628bfc33754aea2655baa3a0e8b6ef2c",name:"gooo-capability-effect-checker-0.1.1.tar.gz"},{bytes:978,digest:"sha256:f2ef6d03150d868d85f8a3e91e6c34a47446f3417937339c291dac2447a61303",name:"ci-metrics.json"},{bytes:6234,digest:"sha256:26089654c08e8db6353b253afb8a7c674aef6e813bd4d032545df0b973cd0843",name:"run-report.json"}],authority:{cross_project_required_gates:0,local_test_executions:0,repository_writes:0},commit:"5bd2efb088ec9d38d3d4fc79c3545b61446935e8",immutable:true,schema:"gooo/capability-effect-checker/release-manifest/v1",tag:"v0.1.1"}' "$checker_dir/release-manifest.json" >/dev/null
+          jq -e '. == {authority:{cross_project_required_gates:0,local_test_executions:0,repository_writes:0},improvement:{reason:"NO_SAME_SCENARIO_SOURCE_CONTRACT_TOOLCHAIN_BEFORE_AFTER_PAIR",status:"UNKNOWN"},inventory:{go_files:7,go_physical_lines:1259,gooo_files:6,gooo_physical_lines:88,regular_files:25,root_readme_inventory_excluded:1,subdirectories:12},outputs:{bytes:16271,count:4,generated_artifacts:{bytes:2481,count:1}},resources:{peak_rss_bytes:281587712,peak_rss_kib:274988},schema:"gooo/capability-effect-checker/ci-metrics/v1",tests:{executed:5,failed:0,reused:0,selected:5,total:5,unknown:2},wall_ms:{build:5917,compile:17,conformance:7,integration:19,test:2303}}' "$checker_dir/ci-metrics.json" >/dev/null
+          jq -e '
+            .schema=="gooo/capability-effect-checker/run-report/v1" and
+            .phase_digest=="sha256:acc2147bdc1f6f9fee95a7f66ae79b955dfc6c701e145efb38fb735b7addf0fe" and
+            .semantic_ir_digest=="sha256:50b8e16504b4bf647e13fea13b14d49634fe4304d8e2a032cfa55c6677b8d10f" and
+            .precedence==["REFUTED","UNKNOWN","CLOSED"] and
+            .generation=={output_boundary:"caller-owned-temporary-directory",steps:["parse-phase","parse-fixtures","infer-call-graph","compare-grants","emit-checker","write-report"]} and
+            .summary=={closed:1,failed:0,generated:5,refuted:2,unknown:2} and
+            .authority=={cross_project_required_gates:0,local_test_executions:0,repository_writes:0} and
+            .generated_artifacts==[{bytes:2481,digest:"sha256:93db4dfda9d2069e07557e17113b46c9bbbc998d071f5ee562395e997edfa94f",path:"generated/checker.go"}] and
+            (.cases|length)==5 and
+            ([.cases[]|{id,decision}]|sort_by(.id))==[{id:"external-oracle",decision:"UNKNOWN"},{id:"indirect-missing-grant",decision:"UNKNOWN"},{id:"indirect-repository-write",decision:"REFUTED"},{id:"repository-write-escalation",decision:"REFUTED"},{id:"safe-generator",decision:"CLOSED"}] and
+            ((.cases[]|select(.id=="safe-generator")) as $safe | $safe.expected=="CLOSED" and $safe.inferred_effects==["READ_INPUT","WRITE_CALLER_OUTPUT"] and $safe.declared_root_effects==["READ_INPUT","WRITE_CALLER_OUTPUT"] and $safe.missing_root_effects==[] and $safe.unknowns==[] and $safe.refutations==[] and $safe.offending_call_paths==[]) and
+            ((.cases[]|select(.id=="repository-write-escalation")) as $write | $write.expected=="REFUTED" and $write.inferred_effects==["READ_INPUT","REPOSITORY_WRITE"] and $write.declared_root_effects==["READ_INPUT","WRITE_CALLER_OUTPUT"] and $write.missing_root_effects==["REPOSITORY_WRITE"] and ($write.offending_call_paths|map({effect,function,issue,path}))==[{effect:"REPOSITORY_WRITE",function:"generator",issue:"forbidden_mutation",path:["generator"]}] and ($write.refutations|length)==2 and $write.unknowns==[]) and
+            ((.cases[]|select(.id=="indirect-missing-grant")) as $missing | $missing.expected=="UNKNOWN" and $missing.inferred_effects==["NETWORK","READ_INPUT","WRITE_CALLER_OUTPUT"] and $missing.declared_root_effects==["NETWORK","READ_INPUT","WRITE_CALLER_OUTPUT"] and $missing.missing_root_effects==[] and ($missing.offending_call_paths|map({effect,function,issue,path}))==[{effect:"NETWORK",function:"helper",issue:"missing_indirect_grant",path:["generator","helper"]}] and $missing.refutations==[] and $missing.unknowns==[{stage:"GRANTS",step:"CHECK_CALLEE_GRANT",reason:"INDIRECT_GRANT_MISSING",unknown_class:"INDIRECT_GRANT",next_operation:"DECLARE_CALLEE_GRANT",blocked_by:["helper:NETWORK"]}]) and
+            ((.cases[]|select(.id=="indirect-repository-write")) as $indirect | $indirect.expected=="REFUTED" and $indirect.inferred_effects==["READ_INPUT","REPOSITORY_WRITE","WRITE_CALLER_OUTPUT"] and $indirect.declared_root_effects==["READ_INPUT","WRITE_CALLER_OUTPUT"] and $indirect.missing_root_effects==["REPOSITORY_WRITE"] and ($indirect.offending_call_paths|map({effect,function,issue,path}))==[{effect:"REPOSITORY_WRITE",function:"generator",issue:"forbidden_mutation",path:["generator"]},{effect:"REPOSITORY_WRITE",function:"helper",issue:"forbidden_mutation",path:["generator","helper"]}] and ($indirect.refutations|length)==3 and $indirect.unknowns==[]) and
+            ((.cases[]|select(.id=="external-oracle")) as $oracle | $oracle.expected=="UNKNOWN" and $oracle.inferred_effects==["READ_INPUT","WRITE_CALLER_OUTPUT"] and $oracle.declared_root_effects==["READ_INPUT","WRITE_CALLER_OUTPUT"] and $oracle.missing_root_effects==[] and $oracle.external_dependencies==["generator:github-ruleset"] and ($oracle.offending_call_paths|map({function,issue,path}))==[{function:"generator",issue:"external_oracle_dependency",path:["generator"]}] and $oracle.refutations==[] and $oracle.unknowns==[{stage:"ORACLE",step:"RESOLVE_EXTERNAL_ORACLE",reason:"EXTERNAL_ORACLE_UNAVAILABLE",unknown_class:"EXTERNAL_ORACLE",next_operation:"RETRY_EXTERNAL_ORACLE",blocked_by:["generator:github-ruleset"]}]) and
+            all(.cases[]|select(.decision=="UNKNOWN"); all(.unknowns[]; (keys|sort)==["blocked_by","next_operation","reason","stage","step","unknown_class"] and (.blocked_by|length)>0))
+          ' "$checker_dir/run-report.json" >/dev/null
+          checker_tag_json="$RUNNER_TEMP/gooo-capability-effect-checker-v011-tag.json"
+          gh api "repos/$checker_repo/git/ref/tags/v0.1.1" > "$checker_tag_json"
+          jq -e '.object.sha=="a94e28c3bba56886b709838c04723e25abf55c1b" and .object.type=="tag"' "$checker_tag_json" >/dev/null
+          gh api "repos/$checker_repo/git/tags/a94e28c3bba56886b709838c04723e25abf55c1b" > "$RUNNER_TEMP/gooo-capability-effect-checker-v011-tag-object.json"
+          jq -e '.object.sha=="5bd2efb088ec9d38d3d4fc79c3545b61446935e8" and .object.type=="commit"' "$RUNNER_TEMP/gooo-capability-effect-checker-v011-tag-object.json" >/dev/null
+          checker_refs=$(git ls-remote "https://github.com/$checker_repo.git" refs/tags/v0.1.1 'refs/tags/v0.1.1^{}')
+          test "$(awk '$2=="refs/tags/v0.1.1" {print $1}' <<< "$checker_refs")" = a94e28c3bba56886b709838c04723e25abf55c1b
+          test "$(awk '$2=="refs/tags/v0.1.1^{}" {print $1}' <<< "$checker_refs")" = 5bd2efb088ec9d38d3d4fc79c3545b61446935e8
+          echo "upstream capability effect checker v0.1.1 release and five-case effect corpus verified"
+
+      - name: Verify separate twenty-two-entry non-completeness capability evidence registry
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -792,7 +843,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:42,closed:39,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:43,closed:40,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"

@@ -42,7 +42,7 @@ jq -e '
 jq -e '
   .schema == "gooo/non-completeness/capability-evidence-registry/assessment/v1" and
   .registry_id == "non-completeness-capability-evidence-registry-v1" and
-  .entry_count == 21 and (.entries|length) == 21 and
+  .entry_count == 22 and (.entries|length) == 22 and
   (.entries|map(.entry_id)|length) == (.entries|map(.entry_id)|unique|length) and
   (.lineage|length) == 7 and
   (.lineage|map(.historical_entry_id)|sort) == ["adoption-regression-v0.1.0","counterexample-memory-v0.1.0","evaluator-lineage-v0.1.0","improvement-selector-v0.1.0","receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2","semantic-observer-v0.1.0"] and
@@ -51,7 +51,7 @@ jq -e '
   (.lineage | map(select(.historical_entry_id == "semantic-observer-v0.1.0" and .successor_entry_id == "semantic-observer-v0.1.1" and .historical_state == "REFUTED" and .successor_state == "CLOSED" and .transition == "REFUTED_TO_CLOSED")) | length) == 1 and
   (.lineage | map(select(.historical_entry_id == "adoption-regression-v0.1.0" and .successor_entry_id == "adoption-regression-v0.1.1" and .historical_state == "CLOSED" and .successor_state == "CLOSED" and .transition == "CLOSED_TO_CLOSED_SUCCESSOR")) | length) == 1 and
   ((.lineage | map(select(.transition == "REFUTED_TO_CLOSED")) | length) == 4) and
-  (.frontier_additions == ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2","receipt-schema-migration-v0.3.1","adoption-transaction-v0.1.0","self-repair-example-v0.1.0","semantic-observer-v0.1.0","semantic-observer-v0.1.1","adoption-regression-v0.1.0","adoption-regression-v0.1.1","structural-ledger-append-planner-v0.2.0","explanation-carrying-compiler-v0.3.0","two-generation-bootstrap-v0.1.1","hygienic-origin-resolver-v0.1.1"]) and
+  (.frontier_additions == ["receipt-schema-migration-v0.1.1","receipt-schema-migration-v0.2.2","receipt-schema-migration-v0.3.1","adoption-transaction-v0.1.0","self-repair-example-v0.1.0","semantic-observer-v0.1.0","semantic-observer-v0.1.1","adoption-regression-v0.1.0","adoption-regression-v0.1.1","structural-ledger-append-planner-v0.2.0","explanation-carrying-compiler-v0.3.0","two-generation-bootstrap-v0.1.1","hygienic-origin-resolver-v0.1.1","capability-effect-checker-v0.1.1"]) and
   all(.entries[]; .state == "CLOSED" or .state == "UNKNOWN" or .state == "REFUTED")
 ' "$assessment" >/dev/null
 

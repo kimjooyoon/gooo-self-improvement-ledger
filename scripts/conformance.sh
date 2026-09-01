@@ -14,8 +14,8 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 42 and
-  .denominator_migration == {from:41,to:42,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 43 and
+  .denominator_migration == {from:42,to:43,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
@@ -25,8 +25,8 @@ jq -e '
   .cells[39].id == "EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE" and
   .cells[40].id == "TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE" and
   .cells[41].id == "HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:33,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:33,GUARDRAIL:5} and
+  .proof_totals == {FOUNDATION:4,COHERENCE:34,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:34,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -56,7 +56,8 @@ jq -e '
   (.cells|map(select(.id=="STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE" and .release_key=="structural_ledger_append_planner_durable_release" and .ordinal==39 and .activity=="AdoptStructuralLedgerAppendPlannerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1 and
   (.cells|map(select(.id=="EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE" and .release_key=="explanation_carrying_compiler_durable_release" and .ordinal==40 and .activity=="AdoptExplanationCarryingCompilerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1 and
   (.cells|map(select(.id=="TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE" and .release_key=="two_generation_bootstrap_durable_release" and .ordinal==41 and .activity=="AdoptTwoGenerationBootstrapDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
-  and (.cells|map(select(.id=="HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE" and .release_key=="hygienic_origin_resolver_durable_release" and .ordinal==42 and .activity=="AdoptHygienicOriginResolverDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE" and .release_key=="hygienic_origin_resolver_durable_release" and .ordinal==42 and .activity=="AdoptHygienicOriginResolverDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1 and
+  (.cells|map(select(.id=="CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE" and .release_key=="capability_effect_checker_durable_release" and .ordinal==43 and .activity=="AdoptCapabilityEffectCheckerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -817,10 +818,29 @@ jq -e '
   }
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 echo "conformance: hygienic origin resolver release lock passed"
+jq -e '
+  .releases.capability_effect_checker_durable_release == {
+    repository:"kimjooyoon/gooo-capability-effect-checker",
+    tag:"v0.1.1",
+    release_id:380149578,
+    release_url:"https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/tag/v0.1.1",
+    target_commit_sha:"5bd2efb088ec9d38d3d4fc79c3545b61446935e8",
+    tag_object_sha:"a94e28c3bba56886b709838c04723e25abf55c1b",
+    immutable:true,
+    assets:[
+      {id:538739363,name:"ci-metrics.json",size_bytes:978,sha256:"sha256:f2ef6d03150d868d85f8a3e91e6c34a47446f3417937339c291dac2447a61303",download_url:"https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/ci-metrics.json",role:"ci-metrics"},
+      {id:538739364,name:"gooo-capability-effect-checker-0.1.1.tar.gz",size_bytes:19964,sha256:"sha256:ca111a04da52d746223de7ce194433ac628bfc33754aea2655baa3a0e8b6ef2c",download_url:"https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/gooo-capability-effect-checker-0.1.1.tar.gz",role:"release-source"},
+      {id:538739362,name:"release-manifest.json",size_bytes:872,sha256:"sha256:f4a8373e9f5f466a7c77ca09866e59fa344ece00acdf515c5a8c2927d0c86bb9",download_url:"https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/release-manifest.json",role:"release-manifest"},
+      {id:538739365,name:"run-report.json",size_bytes:6234,sha256:"sha256:26089654c08e8db6353b253afb8a7c674aef6e813bd4d032545df0b973cd0843",download_url:"https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/run-report.json",role:"run-report"},
+      {id:538739366,name:"SHA256SUMS",size_bytes:362,sha256:"sha256:49938f8dd3dc3e6c5818f92cabad028a2a15e6678d76527c107c284122e19139",download_url:"https://github.com/kimjooyoon/gooo-capability-effect-checker/releases/download/v0.1.1/SHA256SUMS",role:"release-checksums"}
+    ]
+  }
+' "$repository/contracts/release-locks-v1.json" >/dev/null
+echo "conformance: capability effect checker release lock passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:41,to:42,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:42,to:43,add:1,retire:0,split:0,append_only:true} and
   .local_validation_followup == {local_validation_executions:2,inspection_only:false,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
@@ -1084,7 +1104,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 42 and
+  (.cells|length) == 43 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1336,6 +1356,29 @@ jq -e '
     ($origin.evidence | index("input-repository-writes:0")) != null and
     ($origin.evidence | index("planner-tool-executions:current_task=1:classification=generator_only:not_validation=true")) != null and
     ($origin.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null) and
+  ((.cells[] | select(.cell_id == "CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE")) as $checker |
+    $checker.state == "CLOSED" and
+    $checker.release_key == "capability_effect_checker_durable_release" and
+    ($checker.evidence | index("upstream-release:repo=kimjooyoon/gooo-capability-effect-checker:tag=v0.1.1:release=380149578:tag_object=a94e28c3bba56886b709838c04723e25abf55c1b:target=5bd2efb088ec9d38d3d4fc79c3545b61446935e8:immutable=true")) != null and
+    ($checker.evidence | index("upstream-assets:538739363:978:sha256:f2ef6d03150d868d85f8a3e91e6c34a47446f3417937339c291dac2447a61303,538739364:19964:sha256:ca111a04da52d746223de7ce194433ac628bfc33754aea2655baa3a0e8b6ef2c,538739362:872:sha256:f4a8373e9f5f466a7c77ca09866e59fa344ece00acdf515c5a8c2927d0c86bb9,538739365:6234:sha256:26089654c08e8db6353b253afb8a7c674aef6e813bd4d032545df0b973cd0843,538739366:362:sha256:49938f8dd3dc3e6c5818f92cabad028a2a15e6678d76527c107c284122e19139")) != null and
+    ($checker.evidence | index("child-corpus:cases=5:safe-generator=CLOSED:repository-write-escalation=REFUTED:indirect-missing-grant=UNKNOWN:indirect-repository-write=REFUTED:external-oracle=UNKNOWN:unknown_fields=stage/step/reason/unknown_class/next_operation/blocked_by:precedence=REFUTED>UNKNOWN>CLOSED")) != null and
+    ($checker.evidence | index("effect-sets:safe-generator=READ_INPUT+WRITE_CALLER_OUTPUT:repository-write-escalation=READ_INPUT+REPOSITORY_WRITE:indirect-missing-grant=NETWORK+READ_INPUT+WRITE_CALLER_OUTPUT:indirect-repository-write=READ_INPUT+REPOSITORY_WRITE+WRITE_CALLER_OUTPUT:external-oracle=READ_INPUT+WRITE_CALLER_OUTPUT")) != null and
+    ($checker.evidence | index("offending-call-paths:repository-write-escalation=generator->generator:indirect-missing-grant=generator->helper:indirect-repository-write=generator->generator,generator->helper:external-oracle=generator")) != null and
+    ($checker.evidence | index("generated-checker-go:artifact=generated/checker.go:bytes=2481:digest=sha256:93db4dfda9d2069e07557e17113b46c9bbbc998d071f5ee562395e997edfa94f")) != null and
+    ($checker.evidence | index("replay:status=UNKNOWN:source_contract_toolchain_before_after_pair=false")) != null and
+    ($checker.evidence | index("authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0")) != null and
+    ($checker.evidence | index("metrics:go_files=7:gooo_files=6:go_physical_lines=1259:gooo_physical_lines=88:regular_files=25:directories=12:outputs=4/16271:generated_artifacts=1/2481:tests=5/5/0/0/2:peak_rss_kib=274988:compile=17:build=5917:test=2303:conformance=7:integration=19")) != null and
+    ($checker.evidence | index("scope:CAPABILITY_EFFECT_CHECKER_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN")) != null and
+    ($checker.evidence | index("structural-append:cell=CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE:activity=AdoptCapabilityEffectCheckerDurableRelease:lock=capability_effect_checker_durable_release")) != null and
+    ($checker.evidence | index("immutable-v0.36.0-baseline:semantic-source-bound")) != null and
+    ($checker.evidence | index("derived-projection-regeneration:report-and-history-replaced-in-caller-copy")) != null and
+    ($checker.evidence | index("projection-replacements:count=2:report=replace:history=replace")) != null and
+    ($checker.evidence | index("ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0")) != null and
+    ($checker.evidence | index("rollback-receipt:rollback_ready=true")) != null and
+    ($checker.evidence | index("replay-mismatches:0")) != null and
+    ($checker.evidence | index("input-repository-writes:0")) != null and
+    ($checker.evidence | index("planner-tool-executions:current_task=1:classification=generator_only:not_validation=true")) != null and
+    ($checker.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -1407,12 +1450,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:42,closed:39,unknown:1,refuted:2} and
+  .summary == {total:43,closed:40,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 42 and
+  (.cells|length) == 43 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 39 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 40 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -1457,16 +1500,17 @@ jq -e '
     STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE:"CLOSED",
     EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE:"CLOSED",
     TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE:"CLOSED",
-    HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE:"CLOSED"
+    HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE:"CLOSED",
+    CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:42,activities:42,unique_axes:42,unique_metrics:42,source_bindings:42,ir_bindings:42,generated_artifact_bindings:42,evaluator_bindings:42} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 33 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 33 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:39,verified:39,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:43,activities:43,unique_axes:43,unique_metrics:43,source_bindings:43,ir_bindings:43,generated_artifact_bindings:43,evaluator_bindings:43} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 34 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 34 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:40,verified:40,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
