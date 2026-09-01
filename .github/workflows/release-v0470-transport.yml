@@ -25,6 +25,11 @@ on:
         required: false
         default: false
         type: boolean
+      resume_draft:
+        description: Complete an already-created draft release without recreating its tag or release
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   actions: read
@@ -41,6 +46,7 @@ jobs:
       SOURCE_COMMIT_SHA: ${{ inputs.source_commit_sha }}
       RELEASE_TAG: ${{ inputs.release_tag }}
       RESUME_EXISTING: ${{ inputs.resume_existing }}
+      RESUME_DRAFT: ${{ inputs.resume_draft }}
     steps:
       - name: Check out source commit
         uses: actions/checkout@v5
@@ -103,7 +109,7 @@ jobs:
           jq -e '.semantic_audit.parent_asset_current_bytes==null and .semantic_audit.parent_asset_current_bytes_state=="UNKNOWN" and .semantic_audit.current_release_asset_bytes.state=="CLOSED" and .semantic_audit.preserved_failure.state=="REFUTED"' evidence/assessment-v1.json >/dev/null
 
       - name: Refuse overwrite of existing release or tag
-        if: inputs.resume_existing != true
+        if: inputs.resume_existing != true && inputs.resume_draft != true
         shell: bash
         run: |
           set -Eeuo pipefail
@@ -111,7 +117,7 @@ jobs:
           if gh api "repos/$REPOSITORY/git/ref/tags/$RELEASE_TAG" >/dev/null 2>&1; then exit 1; fi
 
       - name: Create annotated release tag
-        if: inputs.resume_existing != true
+        if: inputs.resume_existing != true && inputs.resume_draft != true
         shell: bash
         run: |
           set -Eeuo pipefail
@@ -121,7 +127,7 @@ jobs:
           gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$RELEASE_TAG" -f sha="$tag_object" >/dev/null
 
       - name: Create draft release before asset upload
-        if: inputs.resume_existing != true
+        if: inputs.resume_existing != true && inputs.resume_draft != true
         shell: bash
         run: |
           set -Eeuo pipefail
@@ -136,7 +142,8 @@ jobs:
         shell: bash
         run: |
           set -Eeuo pipefail
-          release_id=$(gh api "repos/$REPOSITORY/releases/tags/$RELEASE_TAG" --jq '.id')
+          draft_releases=$(gh api 'repos/$REPOSITORY/releases?per_page=100')
+          release_id=$(jq -er --arg tag "$RELEASE_TAG" '[.[] | select(.tag_name==$tag and .draft==true)] | if length==1 then .[0].id else error("expected one draft release") end' <<< "$draft_releases")
           upload_url=$(gh api "repos/$REPOSITORY/releases/$release_id" --jq '.upload_url' | sed 's/{.*//')
           gh api --method POST "$upload_url?name=$ASSET_NAME" -H 'Content-Type: application/zip' --input "$ASSET_PATH" >/dev/null
           gh api --method PATCH "repos/$REPOSITORY/releases/$release_id" -F draft=false >/dev/null
