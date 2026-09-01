@@ -131,7 +131,7 @@ jq -e '
   .run.run_id=="33544032678" and .run.sha=="da72a5499046b27f5262ad22d2c88164ceae0bab" and .run.workflow=="Measurement boundary conformance" and
   .conformance.total==10 and .conformance.selected==10 and .conformance.executed==10 and .conformance.reused==0 and .conformance.closed==3 and .conformance.unknown==4 and .conformance.refuted==3 and
   .v048_conflict.decision=="UNKNOWN" and .v048_conflict.fail_closed==true and
-  (.v048_conflict.unknown|keys|sort)==["blocked_by","next_operation","reason","stage","step","unknown_class"] and
+  (.v048_conflict.metrics|length)==2 and all(.v048_conflict.metrics[]; (.unknown|keys|sort)==["blocked_by","next_operation","reason","stage","step","unknown_class"]) and
   .generated_single_authority.decision=="CLOSED" and .generated_single_authority.consumer_receipts_exact==true and
   .generated_single_authority.generated_collector_ran==true and .generated_single_authority.measured_once_per_metric==true and
   .runtime_authority.repository_writes==0 and .runtime_authority.apply_authority==0 and .runtime_authority.commit_authority==0 and .runtime_authority.merge_authority==0 and .runtime_authority.tag_authority==0 and .runtime_authority.release_authority==0 and .runtime_authority.cross_project_required_gates==0 and .local_validation_commands==[] and
