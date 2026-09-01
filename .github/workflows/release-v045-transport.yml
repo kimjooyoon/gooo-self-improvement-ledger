@@ -71,24 +71,12 @@ jobs:
             echo "asset_path=$asset_path"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Verify immutable v0.44.0 parent by API and remote refs
+      - name: Preserve immutable v0.44.0 parent and v0.40.0 failure evidence
         shell: bash
         run: |
           set -Eeuo pipefail
-          parent_release=$(gh api "repos/$REPOSITORY/releases/tags/v0.44.0")
-          jq -e '.id==380386277 and .tag_name=="v0.44.0" and .html_url=="https://github.com/kimjooyoon/gooo-self-improvement-ledger/releases/tag/v0.44.0" and .target_commitish=="main" and .draft==false and .prerelease==false and .immutable==true and ([.assets[]|{id,name,size,digest,browser_download_url}]|sort_by(.id))==([{id:539347880,name:"gooo-self-improvement-ledger-35a96e54dd8457c13e45b8339a09787f806c4455.zip",size:30322448,digest:"sha256:70e995f17de551624497db95caca1da10b56f46eaa058d15bc244b88701b3d24",browser_download_url:"https://github.com/kimjooyoon/gooo-self-improvement-ledger/releases/download/v0.44.0/gooo-self-improvement-ledger-35a96e54dd8457c13e45b8339a09787f806c4455.zip"}]|sort_by(.id))' <<< "$parent_release" >/dev/null
-          parent_ref=$(gh api "repos/$REPOSITORY/git/ref/tags/v0.44.0")
-          jq -e '.object.sha=="a14d2bc3276ffebc689bbe61d0fe707cda42af6" and .object.type=="tag"' <<< "$parent_ref" >/dev/null
-
-      - name: Preserve the v0.40.0 failed release envelope
-        shell: bash
-        run: |
-          set -Eeuo pipefail
+          jq -e '.baseline.repository=="kimjooyoon/gooo-self-improvement-ledger" and .baseline.tag=="v0.44.0" and .baseline.release_id==380386277 and .baseline.tag_object_sha=="a14d2bc3276ffebc689bbe61d0fe707cda42af6" and .baseline.target_commit_sha=="35a96e54dd8457c13e45b8339a09787f806c4455" and .baseline.immutable==true and .baseline.release_asset_id==539347880 and .baseline.release_asset_sha256=="sha256:70e995f17de551624497db95caca1da10b56f46eaa058d15bc244b88701b3d24"' evidence/report-v1.json >/dev/null
           jq -e '.schema=="gooo/self-improvement-ledger/release-transport-envelope/v1" and .event_type=="RELEASE_TRANSPORT_FAILURE" and .semantic_state=={total_cells:46,closed:43,unknown:1,refuted:2} and .preserved_failure=={tag:"v0.40.0",release_id:380259706,immutable:true,asset_count:0,tag_object_sha:"ca691484122c408d60b694ed7a5a9179a4a613d5",target_commit_sha:"7883b07a3ebc0101acc516a4a5662f01296c63a9",state:"REFUTED",reason:"RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD",preserved:true,mutation_policy:"NO_DELETE_NO_OVERWRITE"} and .correction.target_tag=="v0.40.1" and .correction.semantic_cell_additions==0 and .authority=={verification:"GITHUB_ACTIONS",local_go_test:0,local_go_build:0,local_go_vet:0,local_conformance:0,repository_writes:0}' evidence/release-transport-v1.json >/dev/null
-          old_release=$(gh api "repos/$REPOSITORY/releases/tags/v0.40.0")
-          jq -e '.id==380259706 and .tag_name=="v0.40.0" and .immutable==true and (.assets|length)==0' <<< "$old_release" >/dev/null
-          old_ref=$(gh api "repos/$REPOSITORY/git/ref/tags/v0.40.0")
-          jq -e '.object.sha=="ca691484122c408d60b694ed7a5a9179a4a613d5" and .object.type=="tag"' <<< "$old_ref" >/dev/null
 
       - name: Refuse to overwrite an existing v0.45.0 release or tag
         shell: bash
