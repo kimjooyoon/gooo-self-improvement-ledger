@@ -14,8 +14,8 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 45 and
-  .denominator_migration == {from:44,to:45,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 46 and
+  .denominator_migration == {from:45,to:46,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
@@ -28,8 +28,9 @@ jq -e '
   .cells[42].id == "CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE" and
   .cells[43].id == "DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE" and
   .cells[44].id == "SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:36,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:36,GUARDRAIL:5} and
+  .cells[45].id == "DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE" and
+  .proof_totals == {FOUNDATION:4,COHERENCE:37,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:37,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -63,6 +64,7 @@ jq -e '
   (.cells|map(select(.id=="CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE" and .release_key=="capability_effect_checker_durable_release" and .ordinal==43 and .activity=="AdoptCapabilityEffectCheckerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1 and
   (.cells|map(select(.id=="DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE" and .release_key=="deterministic_module_linker_durable_release" and .ordinal==44 and .activity=="AdoptDeterministicModuleLinkerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE" and .release_key=="semantic_counterexample_reducer_durable_release" and .ordinal==45 and .activity=="AdoptSemanticCounterexampleReducerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE" and .release_key=="differential_semantics_runtime_durable_release" and .ordinal==46 and .activity=="AdoptDifferentialSemanticsRuntimeDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -879,10 +881,25 @@ jq -e '
   }
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 echo "conformance: semantic counterexample reducer release lock passed"
+jq -e '
+  .releases.differential_semantics_runtime_durable_release == {
+    repository:"kimjooyoon/gooo-differential-semantics-runtime",
+    tag:"v0.1.2",
+    release_id:380172619,
+    release_url:"https://github.com/kimjooyoon/gooo-differential-semantics-runtime/releases/tag/v0.1.2",
+    target_commit_sha:"33e0f5a9b54f22824c1a34c914e74d8e0f931b62",
+    tag_object_sha:"965abb84f065783db1183271fcf71a989a7637ff",
+    immutable:true,
+    assets:[
+      {id:538817960,name:"differential-evidence.json",size_bytes:1844,sha256:"sha256:931f4bbf36aeaaeb153077e9e5588c2fa021e1e512408d45a3161aea7c554b40",download_url:"https://github.com/kimjooyoon/gooo-differential-semantics-runtime/releases/download/v0.1.2/differential-evidence.json",role:"differential-evidence"}
+    ]
+  }
+' "$repository/contracts/release-locks-v1.json" >/dev/null
+echo "conformance: differential semantics runtime release lock passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:44,to:45,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:45,to:46,add:1,retire:0,split:0,append_only:true} and
   .local_validation_followup == {local_validation_executions:2,inspection_only:false,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
@@ -1146,7 +1163,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 45 and
+  (.cells|length) == 46 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1460,6 +1477,32 @@ jq -e '
     ($reducer.evidence | index("input-repository-writes:0")) != null and
     ($reducer.evidence | index("planner-tool-executions:current_task=1:classification=generator_only:not_validation=true")) != null and
     ($reducer.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null) and
+  ((.cells[] | select(.cell_id == "DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE")) as $runtime |
+    $runtime.state == "CLOSED" and
+    $runtime.release_key == "differential_semantics_runtime_durable_release" and
+    ($runtime.evidence | index("upstream-release:repo=kimjooyoon/gooo-differential-semantics-runtime:tag=v0.1.2:release=380172619:tag_object=965abb84f065783db1183271fcf71a989a7637ff:target=33e0f5a9b54f22824c1a34c914e74d8e0f931b62:immutable=true")) != null and
+    ($runtime.evidence | index("upstream-assets:538817960:1844:sha256:931f4bbf36aeaaeb153077e9e5588c2fa021e1e512408d45a3161aea7c554b40")) != null and
+    ($runtime.evidence | index("upstream-ci:workflow=gooo-differential-semantics:run_id=33462237222:commit=33e0f5a9b54f22824c1a34c914e74d8e0f931b62")) != null and
+    ($runtime.evidence | index("semantic-contract:path=.gooo/semantics.gooo:digest=sha256:d95962094f41e8610161e8316dd1eb123db53ab960c8f0522f85d79e6bb4c21f")) != null and
+    ($runtime.evidence | index("corpus:path=.gooo/corpus.gooo:digest=sha256:e51ec2ac8a1430389ee015b7c54cb5cd3f520f4b352eb5c68d86f34168943060")) != null and
+    ($runtime.evidence | index("toolchain:go=1.27.x:target=go1.27")) != null and
+    ($runtime.evidence | index("child-corpus:cases=9:selected=9:executed=9:normal=4:unknown=2:refuted=2:replay=1:byte_identical=true:overall=UNKNOWN:comparison_fields=typed_value/ordered_effect_trace/terminal_explanation_digest")) != null and
+    ($runtime.evidence | index("runtime:compile=14340:build=1676:test=110:conformance=40:integration=20:peak_rss_kib=272448/87452/7076/7100/6852")) != null and
+    ($runtime.evidence | index("inventory:go=14/2464:gooo=12/211:regular_files=30:subdirectories=10")) != null and
+    ($runtime.evidence | index("generated-artifacts:count=18:bytes=38691843")) != null and
+    ($runtime.evidence | index("upstream-improvement:status=UNKNOWN:reason=matched scenario, source, contract, and toolchain before/after integer evidence is absent")) != null and
+    ($runtime.evidence | index("authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0")) != null and
+    ($runtime.evidence | index("structural-append:cell=DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE:activity=AdoptDifferentialSemanticsRuntimeDurableRelease:lock=differential_semantics_runtime_durable_release")) != null and
+    ($runtime.evidence | index("immutable-v0.39.0-baseline:semantic-source-bound")) != null and
+    ($runtime.evidence | index("derived-projection-regeneration:report-and-history-replaced-in-caller-copy")) != null and
+    ($runtime.evidence | index("projection-replacements:count=2:report=replace:history=replace")) != null and
+    ($runtime.evidence | index("ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0")) != null and
+    ($runtime.evidence | index("rollback-receipt:rollback_ready=true")) != null and
+    ($runtime.evidence | index("replay-mismatches:0")) != null and
+    ($runtime.evidence | index("input-repository-writes:0")) != null and
+    ($runtime.evidence | index("planner-tool-executions:version=v0.3.0:current_task=1:classification=generator_only:not_validation=true")) != null and
+    ($runtime.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null and
+    ($runtime.evidence | index("planner-ci:workflow=v0.40.0 planner generator-only:run_id=33476918995:run_url=https://github.com/kimjooyoon/gooo-self-improvement-ledger/actions/runs/33476918995:artifact_id=9788480373:artifact_digest=03b6a43461dafb833304d0406861f338c57168bf0694596abfd0d9a507287711")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -1531,12 +1574,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:45,closed:42,unknown:1,refuted:2} and
+  .summary == {total:46,closed:43,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 45 and
+  (.cells|length) == 46 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 42 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 43 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -1584,16 +1627,17 @@ jq -e '
     HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE:"CLOSED",
     CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE:"CLOSED",
     DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE:"CLOSED",
-    SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE:"CLOSED"
+    SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE:"CLOSED",
+    DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:45,activities:45,unique_axes:45,unique_metrics:45,source_bindings:45,ir_bindings:45,generated_artifact_bindings:45,evaluator_bindings:45} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 36 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 36 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:42,verified:42,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:46,activities:46,unique_axes:46,unique_metrics:46,source_bindings:46,ir_bindings:46,generated_artifact_bindings:46,evaluator_bindings:46} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 37 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 37 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:43,verified:43,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

@@ -1405,6 +1405,25 @@
       "tag_object_sha": "006323188885fe6564c26a47c71b66a3a0dc960e",
       "target_commit_sha": "73a2c4f64be92d3dff67e659794f1597427c3148"
     },
+    "differential_semantics_runtime_durable_release": {
+      "assets": [
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-differential-semantics-runtime/releases/download/v0.1.2/differential-evidence.json",
+          "id": 538817960,
+          "name": "differential-evidence.json",
+          "role": "differential-evidence",
+          "sha256": "sha256:931f4bbf36aeaaeb153077e9e5588c2fa021e1e512408d45a3161aea7c554b40",
+          "size_bytes": 1844
+        }
+      ],
+      "immutable": true,
+      "release_id": 380172619,
+      "release_url": "https://github.com/kimjooyoon/gooo-differential-semantics-runtime/releases/tag/v0.1.2",
+      "repository": "kimjooyoon/gooo-differential-semantics-runtime",
+      "tag": "v0.1.2",
+      "tag_object_sha": "965abb84f065783db1183271fcf71a989a7637ff",
+      "target_commit_sha": "33e0f5a9b54f22824c1a34c914e74d8e0f931b62"
+    },
     "executable_evolution_trial_closed_loop_durable_release": {
       "assets": [
         {

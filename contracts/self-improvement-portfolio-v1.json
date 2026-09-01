@@ -732,21 +732,37 @@
       "proof": "COHERENCE",
       "release_key": "semantic_counterexample_reducer_durable_release",
       "source": "examples/self-improvement-portfolio/main.gooo#AdoptSemanticCounterexampleReducerDurableRelease"
+    },
+    {
+      "activity": "AdoptDifferentialSemanticsRuntimeDurableRelease",
+      "axis": "DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE",
+      "depends_on": [],
+      "evaluator": "ledger/differential-semantics-runtime",
+      "generated_artifact": "evidence/cells/DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE.json",
+      "id": "DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptDifferentialSemanticsRuntimeDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.differential-semantics-runtime-durable-release.v1",
+      "ordinal": 46,
+      "proof": "COHERENCE",
+      "release_key": "differential_semantics_runtime_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptDifferentialSemanticsRuntimeDurableRelease"
     }
   ],
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 44,
+    "from": 45,
     "retire": 0,
     "split": 0,
-    "to": 45
+    "to": 46
   },
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
   "indicator_totals": {
     "DRIVER": 4,
     "GUARDRAIL": 5,
-    "OUTCOME": 36
+    "OUTCOME": 37
   },
   "policy": {
     "aggregate_percentage": false,
@@ -764,10 +780,10 @@
   ],
   "profile_id": "self-improvement-portfolio-v1",
   "proof_totals": {
-    "COHERENCE": 36,
+    "COHERENCE": 37,
     "FOUNDATION": 4,
     "REGRESSION": 5
   },
   "schema": "gooo/self-improvement-portfolio/contract/v1",
-  "total_cells": 45
+  "total_cells": 46
 }

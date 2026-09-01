@@ -969,6 +969,36 @@
       ],
       "release_key": "semantic_counterexample_reducer_durable_release",
       "state": "CLOSED"
+    },
+    {
+      "cell_id": "DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-differential-semantics-runtime:tag=v0.1.2:release=380172619:tag_object=965abb84f065783db1183271fcf71a989a7637ff:target=33e0f5a9b54f22824c1a34c914e74d8e0f931b62:immutable=true",
+        "upstream-assets:538817960:1844:sha256:931f4bbf36aeaaeb153077e9e5588c2fa021e1e512408d45a3161aea7c554b40",
+        "upstream-ci:workflow=gooo-differential-semantics:run_id=33462237222:commit=33e0f5a9b54f22824c1a34c914e74d8e0f931b62",
+        "semantic-contract:path=.gooo/semantics.gooo:digest=sha256:d95962094f41e8610161e8316dd1eb123db53ab960c8f0522f85d79e6bb4c21f",
+        "corpus:path=.gooo/corpus.gooo:digest=sha256:e51ec2ac8a1430389ee015b7c54cb5cd3f520f4b352eb5c68d86f34168943060",
+        "toolchain:go=1.27.x:target=go1.27",
+        "child-corpus:cases=9:selected=9:executed=9:normal=4:unknown=2:refuted=2:replay=1:byte_identical=true:overall=UNKNOWN:comparison_fields=typed_value/ordered_effect_trace/terminal_explanation_digest",
+        "runtime:compile=14340:build=1676:test=110:conformance=40:integration=20:peak_rss_kib=272448/87452/7076/7100/6852",
+        "inventory:go=14/2464:gooo=12/211:regular_files=30:subdirectories=10",
+        "generated-artifacts:count=18:bytes=38691843",
+        "upstream-improvement:status=UNKNOWN:reason=matched scenario, source, contract, and toolchain before/after integer evidence is absent",
+        "authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0",
+        "structural-append:cell=DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE:activity=AdoptDifferentialSemanticsRuntimeDurableRelease:lock=differential_semantics_runtime_durable_release",
+        "immutable-v0.39.0-baseline:semantic-source-bound",
+        "derived-projection-regeneration:report-and-history-replaced-in-caller-copy",
+        "projection-replacements:count=2:report=replace:history=replace",
+        "ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0",
+        "rollback-receipt:rollback_ready=true",
+        "replay-mismatches:0",
+        "input-repository-writes:0",
+        "planner-tool-executions:version=v0.3.0:current_task=1:classification=generator_only:not_validation=true",
+        "local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0",
+        "planner-ci:workflow=v0.40.0 planner generator-only:run_id=33476918995:run_url=https://github.com/kimjooyoon/gooo-self-improvement-ledger/actions/runs/33476918995:artifact_id=9788480373:artifact_digest=03b6a43461dafb833304d0406861f338c57168bf0694596abfd0d9a507287711"
+      ],
+      "release_key": "differential_semantics_runtime_durable_release",
+      "state": "CLOSED"
     }
   ],
   "core_refutation_observation_events": [
@@ -1038,10 +1068,10 @@
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 44,
+    "from": 45,
     "retire": 0,
     "split": 0,
-    "to": 45
+    "to": 46
   },
   "local_validation_followup": {
     "inspection_only": false,
