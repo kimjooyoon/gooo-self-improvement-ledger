@@ -1,0 +1,27 @@
+package ledgerappendplanner
+namespace ledgerappendplanner
+
+entity TransactionRequest id "gooo://ledger-append-planner/transaction-request"
+entity LedgerAST id "gooo://ledger-append-planner/ledger-ast"
+entity PatchPlan id "gooo://ledger-append-planner/patch-plan"
+entity ReplayReceipt id "gooo://ledger-append-planner/replay-receipt"
+entity RollbackBundle id "gooo://ledger-append-planner/rollback-bundle"
+
+activity VerifyImmutableBaseline(TransactionRequest) -> LedgerAST computes "ledger-append-planner:v1;kind=verify-baseline;stage=VERIFY;proof=FOUNDATION;indicator=DRIVER"
+activity ValidateTransaction(TransactionRequest) -> LedgerAST computes "ledger-append-planner:v1;kind=validate-transaction;stage=VERIFY;proof=FOUNDATION;indicator=GUARDRAIL"
+activity ParseLedgerAST(LedgerAST) -> LedgerAST computes "ledger-append-planner:v1;kind=parse-ledger-ast;stage=PARSE;proof=FOUNDATION;indicator=DRIVER"
+activity ValidateAppend(LedgerAST) -> PatchPlan computes "ledger-append-planner:v1;kind=validate-append;stage=PLAN;proof=COHERENCE;indicator=GUARDRAIL"
+activity BuildASTPatch(PatchPlan) -> PatchPlan computes "ledger-append-planner:v1;kind=build-ast-patch;stage=PLAN;proof=COHERENCE;indicator=OUTCOME"
+activity ApplyTemporaryCopy(PatchPlan) -> ReplayReceipt computes "ledger-append-planner:v1;kind=apply-temporary-copy;stage=APPLY;proof=COHERENCE;indicator=OUTCOME"
+activity RenderProjections(ReplayReceipt) -> ReplayReceipt computes "ledger-append-planner:v1;kind=render-projections;stage=APPLY;proof=COHERENCE;indicator=OUTCOME"
+activity VerifyReplay(ReplayReceipt) -> RollbackBundle computes "ledger-append-planner:v1;kind=verify-replay;stage=VERIFY;proof=REGRESSION;indicator=GUARDRAIL"
+activity EmitDossier(RollbackBundle) -> RollbackBundle computes "ledger-append-planner:v1;kind=emit-dossier;stage=REPORT;proof=REGRESSION;indicator=OUTCOME"
+
+edge VerifyImmutableBaseline -> ValidateTransaction : TransactionRequest
+edge ValidateTransaction -> ParseLedgerAST : LedgerAST
+edge ParseLedgerAST -> ValidateAppend : PatchPlan
+edge ValidateAppend -> BuildASTPatch : PatchPlan
+edge BuildASTPatch -> ApplyTemporaryCopy : PatchPlan
+edge ApplyTemporaryCopy -> RenderProjections : ReplayReceipt
+edge RenderProjections -> VerifyReplay : RollbackBundle
+edge VerifyReplay -> EmitDossier : RollbackBundle
