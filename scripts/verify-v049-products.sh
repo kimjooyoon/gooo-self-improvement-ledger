@@ -287,6 +287,7 @@ EOF
 } > "$measurement_source"
 
 reuse_observation="$reuse_root/v049-content-reuse-observation.json"
+measurement_run="$products/measurement-run"
 jq -n --argjson run "$(cat "$reuse_observation")" '
   def sample($m;$phase;$value): {
     metric_id:("gooo.metric.v049.content-reuse."+$m.key+".v1"), stage:"content-reuse", step:"content-reuse/run",
@@ -305,19 +306,19 @@ jq -n --argjson run "$(cat "$reuse_observation")" '
   ] as $metrics |
   {schema:"gooo/measurement-boundary/fixture/v1",case_id:"v049-content-reuse-pair",name:"v0.49 same-CI observed pair",samples:[$metrics[] as $m | sample($m;"before";($run.baseline.metrics[$m.key]|tonumber)), sample($m;"after";($run.candidate.metrics[$m.key]|tonumber))]}
 ' > "$measurement_root/v049-fixture.json"
-"$measurement_root/projector" run --source "$measurement_source" --fixture "$measurement_root/v049-fixture.json" --out "$measurement_root/run"
+"$measurement_root/projector" run --source "$measurement_source" --fixture "$measurement_root/v049-fixture.json" --out "$measurement_run"
 jq -e '
   .schema=="gooo/measurement-boundary/evaluation/v1" and .decision=="CLOSED" and .fail_closed==false and .closed_count==8 and .unknown_count==0 and .refuted_count==0 and
   .aggregate_policy=="FORBID_UNSCOPED_SCALAR" and (.metrics|length)==8 and
   all(.metrics[]; .state=="CLOSED" and .before!=null and .after!=null and .delta!=null and (.receipt_digests|length)==2 and (.consumer_artifacts|sort)==["content-reuse-run.json","v049-measurement-report.json"] and .authority=="content-reuse-run.json")
-' "$measurement_root/run/evaluation.json" >/dev/null
+' "$measurement_run/evaluation.json" >/dev/null
 jq -e '
   .collector.generated==true and .collector.measured_once==true and .collector.repository_writes==0 and .collector.apply_authority==0 and .collector.commit_authority==0 and .collector.merge_authority==0 and .collector.tag_authority==0 and .collector.release_authority==0 and
   (.receipts|length)==16 and all(.receipts[]; .source_authority=="content-reuse-run.json" and .source_artifact=="content-reuse-run.json") and
   all(.consumers[]; (.name=="content-reuse-run.json" or .name=="v049-measurement-report.json"))
-' "$measurement_root/run/collection/collection.json" >/dev/null
+' "$measurement_run/collection/collection.json" >/dev/null
 
-jq -S -n --argjson evaluation "$(cat "$measurement_root/run/evaluation.json")" --argjson collection "$(cat "$measurement_root/run/collection/collection.json")" --argjson observation "$(cat "$reuse_observation")" --arg archive_digest "$(jq -r --arg key "$measurement_key" '.releases[$key].assets[0].sha256' "$repository/contracts/release-locks-v1.json")" \
+jq -S -n --argjson evaluation "$(cat "$measurement_run/evaluation.json")" --argjson collection "$(cat "$measurement_run/collection/collection.json")" --argjson observation "$(cat "$reuse_observation")" --arg archive_digest "$(jq -r --arg key "$measurement_key" '.releases[$key].assets[0].sha256' "$repository/contracts/release-locks-v1.json")" \
   '{schema:"gooo/self-improvement-ledger/v049-measurement-receipt/v1",source:{release_asset:"gooo-measurement-boundary-projector-v0.1.1.tar.gz",release_asset_digest:$archive_digest,projector_source:"RELEASED_GOOO",observed_in_same_ci_job:true},observed_pairs:($evaluation.metrics|map({measurement_id,before,after,delta,unit,scope,authority,receipt_digests,consumer_artifacts})),metric_vector:["wall_ms","peak_rss_kib","requests","bytes_read","bytes_downloaded","selected","executed","reused"],semantic:{decision:$evaluation.decision,fail_closed:$evaluation.fail_closed,aggregate_policy:$evaluation.aggregate_policy},single_receipt_chain:{collector_generated:$collection.collector.generated,measured_once:$collection.collector.measured_once,source_authority:"content-reuse-run.json",report_authority:"measurement-evaluation.json",verification_authority:"measurement-evaluation.json",report_verification_authority_same:true,consumer_receipts_exact:true},content_reuse_observation:$observation,authority:{repository_writes:0,local_product_validation_executions:0,cross_project_required_gates:0,caller_owned_temp_output_only:true,verification:"GITHUB_ACTIONS",github_token:"github.token"}}' \
   > "$measurement_root/measurement-receipt.json"
 
