@@ -83,7 +83,7 @@ jobs:
           extracted="$RUNNER_TEMP/v049-source-evidence"
           mkdir -p "$extracted"
           unzip -q "$asset_path" -d "$extracted"
-          bash scripts/verify-v0490-release-input.sh "$extracted"
+          bash scripts/verify-v0490-release-input.sh --artifact "$extracted"
           {
             echo "artifact_name=$artifact_name"
             echo "artifact_size=$artifact_size"
