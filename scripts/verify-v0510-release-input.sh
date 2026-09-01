@@ -109,7 +109,7 @@ jq -e '
   .local_execution_counts=={gofmt:0,build:0,test:0,vet:0,conformance:0} and (has("percentage")|not) and (has("score")|not)
 ' "$report" >/dev/null
 
-jq -e '.schema=="gooo/self-improvement-portfolio/conformance/v1" and .summary=={total:67,closed:64,unknown:1,refuted:2} and .repository_writes==0' "$conformance" >/dev/null
+jq -e '.schema=="gooo-self-improvement-portfolio/conformance/v1" and .summary=={total:67,closed:64,unknown:1,refuted:2} and .repository_writes==0' "$conformance" >/dev/null
 jq -e '.schema=="gooo/self-improvement-portfolio/semantic-denominator/v1" and .scenario_denominator==67 and .state_counts=={total:67,closed:64,unknown:1,refuted:2} and .proof_totals=={COHERENCE:58,FOUNDATION:4,REGRESSION:5} and .indicator_totals=={DRIVER:4,GUARDRAIL:5,OUTCOME:58}' "$semantic" >/dev/null
 
 jq -e '
