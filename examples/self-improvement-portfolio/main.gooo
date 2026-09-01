@@ -51,3 +51,4 @@ activity AdoptDeterministicModuleLinkerDurableRelease(PortfolioInput) -> Portfol
 activity AdoptSemanticCounterexampleReducerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptDifferentialSemanticsRuntimeDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity AdoptStagedQuasiquoteDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=STAGED_QUASIQUOTE_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
+activity AdoptErrorDirectedEvolutionPlannerDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
