@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify thirty-eight immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify thirty-nine immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,7 +78,7 @@ jobs:
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:38,verified:38,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:39,verified:39,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           planner_dir="$ARTIFACT_ROOT/releases/structural_ledger_append_planner_durable_release/assets"
           test "$(cat "$planner_dir/SHA256SUMS")" = $'25274148049853e3147618e6278570259cf3238fb578b8f808231e47c2488da8  release/gooo-ledger-append-planner-linux-amd64-v0.2.0\nf01a5ad3350a507aca5f91142e8cd09cbaf7ab923507a85f8209084d873663f7  release/gooo-ledger-append-planner-source-v0.2.0.tar.gz'
@@ -713,7 +713,47 @@ jobs:
           test "$(awk '$2=="refs/tags/v0.1.1^{}" {print $1}' <<< "$bootstrap_refs")" = 6d2bc764f144900862ba5e127cfa19d4cec248b9
           echo "upstream two-generation bootstrap v0.1.1 release and terminal corpus verified"
 
-      - name: Verify separate twenty-entry non-completeness capability evidence registry
+      - name: Verify hygienic origin resolver v0.1.1 release and child corpus
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          origin_repo="kimjooyoon/gooo-hygienic-origin-resolver"
+          origin_dir="$ARTIFACT_ROOT/releases/hygienic_origin_resolver_durable_release/assets"
+          origin_release_json="$ARTIFACT_ROOT/releases/hygienic_origin_resolver_durable_release.release.json"
+          jq -e '.id==380148937 and .tag_name=="v0.1.1" and .html_url=="https://github.com/kimjooyoon/gooo-hygienic-origin-resolver/releases/tag/v0.1.1" and .draft==false and .prerelease==false and .immutable==true and (.assets|length)==4 and ([.assets[]|{id,name,size,digest,browser_download_url}]|sort_by(.id))==([{id:538737529,name:"release-lock-v0.1.1.json",size:1233,digest:"sha256:0529d8f65b0290f94a850ee9cf68de95fc4e62db5693a8f61c604ac24022af88",browser_download_url:"https://github.com/kimjooyoon/gooo-hygienic-origin-resolver/releases/download/v0.1.1/release-lock-v0.1.1.json"},{id:538737530,name:"gooo-hygienic-origin-resolver-v0.1.1.tar.gz",size:24885,digest:"sha256:83b3b2b13c5dabe41b4730eeb4ef9371d1f0d04e20c86e52c7da099377e7ceac",browser_download_url:"https://github.com/kimjooyoon/gooo-hygienic-origin-resolver/releases/download/v0.1.1/gooo-hygienic-origin-resolver-v0.1.1.tar.gz"},{id:538737531,name:"SHA256SUMS",size:229,digest:"sha256:90e09809479162c1f3b9b287b04e6a4fe3d0bb44f9389f7ca1d35e7f0b73086e",browser_download_url:"https://github.com/kimjooyoon/gooo-hygienic-origin-resolver/releases/download/v0.1.1/SHA256SUMS"},{id:538737532,name:"gooo-hygienic-origin-resolver-v0.1.1-evidence.tar.gz",size:3903,digest:"sha256:989a416a62e49436c9134b15a03d20a97891a976f92063ca9397a9621a94cb91",browser_download_url:"https://github.com/kimjooyoon/gooo-hygienic-origin-resolver/releases/download/v0.1.1/gooo-hygienic-origin-resolver-v0.1.1-evidence.tar.gz"}]|sort_by(.id))' "$origin_release_json" >/dev/null
+          test "$(cat "$origin_dir/SHA256SUMS")" = $'83b3b2b13c5dabe41b4730eeb4ef9371d1f0d04e20c86e52c7da099377e7ceac  gooo-hygienic-origin-resolver-v0.1.1.tar.gz\n989a416a62e49436c9134b15a03d20a97891a976f92063ca9397a9621a94cb91  gooo-hygienic-origin-resolver-v0.1.1-evidence.tar.gz'
+          test "$(wc -c < "$origin_dir/gooo-hygienic-origin-resolver-v0.1.1.tar.gz" | tr -d ' ')" = 24885
+          test "$(sha256sum "$origin_dir/gooo-hygienic-origin-resolver-v0.1.1.tar.gz" | awk '{print $1}')" = 83b3b2b13c5dabe41b4730eeb4ef9371d1f0d04e20c86e52c7da099377e7ceac
+          test "$(wc -c < "$origin_dir/gooo-hygienic-origin-resolver-v0.1.1-evidence.tar.gz" | tr -d ' ')" = 3903
+          test "$(sha256sum "$origin_dir/gooo-hygienic-origin-resolver-v0.1.1-evidence.tar.gz" | awk '{print $1}')" = 989a416a62e49436c9134b15a03d20a97891a976f92063ca9397a9621a94cb91
+          test "$(wc -c < "$origin_dir/release-lock-v0.1.1.json" | tr -d ' ')" = 1233
+          test "$(sha256sum "$origin_dir/release-lock-v0.1.1.json" | awk '{print $1}')" = 0529d8f65b0290f94a850ee9cf68de95fc4e62db5693a8f61c604ac24022af88
+          test "$(wc -c < "$origin_dir/SHA256SUMS" | tr -d ' ')" = 229
+          test "$(sha256sum "$origin_dir/SHA256SUMS" | awk '{print $1}')" = 90e09809479162c1f3b9b287b04e6a4fe3d0bb44f9389f7ca1d35e7f0b73086e
+          jq -e '.schema=="gooo.release-lock/v1" and .immutable==true and .repository=="kimjooyoon/gooo-hygienic-origin-resolver" and .tag=={name:"v0.1.1",annotated:true,tag_object_sha:"b7ab8f0e21104d8dcd37c0557f264d8f763eeffd",target_commit_sha:"17933b4e7a724a622652c73de04f7973c524bec9"} and .actions=={run_id:33457245757,url:"https://github.com/kimjooyoon/gooo-hygienic-origin-resolver/actions/runs/33457245757",conclusion:"success",evidence_artifact:"gooo-evidence"} and .assets==[{name:"gooo-hygienic-origin-resolver-v0.1.1.tar.gz",size_bytes:24885,sha256:"sha256:83b3b2b13c5dabe41b4730eeb4ef9371d1f0d04e20c86e52c7da099377e7ceac"},{name:"gooo-hygienic-origin-resolver-v0.1.1-evidence.tar.gz",size_bytes:3903,sha256:"sha256:989a416a62e49436c9134b15a03d20a97891a976f92063ca9397a9621a94cb91"},{name:"SHA256SUMS",size_bytes:229,sha256:"sha256:90e09809479162c1f3b9b287b04e6a4fe3d0bb44f9389f7ca1d35e7f0b73086e"}] and .policy_status=="CLOSED" and .generated_example_build=="CLOSED" and .unknown==["missing-origin"] and .refuted==["unintended-capture"]' "$origin_dir/release-lock-v0.1.1.json" >/dev/null
+          origin_evidence_dir="$RUNNER_TEMP/gooo-hygienic-origin-evidence"
+          mkdir -p "$origin_evidence_dir"
+          tar --no-xattrs -xzf "$origin_dir/gooo-hygienic-origin-resolver-v0.1.1-evidence.tar.gz" -C "$origin_evidence_dir"
+          jq -e '.schema=="gooo.evidence/v1" and .policy_status=="CLOSED" and .target_repo_writes_before_apply==0 and .tests=={total:12,selected:12,executed:12,reused:0,failed:0,unknown:0} and .generated_artifacts=={count:4,bytes:24075}' "$origin_evidence_dir/gooo-evidence.json" >/dev/null
+          jq -e '.schema=="gooo.origin-resolve-set/v1" and .contract_digest=="sha256:1aa44ff29b0433dcb2e80dd1dd74e70d3f6332865e276a7eb913ab2386697216" and ([.reports[]|{scenario,status}] == [{scenario:"normal-nested-expansion",status:"CLOSED"},{scenario:"intended-capture",status:"CLOSED"},{scenario:"unintended-capture",status:"REFUTED"},{scenario:"missing-origin",status:"UNKNOWN"},{scenario:"replay",status:"CLOSED"}]) and ((.reports[]|select(.scenario=="missing-origin")).unknown|keys|sort)==["blocked_by","next_operation","reason","stage","step","unknown_class"] and ((.reports[]|select(.scenario=="missing-origin")).unknown.blocked_by|length)>0 and ((.reports[]|select(.scenario=="normal-nested-expansion")) as $normal | ([$normal.symbols[]|select(.capture_decision=="ALPHA_RENAME" and (.stable_identity|startswith("sym_")) and (.effective_spelling|startswith("x__gooo_sym_")) and (.origin_proof_path|length)>0)]|length)==2 and ([$normal.references[]|select(.actual_target==.expected_target and (.origin_proof_path|length)>0)]|length)==2) and ([.reports[]|select(.scenario=="intended-capture")|.references[]|select(.expected_target=="user.x" and .actual_target=="user.x" and .capture_decision=="INTENDED_CAPTURE")]|length)==1' "$origin_evidence_dir/gooo-artifacts/origin-resolve.json" >/dev/null
+          jq -e '([.reports[]|select(.scenario=="unintended-capture")|.references[]|select(.expected_target=="user.x" and .actual_target=="refuted.x" and .capture_decision=="UNINTENDED_CAPTURE")]|length)==1 and ((.reports[]|select(.scenario=="replay").replay)=={source_scenario:"normal-nested-expansion",expected_same:true,same_identities:true,same_names:true,same_decisions:true,status:"CLOSED"})' "$origin_evidence_dir/gooo-artifacts/origin-resolve.json" >/dev/null
+          jq -e '.schema=="gooo.conformance/v1" and .status=="PASS" and .canonical_cases==3 and .precedence==["REFUTED","UNKNOWN","CLOSED"]' "$origin_evidence_dir/gooo-artifacts/bootstrap-conformance.json" >/dev/null
+          jq -e '.schema=="gooo.verify-report/v1" and .input_digest=="sha256:17933b4e7a724a622652c73de04f7973c524bec9" and .observation=={bootstrap_commits:1,bootstrap_commits_known:true,post_bootstrap_direct_main:0,post_bootstrap_direct_main_known:true,github_api:"observed",ruleset:"observed"} and .result.status=="CLOSED"' "$origin_evidence_dir/gooo-artifacts/policy.json" >/dev/null
+          test -s "$origin_evidence_dir/gooo-artifacts/generated_capture_free.go"
+          grep -q 'func CaptureFree' "$origin_evidence_dir/gooo-artifacts/generated_capture_free.go"
+          tag_json="$RUNNER_TEMP/gooo-hygienic-origin-v011-tag.json"
+          gh api "repos/$origin_repo/git/ref/tags/v0.1.1" > "$tag_json"
+          jq -e '.object.sha=="b7ab8f0e21104d8dcd37c0557f264d8f763eeffd" and .object.type=="tag"' "$tag_json" >/dev/null
+          gh api "repos/$origin_repo/git/tags/b7ab8f0e21104d8dcd37c0557f264d8f763eeffd" > "$RUNNER_TEMP/gooo-hygienic-origin-v011-tag-object.json"
+          jq -e '.object.sha=="17933b4e7a724a622652c73de04f7973c524bec9" and .object.type=="commit"' "$RUNNER_TEMP/gooo-hygienic-origin-v011-tag-object.json" >/dev/null
+          origin_refs=$(git ls-remote "https://github.com/$origin_repo.git" refs/tags/v0.1.1 'refs/tags/v0.1.1^{}')
+          test "$(awk '$2=="refs/tags/v0.1.1" {print $1}' <<< "$origin_refs")" = b7ab8f0e21104d8dcd37c0557f264d8f763eeffd
+          test "$(awk '$2=="refs/tags/v0.1.1^{}" {print $1}' <<< "$origin_refs")" = 17933b4e7a724a622652c73de04f7973c524bec9
+          echo "upstream hygienic origin resolver v0.1.1 release and child corpus verified"
+
+      - name: Verify separate twenty-one-entry non-completeness capability evidence registry
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -752,7 +792,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:41,closed:38,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:42,closed:39,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"

@@ -865,6 +865,36 @@
       ],
       "release_key": "two_generation_bootstrap_durable_release",
       "state": "CLOSED"
+    },
+    {
+      "cell_id": "HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-hygienic-origin-resolver:tag=v0.1.1:release=380148937:tag_object=b7ab8f0e21104d8dcd37c0557f264d8f763eeffd:target=17933b4e7a724a622652c73de04f7973c524bec9:immutable=true",
+        "upstream-assets:538737532:3903:sha256:989a416a62e49436c9134b15a03d20a97891a976f92063ca9397a9621a94cb91,538737530:24885:sha256:83b3b2b13c5dabe41b4730eeb4ef9371d1f0d04e20c86e52c7da099377e7ceac,538737529:1233:sha256:0529d8f65b0290f94a850ee9cf68de95fc4e62db5693a8f61c604ac24022af88,538737531:229:sha256:90e09809479162c1f3b9b287b04e6a4fe3d0bb44f9389f7ca1d35e7f0b73086e",
+        "child-corpus:cases=5:normal_nested_expansion=CLOSED:intended_capture=CLOSED:unintended_capture=REFUTED:missing_origin=UNKNOWN:replay=CLOSED:unknown_fields=stage/step/reason/unknown_class/next_operation/blocked_by:precedence=REFUTED\u003eUNKNOWN\u003eCLOSED",
+        "origin-proof:stable_symbol_identities=true:alpha_renaming=true:proof_paths=true",
+        "generated-capture-free-go:build=CLOSED:artifact=gooo-artifacts/generated_capture_free.go",
+        "replay:status=CLOSED:same_identities=true:same_names=true:same_decisions=true",
+        "bootstrap-conformance:status=PASS:canonical_cases=3",
+        "policy:status=CLOSED:bootstrap_commits=1:post_bootstrap_direct_main=0",
+        "upstream-input:commit=17933b4e7a724a622652c73de04f7973c524bec9:origin_resolve_contract=sha256:1aa44ff29b0433dcb2e80dd1dd74e70d3f6332865e276a7eb913ab2386697216:policy_contract=sha256:601fc367ccbc62ef20a5a56e4ec18cec98a177d82a1c7bf4d4f3d3b70cfcb2f7",
+        "scope:HYGIENIC_ORIGIN_RESOLVER_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN",
+        "structural-append:cell=HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE:activity=AdoptHygienicOriginResolverDurableRelease:lock=hygienic_origin_resolver_durable_release",
+        "immutable-v0.35.0-baseline:semantic-source-bound",
+        "derived-projection-regeneration:report-and-history-replaced-in-caller-copy",
+        "projection-replacements:count=2:report=replace:history=replace",
+        "projection-before-digests:report=sha256:2c23107490ef5b0e6127d6f263dc6f8562b2f822c36adce7dc41d1cea3dfb226:history=sha256:7565161292a16a7105cd04f3eb21b96db71d0ab8342e0fd5cb69cce6cf50ca87",
+        "projection-source-semantic-digests:report=sha256:638d0ddb4fe3f1f7ba2dadcafc36a7af15aca44bfb6b9f8d9cefd0e1adaa007c:history=sha256:638d0ddb4fe3f1f7ba2dadcafc36a7af15aca44bfb6b9f8d9cefd0e1adaa007c",
+        "projection-after-invariants:report=deterministic-regenerate-from-post-append-semantic-source:history=deterministic-regenerate-from-post-append-semantic-source",
+        "ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0",
+        "rollback-receipt:rollback_ready=true",
+        "replay-mismatches:0",
+        "input-repository-writes:0",
+        "planner-tool-executions:current_task=1:classification=generator_only:not_validation=true",
+        "local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0"
+      ],
+      "release_key": "hygienic_origin_resolver_durable_release",
+      "state": "CLOSED"
     }
   ],
   "core_refutation_observation_events": [
@@ -934,10 +964,10 @@
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 40,
+    "from": 41,
     "retire": 0,
     "split": 0,
-    "to": 41
+    "to": 42
   },
   "local_validation_followup": {
     "inspection_only": false,

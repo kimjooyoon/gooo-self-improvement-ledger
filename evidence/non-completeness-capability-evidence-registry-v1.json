@@ -449,9 +449,34 @@
         "target_commit_sha": "6d2bc764f144900862ba5e127cfa19d4cec248b9"
       },
       "state": "CLOSED"
+    },
+    {
+      "entry_id": "hygienic-origin-resolver-v0.1.1",
+      "evidence": [
+        "immutable release API and annotated tag",
+        "release source, evidence, lock, and SHA256SUMS assets",
+        "normal nested expansion and intended capture CLOSED",
+        "unintended capture REFUTED and missing origin UNKNOWN with six fields",
+        "replay identity, alpha-renaming, proof paths, and capture-free generated Go build"
+      ],
+      "observed": {
+        "alpha_renaming": true,
+        "generated_capture_free_go_build": "CLOSED",
+        "intended_capture": "CLOSED",
+        "missing_origin": "UNKNOWN",
+        "normal_nested_expansion": "CLOSED",
+        "proof_paths": true,
+        "release_assets": 4,
+        "release_immutable": true,
+        "replay": "CLOSED",
+        "stable_symbol_identities": true,
+        "target_commit_sha": "17933b4e7a724a622652c73de04f7973c524bec9",
+        "unintended_capture": "REFUTED"
+      },
+      "state": "CLOSED"
     }
   ],
-  "entry_count": 20,
+  "entry_count": 21,
   "frontier_additions": [
     "receipt-schema-migration-v0.1.1",
     "receipt-schema-migration-v0.2.2",
@@ -464,7 +489,8 @@
     "adoption-regression-v0.1.1",
     "structural-ledger-append-planner-v0.2.0",
     "explanation-carrying-compiler-v0.3.0",
-    "two-generation-bootstrap-v0.1.1"
+    "two-generation-bootstrap-v0.1.1",
+    "hygienic-origin-resolver-v0.1.1"
   ],
   "lineage": [
     {
