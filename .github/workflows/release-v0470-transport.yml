@@ -76,7 +76,7 @@ jobs:
           extracted="$RUNNER_TEMP/v047-source-evidence"
           mkdir -p "$extracted"
           unzip -q "$asset_path" -d "$extracted"
-          report_json=$(find "$extracted" -name report.json -type f -print -quit)
+          report_json=$(find "$extracted" -name report.json -type f -not -path '*/capability-registry/*' -print -quit)
           denominator_json=$(find "$extracted" -name semantic-denominator.json -type f -print -quit)
           assertions_json=$(find "$extracted" -name generated-assertions.json -type f -print -quit)
           events_json=$(find "$extracted" -name projection-events.ndjson -type f -print -quit)
@@ -174,4 +174,3 @@ jobs:
           path: ${{ runner.temp }}/release-transport-receipt.json
           if-no-files-found: ignore
           retention-days: 30
-
