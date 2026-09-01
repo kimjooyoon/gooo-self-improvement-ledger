@@ -119,9 +119,11 @@ jq -e '
   .schema == "gooo/ledger-append-planner/candidate-operational-history/v1" and
   .transaction_id == "release-transport-conformer-durable-release-v0.45.0" and
   .semantic_cell_adoption_state == "CLOSED" and .portfolio_decision == "REFUTED" and
-  .selected_final_authority.decision == "CLOSED" and
-  .selected_final_authority.portfolio_decision == "REFUTED" and
-  .selected_final_authority.metrics == {exact_files_planned:7,exact_files_changed:7,ast_nodes_added:5,replay_mismatches:0,repository_writes:0} and
+  .selected_final_authority.run_id == 33496371281 and
+  .selected_final_authority.job_id == 99819409408 and
+  .selected_final_authority.output_artifact_id == 9795872540 and
+  .selected_final_authority.output_debug_artifact_id == 9795871741 and
+  .selected_final_authority.ci_proof_artifact_id == 9795870562 and
   (.events|length) >= 1 and
   all(.events[]; .repository_writes == 0 and .local_execution_counts == {go_test:0,go_build:0,go_vet:0,conformance:0}) and
   (.events|map(select(.selected==true and .decision=="CLOSED" and .portfolio_decision=="REFUTED"))|length) == 1
