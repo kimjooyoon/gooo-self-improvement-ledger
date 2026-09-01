@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for thirty-seven specifically named capabilities.
+The portfolio is an evidence ledger for thirty-eight specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains thirty-seven entries. The v0.31
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-six-cell
+`cells` array is immutable during a run and contains thirty-eight entries. The v0.32
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior thirty-seven-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/28/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/28/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/29/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/29/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -404,9 +404,27 @@ The ledger adoption cell is `CLOSED`, yielding `CLOSED34/UNKNOWN1/REFUTED2`.
 The prior `local_validation_executions=1`, process state `REFUTED`, and zero
 additional local schema/conformance replays remain preserved.
 
+The v0.32 frontier appends `EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE`.
+It adopts immutable `kimjooyoon/gooo-evolution-trial@v0.2.0` release `380109530`,
+whose annotated tag object `b05e646ac009208e2451473b019b5768a4b20bb8` resolves
+to `aa72f7019d1224344802478490d94046d27af58f`. PR #5, its PR validation,
+post-merge main validation, release audit, all three artifact identities, and
+all six release assets are pinned in `contracts/release-locks-v1.json`.
+The second-release loop is `CLOSED`: the v0.2 compiler accepts the split
+candidate and emits semantic IR/backend evidence; baseline and candidate both
+remain `CLOSED1/UNKNOWN1/REFUTED1` with replay match; exact rollback is
+verified; and causal metrics are `2/1/1/1/2/0/0` with one avoided execution.
+The closure receipt is `GRAPH_SEMANTICS_ACCEPT_SPLIT_CANDIDATE`; the v0.1.0
+release remains the exact `REFUTED` counterexample, while whole-language
+improvement and external utility remain `UNKNOWN`/`NOT_MADE`. The ledger now
+has `CLOSED35/UNKNOWN1/REFUTED2`; prior local observations remain unchanged.
+A separate current-ledger validation follow-up records cumulative
+`local_validation_executions=2` with `inspection_only=false`, while preserving
+`REFUTED` and zero local schema/conformance and Go executions.
+
 The non-completeness capability evidence registry is a separate seventeen-entry
 external-input ledger. Its count and dispositions never alter this fixed
-thirty-seven-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+thirty-eight-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

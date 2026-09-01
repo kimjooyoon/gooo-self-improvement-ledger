@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify thirty-four immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify thirty-five immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,7 +78,7 @@ jobs:
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:34,verified:34,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:35,verified:35,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           experience_dir="$ARTIFACT_ROOT/releases/experience_memory_release/assets"
           jq -e '.schema=="gooo/experience-memory/release-manifest/v1" and .tag=="v0.1.0" and .commit_sha=="79fd6edc588ea26279dbe735e5f6e250132f7730" and .immutable==true and .assets==[{digest:"sha256:177f7c872d4e704f5eba6dd96c43e28bfcab2a714b032188c511f3e7872e5d6d",kind:"source",name:"gooo-experience-memory-v0.1.0.tar.gz"},{digest:"sha256:27afa525ccaa5ebdf738fef99615998b51bed85d865ccd6e9367036a46a961f6",kind:"ci-evidence",name:"gooo-experience-memory-evidence-v0.1.0.tar.gz"}]' "$experience_dir/release-manifest.json" >/dev/null
@@ -561,6 +561,88 @@ jobs:
           test "$(awk '$2=="refs/tags/v0.2.0^{}" {print $1}' <<< "$compiler_refs")" = 7bdba0c353a73a40111747dbf55512939f6841a0
           echo "upstream reflexive compiler graph topology durable release and CI evidence verified"
 
+      - name: Verify executable evolution trial closed-loop durable release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          trial_repo="kimjooyoon/gooo-evolution-trial"
+          trial_dir="$ARTIFACT_ROOT/releases/executable_evolution_trial_closed_loop_durable_release/assets"
+          trial_release_json="$ARTIFACT_ROOT/releases/executable_evolution_trial_closed_loop_durable_release.release.json"
+          jq -e '.id==380109530 and .tag_name=="v0.2.0" and .html_url=="https://github.com/kimjooyoon/gooo-evolution-trial/releases/tag/v0.2.0" and .draft==false and .prerelease==false and .immutable==true' "$trial_release_json" >/dev/null
+          jq -e '. == {schema:"gooo/evolution-trial/release-manifest/v1",version:"0.2.0",tag:"v0.2.0",commit:"aa72f7019d1224344802478490d94046d27af58f",assets:[{name:"gooo-evolution-trial-source-v0.2.0.tar.gz",digest:"sha256:984ef2a192221adc8ebeaeb8489e6a1bf450238d16036c045c4382fe19429218"},{name:"upstream-lock-v0.2.0.json",digest:"sha256:28f5457240fb35d3c24c65373f824cb5df918f003245b60cb5389ca3618e4120"},{name:"experiment-dossier-v0.2.0.md",digest:"sha256:7cf59e690e9458eefffcb9cfd536119f6669146bf00aa96a365ee3bc1af688ac"},{name:"version.json",digest:"sha256:c11572b368dcc984ea4c2666ec4aa46dc43c3434cd913cac044daf6142bb9f74"}]}' "$trial_dir/release-manifest-v0.2.0.json" >/dev/null
+          expected_checksums=$'984ef2a192221adc8ebeaeb8489e6a1bf450238d16036c045c4382fe19429218  gooo-evolution-trial-source-v0.2.0.tar.gz\n28f5457240fb35d3c24c65373f824cb5df918f003245b60cb5389ca3618e4120  upstream-lock-v0.2.0.json\n7cf59e690e9458eefffcb9cfd536119f6669146bf00aa96a365ee3bc1af688ac  experiment-dossier-v0.2.0.md\nc11572b368dcc984ea4c2666ec4aa46dc43c3434cd913cac044daf6142bb9f74  version.json\n48f4dd0c1391f9ec91654e8d2b25a67942e8e6febd3461c61d0651a35896153f  release-manifest-v0.2.0.json'
+          test "$(cat "$trial_dir/SHA256SUMS")" = "$expected_checksums"
+          test "$(wc -c < "$trial_dir/experiment-dossier-v0.2.0.md" | tr -d ' ')" = 2345
+          test "$(wc -c < "$trial_dir/gooo-evolution-trial-source-v0.2.0.tar.gz" | tr -d ' ')" = 30429
+          test "$(wc -c < "$trial_dir/release-manifest-v0.2.0.json" | tr -d ' ')" = 764
+          test "$(wc -c < "$trial_dir/SHA256SUMS" | tr -d ' ')" = 469
+          test "$(wc -c < "$trial_dir/upstream-lock-v0.2.0.json" | tr -d ' ')" = 4134
+          test "$(wc -c < "$trial_dir/version.json" | tr -d ' ')" = 319
+          test "$(sha256sum "$trial_dir/experiment-dossier-v0.2.0.md" | awk '{print $1}')" = 7cf59e690e9458eefffcb9cfd536119f6669146bf00aa96a365ee3bc1af688ac
+          test "$(sha256sum "$trial_dir/gooo-evolution-trial-source-v0.2.0.tar.gz" | awk '{print $1}')" = 984ef2a192221adc8ebeaeb8489e6a1bf450238d16036c045c4382fe19429218
+          test "$(sha256sum "$trial_dir/release-manifest-v0.2.0.json" | awk '{print $1}')" = 48f4dd0c1391f9ec91654e8d2b25a67942e8e6febd3461c61d0651a35896153f
+          test "$(sha256sum "$trial_dir/SHA256SUMS" | awk '{print $1}')" = bc867402084059cda6fd1f9590f94b45f807725001c2d9e927e13808be8e9aca
+          test "$(sha256sum "$trial_dir/upstream-lock-v0.2.0.json" | awk '{print $1}')" = 28f5457240fb35d3c24c65373f824cb5df918f003245b60cb5389ca3618e4120
+          test "$(sha256sum "$trial_dir/version.json" | awk '{print $1}')" = c11572b368dcc984ea4c2666ec4aa46dc43c3434cd913cac044daf6142bb9f74
+          gh api "repos/$trial_repo/pulls/5" > "$RUNNER_TEMP/gooo-evolution-trial-pr-5.json"
+          jq -e '.number==5 and .base.ref=="main" and .head.ref=="feature/second-release-v020" and .head.sha=="7c008ae80333771ca2158dec8a6ecb2a8bd9de58" and .merge_commit_sha=="aa72f7019d1224344802478490d94046d27af58f" and .merged==true' "$RUNNER_TEMP/gooo-evolution-trial-pr-5.json" >/dev/null
+          gh api "repos/$trial_repo/actions/runs/33449309946" > "$RUNNER_TEMP/gooo-evolution-trial-pr-run.json"
+          jq -e '.id==33449309946 and .event=="pull_request" and .head_branch=="feature/second-release-v020" and .head_sha=="7c008ae80333771ca2158dec8a6ecb2a8bd9de58" and .status=="completed" and .conclusion=="success"' "$RUNNER_TEMP/gooo-evolution-trial-pr-run.json" >/dev/null
+          gh api "repos/$trial_repo/actions/jobs/99675370500" > "$RUNNER_TEMP/gooo-evolution-trial-pr-job.json"
+          jq -e '.id==99675370500 and .run_id==33449309946 and .name=="verify-and-experiment" and .head_sha=="7c008ae80333771ca2158dec8a6ecb2a8bd9de58" and .status=="completed" and .conclusion=="success"' "$RUNNER_TEMP/gooo-evolution-trial-pr-job.json" >/dev/null
+          gh api "repos/$trial_repo/actions/artifacts/9779165344" > "$RUNNER_TEMP/gooo-evolution-trial-pr-artifact.json"
+          jq -e '.id==9779165344 and .name=="gooo-evolution-trial-33449309946" and .size_in_bytes==151620 and .digest=="sha256:c8d92b7626520f4a3d41a55695969d3fd211ff40a2f8db6ba7a03d5ce6e51608" and .expired==false and .workflow_run.id==33449309946 and .workflow_run.head_sha=="7c008ae80333771ca2158dec8a6ecb2a8bd9de58"' "$RUNNER_TEMP/gooo-evolution-trial-pr-artifact.json" >/dev/null
+          pr_artifact="$RUNNER_TEMP/gooo-evolution-trial-pr-artifact.zip"
+          gh api "repos/$trial_repo/actions/artifacts/9779165344/zip" > "$pr_artifact"
+          test "$(wc -c < "$pr_artifact" | tr -d ' ')" = 151620
+          test "$(sha256sum "$pr_artifact" | awk '{print $1}')" = c8d92b7626520f4a3d41a55695969d3fd211ff40a2f8db6ba7a03d5ce6e51608
+          gh api "repos/$trial_repo/actions/runs/33449393842" > "$RUNNER_TEMP/gooo-evolution-trial-main-run.json"
+          jq -e '.id==33449393842 and .event=="push" and .head_branch=="main" and .head_sha=="aa72f7019d1224344802478490d94046d27af58f" and .status=="completed" and .conclusion=="success"' "$RUNNER_TEMP/gooo-evolution-trial-main-run.json" >/dev/null
+          gh api "repos/$trial_repo/actions/jobs/99675631928" > "$RUNNER_TEMP/gooo-evolution-trial-main-job.json"
+          jq -e '.id==99675631928 and .run_id==33449393842 and .name=="verify-and-experiment" and .head_sha=="aa72f7019d1224344802478490d94046d27af58f" and .status=="completed" and .conclusion=="success"' "$RUNNER_TEMP/gooo-evolution-trial-main-job.json" >/dev/null
+          gh api "repos/$trial_repo/actions/artifacts/9779197222" > "$RUNNER_TEMP/gooo-evolution-trial-main-artifact.json"
+          jq -e '.id==9779197222 and .name=="gooo-evolution-trial-33449393842" and .size_in_bytes==151681 and .digest=="sha256:6cbcef44dffa70e1972e3f1c195272a9d45c644e7a1eb9fc61148d591a2ab33e" and .expired==false and .workflow_run.id==33449393842 and .workflow_run.head_sha=="aa72f7019d1224344802478490d94046d27af58f"' "$RUNNER_TEMP/gooo-evolution-trial-main-artifact.json" >/dev/null
+          main_artifact="$RUNNER_TEMP/gooo-evolution-trial-main-artifact.zip"
+          gh api "repos/$trial_repo/actions/artifacts/9779197222/zip" > "$main_artifact"
+          test "$(wc -c < "$main_artifact" | tr -d ' ')" = 151681
+          test "$(sha256sum "$main_artifact" | awk '{print $1}')" = 6cbcef44dffa70e1972e3f1c195272a9d45c644e7a1eb9fc61148d591a2ab33e
+          main_dir="$RUNNER_TEMP/gooo-evolution-trial-v020-main-artifact"
+          mkdir -p "$main_dir"
+          unzip -q "$main_artifact" -d "$main_dir"
+          echo "closed-loop diagnostic: final-report metrics schema=gooo/evolution-trial/ci-metrics/v1 go_files=9 gooo_files=2 physical_lines=2222"
+          jq -e '.schema=="gooo/evolution-trial/final-report/v1" and .experiment=="second-release-to-release-reflexive-normalization-split" and .decision=="CLOSED" and .candidate=={added_cells:2,candidate_digest:"sha256:4edd900ea94b1cb461b27d61fb06e72993424eb8ad424b82ac19b78b59318bdb",decision:"CLOSED",delta_digest:"sha256:826a90daaf19fb0f0b0b51af89c53150219ca624331905a4c913e329b085a6e6",retired_cells:1,rollback_exact_pair:true,split_cells:1} and .baseline_corpus.total==3 and .baseline_corpus.executed==3 and .baseline_corpus.failed==0 and .baseline_corpus.unknown==1 and .baseline_corpus.closed==1 and .baseline_corpus.refuted==1 and .baseline_corpus.replay_digest_match==true and .baseline_corpus.interface_decision=="CLOSED" and .candidate_corpus.total==3 and .candidate_corpus.executed==3 and .candidate_corpus.failed==0 and .candidate_corpus.unknown==1 and .candidate_corpus.closed==1 and .candidate_corpus.refuted==1 and .candidate_corpus.replay_digest_match==true and .candidate_corpus.interface_decision=="CLOSED" and .causal_decision=="CLOSED" and .causal_full_oracle_state=="CLOSED" and .acceptance_predicates=={candidate_compiled_and_generated_ir_backend:true,causal_selection_and_full_oracle_closed:true,closed_unknown_refuted_corpus_preserved:true,exact_semantic_resolution_pair_observed:true,replay_digests_match:true,rollback_possible:true} and .closure_receipt=={blocked_by:[],next_operation:"RETAIN_BASELINE_AND_CANDIDATE_EVIDENCE",reason:"GRAPH_SEMANTICS_ACCEPT_SPLIT_CANDIDATE",schema:"gooo/reflexive-improvement-closure/v1",stage:"IMPROVEMENT",state:"CLOSED",step:"RESOLVE_TRIAL_COUNTEREXAMPLE",trial_refutation_error:"phase graph must declare exactly three executable activities",trial_refutation_state:"REFUTED",unknown_class:""} and .metrics=={build_wall_ms:584,compile_wall_ms:2516,conformance_wall_ms:10438,generated_bytes:411050,generated_files:143,go_files:9,gooo_files:2,integration_wall_ms:10438,local_test_executions:0,peak_rss_kib:91624,physical_lines:2222,regular_files:23,repository_writes:0,root_readme_excluded:true,schema:"gooo/evolution-trial/ci-metrics/v1",subdirectories:12,test_wall_ms:62,tests:{executed:3,failed:0,reused:0,total:3,unknown:1},upstream_writes:0} and .authority=={local_test_executions:0,output_location:"CALLER_OWNED_TEMP_ONLY",repository_writes:0,upstream_writes:0,verification_authority:"GITHUB_ACTIONS"} and .process_evidence.main_head=="aa72f7019d1224344802478490d94046d27af58f" and .process_evidence.bootstrap_root=="cd64acc2077474e459dcbcd457aff0d320524c14" and .process_evidence.bootstrap_root_parent_count==0 and .process_evidence.bootstrap_direct_main==1 and .process_evidence.post_bootstrap_direct_main==0 and .process_evidence.exact==true and ([.process_evidence.pull_requests[]|select(.number==5 and .headRefOid=="7c008ae80333771ca2158dec8a6ecb2a8bd9de58" and .mergeCommit.oid=="aa72f7019d1224344802478490d94046d27af58f" and .state=="MERGED")]|length)==1' "$main_dir/final-report.json" >/dev/null
+          jq -e '.schema=="gooo/evolution-trial/ci-metrics/v1" and .go_files==9 and .gooo_files==2 and .physical_lines==2222 and .regular_files==23 and .subdirectories==12 and .root_readme_excluded==true and .generated_files==143 and .generated_bytes==411050 and .compile_wall_ms==2516 and .build_wall_ms==584 and .test_wall_ms==62 and .conformance_wall_ms==10438 and .integration_wall_ms==10438 and .peak_rss_kib==91624 and .tests=={total:3,executed:3,reused:0,failed:0,unknown:1} and .repository_writes==0 and .upstream_writes==0 and .local_test_executions==0' "$main_dir/ci-metrics.json" >/dev/null
+          jq -e '.schema=="gooo/evolution-trial/released-tools-executed/v1" and .delta_forge==true and .reflexive_compiler==true and .causal_runner==true and .candidate_only==true and .upstream_writes==0 and .repository_writes==0' "$main_dir/tool-execution-report.json" >/dev/null
+          jq -e '.schema=="gooo/evolution-trial/inventory/v1" and .regular_files==23 and .subdirectories==12 and .go_files==9 and .gooo_files==2 and .physical_lines==2222 and .root_readme_excluded==true' "$main_dir/repository-inventory.json" >/dev/null
+          jq -e '.schema=="gooo/evolution-trial/process-evidence/v1" and .main_head=="aa72f7019d1224344802478490d94046d27af58f" and .bootstrap_direct_main==1 and .post_bootstrap_direct_main==0 and .exact==true and .repository_writes_by_experiment==0 and .upstream_writes_by_experiment==0 and .local_test_executions==0 and .utility_global_core=={state:"UNKNOWN",status:"NOT_MADE"}' "$main_dir/process-evidence.json" >/dev/null
+          jq -e '.schema=="gooo/evolution-trial/corpus-report/v1" and .role=="baseline" and .total==3 and .executed==3 and .failed==0 and .unknown==1 and .closed==1 and .refuted==1 and .replay_digest_match==true and .interface_decision=="CLOSED"' "$main_dir/baseline-report.json" >/dev/null
+          jq -e '.schema=="gooo/evolution-trial/corpus-report/v1" and .role=="candidate" and .total==3 and .executed==3 and .failed==0 and .unknown==1 and .closed==1 and .refuted==1 and .replay_digest_match==true and .interface_decision=="CLOSED"' "$main_dir/candidate-report.json" >/dev/null
+          gh api "repos/$trial_repo/actions/runs/33449476756" > "$RUNNER_TEMP/gooo-evolution-trial-release-run.json"
+          jq -e '.id==33449476756 and .event=="workflow_dispatch" and .head_branch=="main" and .head_sha=="aa72f7019d1224344802478490d94046d27af58f" and .status=="completed" and .conclusion=="success"' "$RUNNER_TEMP/gooo-evolution-trial-release-run.json" >/dev/null
+          gh api "repos/$trial_repo/actions/jobs/99675899128" > "$RUNNER_TEMP/gooo-evolution-trial-release-job.json"
+          jq -e '.id==99675899128 and .run_id==33449476756 and .name=="release" and .head_sha=="aa72f7019d1224344802478490d94046d27af58f" and .status=="completed" and .conclusion=="success"' "$RUNNER_TEMP/gooo-evolution-trial-release-job.json" >/dev/null
+          gh api "repos/$trial_repo/actions/artifacts/9779223480" > "$RUNNER_TEMP/gooo-evolution-trial-release-artifact.json"
+          jq -e '.id==9779223480 and .name=="gooo-evolution-trial-0.2.0-release-audit" and .size_in_bytes==35765 and .digest=="sha256:7f8bcab82d8f0c73f61a0ecee169872747118c7989c1ec9648fe4ff206aa7ba6" and .expired==false and .workflow_run.id==33449476756 and .workflow_run.head_sha=="aa72f7019d1224344802478490d94046d27af58f"' "$RUNNER_TEMP/gooo-evolution-trial-release-artifact.json" >/dev/null
+          release_artifact="$RUNNER_TEMP/gooo-evolution-trial-release-artifact.zip"
+          gh api "repos/$trial_repo/actions/artifacts/9779223480/zip" > "$release_artifact"
+          test "$(wc -c < "$release_artifact" | tr -d ' ')" = 35765
+          test "$(sha256sum "$release_artifact" | awk '{print $1}')" = 7f8bcab82d8f0c73f61a0ecee169872747118c7989c1ec9648fe4ff206aa7ba6
+          audit_dir="$RUNNER_TEMP/gooo-evolution-trial-v020-release-audit-artifact"
+          mkdir -p "$audit_dir"
+          unzip -q "$release_artifact" -d "$audit_dir"
+          jq -e '. == {schema:"gooo/evolution-trial/release-audit/v1",repository:"kimjooyoon/gooo-evolution-trial",tag:"v0.2.0",release_id:380109530,tag_object:"b05e646ac009208e2451473b019b5768a4b20bb8",target_commit:"aa72f7019d1224344802478490d94046d27af58f",run_id:33449476756,job_id:99675899128,assets:[{id:538638669,name:"experiment-dossier-v0.2.0.md",size:2345,digest:"sha256:7cf59e690e9458eefffcb9cfd536119f6669146bf00aa96a365ee3bc1af688ac"},{id:538638668,name:"gooo-evolution-trial-source-v0.2.0.tar.gz",size:30429,digest:"sha256:984ef2a192221adc8ebeaeb8489e6a1bf450238d16036c045c4382fe19429218"},{id:538638665,name:"release-manifest-v0.2.0.json",size:764,digest:"sha256:48f4dd0c1391f9ec91654e8d2b25a67942e8e6febd3461c61d0651a35896153f"},{id:538638674,name:"SHA256SUMS",size:469,digest:"sha256:bc867402084059cda6fd1f9590f94b45f807725001c2d9e927e13808be8e9aca"},{id:538638666,name:"upstream-lock-v0.2.0.json",size:4134,digest:"sha256:28f5457240fb35d3c24c65373f824cb5df918f003245b60cb5389ca3618e4120"},{id:538638667,name:"version.json",size:319,digest:"sha256:c11572b368dcc984ea4c2666ec4aa46dc43c3434cd913cac044daf6142bb9f74"}],immutable:true}' "$audit_dir/release-audit.json" >/dev/null
+          tag_json="$RUNNER_TEMP/gooo-evolution-trial-tag.json"
+          gh api "repos/$trial_repo/git/ref/tags/v0.2.0" > "$tag_json"
+          jq -e '.object.sha=="b05e646ac009208e2451473b019b5768a4b20bb8" and .object.type=="tag"' "$tag_json" >/dev/null
+          gh api "repos/$trial_repo/git/tags/b05e646ac009208e2451473b019b5768a4b20bb8" > "$RUNNER_TEMP/gooo-evolution-trial-tag-object.json"
+          jq -e '.object.sha=="aa72f7019d1224344802478490d94046d27af58f" and .object.type=="commit"' "$RUNNER_TEMP/gooo-evolution-trial-tag-object.json" >/dev/null
+          trial_refs=$(git ls-remote "https://github.com/$trial_repo.git" refs/tags/v0.2.0 'refs/tags/v0.2.0^{}')
+          test "$(awk '$2=="refs/tags/v0.2.0" {print $1}' <<< "$trial_refs")" = b05e646ac009208e2451473b019b5768a4b20bb8
+          test "$(awk '$2=="refs/tags/v0.2.0^{}" {print $1}' <<< "$trial_refs")" = aa72f7019d1224344802478490d94046d27af58f
+          echo "upstream executable evolution trial closed-loop durable release and exact CLOSED evidence verified"
+
       - name: Verify separate seventeen-entry non-completeness capability evidence registry
         shell: bash
         env:
@@ -600,7 +682,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:37,closed:34,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:38,closed:35,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
