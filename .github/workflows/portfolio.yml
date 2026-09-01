@@ -1140,6 +1140,10 @@ jobs:
         shell: bash
         run: cp evidence/authoring-operational-history-v045-v1.json "$ARTIFACT_ROOT/authoring-operational-history-v045-v1.json"
 
+      - name: Preserve v0.45.1 semantic audit boundary
+        shell: bash
+        run: cp evidence/release-transport-audit-v0451-v1.json "$ARTIFACT_ROOT/release-transport-audit-v0451-v1.json"
+
       - name: Upload human-readable evidence
         if: always()
         id: evidence

@@ -78,6 +78,53 @@ jq -e '
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
+echo "conformance: verify v0.45.1 semantic audit boundary"
+jq -e '
+  .schema == "gooo/self-improvement-portfolio/assessment/v1" and
+  .semantic_audit.schema == "gooo/self-improvement-ledger/release-transport-audit/v1" and
+  .semantic_audit.audit_id == "release-transport-parent-byte-boundary-v0.45.1" and
+  .semantic_audit.audited_release == "v0.45.0" and
+  .semantic_audit.semantic_cell_additions == 0 and
+  .semantic_audit.denominator == {before:51,after:51} and
+  .semantic_audit.precedence == ["REFUTED","UNKNOWN","CLOSED"] and
+  .semantic_audit.parent_v044_continuity.state == "CLOSED" and
+  .semantic_audit.parent_v044_continuity.basis == "LOCKED_HISTORICAL_RELEASE_METADATA_AND_PRIOR_ACTIONS_RECEIPT" and
+  .semantic_audit.parent_asset_current_bytes == null and
+  .semantic_audit.parent_asset_current_bytes_state == "UNKNOWN" and
+  (.semantic_audit.parent_asset_current_bytes_unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
+  .semantic_audit.parent_asset_current_bytes_unknown.blocked_by == ["release-transport-run-v0.45.0"] and
+  .semantic_audit.current_release_asset_bytes == {state:"CLOSED",observed:true,release_tag:"v0.45.0",source_artifact_id:9799629633,release_asset_id:539498552,size_bytes:30371159,digest:"sha256:3c09f571e62b977aee8838943138cfbd5474ed896edbe99b645a3a873a589f8c"} and
+  .semantic_audit.preserved_failure.state == "REFUTED" and .semantic_audit.preserved_failure.tag == "v0.40.0" and
+  .semantic_audit.authority == {verification:"GITHUB_ACTIONS",local_go_test:0,local_go_build:0,local_go_vet:0,local_conformance:0,local_go_integration:0,repository_writes:0}
+' "$repository/evidence/assessment-v1.json" >/dev/null
+jq -e '
+  .semantic_audit.schema == "gooo/self-improvement-ledger/release-transport-audit/v1" and
+  .semantic_audit.parent_asset_current_bytes == null and
+  .semantic_audit.parent_asset_current_bytes_state == "UNKNOWN" and
+  .semantic_audit.parent_v044_continuity.state == "CLOSED" and
+  .semantic_audit.current_release_asset_bytes.state == "CLOSED" and
+  .claims.parent_v044_continuity == "CLOSED/HISTORICAL_LOCK_ONLY" and
+  .claims.parent_asset_current_bytes == "UNKNOWN/NOT_OBSERVED" and
+  .claims.semantic_cell_additions == "0" and
+  .summary == {closed:48,refuted:2,total:51,unknown:1}
+' "$repository/evidence/report-v1.json" >/dev/null
+jq -e '
+  .schema == "gooo/self-improvement-ledger/release-transport-audit/v1" and
+  .audit_id == "release-transport-parent-byte-boundary-v0.45.1" and
+  .semantic_cell_additions == 0 and .denominator == {before:51,after:51} and
+  .parent_asset_current_bytes == null and .parent_asset_current_bytes_state == "UNKNOWN" and
+  (.parent_asset_current_bytes_unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
+  .current_release_asset_bytes.state == "CLOSED" and .current_release_asset_bytes.observed == true and
+  .preserved_failure.state == "REFUTED"
+' "$repository/evidence/release-transport-audit-v0451-v1.json" >/dev/null
+last_cell=$(jq -c '.cells[] | select(.cell_id=="RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE")' "$repository/evidence/assessment-v1.json")
+jq -e '
+  (.evidence | index("parent-v0.44.0-continuity:state=CLOSED:basis=LOCKED_HISTORICAL_RELEASE_METADATA_AND_PRIOR_ACTIONS_RECEIPT")) != null and
+  (.evidence | index("parent-v0.44.0-current-asset-bytes:null:state=UNKNOWN:stage=RELEASE_TRANSPORT:step=FETCH_PARENT_ASSET_BYTES:reason=V0_45_0_RELEASE_RUN_DID_NOT_OBSERVE_CURRENT_V0_44_0_PARENT_ASSET_BYTES:unknown_class=DIRECT_MISSING:next_operation=FETCH_AND_MATCH_PARENT_ASSET_BYTES:blocked_by=release-transport-run-v0.45.0")) != null and
+  (.evidence | index("v0.45.0-current-asset-bytes:state=CLOSED:observed=true:size=30371159:sha256=sha256:3c09f571e62b977aee8838943138cfbd5474ed896edbe99b645a3a873a589f8c:source_artifact=9799629633:release_asset=539498552")) != null
+' <<< "$last_cell" >/dev/null
+echo "conformance: v0.45.1 semantic audit boundary passed"
+
 echo "conformance: verify preserved v0.43 candidate-stage planner refutations"
 jq -e '
   .schema == "gooo/ledger-append-planner/candidate-operational-history/v1" and
@@ -1913,6 +1960,12 @@ jq '{schema,profile_id,decision,summary,proof_counts,indicator_counts,bindings,r
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
+  .semantic_audit.schema == "gooo/self-improvement-ledger/release-transport-audit/v1" and
+  .semantic_audit.parent_v044_continuity.state == "CLOSED" and
+  .semantic_audit.parent_asset_current_bytes == null and
+  .semantic_audit.parent_asset_current_bytes_state == "UNKNOWN" and
+  (.semantic_audit.parent_asset_current_bytes_unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
+  .semantic_audit.current_release_asset_bytes.state == "CLOSED" and
   .summary == {total:51,closed:48,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
   (.cells|length) == 51 and
