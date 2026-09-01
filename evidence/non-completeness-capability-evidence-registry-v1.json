@@ -534,9 +534,72 @@
         ]
       },
       "state": "CLOSED"
+    },
+    {
+      "entry_id": "semantic-counterexample-reducer-v0.1.1",
+      "evidence": [
+        "immutable release API and annotated tag",
+        "release source, CI metrics, reduction report, manifest, SHA256SUMS, and version assets",
+        "two child reductions preserve 4-activity 7/4/1425 to 4/0/530 (oracle30) and capture-escalation 4/3/1067 to 3/2/672 (oracle36)",
+        "both child baseline/final verdicts remain REFUTED with identical reason digests; reduction CLOSED2 and improvement UNKNOWN2"
+      ],
+      "observed": {
+        "capture_escalation": {
+          "after": {
+            "bytes": 672,
+            "edges": 2,
+            "nodes": 3
+          },
+          "baseline": "REFUTED",
+          "before": {
+            "bytes": 1067,
+            "edges": 3,
+            "nodes": 4
+          },
+          "final": "REFUTED",
+          "oracle_invocations": 36,
+          "reason_digest_same": true
+        },
+        "child_cases": 2,
+        "child_cases_executed": 2,
+        "child_cases_selected": 2,
+        "cross_project_required_gates": 0,
+        "four_activity": {
+          "after": {
+            "bytes": 530,
+            "edges": 0,
+            "nodes": 4
+          },
+          "baseline": "REFUTED",
+          "before": {
+            "bytes": 1425,
+            "edges": 4,
+            "nodes": 7
+          },
+          "final": "REFUTED",
+          "oracle_invocations": 30,
+          "reason_digest_same": true
+        },
+        "improvement_unknown": 2,
+        "local_test_executions": 0,
+        "reduction_closed": 2,
+        "release_assets": 6,
+        "release_immutable": true,
+        "repository_writes": 0,
+        "target_commit_sha": "395f3faba810f0dd8f091cb6180527c7240eee61",
+        "unknown_fields": [
+          "stage",
+          "step",
+          "reason",
+          "unknown_class",
+          "next_operation",
+          "blocked_by"
+        ]
+      },
+      "state": "CLOSED"
     }
   ],
-  "entry_count": 23,
+  "entry_count": 24,
   "frontier_additions": [
     "receipt-schema-migration-v0.1.1",
     "receipt-schema-migration-v0.2.2",
@@ -552,7 +615,8 @@
     "two-generation-bootstrap-v0.1.1",
     "hygienic-origin-resolver-v0.1.1",
     "capability-effect-checker-v0.1.1",
-    "deterministic-module-linker-v0.1.1"
+    "deterministic-module-linker-v0.1.1",
+    "semantic-counterexample-reducer-v0.1.1"
   ],
   "lineage": [
     {

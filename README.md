@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 44 named cells, each bound one-to-one to
+language. The denominator is exactly 45 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -37,11 +37,12 @@ The fixed axes are:
 `TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE`, and
 `HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE`, and
 `CAPABILITY_EFFECT_CHECKER_DURABLE_RELEASE`, and
-`DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE`.
+`DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE`, and
+`SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `43 -> 44` with
+The denominator migration is explicit and append-only: `44 -> 45` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/35/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/35/5`.
+`4/36/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/36/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -658,8 +659,38 @@ invocation. The new cell is `CLOSED`, yielding `CLOSED41/UNKNOWN1/REFUTED2`;
 cumulative local validation remains `2`, process state remains `REFUTED`, and
 local schema/conformance plus Go test/build/vet executions remain zero.
 
+The v0.39 frontier appends `SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE`.
+It adopts immutable upstream `kimjooyoon/gooo-semantic-counterexample-reducer@v0.1.1`,
+release ID `380148374`, with annotated tag object
+`cc225db786718083a81264398096b75a23301646` resolving to target
+`395f3faba810f0dd8f091cb6180527c7240eee61`. The six release assets are pinned
+by API ID, byte size, URL, and SHA-256 digest: CI metrics `538735547` (`181`,
+`sha256:3be38f5674e2c063ce74f0bb5b42ffbc2550c69589d7438e9b0023657fe4e2e1`),
+source `538735550` (`28172`,
+`sha256:0d90dcad2c2aa072b8c0f46378e227813bd439e41e81cc7b3fe5f0111cb38454`),
+reduction report `538735549` (`9529`,
+`sha256:1124d7378125128900827e82f8ab87ab3751b7ab0c06b9fd29e081ed9d28a37c`),
+release manifest `538735548` (`793`,
+`sha256:dbedbe01c851718fcd1ce09a6fea329d026e75cc6abc06242174e32c8fe4531b`),
+SHA256SUMS `538735551` (`482`,
+`sha256:e3a9dc202ad28cd961be76d3eefd5edaa72149978db5cd89ffe83e2808742454`),
+and version `538735563` (`258`,
+`sha256:da7549433fadd2ecb62ee2854a45c8d7c3033c77ec30d93833f7271ca5d010f9`).
+The child corpus is selected and executed `2/2`, with reduction `CLOSED2` and
+improvement `UNKNOWN2`: the four-activity case reduces `7/4/1425` to
+`4/0/530` with `30` oracle invocations, and the capture-escalation case reduces
+`4/3/1067` to `3/2/672` with `36` oracle invocations. Both preserve baseline and
+final `REFUTED` decisions, reasons, and reason digests; the six UNKNOWN fields
+are preserved exactly. The immutable reducer release is verified against the
+v0.38.0 baseline, with semantic append-only state, two caller-owned projection
+replacements, `7/7` planned/changed paths, `5` AST nodes, zero replay mismatches,
+zero planner repository writes, and an exact rollback-ready receipt. The
+generator-only adoption yields `CLOSED42/UNKNOWN1/REFUTED2`; cumulative local
+validation remains `2`, process state remains `REFUTED`, and local Go
+test/build/vet/conformance executions remain zero.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
-twenty-three independent evidence inputs without treating its entry count as the portfolio
+twenty-four independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
 REFUTED`: the three historical v0.1.0 refutations remain preserved and are
 linked to immutable v0.1.1 successor locks; the immutable receipt-schema-

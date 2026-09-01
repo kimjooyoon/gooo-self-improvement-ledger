@@ -716,21 +716,37 @@
       "proof": "COHERENCE",
       "release_key": "deterministic_module_linker_durable_release",
       "source": "examples/self-improvement-portfolio/main.gooo#AdoptDeterministicModuleLinkerDurableRelease"
+    },
+    {
+      "activity": "AdoptSemanticCounterexampleReducerDurableRelease",
+      "axis": "SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE",
+      "depends_on": [],
+      "evaluator": "ledger/semantic-counterexample-reducer",
+      "generated_artifact": "evidence/cells/SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE.json",
+      "id": "SEMANTIC_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptSemanticCounterexampleReducerDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.semantic-counterexample-reducer-durable-release.v1",
+      "ordinal": 45,
+      "proof": "COHERENCE",
+      "release_key": "semantic_counterexample_reducer_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptSemanticCounterexampleReducerDurableRelease"
     }
   ],
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 43,
+    "from": 44,
     "retire": 0,
     "split": 0,
-    "to": 44
+    "to": 45
   },
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
   "indicator_totals": {
     "DRIVER": 4,
     "GUARDRAIL": 5,
-    "OUTCOME": 35
+    "OUTCOME": 36
   },
   "policy": {
     "aggregate_percentage": false,
@@ -748,10 +764,10 @@
   ],
   "profile_id": "self-improvement-portfolio-v1",
   "proof_totals": {
-    "COHERENCE": 35,
+    "COHERENCE": 36,
     "FOUNDATION": 4,
     "REGRESSION": 5
   },
   "schema": "gooo/self-improvement-portfolio/contract/v1",
-  "total_cells": 44
+  "total_cells": 45
 }

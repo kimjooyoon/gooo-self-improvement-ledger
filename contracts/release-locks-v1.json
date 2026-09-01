@@ -5745,6 +5745,65 @@
       "tag_object_sha": "c81ff9b843dce716c57fe2ab542bde52e922ab2b",
       "target_commit_sha": "0451a1f5813e51a2d09145d7516170c7802f9fd5"
     },
+    "semantic_counterexample_reducer_durable_release": {
+      "assets": [
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-semantic-counterexample-reducer/releases/download/v0.1.1/ci-metrics-v0.1.1.json",
+          "id": 538735547,
+          "name": "ci-metrics-v0.1.1.json",
+          "role": "ci-metrics",
+          "sha256": "sha256:3be38f5674e2c063ce74f0bb5b42ffbc2550c69589d7438e9b0023657fe4e2e1",
+          "size_bytes": 181
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-semantic-counterexample-reducer/releases/download/v0.1.1/gooo-semantic-counterexample-reducer-source-v0.1.1.tar.gz",
+          "id": 538735550,
+          "name": "gooo-semantic-counterexample-reducer-source-v0.1.1.tar.gz",
+          "role": "release-source",
+          "sha256": "sha256:0d90dcad2c2aa072b8c0f46378e227813bd439e41e81cc7b3fe5f0111cb38454",
+          "size_bytes": 28172
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-semantic-counterexample-reducer/releases/download/v0.1.1/reduction-report-v0.1.1.json",
+          "id": 538735549,
+          "name": "reduction-report-v0.1.1.json",
+          "role": "reduction-report",
+          "sha256": "sha256:1124d7378125128900827e82f8ab87ab3751b7ab0c06b9fd29e081ed9d28a37c",
+          "size_bytes": 9529
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-semantic-counterexample-reducer/releases/download/v0.1.1/release-manifest-v0.1.1.json",
+          "id": 538735548,
+          "name": "release-manifest-v0.1.1.json",
+          "role": "release-manifest",
+          "sha256": "sha256:dbedbe01c851718fcd1ce09a6fea329d026e75cc6abc06242174e32c8fe4531b",
+          "size_bytes": 793
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-semantic-counterexample-reducer/releases/download/v0.1.1/SHA256SUMS",
+          "id": 538735551,
+          "name": "SHA256SUMS",
+          "role": "release-checksums",
+          "sha256": "sha256:e3a9dc202ad28cd961be76d3eefd5edaa72149978db5cd89ffe83e2808742454",
+          "size_bytes": 482
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-semantic-counterexample-reducer/releases/download/v0.1.1/version.json",
+          "id": 538735563,
+          "name": "version.json",
+          "role": "release-version",
+          "sha256": "sha256:da7549433fadd2ecb62ee2854a45c8d7c3033c77ec30d93833f7271ca5d010f9",
+          "size_bytes": 258
+        }
+      ],
+      "immutable": true,
+      "release_id": 380148374,
+      "release_url": "https://github.com/kimjooyoon/gooo-semantic-counterexample-reducer/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-semantic-counterexample-reducer",
+      "tag": "v0.1.1",
+      "tag_object_sha": "cc225db786718083a81264398096b75a23301646",
+      "target_commit_sha": "395f3faba810f0dd8f091cb6180527c7240eee61"
+    },
     "semantic_drift_guard_release": {
       "assets": [
         {
