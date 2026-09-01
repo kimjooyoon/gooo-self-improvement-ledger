@@ -700,21 +700,37 @@
       "proof": "COHERENCE",
       "release_key": "capability_effect_checker_durable_release",
       "source": "examples/self-improvement-portfolio/main.gooo#AdoptCapabilityEffectCheckerDurableRelease"
+    },
+    {
+      "activity": "AdoptDeterministicModuleLinkerDurableRelease",
+      "axis": "DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE",
+      "depends_on": [],
+      "evaluator": "ledger/deterministic-module-linker",
+      "generated_artifact": "evidence/cells/DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE.json",
+      "id": "DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptDeterministicModuleLinkerDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.deterministic-module-linker-durable-release.v1",
+      "ordinal": 44,
+      "proof": "COHERENCE",
+      "release_key": "deterministic_module_linker_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptDeterministicModuleLinkerDurableRelease"
     }
   ],
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 42,
+    "from": 43,
     "retire": 0,
     "split": 0,
-    "to": 43
+    "to": 44
   },
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
   "indicator_totals": {
     "DRIVER": 4,
     "GUARDRAIL": 5,
-    "OUTCOME": 34
+    "OUTCOME": 35
   },
   "policy": {
     "aggregate_percentage": false,
@@ -732,10 +748,10 @@
   ],
   "profile_id": "self-improvement-portfolio-v1",
   "proof_totals": {
-    "COHERENCE": 34,
+    "COHERENCE": 35,
     "FOUNDATION": 4,
     "REGRESSION": 5
   },
   "schema": "gooo/self-improvement-portfolio/contract/v1",
-  "total_cells": 43
+  "total_cells": 44
 }

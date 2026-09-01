@@ -922,6 +922,30 @@
       ],
       "release_key": "capability_effect_checker_durable_release",
       "state": "CLOSED"
+    },
+    {
+      "cell_id": "DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-module-linker:tag=v0.1.1:release=380147845:tag_object=006323188885fe6564c26a47c71b66a3a0dc960e:target=73a2c4f64be92d3dff67e659794f1597427c3148:immutable=true",
+        "upstream-assets:538733980:7498:sha256:a64231a836f62a0176ff1c1ad33ec4def0e9f31aed0258723db01a657c824738,538733979:2746:sha256:1e9b83b38a09a31cc9fabb98c3ac0767e7b4941f84916f3f875f2bb6f91146e0,538733978:982:sha256:deec296b9f763c26ca852f223c7cdade64ba88c2fb73b8047917dcd85cbae4e2",
+        "child-corpus:cases=9:selected=9:executed=9:canonical_input_order_digest=sha256:526c7bf9fe423e2d8487f8a89a68918045ab4ffa28dce8ebd9998e5419feb794:unknown=2:six_fields=stage/step/reason/unknown_class/next_operation/blocked_by:refuted=duplicate,digest,release,cycle:generated-go-build=CLOSED",
+        "linked-ir-and-generated-go:linked_ir=2746:sha256:1e9b83b38a09a31cc9fabb98c3ac0767e7b4941f84916f3f875f2bb6f91146e0:generated_go=982:sha256:deec296b9f763c26ca852f223c7cdade64ba88c2fb73b8047917dcd85cbae4e2",
+        "child-states:unknown=2:duplicate=REFUTED:digest=REFUTED:release=REFUTED:cycle=REFUTED:generated-go-build=CLOSED",
+        "canonical-input-order-digest:sha256:526c7bf9fe423e2d8487f8a89a68918045ab4ffa28dce8ebd9998e5419feb794",
+        "authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0",
+        "structural-append:cell=DETERMINISTIC_MODULE_LINKER_DURABLE_RELEASE:activity=AdoptDeterministicModuleLinkerDurableRelease:lock=deterministic_module_linker_durable_release",
+        "immutable-v0.37.0-baseline:semantic-source-bound",
+        "derived-projection-regeneration:report-and-history-replaced-in-caller-copy",
+        "projection-replacements:count=2:report=replace:history=replace",
+        "ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0",
+        "rollback-receipt:rollback_ready=true",
+        "replay-mismatches:0",
+        "input-repository-writes:0",
+        "planner-tool-executions:current_task=1:classification=generator_only:not_validation=true",
+        "local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0"
+      ],
+      "release_key": "deterministic_module_linker_durable_release",
+      "state": "CLOSED"
     }
   ],
   "core_refutation_observation_events": [
@@ -991,10 +1015,10 @@
   "denominator_migration": {
     "add": 1,
     "append_only": true,
-    "from": 42,
+    "from": 43,
     "retire": 0,
     "split": 0,
-    "to": 43
+    "to": 44
   },
   "local_validation_followup": {
     "inspection_only": false,

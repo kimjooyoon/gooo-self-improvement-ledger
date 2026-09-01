@@ -1370,6 +1370,41 @@
       "tag": "v0.2.0",
       "target_commit_sha": "f0002c4379be75530bfb61808fab52d017191e4b"
     },
+    "deterministic_module_linker_durable_release": {
+      "assets": [
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-module-linker/releases/download/v0.1.1/gooo-evidence-v0.1.1.json",
+          "id": 538733980,
+          "name": "gooo-evidence-v0.1.1.json",
+          "role": "evidence",
+          "sha256": "sha256:a64231a836f62a0176ff1c1ad33ec4def0e9f31aed0258723db01a657c824738",
+          "size_bytes": 7498
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-module-linker/releases/download/v0.1.1/linked-ir-v0.1.1.json",
+          "id": 538733979,
+          "name": "linked-ir-v0.1.1.json",
+          "role": "linked-ir",
+          "sha256": "sha256:1e9b83b38a09a31cc9fabb98c3ac0767e7b4941f84916f3f875f2bb6f91146e0",
+          "size_bytes": 2746
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-module-linker/releases/download/v0.1.1/generated-go-v0.1.1.go",
+          "id": 538733978,
+          "name": "generated-go-v0.1.1.go",
+          "role": "generated-go",
+          "sha256": "sha256:deec296b9f763c26ca852f223c7cdade64ba88c2fb73b8047917dcd85cbae4e2",
+          "size_bytes": 982
+        }
+      ],
+      "immutable": true,
+      "release_id": 380147845,
+      "release_url": "https://github.com/kimjooyoon/gooo-module-linker/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-module-linker",
+      "tag": "v0.1.1",
+      "tag_object_sha": "006323188885fe6564c26a47c71b66a3a0dc960e",
+      "target_commit_sha": "73a2c4f64be92d3dff67e659794f1597427c3148"
+    },
     "executable_evolution_trial_closed_loop_durable_release": {
       "assets": [
         {
