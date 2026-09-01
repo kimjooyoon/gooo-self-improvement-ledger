@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 41 named cells, each bound one-to-one to
+language. The denominator is exactly 42 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -34,11 +34,12 @@ The fixed axes are:
 `EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE`, and
 `STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE`, and
 `EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE`, and
-`TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE`.
+`TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE`, and
+`HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `40 -> 41` with
+The denominator migration is explicit and append-only: `41 -> 42` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/32/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/32/5`.
+`4/33/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/33/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -581,8 +582,31 @@ validation remains `2`, the planner invocation is generator-only, process
 state remains `REFUTED`, and local schema/conformance plus Go test/build/vet
 executions remain zero.
 
+The v0.36 frontier appends `HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE`. It
+adopts immutable `kimjooyoon/gooo-hygienic-origin-resolver@v0.1.1` release
+`380148937`, binding annotated tag object
+`b7ab8f0e21104d8dcd37c0557f264d8f763eeffd` to target
+`17933b4e7a724a622652c73de04f7973c524bec9`. All four release assets are pinned
+by API ID, byte size, download URL, and SHA-256 digest. The child corpus is
+`CLOSED` for normal nested expansion, intended capture, and replay,
+`UNKNOWN` for missing origin with exactly the six UNKNOWN fields, and
+`REFUTED` for unintended capture. Stable symbol identities, alpha-renaming,
+origin proof paths, and the capture-free generated Go build are all closed;
+bootstrap conformance is `PASS`, and the policy receipt is `CLOSED` with one
+bootstrap commit and zero post-bootstrap direct-main writes.
+
+The adoption is executed by immutable planner v0.3.0 using the v3 transaction
+manifest. Five semantic targets remain append-only and two derived report/history
+projections may be replaced only in caller-owned temporary output after exact
+before-digest and semantic-source-digest checks. The planner records `7/7`
+planned/changed paths, `5` AST nodes, zero replay mismatches, zero planning
+repository writes, and an exact rollback-ready receipt. The new cell is CLOSED,
+yielding `CLOSED39/UNKNOWN1/REFUTED2`; cumulative local validation remains `2`,
+the planner invocation is generator-only, process state remains `REFUTED`, and
+local schema/conformance plus Go test/build/vet executions remain zero.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
-twenty independent evidence inputs without treating its entry count as the portfolio
+twenty-one independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
 REFUTED`: the three historical v0.1.0 refutations remain preserved and are
 linked to immutable v0.1.1 successor locks; the immutable receipt-schema-
@@ -609,7 +633,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the thirty-eight immutable inputs
+commit, and consumer asset identities for the thirty-nine immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

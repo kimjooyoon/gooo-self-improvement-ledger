@@ -14,8 +14,8 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 41 and
-  .denominator_migration == {from:40,to:41,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 42 and
+  .denominator_migration == {from:41,to:42,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
@@ -24,8 +24,9 @@ jq -e '
   ] and .cells[38].id == "STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE" and
   .cells[39].id == "EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE" and
   .cells[40].id == "TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:32,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:32,GUARDRAIL:5} and
+  .cells[41].id == "HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE" and
+  .proof_totals == {FOUNDATION:4,COHERENCE:33,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:33,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -55,6 +56,7 @@ jq -e '
   (.cells|map(select(.id=="STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE" and .release_key=="structural_ledger_append_planner_durable_release" and .ordinal==39 and .activity=="AdoptStructuralLedgerAppendPlannerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1 and
   (.cells|map(select(.id=="EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE" and .release_key=="explanation_carrying_compiler_durable_release" and .ordinal==40 and .activity=="AdoptExplanationCarryingCompilerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1 and
   (.cells|map(select(.id=="TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE" and .release_key=="two_generation_bootstrap_durable_release" and .ordinal==41 and .activity=="AdoptTwoGenerationBootstrapDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE" and .release_key=="hygienic_origin_resolver_durable_release" and .ordinal==42 and .activity=="AdoptHygienicOriginResolverDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -794,13 +796,27 @@ jq -e '
       {id:538734713,name:"gooo-two-generation-release-v0.1.1-evidence.tar.gz",size_bytes:5823,sha256:"sha256:66fed9217a3a632e412a00feae80b87ac66fbf9fd63d4ee6e147b8d6a059ae9c",download_url:"https://github.com/kimjooyoon/gooo-two-generation-bootstrap/releases/download/v0.1.1/gooo-two-generation-release-v0.1.1-evidence.tar.gz",role:"release-evidence"},
       {id:538734714,name:"gooo-two-generation-release-v0.1.1-SHA256SUMS",size_bytes:117,sha256:"sha256:e28154200027dd298aa56dc5cc8c045f177c259a105166cfa8d8dce46e39ebc3",download_url:"https://github.com/kimjooyoon/gooo-two-generation-bootstrap/releases/download/v0.1.1/gooo-two-generation-release-v0.1.1-SHA256SUMS",role:"release-checksums"}
     ]
+  } and .releases.hygienic_origin_resolver_durable_release == {
+    repository:"kimjooyoon/gooo-hygienic-origin-resolver",
+    tag:"v0.1.1",
+    release_id:380148937,
+    release_url:"https://github.com/kimjooyoon/gooo-hygienic-origin-resolver/releases/tag/v0.1.1",
+    target_commit_sha:"17933b4e7a724a622652c73de04f7973c524bec9",
+    tag_object_sha:"b7ab8f0e21104d8dcd37c0557f264d8f763eeffd",
+    immutable:true,
+    assets:[
+      {id:538737532,name:"gooo-hygienic-origin-resolver-v0.1.1-evidence.tar.gz",size_bytes:3903,sha256:"sha256:989a416a62e49436c9134b15a03d20a97891a976f92063ca9397a9621a94cb91",download_url:"https://github.com/kimjooyoon/gooo-hygienic-origin-resolver/releases/download/v0.1.1/gooo-hygienic-origin-resolver-v0.1.1-evidence.tar.gz",role:"release-evidence"},
+      {id:538737530,name:"gooo-hygienic-origin-resolver-v0.1.1.tar.gz",size_bytes:24885,sha256:"sha256:83b3b2b13c5dabe41b4730eeb4ef9371d1f0d04e20c86e52c7da099377e7ceac",download_url:"https://github.com/kimjooyoon/gooo-hygienic-origin-resolver/releases/download/v0.1.1/gooo-hygienic-origin-resolver-v0.1.1.tar.gz",role:"release-source"},
+      {id:538737529,name:"release-lock-v0.1.1.json",size_bytes:1233,sha256:"sha256:0529d8f65b0290f94a850ee9cf68de95fc4e62db5693a8f61c604ac24022af88",download_url:"https://github.com/kimjooyoon/gooo-hygienic-origin-resolver/releases/download/v0.1.1/release-lock-v0.1.1.json",role:"release-lock"},
+      {id:538737531,name:"SHA256SUMS",size_bytes:229,sha256:"sha256:90e09809479162c1f3b9b287b04e6a4fe3d0bb44f9389f7ca1d35e7f0b73086e",download_url:"https://github.com/kimjooyoon/gooo-hygienic-origin-resolver/releases/download/v0.1.1/SHA256SUMS",role:"release-checksums"}
+    ]
   }
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 echo "conformance: release lock contract passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:40,to:41,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:41,to:42,add:1,retire:0,split:0,append_only:true} and
   .local_validation_followup == {local_validation_executions:2,inspection_only:false,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
@@ -1064,7 +1080,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 41 and
+  (.cells|length) == 42 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1290,6 +1306,32 @@ jq -e '
     ($bootstrap.evidence | index("planner-tool-executions:current_task=1:classification=generator_only:not_validation=true")) != null and
     ($bootstrap.evidence | index("input-repository-writes:0")) != null and
     ($bootstrap.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null) and
+  ((.cells[] | select(.cell_id == "HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE")) as $origin |
+    $origin.state == "CLOSED" and
+    $origin.release_key == "hygienic_origin_resolver_durable_release" and
+    ($origin.evidence | index("upstream-release:repo=kimjooyoon/gooo-hygienic-origin-resolver:tag=v0.1.1:release=380148937:tag_object=b7ab8f0e21104d8dcd37c0557f264d8f763eeffd:target=17933b4e7a724a622652c73de04f7973c524bec9:immutable=true")) != null and
+    ($origin.evidence | index("upstream-assets:538737532:3903:sha256:989a416a62e49436c9134b15a03d20a97891a976f92063ca9397a9621a94cb91,538737530:24885:sha256:83b3b2b13c5dabe41b4730eeb4ef9371d1f0d04e20c86e52c7da099377e7ceac,538737529:1233:sha256:0529d8f65b0290f94a850ee9cf68de95fc4e62db5693a8f61c604ac24022af88,538737531:229:sha256:90e09809479162c1f3b9b287b04e6a4fe3d0bb44f9389f7ca1d35e7f0b73086e")) != null and
+    ($origin.evidence | index("child-corpus:cases=5:normal_nested_expansion=CLOSED:intended_capture=CLOSED:unintended_capture=REFUTED:missing_origin=UNKNOWN:replay=CLOSED:unknown_fields=stage/step/reason/unknown_class/next_operation/blocked_by:precedence=REFUTED>UNKNOWN>CLOSED")) != null and
+    ($origin.evidence | index("origin-proof:stable_symbol_identities=true:alpha_renaming=true:proof_paths=true")) != null and
+    ($origin.evidence | index("generated-capture-free-go:build=CLOSED:artifact=gooo-artifacts/generated_capture_free.go")) != null and
+    ($origin.evidence | index("replay:status=CLOSED:same_identities=true:same_names=true:same_decisions=true")) != null and
+    ($origin.evidence | index("bootstrap-conformance:status=PASS:canonical_cases=3")) != null and
+    ($origin.evidence | index("policy:status=CLOSED:bootstrap_commits=1:post_bootstrap_direct_main=0")) != null and
+    ($origin.evidence | index("upstream-input:commit=17933b4e7a724a622652c73de04f7973c524bec9:origin_resolve_contract=sha256:1aa44ff29b0433dcb2e80dd1dd74e70d3f6332865e276a7eb913ab2386697216:policy_contract=sha256:601fc367ccbc62ef20a5a56e4ec18cec98a177d82a1c7bf4d4f3d3b70cfcb2f7")) != null and
+    ($origin.evidence | index("scope:HYGIENIC_ORIGIN_RESOLVER_ONLY:whole-language-improvement=UNKNOWN:external-utility=UNKNOWN")) != null and
+    ($origin.evidence | index("structural-append:cell=HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE:activity=AdoptHygienicOriginResolverDurableRelease:lock=hygienic_origin_resolver_durable_release")) != null and
+    ($origin.evidence | index("immutable-v0.35.0-baseline:semantic-source-bound")) != null and
+    ($origin.evidence | index("derived-projection-regeneration:report-and-history-replaced-in-caller-copy")) != null and
+    ($origin.evidence | index("projection-replacements:count=2:report=replace:history=replace")) != null and
+    ($origin.evidence | index("projection-before-digests:report=sha256:2c23107490ef5b0e6127d6f263dc6f8562b2f822c36adce7dc41d1cea3dfb226:history=sha256:7565161292a16a7105cd04f3eb21b96db71d0ab8342e0fd5cb69cce6cf50ca87")) != null and
+    ($origin.evidence | index("projection-source-semantic-digests:report=sha256:638d0ddb4fe3f1f7ba2dadcafc36a7af15aca44bfb6b9f8d9cefd0e1adaa007c:history=sha256:638d0ddb4fe3f1f7ba2dadcafc36a7af15aca44bfb6b9f8d9cefd0e1adaa007c")) != null and
+    ($origin.evidence | index("projection-after-invariants:report=deterministic-regenerate-from-post-append-semantic-source:history=deterministic-regenerate-from-post-append-semantic-source")) != null and
+    ($origin.evidence | index("ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0")) != null and
+    ($origin.evidence | index("rollback-receipt:rollback_ready=true")) != null and
+    ($origin.evidence | index("replay-mismatches:0")) != null and
+    ($origin.evidence | index("input-repository-writes:0")) != null and
+    ($origin.evidence | index("planner-tool-executions:current_task=1:classification=generator_only:not_validation=true")) != null and
+    ($origin.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -1361,12 +1403,12 @@ end=$(date +%s%N)
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:41,closed:38,unknown:1,refuted:2} and
+  .summary == {total:42,closed:39,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 41 and
+  (.cells|length) == 42 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 38 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 39 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -1410,16 +1452,17 @@ jq -e '
     EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE:"CLOSED",
     STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE:"CLOSED",
     EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE:"CLOSED",
-    TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE:"CLOSED"
+    TWO_GENERATION_BOOTSTRAP_DURABLE_RELEASE:"CLOSED",
+    HYGIENIC_ORIGIN_RESOLVER_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:41,activities:41,unique_axes:41,unique_metrics:41,source_bindings:41,ir_bindings:41,generated_artifact_bindings:41,evaluator_bindings:41} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 32 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 32 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:38,verified:38,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:42,activities:42,unique_axes:42,unique_metrics:42,source_bindings:42,ir_bindings:42,generated_artifact_bindings:42,evaluator_bindings:42} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 33 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 33 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:39,verified:39,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
