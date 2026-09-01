@@ -58,8 +58,8 @@ measurement_bin="$temp_root/measurement-boundary-projector"
   --source "$measurement_source_dir/examples/measurement-boundary-v2.gooo" \
   --corpus "$measurement_source_dir/fixtures/v2/corpus.json" \
   --out "$measurement_root/bundled-conformance"
-jq -e '.schema=="gooo/measurement-boundary/conformance/v2" and .total==12 and .closed==4 and .unknown==4 and .refuted==4 and .replay_exact==true' \
-  "$measurement_root/bundled-conformance/conformance-report.json" >/dev/null
+jq -e '.schema=="gooo/measurement-boundary/conformance/v2" and .total==12 and .closed==4 and .unknown==4 and .refuted==4 and .runtime_authority=={repository_writes:0,apply_authority:0,commit_authority:0,merge_authority:0,tag_authority:0,release_authority:0,local_test_executions:0,cross_project_required_gates:0}' \
+  "$measurement_root/bundled-conformance/conformance-summary.json" >/dev/null
 
 cp "$artifact_root/v0510-live-lock-receipt.json" "$measurement_root/stage-input-receipt.json"
 measurement_input_digest=$(sha256_prefixed "$measurement_root/stage-input-receipt.json")
@@ -103,7 +103,7 @@ measurement_actual_root="$measurement_root/actual"
 jq -e '.schema=="gooo/measurement-boundary/evaluation/v2" and .decision=="CLOSED" and .closed_count==2 and .unknown_count==0 and .refuted_count==0 and .aggregate_policy=="FORBID_UNSCOPED_SCALAR" and all(.metrics[]; .state=="CLOSED" and .improvement.state=="UNKNOWN" and .improvement.reason=="BEFORE_AFTER_PAIR_NOT_EXACT") and all(.metrics[]; (.input_receipt_digest|startswith("sha256:")) and (.output_receipt_digest|startswith("sha256:")))' "$measurement_actual_root/evaluation.json" >/dev/null
 jq -S -n --arg schema "gooo/self-improvement-ledger/v0510-measurement-boundary-receipt/v1" \
   --argjson release "$(jq -c '.releases.measurement_boundary_v2_projector_durable_release' "$repository/contracts/release-locks-v1.json")" \
-  --argjson evaluation "$(cat "$measurement_actual_root/evaluation.json")" --argjson conformance "$(cat "$measurement_root/bundled-conformance/conformance-report.json")" \
+  --argjson evaluation "$(cat "$measurement_actual_root/evaluation.json")" --argjson conformance "$(cat "$measurement_root/bundled-conformance/conformance-summary.json")" \
   --arg input "$measurement_input_digest" --arg output "$measurement_output_digest" --argjson wall "$stage_wall_ms" --argjson rss "$stage_peak_rss" \
   '{schema:$schema,release:$release,actual_stage:{input_receipt_digest:$input,output_receipt_digest:$output,wall_ms:$wall,peak_rss_kib:$rss,work_units:2,state:"CLOSED",scope:"stage-boundary/process-tree",runtime_authority:{repository_writes:0,local_test_executions:0,cross_project_required_gates:0}},evaluation:$evaluation,bundled_conformance:$conformance,improvement:{state:"UNKNOWN",reason:"PAIR_NOT_EXACT_SINGLE_OBSERVATION",aggregate_policy:"FORBID_UNSCOPED_SCALAR"},external_utility:{state:"UNKNOWN",required_gate:false},authority:{verification:"GITHUB_ACTIONS",repository_writes:0,local_test_executions:0,cross_project_required_gates:0}}' \
   > "$measurement_root/measurement-boundary-v2-receipt.json"
