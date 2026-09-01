@@ -731,6 +731,16 @@ zero input-repository writes, and rollback ready. The adoption yields
 Actions-only, and missing peak RSS remains `null` with its exact six-field
 `UNKNOWN` measurement state rather than zero coercion.
 
+The post-v0.45.0 semantic audit makes the parent-byte boundary explicit. The
+v0.44.0 continuity claim is `CLOSED` only from locked historical release
+metadata and the prior Actions receipt. The current v0.44.0 parent asset bytes
+were not directly observed by the v0.45.0 transport run, so
+`parent_asset_current_bytes` is `null` with the exact six-field `UNKNOWN`
+frontier. The v0.45.0 live source/release asset bytes remain `CLOSED`. This is
+an evidence-boundary correction, not a new semantic cell: the denominator and
+counts remain `51 / 48 CLOSED / 1 UNKNOWN / 2 REFUTED`, and the v0.40.0
+published-before-assets `REFUTED` history is preserved.
+
 The non-completeness capability evidence registry is a separate thirty-entry
 external-input ledger. Its count and dispositions never alter this fixed
 fifty-one-cell denominator; unavailable inputs remain `UNKNOWN`, while known

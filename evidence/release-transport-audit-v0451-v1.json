@@ -1,0 +1,62 @@
+{
+  "schema": "gooo/self-improvement-ledger/release-transport-audit/v1",
+  "audit_id": "release-transport-parent-byte-boundary-v0.45.1",
+  "audited_release": "v0.45.0",
+  "finding": "V0_45_0_PARENT_ASSET_CURRENT_BYTES_NOT_DIRECTLY_OBSERVED",
+  "semantic_cell_additions": 0,
+  "denominator": {"before":51,"after":51},
+  "precedence": ["REFUTED","UNKNOWN","CLOSED"],
+  "parent_v044_continuity": {
+    "state": "CLOSED",
+    "basis": "LOCKED_HISTORICAL_RELEASE_METADATA_AND_PRIOR_ACTIONS_RECEIPT",
+    "release_id": 380386277,
+    "tag": "v0.44.0",
+    "immutable": true,
+    "tag_object_sha": "a14d2bc3276ffebc689bbe61d0fe707cda42af6",
+    "target_commit_sha": "35a96e54dd8457c13e45b8339a09787f806c4455",
+    "asset_id": 539347880,
+    "asset_size_bytes": 30322448,
+    "asset_sha256": "sha256:70e995f17de551624497db95caca1da10b56f46eaa058d15bc244b88701b3d24",
+    "transport_run_id": 33494896036,
+    "transport_job_id": 99814686460,
+    "receipt_artifact_id": 9795295120
+  },
+  "parent_asset_current_bytes": null,
+  "parent_asset_current_bytes_state": "UNKNOWN",
+  "parent_asset_current_bytes_unknown": {
+    "stage": "RELEASE_TRANSPORT",
+    "step": "FETCH_PARENT_ASSET_BYTES",
+    "reason": "V0_45_0_RELEASE_RUN_DID_NOT_OBSERVE_CURRENT_V0_44_0_PARENT_ASSET_BYTES",
+    "unknown_class": "DIRECT_MISSING",
+    "next_operation": "FETCH_AND_MATCH_PARENT_ASSET_BYTES",
+    "blocked_by": ["release-transport-run-v0.45.0"]
+  },
+  "current_release_asset_bytes": {
+    "state": "CLOSED",
+    "observed": true,
+    "release_tag": "v0.45.0",
+    "source_artifact_id": 9799629633,
+    "release_asset_id": 539498552,
+    "size_bytes": 30371159,
+    "digest": "sha256:3c09f571e62b977aee8838943138cfbd5474ed896edbe99b645a3a873a589f8c"
+  },
+  "preserved_failure": {
+    "tag": "v0.40.0",
+    "release_id": 380259706,
+    "immutable": true,
+    "asset_count": 0,
+    "state": "REFUTED",
+    "reason": "RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD",
+    "preserved": true,
+    "mutation_policy": "NO_DELETE_NO_OVERWRITE"
+  },
+  "authority": {
+    "verification": "GITHUB_ACTIONS",
+    "local_go_test": 0,
+    "local_go_build": 0,
+    "local_go_vet": 0,
+    "local_conformance": 0,
+    "local_go_integration": 0,
+    "repository_writes": 0
+  }
+}

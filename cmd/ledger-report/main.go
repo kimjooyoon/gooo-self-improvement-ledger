@@ -62,10 +62,11 @@ type Cell struct {
 }
 
 type Assessment struct {
-	Schema       string           `json:"schema"`
-	ProfileID    string           `json:"profile_id"`
-	AssessmentID string           `json:"assessment_id"`
-	Cells        []AssessmentCell `json:"cells"`
+	Schema        string           `json:"schema"`
+	ProfileID     string           `json:"profile_id"`
+	AssessmentID  string           `json:"assessment_id"`
+	SemanticAudit *SemanticAudit   `json:"semantic_audit"`
+	Cells         []AssessmentCell `json:"cells"`
 }
 
 type AssessmentCell struct {
@@ -84,6 +85,74 @@ type Unknown struct {
 	UnknownClass  string   `json:"unknown_class"`
 	NextOperation string   `json:"next_operation"`
 	BlockedBy     []string `json:"blocked_by"`
+}
+
+type SemanticAudit struct {
+	Schema                      string             `json:"schema"`
+	AuditID                     string             `json:"audit_id"`
+	AuditedRelease              string             `json:"audited_release"`
+	SemanticCellAdditions       int                `json:"semantic_cell_additions"`
+	Denominator                 DenominatorAudit  `json:"denominator"`
+	Precedence                  []string           `json:"precedence"`
+	ParentV044Continuity        ParentContinuity   `json:"parent_v044_continuity"`
+	ParentAssetCurrentBytes     *AssetObservation  `json:"parent_asset_current_bytes"`
+	ParentAssetCurrentBytesState string            `json:"parent_asset_current_bytes_state"`
+	ParentAssetCurrentBytesUnknown *Unknown        `json:"parent_asset_current_bytes_unknown"`
+	CurrentReleaseAssetBytes    AssetObservation   `json:"current_release_asset_bytes"`
+	PreservedFailure            PreservedFailure   `json:"preserved_failure"`
+	Authority                   AuditAuthority     `json:"authority"`
+}
+
+type DenominatorAudit struct {
+	Before int `json:"before"`
+	After  int `json:"after"`
+}
+
+type ParentContinuity struct {
+	State              string `json:"state"`
+	Basis              string `json:"basis"`
+	ReleaseID          int    `json:"release_id"`
+	Tag                string `json:"tag"`
+	Immutable          bool   `json:"immutable"`
+	TagObjectSHA       string `json:"tag_object_sha"`
+	TargetCommitSHA   string `json:"target_commit_sha"`
+	AssetID            int    `json:"asset_id"`
+	AssetSizeBytes     int64  `json:"asset_size_bytes"`
+	AssetSHA256        string `json:"asset_sha256"`
+	TransportRunID     int    `json:"transport_run_id"`
+	TransportJobID     int    `json:"transport_job_id"`
+	ReceiptArtifactID  int    `json:"receipt_artifact_id"`
+}
+
+type AssetObservation struct {
+	State            string `json:"state"`
+	Observed         bool   `json:"observed"`
+	ReleaseTag       string `json:"release_tag"`
+	SourceArtifactID int    `json:"source_artifact_id"`
+	ReleaseAssetID   int    `json:"release_asset_id"`
+	SizeBytes        int64  `json:"size_bytes"`
+	Digest           string `json:"digest"`
+}
+
+type PreservedFailure struct {
+	Tag                  string `json:"tag"`
+	ReleaseID            int    `json:"release_id"`
+	Immutable            bool   `json:"immutable"`
+	AssetCount           int    `json:"asset_count"`
+	State                string `json:"state"`
+	Reason               string `json:"reason"`
+	Preserved            bool   `json:"preserved"`
+	MutationPolicy       string `json:"mutation_policy"`
+}
+
+type AuditAuthority struct {
+	Verification       string `json:"verification"`
+	LocalGoTest        int    `json:"local_go_test"`
+	LocalGoBuild       int    `json:"local_go_build"`
+	LocalGoVet         int    `json:"local_go_vet"`
+	LocalConformance   int    `json:"local_conformance"`
+	LocalGoIntegration int    `json:"local_go_integration"`
+	RepositoryWrites   int    `json:"repository_writes"`
 }
 
 type ReleaseVerification struct {
@@ -238,6 +307,7 @@ type PortfolioReport struct {
 	Authority           Authority                `json:"authority"`
 	LocalExecutionCount LocalExecutionCount      `json:"local_execution_counts"`
 	Policy              Policy                   `json:"policy"`
+	SemanticAudit       *SemanticAudit           `json:"semantic_audit,omitempty"`
 }
 
 type BindingSummary struct {
@@ -401,15 +471,16 @@ func readAssessment(path string) Assessment {
 		fatalf("read assessment: %v", err)
 	}
 	var envelope struct {
-		Schema       string            `json:"schema"`
-		ProfileID    string            `json:"profile_id"`
-		AssessmentID string            `json:"assessment_id"`
-		Cells        []json.RawMessage `json:"cells"`
+		Schema        string            `json:"schema"`
+		ProfileID     string            `json:"profile_id"`
+		AssessmentID  string            `json:"assessment_id"`
+		SemanticAudit *SemanticAudit    `json:"semantic_audit"`
+		Cells         []json.RawMessage `json:"cells"`
 	}
 	if err := json.Unmarshal(raw, &envelope); err != nil {
 		fatalf("decode assessment: %v", err)
 	}
-	assessment := Assessment{Schema: envelope.Schema, ProfileID: envelope.ProfileID, AssessmentID: envelope.AssessmentID}
+	assessment := Assessment{Schema: envelope.Schema, ProfileID: envelope.ProfileID, AssessmentID: envelope.AssessmentID, SemanticAudit: envelope.SemanticAudit}
 	for _, cellRaw := range envelope.Cells {
 		var cell AssessmentCell
 		if err := json.Unmarshal(cellRaw, &cell); err != nil {
@@ -450,6 +521,7 @@ func validateAssessment(profile Profile, assessment Assessment) {
 	if assessment.Schema != assessmentSchema || assessment.ProfileID != profile.ProfileID || len(assessment.Cells) != profile.TotalCells {
 		fatalf("assessment does not bind the fixed profile")
 	}
+	validateSemanticAudit(assessment.SemanticAudit)
 	byID := map[string]AssessmentCell{}
 	for _, cell := range assessment.Cells {
 		if cell.CellID == "" || byID[cell.CellID].CellID != "" {
@@ -471,6 +543,34 @@ func validateAssessment(profile Profile, assessment Assessment) {
 		if assessmentCell.ReleaseKey != cell.ReleaseKey {
 			fatalf("assessment release binding for %s disagrees with profile", cell.ID)
 		}
+	}
+}
+
+func validateSemanticAudit(audit *SemanticAudit) {
+	if audit == nil || audit.Schema != "gooo/self-improvement-ledger/release-transport-audit/v1" || audit.AuditID != "release-transport-parent-byte-boundary-v0.45.1" || audit.AuditedRelease != "v0.45.0" || audit.SemanticCellAdditions != 0 || audit.Denominator != (DenominatorAudit{Before: 51, After: 51}) || !equalStringSlice(audit.Precedence, []string{stateRefuted, stateUnknown, stateClosed}) {
+		fatalf("semantic audit identity or denominator boundary is invalid")
+	}
+	if audit.ParentV044Continuity.State != stateClosed || audit.ParentV044Continuity.Basis != "LOCKED_HISTORICAL_RELEASE_METADATA_AND_PRIOR_ACTIONS_RECEIPT" || audit.ParentV044Continuity.ReleaseID != 380386277 || audit.ParentV044Continuity.Tag != "v0.44.0" || !audit.ParentV044Continuity.Immutable || audit.ParentV044Continuity.TagObjectSHA != "a14d2bc3276ffebc689bbe61d0fe707cda42af6" || audit.ParentV044Continuity.TargetCommitSHA != "35a96e54dd8457c13e45b8339a09787f806c4455" || audit.ParentV044Continuity.AssetID != 539347880 || audit.ParentV044Continuity.AssetSizeBytes != 30322448 || audit.ParentV044Continuity.AssetSHA256 != "sha256:70e995f17de551624497db95caca1da10b56f46eaa058d15bc244b88701b3d24" || audit.ParentV044Continuity.TransportRunID != 33494896036 || audit.ParentV044Continuity.TransportJobID != 99814686460 || audit.ParentV044Continuity.ReceiptArtifactID != 9795295120 {
+		fatalf("semantic audit parent continuity is invalid")
+	}
+	if audit.ParentAssetCurrentBytes != nil || audit.ParentAssetCurrentBytesState != stateUnknown || audit.ParentAssetCurrentBytesUnknown == nil {
+		fatalf("semantic audit must preserve an UNKNOWN current parent byte observation")
+	}
+	validateUnknownFrontier("parent asset current bytes", audit.ParentAssetCurrentBytesUnknown)
+	if audit.CurrentReleaseAssetBytes.State != stateClosed || !audit.CurrentReleaseAssetBytes.Observed || audit.CurrentReleaseAssetBytes.ReleaseTag != "v0.45.0" || audit.CurrentReleaseAssetBytes.SourceArtifactID != 9799629633 || audit.CurrentReleaseAssetBytes.ReleaseAssetID != 539498552 || audit.CurrentReleaseAssetBytes.SizeBytes != 30371159 || audit.CurrentReleaseAssetBytes.Digest != "sha256:3c09f571e62b977aee8838943138cfbd5474ed896edbe99b645a3a873a589f8c" {
+		fatalf("semantic audit current release asset observation is invalid")
+	}
+	if audit.PreservedFailure != (PreservedFailure{Tag: "v0.40.0", ReleaseID: 380259706, Immutable: true, AssetCount: 0, State: stateRefuted, Reason: "RELEASE_PUBLISHED_BEFORE_ASSET_UPLOAD", Preserved: true, MutationPolicy: "NO_DELETE_NO_OVERWRITE"}) {
+		fatalf("semantic audit preserved failure is invalid")
+	}
+	if audit.Authority != (AuditAuthority{Verification: "GITHUB_ACTIONS", LocalGoTest: 0, LocalGoBuild: 0, LocalGoVet: 0, LocalConformance: 0, LocalGoIntegration: 0, RepositoryWrites: 0}) {
+		fatalf("semantic audit authority boundary is invalid")
+	}
+}
+
+func validateUnknownFrontier(label string, unknown *Unknown) {
+	if unknown.Stage == "" || unknown.Step == "" || unknown.Reason == "" || unknown.UnknownClass == "" || unknown.NextOperation == "" || len(unknown.BlockedBy) == 0 {
+		fatalf("UNKNOWN %s has an incomplete six-field frontier", label)
 	}
 }
 
@@ -559,7 +659,7 @@ func buildReport(profile Profile, assessment Assessment, verification ReleaseVer
 		Summary: counts, ProofCounts: proofCounts, IndicatorCounts: indicatorCounts, Cells: reportedCells,
 		Bindings:  BindingSummary{OneToOne: true, Cells: len(profile.Cells), Activities: len(profile.Cells), UniqueAxes: len(profile.Cells), UniqueMetrics: len(profile.Cells), SourceBindings: len(profile.Cells), IRBindings: len(profile.Cells), ArtifactBindings: len(profile.Cells), EvaluatorBindings: len(profile.Cells)},
 		Inventory: inventory, Performance: runtime.Timing, Artifact: artifact, ReleaseSummary: releaseSummary,
-		Authority: runtime.Authority, LocalExecutionCount: runtime.LocalExecutionCount, Policy: profile.Policy,
+		Authority: runtime.Authority, LocalExecutionCount: runtime.LocalExecutionCount, Policy: profile.Policy, SemanticAudit: assessment.SemanticAudit,
 	}
 }
 
@@ -715,6 +815,12 @@ func writeMarkdown(path string, report PortfolioReport) error {
 	fmt.Fprintf(&b, "- releases verified/unknown/refuted: %d/%d/%d\n", report.ReleaseSummary.Verified, report.ReleaseSummary.Unknown, report.ReleaseSummary.Refuted)
 	fmt.Fprintf(&b, "- runtime repository writes/cross-project required gates: %d/%d; caller-owned temp output: `%t`\n", report.Authority.RuntimeRepositoryWrites, report.Authority.CrossProjectRequiredGates, report.Authority.CallerOwnedTempOutput)
 	fmt.Fprintf(&b, "- developer-local gofmt/build/test/vet/conformance executions: %d/%d/%d/%d/%d\n", report.LocalExecutionCount.Gofmt, report.LocalExecutionCount.Build, report.LocalExecutionCount.Test, report.LocalExecutionCount.Vet, report.LocalExecutionCount.Conformance)
+	if report.SemanticAudit != nil {
+		fmt.Fprintf(&b, "\n## Release transport semantic audit\n\n")
+		fmt.Fprintf(&b, "- v0.44 continuity: `%s` (%s)\n", report.SemanticAudit.ParentV044Continuity.State, report.SemanticAudit.ParentV044Continuity.Basis)
+		fmt.Fprintf(&b, "- current v0.44 parent asset bytes: `%s` (value is null; six-field frontier preserved)\n", report.SemanticAudit.ParentAssetCurrentBytesState)
+		fmt.Fprintf(&b, "- current v0.45.0 release asset bytes: `%s` (observed=%t)\n", report.SemanticAudit.CurrentReleaseAssetBytes.State, report.SemanticAudit.CurrentReleaseAssetBytes.Observed)
+	}
 	return os.WriteFile(path, []byte(b.String()), 0o644)
 }
 

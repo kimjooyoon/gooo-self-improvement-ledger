@@ -878,6 +878,17 @@ append-only. Product validation and the missing peak-RSS frontier remain
 GitHub Actions-only; missing peak RSS is `null` with the exact six-field
 `UNKNOWN` measurement state and is never coerced to zero.
 
+The post-v0.45.0 semantic audit separates two previously conflated claims. The
+v0.44.0 parent continuity claim remains `CLOSED` from locked historical release
+metadata and the prior Actions receipt, but current v0.44.0 parent asset bytes
+were not directly observed by the v0.45.0 transport run, so
+`parent_asset_current_bytes` is explicitly `null` with a six-field `UNKNOWN`
+frontier. The v0.45.0 source/release asset byte identity remains `CLOSED` from
+the live Actions artifact and upload. This audit adds no cell and keeps the
+semantic counts at `51 / 48 CLOSED / 1 UNKNOWN / 2 REFUTED`; it is carried by
+`evidence/release-transport-audit-v0451-v1.json` and the immutable v0.45.1
+transport receipt.
+
 The v0.40.0 release transport is preserved separately from semantic portfolio
 state. Release `380259706` and annotated tag `v0.40.0` are immutable, but the
 release has zero assets because it was published before the main-CI asset was
