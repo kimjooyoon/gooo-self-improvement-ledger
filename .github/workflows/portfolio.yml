@@ -1032,7 +1032,7 @@ jobs:
           evidence-v0.1.3.tar.gz|7518|acebe4be411d0690991fed517daa4610b5dcca72ff185a372d0f9ff0e749ccc4
           SHA256SUMS|176|725f0a4ef23360a48ca717aa48a8ab605d1b5404917e035372152630aceadbb6
           EOF
-          test "$(cat "$conformer_dir/2.bin")" = $'309b0868bfca9ff51048c66db76c758e321f4df513455f666012fbab15ac66c6  source-v0.1.3.tar.gz\nacebe4be411d0690991fed517daa4610b5dcca72ff185a372d0f9ff0e749ccc4  evidence-v0.1.3.tar.gz'
+          test "$(cat "$conformer_dir/SHA256SUMS")" = $'309b0868bfca9ff51048c66db76c758e321f4df513455f666012fbab15ac66c6  source-v0.1.3.tar.gz\nacebe4be411d0690991fed517daa4610b5dcca72ff185a372d0f9ff0e749ccc4  evidence-v0.1.3.tar.gz'
           conformer_ref=$(gh api "repos/$conformer_repo/git/ref/tags/v0.1.3")
           jq -e '.object.sha=="036d3f9dcfb81511b64a34ae360ecd58b0e58fdd" and .object.type=="tag"' <<< "$conformer_ref" >/dev/null
           conformer_tag=$(gh api "repos/$conformer_repo/git/tags/036d3f9dcfb81511b64a34ae360ecd58b0e58fdd")
@@ -1053,7 +1053,7 @@ jobs:
           evidence_dir="$RUNNER_TEMP/release-transport-conformer-evidence"
           rm -rf "$evidence_dir"
           mkdir -p "$evidence_dir"
-          tar --no-xattrs -xzf "$conformer_dir/1.bin" -C "$evidence_dir"
+          tar --no-xattrs -xzf "$conformer_dir/evidence-v0.1.3.tar.gz" -C "$evidence_dir"
           manifest="$evidence_dir/conformance/transport-manifest.json"
           receipt="$evidence_dir/conformance/conformance-receipt.json"
           jq -e '.schema=="gooo/release-transport-conformer/transport-manifest/v5" and .protocol=="gooo-release-transport-conformer/v5" and .contract_id=="gooo-release-transport-conformer/v5" and .contract_digest=="sha256:73620093455ea01b04e424f310b22d502ca24da16329d548c894edafa456834e" and (.activities|length)==12 and ((.activities|sort)==["BindOperatorPolicyReceipt","BindSourceRunArtifact","DeclareReleaseTransportProtocol","EmitTransportReceipt","GenerateDraftFirstWorkflow","PreserveTransportCounterexample","ReconcileExistingDraft","ResolveSymbolicReleaseTarget","UseCreatedDraftID","UseReleaseUploadURL","VerifyAnnotatedTagTarget","VerifyPublicAssetDigests"]) and .authority=={repository_writes:0,commits:0,pushes:0,merges:0,tags:0,releases:0,local_go_tests:0,caller_owned_output:true,source_repository_read_only:true}' "$manifest" >/dev/null
