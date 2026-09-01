@@ -6089,6 +6089,65 @@
       "tag": "v0.1.0",
       "target_commit_sha": "b0aeab76a533d25cd7f0fa90cbadd29d508b4607"
     },
+    "staged_quasiquote_durable_release": {
+      "assets": [
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/gooo-staged-quasiquote-slice-v0.1.0-contract.gooo",
+          "id": 538825432,
+          "name": "gooo-staged-quasiquote-slice-v0.1.0-contract.gooo",
+          "role": "semantic-contract",
+          "sha256": "sha256:fa0c1735c4ba26a6ab1b459a96f41087e8e27fd62b5e627f8bba467fb80f84de",
+          "size_bytes": 10029
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/gooo-staged-quasiquote-slice-v0.1.0-manifest.json",
+          "id": 538825434,
+          "name": "gooo-staged-quasiquote-slice-v0.1.0-manifest.json",
+          "role": "release-manifest",
+          "sha256": "sha256:e3b922b930ec5ad21b045cdc9cec65e0639610dce77e36b95e6836d966e5016f",
+          "size_bytes": 251
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/gooo-staged-quasiquote-slice-v0.1.0-oracle-lock.json",
+          "id": 538825438,
+          "name": "gooo-staged-quasiquote-slice-v0.1.0-oracle-lock.json",
+          "role": "optional-oracle-lock",
+          "sha256": "sha256:d9b6981e40aa70b6f26b2c33134aa7c1fe0a3d34b2b34f9800d4b8300614b8ae",
+          "size_bytes": 793
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/gooo-staged-quasiquote-slice-v0.1.0-terminal-record-schema.json",
+          "id": 538825436,
+          "name": "gooo-staged-quasiquote-slice-v0.1.0-terminal-record-schema.json",
+          "role": "terminal-record-schema",
+          "sha256": "sha256:75b98b3d6945c6fac581d14824cf9a36b4a4bbac47cbd8d6a5eff69471c33ebf",
+          "size_bytes": 1378
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/gooo-staged-quasiquote-slice-v0.1.0.tar.gz",
+          "id": 538825447,
+          "name": "gooo-staged-quasiquote-slice-v0.1.0.tar.gz",
+          "role": "source",
+          "sha256": "sha256:11abe1335a8f52120b9201365c6943087f02f313061acc4134aeae477f6ba87d",
+          "size_bytes": 21644
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/download/v0.1.0/SHA256SUMS",
+          "id": 538825435,
+          "name": "SHA256SUMS",
+          "role": "checksums",
+          "sha256": "sha256:f87253473d129ceae0eaf7adcaebea8fb1be6d3282ae9a73fd64b58606f01012",
+          "size_bytes": 590
+        }
+      ],
+      "immutable": true,
+      "release_id": 380175121,
+      "release_url": "https://github.com/kimjooyoon/gooo-staged-quasiquote-slice/releases/tag/v0.1.0",
+      "repository": "kimjooyoon/gooo-staged-quasiquote-slice",
+      "tag": "v0.1.0",
+      "tag_object_sha": "f3041976c533b87d0110598c06bb7e320abe30ee",
+      "target_commit_sha": "a6dbb1f696feacaf6702aafd1b759a09c70bd917"
+    },
     "structural_ledger_append_planner_durable_release": {
       "assets": [
         {
