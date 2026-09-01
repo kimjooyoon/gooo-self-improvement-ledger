@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 39 named cells, each bound one-to-one to
+language. The denominator is exactly 40 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -32,11 +32,12 @@ The fixed axes are:
 `EXECUTABLE_EVOLUTION_TRIAL_COUNTEREXAMPLE_DURABLE_RELEASE`, and
 `REFLEXIVE_COMPILER_GRAPH_TOPOLOGY_SELF_IMPROVEMENT_DURABLE_RELEASE`, and
 `EXECUTABLE_EVOLUTION_TRIAL_CLOSED_LOOP_DURABLE_RELEASE`, and
-`STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE`.
+`STRUCTURAL_LEDGER_APPEND_PLANNER_DURABLE_RELEASE`, and
+`EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `38 -> 39` with
+The denominator migration is explicit and append-only: `39 -> 40` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/30/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/30/5`.
+`4/31/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/31/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -535,8 +536,31 @@ validation remains `2`, the current planner execution is recorded as
 generator-only, and local schema/conformance plus Go test/build/vet counts
 remain zero; GitHub Actions is the validation authority.
 
+The v0.34 frontier appends `EXPLANATION_CARRYING_COMPILER_DURABLE_RELEASE`.
+It adopts immutable `kimjooyoon/gooo-reflexive-compiler-slice@v0.3.0` release
+`380150043`, binding annotated tag object
+`79f60bc1821a8461330cc67a086f9a8ad3b1503f` to target
+`0cf44db8b0d6cd96d190e9f902312d0be9394029`. All six release assets are pinned
+by API ID, byte size, download URL, and SHA-256 digest. The compiler report
+records `18/18` terminal executions with a preserved corpus of
+`CLOSED2/UNKNOWN5/REFUTED2`, all six UNKNOWN fields, a minimal cause-edge
+frontier, and a counterexample digest. Matched resolution pairs are valid
+topologies `1 -> 2`, accepted trial candidates `0 -> 3`, and localization
+stages `1 -> 2`, within `ONE_COMPILER_PHASE_ONLY` scope. Global self-hosting
+and external utility remain `UNKNOWN`/`NOT_MADE`.
+
+The immutable planner v0.3.0 transaction uses the v3 manifest: five semantic
+append-only targets and two caller-owned derived projections. It plans and
+changes exactly `7/7` paths, replaces report/history projections only after
+matching their exact before and semantic-source digests, adds `5` AST nodes,
+records zero replay mismatches and zero planner repository writes, and produces
+an exact rollback-ready receipt. The new ledger cell is `CLOSED`, yielding
+`CLOSED37/UNKNOWN1/REFUTED2`; cumulative local validation remains `2`, the
+planner invocation is generator-only, process state remains `REFUTED`, and
+local schema/conformance plus Go test/build/vet executions remain zero.
+
 The separate `non-completeness-capability-evidence-registry-v1` records
-eighteen independent evidence inputs without treating its entry count as the portfolio
+nineteen independent evidence inputs without treating its entry count as the portfolio
 denominator. Current registry disposition is `13 CLOSED / 0 UNKNOWN / 4
 REFUTED`: the three historical v0.1.0 refutations remain preserved and are
 linked to immutable v0.1.1 successor locks; the immutable receipt-schema-
@@ -563,7 +587,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the thirty-six immutable inputs
+commit, and consumer asset identities for the thirty-seven immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope
