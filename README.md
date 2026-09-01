@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 49 named cells, each bound one-to-one to
+language. The denominator is exactly 50 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -42,11 +42,12 @@ The fixed axes are:
 `DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE`, and
 `STAGED_QUASIQUOTE_DURABLE_RELEASE`, and
 `ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE`, and
-`INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE`.
+`INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE`, and
+`SELF_REWRITE_SANDBOX_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `48 -> 49` with
+The denominator migration is explicit and append-only: `49 -> 50` with
 `ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/40/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/40/5`.
+`4/41/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/41/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -791,6 +792,57 @@ IDs and digests in `evidence/planner-v043-candidate-history.json`. They record
 the corrected baseline-lock and projection-digest diagnosis; they do not alter
 the semantic `CLOSED` cell or serve as final planner authority.
 
+The v0.44 frontier appends `SELF_REWRITE_SANDBOX_DURABLE_RELEASE` through
+`AdoptSelfRewriteSandboxDurableRelease`. It adopts immutable upstream
+`kimjooyoon/gooo-self-rewrite-sandbox@v0.1.1`, release ID `380237396`, with
+annotated tag object `7afaab763564e356e454db4d63d22ffa7ba53f14` resolving to
+target `bccfd3a740f3d9c254d715e01a61a7554e96568a`. The six API-locked and
+download-verified assets are: binary `539057455`/`2825115`/
+`sha256:313d243bd9e7cba3479511a10472882b05d5b954a3082f109aacd82297b471d8`,
+source `539057461`/`23210`/
+`sha256:16ac09b679257fc77dce92d538d79e8676eea088ef499bc73c10290a4b1e5b1b`,
+manifest `539057456`/`790`/
+`sha256:d7a4615beb26b9e27883f4d46620215f78548d1eec646fe5cf156446592b3383`,
+report `539057458`/`40509`/
+`sha256:d5072d9ba452636a0023513f346cecc879b25fbb7730f26932950f8037d93d38`,
+`SHA256SUMS` `539057459`/`498`/
+`sha256:37b2f03ea77842bd81503435f0a069d10c2c61e0f5446ecadcaf0f0841de7570`,
+and version `539057471`/`294`/
+`sha256:32e1ed0dd02ef58c148feb74705384d961915197e047f7639f7ec339c6c56008`.
+The upstream Conformance run `33474678408`/job `99751363760` and Immutable
+release run `33474686476`/job `99751390530` both succeed on the target; the
+Conformance artifact is `9787734796`, `2890709` bytes, digest
+`sha256:6ba52984ba8a072baf33ecc32836475179ebd11094b1a5704f41d4edd5c65aa4`.
+Its fixed six-case corpus is `CLOSED3/UNKNOWN1/REFUTED2`, with Go `6/1401`,
+Gooo `9/148`, `17` subdirectories, `31` regular files, and `40` generated
+artifacts totaling `24997` bytes; tests are `4/4/0/0/1`, peak RSS is
+`281064 KiB`, and the measured stages are compile/build/test/conformance
+`6052/6052/2304/1256 ms`.
+
+Immutable planner v0.3.0 generator-only selected authority is Actions run
+`33488925074`/job `99795503759`, with proof artifact `9792922258` (`470`
+bytes, digest `sha256:fff595d3e1f6265fd05d7ef5ab963fd9a2ab1ef19b9cbda089fce6a20f871542`)
+and output artifact `9792923641` (`380704` bytes, digest
+`sha256:e9aa3fdb253eae025dddc923369fb22d19c143efc7e1d7f25c5a7d0bacd84139`).
+The planner records exactly `7/7` planned/changed files, `5` AST nodes, zero
+replay mismatches and input-repository writes, and a rollback-ready receipt.
+The new cell is `CLOSED`, yielding `CLOSED47/UNKNOWN1/REFUTED2`. The prior
+v0.43 parent is locked to release `380333473`, tag object
+`df8f2ac1dddcb6db09883fc488e0f5b45d8e843b`, target
+`8de54d1adb544be8506e938522e6e247a7b1a216`, asset `539249006`/`27461608`/
+`sha256:b6f96d505ccfd27aa24755887ca4ae9bc9549285d776ca872fb44b3a3503660b`,
+with its transport receipt run `33487786002`/job `99791823088`, artifact
+`9792471417`/`755`/`sha256:cedcbff51c841e9b825e021541aeceb3d42315959a7e81cedf1d4df435119477`.
+The two v0.44 candidate-stage failures (`33488777592` UNKNOWN and
+`33488868111` REFUTED) and the selected run are preserved with artifact
+identities in `evidence/planner-v044-candidate-history.json`; only
+`33488925074` is selected authority. Local Go execution remains zero.
+The separate `evidence/authoring-operational-history-v1.json` records the
+authoring-time local static checks as `OPERATIONAL_REFUTED`; this does not alter
+the semantic cell decision or the product runtime authority counts, which remain
+GitHub Actions-only with local Go run/compile/build/test/vet/conformance/
+integration all zero.
+
 The v0.40.0 release transport is preserved separately from semantic portfolio
 state. Release `380259706` and annotated tag `v0.40.0` are immutable, but the
 release has zero assets because it was published before the main-CI asset was
@@ -803,8 +855,8 @@ release API. It adds no semantic cell and does not change
 the v0.40.1 baseline `46 / 43 CLOSED / 1 UNKNOWN / 2 REFUTED`.
 
 The separate `non-completeness-capability-evidence-registry-v1` records
-twenty-eight independent evidence inputs without treating its entry count as the portfolio
-denominator. Current registry disposition is `24 CLOSED / 0 UNKNOWN / 4
+twenty-nine independent evidence inputs without treating its entry count as the portfolio
+denominator. Current registry disposition is `25 CLOSED / 0 UNKNOWN / 4
 REFUTED`: the three historical v0.1.0 refutations remain preserved and are
 linked to immutable v0.1.1 successor locks; the immutable receipt-schema-
 migration v0.1.1 input is followed by v0.2.2 and v0.3.1 closed successors; and
@@ -830,7 +882,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the forty-six immutable inputs
+commit, and consumer asset identities for the forty-seven immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope

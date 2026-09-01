@@ -2,22 +2,22 @@
 
 ## Scope
 
-The portfolio is an evidence ledger for forty-nine specifically named capabilities.
+The portfolio is an evidence ledger for fifty specifically named capabilities.
 It is not a language-wide quality score, maturity score, or completeness claim.
 The only aggregate values are exact state counts and fixed bucket counts.
 
 ## Fixed denominator
 
 The source of truth is `contracts/self-improvement-portfolio-v1.json`. Its
-`cells` array is immutable during a run and contains forty-nine entries. The v0.43
-migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-eight-cell
+`cells` array is immutable during a run and contains fifty entries. The v0.44
+migration is append-only `ADD1/RETIRE0/SPLIT0` from the prior forty-nine-cell
 profile. Every entry has a stable axis, proof bucket, indicator bucket, activity name, source path,
 IR path, generated artifact path, evaluator path, and metric with denominator
 one. The authoritative source activity set is
 `examples/self-improvement-portfolio/main.gooo`.
 
-The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/40/5`.
-The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/40/5`.
+The proof buckets are `FOUNDATION/COHERENCE/REGRESSION` at `4/41/5`.
+The indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` at `4/41/5`.
 Changing a release, evaluator, or evidence artifact never changes those counts.
 
 ## Disposition
@@ -662,9 +662,51 @@ creation, exact main-CI asset upload, publication, and immutable API
 verification in that order; it adds no portfolio cell and leaves the semantic
 state at 46 cells, 43 CLOSED, 1 UNKNOWN, and 2 REFUTED.
 
-The non-completeness capability evidence registry is a separate twenty-eight-entry
+The v0.44 frontier appends `SELF_REWRITE_SANDBOX_DURABLE_RELEASE` through
+`AdoptSelfRewriteSandboxDurableRelease`. It adopts immutable upstream
+`kimjooyoon/gooo-self-rewrite-sandbox@v0.1.1`, release `380237396`, annotated
+tag object `7afaab763564e356e454db4d63d22ffa7ba53f14`, and target
+`bccfd3a740f3d9c254d715e01a61a7554e96568a`. All six release assets are bound
+by API ID, name, size, URL, and SHA-256: IDs `539057455`/`539057461`/
+`539057456`/`539057458`/`539057459`/`539057471`, sizes `2825115`/`23210`/
+`790`/`40509`/`498`/`294`, and digests respectively
+`sha256:313d243bd9e7cba3479511a10472882b05d5b954a3082f109aacd82297b471d8`,
+`sha256:16ac09b679257fc77dce92d538d79e8676eea088ef499bc73c10290a4b1e5b1b`,
+`sha256:d7a4615beb26b9e27883f4d46620215f78548d1eec646fe5cf156446592b3383`,
+`sha256:d5072d9ba452636a0023513f346cecc879b25fbb7730f26932950f8037d93d38`,
+`sha256:37b2f03ea77842bd81503435f0a069d10c2c61e0f5446ecadcaf0f0841de7570`,
+and `sha256:32e1ed0dd02ef58c148feb74705384d961915197e047f7639f7ec339c6c56008`.
+The upstream Conformance and Immutable release runs are
+`33474678408`/`99751363760` and `33474686476`/`99751390530`; the Conformance
+artifact is `9787734796`/`2890709`/
+`sha256:6ba52984ba8a072baf33ecc32836475179ebd11094b1a5704f41d4edd5c65aa4`.
+Its fixed corpus is `CLOSED3/UNKNOWN1/REFUTED2`, inventory is Go `6/1401`,
+Gooo `9/148`, `17` directories and `31` regular files, generated artifacts are
+`40/24997`, tests are `4/4/0/0/1`, and peak RSS is `281064 KiB`.
+
+The v0.44 planner authority is immutable planner v0.3.0 Actions run
+`33488925074`/job `99795503759`, output artifact
+`9792923641`/`380704`/`sha256:e9aa3fdb253eae025dddc923369fb22d19c143efc7e1d7f25c5a7d0bacd84139`,
+and proof artifact `9792922258`/`470`/
+`sha256:fff595d3e1f6265fd05d7ef5ab963fd9a2ab1ef19b9cbda089fce6a20f871542`.
+It planned and changed exactly seven files, added five AST nodes, recorded zero
+replay mismatches and zero repository writes, and produced a rollback-ready
+receipt. The adoption yields `CLOSED47/UNKNOWN1/REFUTED2`. The two failed
+candidate-stage runs (`33488777592` UNKNOWN and `33488868111` REFUTED) and the
+selected authority are preserved in
+`evidence/planner-v044-candidate-history.json`; only the selected run is final
+authority. The v0.40 transport REFUTED envelope and v0.43 candidate-stage
+operational refutations remain append-only.
+
+The v0.44 authoring record separately preserves local static-check activity as
+`OPERATIONAL_REFUTED` in `evidence/authoring-operational-history-v1.json`.
+This operational process state is not composed into the semantic portfolio
+decision. Product runtime authority remains GitHub Actions-only, with local Go
+run/compile/build/test/vet/conformance/integration counts all zero.
+
+The non-completeness capability evidence registry is a separate twenty-nine-entry
 external-input ledger. Its count and dispositions never alter this fixed
-forty-nine-cell denominator; unavailable inputs remain `UNKNOWN`, while known
+fifty-cell denominator; unavailable inputs remain `UNKNOWN`, while known
 release/API or digest contradictions remain `REFUTED`.
 
 ## Authority and measurements

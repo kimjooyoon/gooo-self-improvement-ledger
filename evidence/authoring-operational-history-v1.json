@@ -1,0 +1,44 @@
+{
+  "schema": "gooo/self-improvement-ledger/authoring-operational-history/v1",
+  "event_id": "v0.44-authoring-local-static-checks",
+  "state": "OPERATIONAL_REFUTED",
+  "reason": "LOCAL_AUTHORING_STATIC_CHECKS_EXECUTED_OUTSIDE_GITHUB_ACTIONS",
+  "scope": "authoring/operator process only; not product runtime evidence",
+  "checks": {
+    "bash_syntax": {
+      "executions": 3,
+      "files": [
+        "scripts/conformance.sh",
+        "scripts/verify-capability-evidence-registry.sh",
+        "scripts/verify-releases.sh"
+      ],
+      "result": "passed"
+    },
+    "workflow_yaml_parse": {
+      "executions": 4,
+      "successful_executions": 3,
+      "failed_executions": 1,
+      "failure": "portfolio.yml indentation error detected and corrected",
+      "result": "operationally_refuted"
+    },
+    "json_static_parse": {
+      "batch_executions": 3,
+      "result": "passed"
+    },
+    "git_diff_check": {
+      "executions": 3,
+      "result": "passed"
+    }
+  },
+  "product_runtime_authority": {
+    "verification": "GITHUB_ACTIONS",
+    "local_go_run_compile": 0,
+    "local_go_build": 0,
+    "local_go_test": 0,
+    "local_go_vet": 0,
+    "local_go_conformance": 0,
+    "local_go_integration": 0,
+    "repository_writes": 0
+  },
+  "resolution": "retain this event; use PR and post-merge GitHub Actions as the sole product validation authority"
+}

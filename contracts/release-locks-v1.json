@@ -5697,6 +5697,65 @@
       "tag_object_sha": "b8318c1645bc76286eb5c404b771118b6ce1e07b",
       "target_commit_sha": "28f3589d69796b4630b2e066c6a5c45ac8468096"
     },
+    "self_rewrite_sandbox_durable_release": {
+      "assets": [
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/gooo-self-rewrite-sandbox-linux-amd64-v0.1.1.tar.gz",
+          "id": 539057455,
+          "name": "gooo-self-rewrite-sandbox-linux-amd64-v0.1.1.tar.gz",
+          "role": "release-binary",
+          "sha256": "sha256:313d243bd9e7cba3479511a10472882b05d5b954a3082f109aacd82297b471d8",
+          "size_bytes": 2825115
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/gooo-self-rewrite-sandbox-source-v0.1.1.tar.gz",
+          "id": 539057461,
+          "name": "gooo-self-rewrite-sandbox-source-v0.1.1.tar.gz",
+          "role": "release-source",
+          "sha256": "sha256:16ac09b679257fc77dce92d538d79e8676eea088ef499bc73c10290a4b1e5b1b",
+          "size_bytes": 23210
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/release-manifest-v0.1.1.json",
+          "id": 539057456,
+          "name": "release-manifest-v0.1.1.json",
+          "role": "release-manifest",
+          "sha256": "sha256:d7a4615beb26b9e27883f4d46620215f78548d1eec646fe5cf156446592b3383",
+          "size_bytes": 790
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/release-report-v0.1.1.json",
+          "id": 539057458,
+          "name": "release-report-v0.1.1.json",
+          "role": "release-report",
+          "sha256": "sha256:d5072d9ba452636a0023513f346cecc879b25fbb7730f26932950f8037d93d38",
+          "size_bytes": 40509
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/SHA256SUMS",
+          "id": 539057459,
+          "name": "SHA256SUMS",
+          "role": "release-checksums",
+          "sha256": "sha256:37b2f03ea77842bd81503435f0a069d10c2c61e0f5446ecadcaf0f0841de7570",
+          "size_bytes": 498
+        },
+        {
+          "download_url": "https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/version.json",
+          "id": 539057471,
+          "name": "version.json",
+          "role": "release-version",
+          "sha256": "sha256:32e1ed0dd02ef58c148feb74705384d961915197e047f7639f7ec339c6c56008",
+          "size_bytes": 294
+        }
+      ],
+      "immutable": true,
+      "release_id": 380237396,
+      "release_url": "https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-self-rewrite-sandbox",
+      "tag": "v0.1.1",
+      "tag_object_sha": "7afaab763564e356e454db4d63d22ffa7ba53f14",
+      "target_commit_sha": "bccfd3a740f3d9c254d715e01a61a7554e96568a"
+    },
     "semantic_authority_census_release": {
       "assets": [
         {

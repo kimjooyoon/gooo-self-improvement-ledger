@@ -707,9 +707,36 @@
         "unknown_cases": 1
       },
       "state": "CLOSED"
+    },
+    {
+      "entry_id": "self-rewrite-sandbox-v0.1.1",
+      "evidence": [
+        "immutable release API and annotated tag",
+        "linux binary, source, release manifest, release report, SHA256SUMS, and version release assets",
+        "six-case corpus preserves 3 CLOSED, 1 UNKNOWN, and 2 REFUTED",
+        "upstream improvement pair is CLOSED with exact self-rewrite sandbox evidence"
+      ],
+      "observed": {
+        "child_cases": 6,
+        "ci_evidence_digest": "sha256:6ba52984ba8a072baf33ecc32836475179ebd11094b1a5704f41d4edd5c65aa4",
+        "closed_cases": 3,
+        "cross_project_required_gates": 0,
+        "local_test_executions": 0,
+        "overall_status": "CLOSED",
+        "refuted_cases": 2,
+        "release_assets": 6,
+        "release_id": 380237396,
+        "release_immutable": true,
+        "repository_writes": 0,
+        "source_digest": "sha256:16ac09b679257fc77dce92d538d79e8676eea088ef499bc73c10290a4b1e5b1b",
+        "tag_object_sha": "7afaab763564e356e454db4d63d22ffa7ba53f14",
+        "target_commit_sha": "bccfd3a740f3d9c254d715e01a61a7554e96568a",
+        "unknown_cases": 1
+      },
+      "state": "CLOSED"
     }
   ],
-  "entry_count": 28,
+  "entry_count": 29,
   "frontier_additions": [
     "receipt-schema-migration-v0.1.1",
     "receipt-schema-migration-v0.2.2",
@@ -730,7 +757,8 @@
     "differential-semantics-runtime-v0.1.2",
     "staged-quasiquote-slice-v0.1.0",
     "error-directed-evolution-planner-v0.1.1",
-    "incremental-module-compiler-v0.1.3"
+    "incremental-module-compiler-v0.1.3",
+    "self-rewrite-sandbox-v0.1.1"
   ],
   "lineage": [
     {
