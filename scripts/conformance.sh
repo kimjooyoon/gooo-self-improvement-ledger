@@ -1210,7 +1210,7 @@ echo "conformance: differential semantics runtime release lock passed"
 echo "conformance: verify emitted report"
 jq -e '
   .denominator_migration == {from:53,to:62,add:9,retire:0,split:0,append_only:true} and
-  .local_validation_followup == {local_validation_executions:0,inspection_only:true,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
+  .local_validation_followup == {local_validation_executions:5,inspection_only:false,process_state:"REFUTED",local_schema_replays:1,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
   .state_transition_events[0].from_state == "UNKNOWN" and
@@ -1268,7 +1268,7 @@ jq -e '
   .core_refutation_observation_events[0].preservation.pull_request_unmerged == true and
   .core_refutation_observation_events[0].preservation.dev_main_unchanged == true and
   .core_refutation_observation_events[0].preservation.prior_protected_path_event_preserved == true and
-  (.process_deviations|length) == 3 and
+  (.process_deviations|length) == 4 and
   .process_deviations[0].deviation_id == "SEMANTIC_DRIFT_DIRECT_TO_MAIN-v0.10" and
   .process_deviations[0].cell_id == "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS" and
   .process_deviations[0].append_only == true and
@@ -1311,6 +1311,22 @@ jq -e '
     $utility_process.observed.initial_immutable == false and $utility_process.observed.failed_run_id == 33407273856 and
     $utility_process.observed.failed_artifact_id == 9763659711 and $utility_process.observed.current_release_id == 379850805 and
     $utility_process.observed.current_immutable == true and ($utility_process.blocked_by|length) == 3) and
+  ((.process_deviations[] | select(.deviation_id == "V0490_LOCAL_STATIC_VALIDATION_OPERATIONAL_REFUTED-v1")) as $local_validation_process |
+    $local_validation_process.cell_id == "CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE" and
+    $local_validation_process.append_only == true and
+    $local_validation_process.state == "REFUTED" and
+    $local_validation_process.stage == "AUTHORING" and
+    $local_validation_process.classification == "OPERATIONAL_REFUTED" and
+    $local_validation_process.reason == "LOCAL_STATIC_VALIDATION_EXECUTED_AFTER_REMOTE_ONLY_VALIDATION_POLICY" and
+    $local_validation_process.next_operation == "USE_GITHUB_ACTIONS_ONLY_FOR_ALL_VALIDATION" and
+    $local_validation_process.observed.command_count == 5 and
+    ($local_validation_process.observed.commands|length) == 3 and
+    $local_validation_process.observed.local_go_build == 0 and
+    $local_validation_process.observed.local_go_test == 0 and
+    $local_validation_process.observed.local_go_vet == 0 and
+    $local_validation_process.observed.local_go_fmt == 0 and
+    $local_validation_process.observed.local_go_conformance == 0 and
+    $local_validation_process.observed.repository_writes == 0) and
   ((.cells[] | select(.cell_id == "EXPERIENCE_MEMORY_RELEASE")) as $experience |
     $experience.state == "CLOSED" and
     $experience.release_key == "experience_memory_release" and

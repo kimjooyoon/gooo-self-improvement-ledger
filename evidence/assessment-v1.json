@@ -1472,14 +1472,14 @@
     "to": 62
   },
   "local_validation_followup": {
-    "inspection_only": true,
+    "inspection_only": false,
     "local_conformance_replays": 0,
     "local_go_build": 0,
     "local_go_conformance": 0,
     "local_go_test": 0,
     "local_go_vet": 0,
-    "local_schema_replays": 0,
-    "local_validation_executions": 0,
+    "local_schema_replays": 1,
+    "local_validation_executions": 5,
     "process_state": "REFUTED"
   },
   "optional_dependencies": [
@@ -1623,6 +1623,49 @@
       "stage": "DEVELOPMENT_PROCESS",
       "state": "REFUTED",
       "step": "COMPARE_INITIAL_AND_CURRENT_RELEASE_IDENTITIES"
+    },
+    {
+      "append_only": true,
+      "blocked_by": [
+        "local:bash -n:scripts/prepare-v0490-parent-cache.sh scripts/finalize-v0490-release-audit.sh scripts/verify-v0490-release-input.sh scripts/verify-v049-products.sh",
+        "local:jq -e:parent artifact audit-field assertion",
+        "local:git diff --check:repeated three times"
+      ],
+      "cell_id": "CONTENT_ADDRESSED_PROOF_REUSE_DURABLE_RELEASE",
+      "classification": "OPERATIONAL_REFUTED",
+      "deviation_id": "V0490_LOCAL_STATIC_VALIDATION_OPERATIONAL_REFUTED-v1",
+      "next_operation": "USE_GITHUB_ACTIONS_ONLY_FOR_ALL_VALIDATION",
+      "observed": {
+        "command_count": 5,
+        "commands": [
+          {
+            "command": "bash -n scripts/prepare-v0490-parent-cache.sh scripts/finalize-v0490-release-audit.sh scripts/verify-v0490-release-input.sh scripts/verify-v049-products.sh",
+            "count": 1,
+            "kind": "shell_syntax_check"
+          },
+          {
+            "command": "/usr/bin/jq -e '(.adoption.release_audit.api_observation | has(\"requests\") and has(\"reused\"))' /tmp/v0490-parent-product.json >/dev/null",
+            "count": 1,
+            "kind": "local_json_assertion"
+          },
+          {
+            "command": "git diff --check",
+            "count": 3,
+            "kind": "local_static_check"
+          }
+        ],
+        "local_go_build": 0,
+        "local_go_conformance": 0,
+        "local_go_fmt": 0,
+        "local_go_test": 0,
+        "local_go_vet": 0,
+        "repository_writes": 0,
+        "verification_authority": "LOCAL_AUTHORING_SHELL"
+      },
+      "reason": "LOCAL_STATIC_VALIDATION_EXECUTED_AFTER_REMOTE_ONLY_VALIDATION_POLICY",
+      "stage": "AUTHORING",
+      "state": "REFUTED",
+      "step": "RECORD_LOCAL_VALIDATION_POLICY_BREACH"
     }
   ],
   "profile_id": "self-improvement-portfolio-v1",

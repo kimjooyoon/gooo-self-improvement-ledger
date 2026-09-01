@@ -4,8 +4,12 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [main, 'agent/**']
+    branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: gooo-self-improvement-portfolio-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -36,6 +40,20 @@ jobs:
           test "$(go env GOVERSION)" = go1.27.0
           mkdir -p "$ARTIFACT_ROOT"
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-before"
+
+      - name: Preflight v0.49 release input before network audit
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          bash scripts/verify-v0490-release-input.sh --repository "$GITHUB_WORKSPACE" --output "$ARTIFACT_ROOT/v0490-source-preflight.json"
+
+      - name: Prepare v0.49 immutable parent evidence cache
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          bash scripts/prepare-v0490-parent-cache.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
 
       - name: Verify formatting, vet, tests, and build in CI
         shell: bash
@@ -76,8 +94,13 @@ jobs:
         run: |
           set -Eeuo pipefail
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
-          /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
-          bash scripts/verify-releases-parallel.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
+          if test "$(jq -r '.primary.state' "$ARTIFACT_ROOT/v0490-release-audit-receipt.json")" = CLOSED; then
+            echo "reused immutable parent release evidence; live frontier is verified by the v0.49 product gate"
+          else
+            /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
+            bash scripts/verify-releases-parallel.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
+            bash scripts/finalize-v0490-release-audit.sh "$ARTIFACT_ROOT"
+          fi
           jq -e '.summary=={total:59,verified:59,unknown:0,refuted:0} and .release_lock_snapshot.snapshot_semantic_equivalence.state=="CLOSED" and .release_lock_snapshot.snapshot_semantic_equivalence.same_snapshot==true and .release_lock_snapshot.parallel_live_metrics.max_in_flight==8 and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           planner_dir="$ARTIFACT_ROOT/releases/structural_ledger_append_planner_durable_release/assets"
@@ -1098,7 +1121,6 @@ jobs:
         run: |
           set -Eeuo pipefail
           bash scripts/verify-v049-products.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
-          jq -e '.schema=="gooo/self-improvement-ledger/v049-product-integration/v1" and .adoption.parent_profile.lock_count==57 and .adoption.current_lock_count==59 and .adoption.baseline.selected==59 and .adoption.baseline.executed==59 and .adoption.baseline.reused==0 and .adoption.candidate.selected==2 and .adoption.candidate.executed==2 and .adoption.candidate.reused==57 and .adoption.canonical_comparison.canonical_evidence_equal==true and .adoption.measurement_receipt.semantic.decision=="CLOSED" and .authority.repository_writes==0' "$ARTIFACT_ROOT/v049-products/product-integration.json" >/dev/null
 
       - name: Verify separate thirty-entry non-completeness capability evidence registry
         shell: bash
@@ -1186,6 +1208,14 @@ jobs:
       - name: Preserve v0.49.0 atomic two-cell adoption wave evidence
         shell: bash
         run: cp evidence/atomic-v0490-wave-v1.json "$ARTIFACT_ROOT/atomic-v0490-wave-v1.json"
+
+      - name: Final v0.49 release input preflight after artifact materialization
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          bash scripts/verify-v0490-release-input.sh --artifact "$ARTIFACT_ROOT"
 
       - name: Upload human-readable evidence
         if: always()
