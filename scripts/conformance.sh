@@ -14,8 +14,8 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 49 and
-  .denominator_migration == {from:48,to:49,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 50 and
+  .denominator_migration == {from:49,to:50,add:1,retire:0,split:0,append_only:true} and
   (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
@@ -32,8 +32,9 @@ jq -e '
   .cells[46].id == "STAGED_QUASIQUOTE_DURABLE_RELEASE" and
   .cells[47].id == "ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE" and
   .cells[48].id == "INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:40,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:40,GUARDRAIL:5} and
+  .cells[49].id == "SELF_REWRITE_SANDBOX_DURABLE_RELEASE" and
+  .proof_totals == {FOUNDATION:4,COHERENCE:41,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:41,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -71,6 +72,7 @@ jq -e '
   and (.cells|map(select(.id=="STAGED_QUASIQUOTE_DURABLE_RELEASE" and .release_key=="staged_quasiquote_durable_release" and .ordinal==47 and .activity=="AdoptStagedQuasiquoteDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE" and .release_key=="error_directed_evolution_planner_durable_release" and .ordinal==48 and .activity=="AdoptErrorDirectedEvolutionPlannerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE" and .release_key=="incremental_module_compiler_durable_release" and .ordinal==49 and .activity=="AdoptIncrementalModuleCompilerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="SELF_REWRITE_SANDBOX_DURABLE_RELEASE" and .release_key=="self_rewrite_sandbox_durable_release" and .ordinal==50 and .activity=="AdoptSelfRewriteSandboxDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -88,6 +90,43 @@ jq -e '
   .events[1].output_debug_artifact == {id:9791729823,size_bytes:5976,digest:"sha256:a5a464f8fdcaacf6d246810a059620b723514866b4e527b3961c4298408768d9"}
 ' "$repository/evidence/planner-v043-candidate-history.json" >/dev/null
 echo "conformance: candidate-stage planner refutations preserved"
+
+echo "conformance: verify preserved v0.44 candidate-stage planner history"
+jq -e '
+  .schema == "gooo/ledger-append-planner/candidate-operational-history/v1" and
+  .transaction_id == "self-rewrite-sandbox-durable-release-v0.44.0" and
+  .semantic_cell_adoption_state == "CLOSED" and .portfolio_decision == "REFUTED" and
+  .selected_final_authority.run_id == 33488925074 and
+  .selected_final_authority.job_id == 99795503759 and
+  .selected_final_authority.output_artifact_id == 9792923641 and
+  .selected_final_authority.output_artifact_size_bytes == 380704 and
+  .selected_final_authority.output_artifact_digest == "sha256:e9aa3fdb253eae025dddc923369fb22d19c143efc7e1d7f25c5a7d0bacd84139" and
+  (.events|length) == 3 and
+  .events[0].run_id == 33488777592 and .events[0].selected == false and .events[0].decision == "UNKNOWN" and
+  .events[0].output_debug_artifact == {id:9792866068,size_bytes:5015,digest:"sha256:d7ef99c1c3bad26bc3fbbb456259153d5222dc0fd975bc24c0d7cabff2e12c54"} and
+  .events[1].run_id == 33488868111 and .events[1].selected == false and .events[1].decision == "REFUTED" and
+  .events[1].output_debug_artifact == {id:9792901866,size_bytes:5114,digest:"sha256:b05800eae47fb66bea9f13ee54ff865b3c7e64d98128dec793df94f7494d5a6f"} and
+  .events[2].run_id == 33488925074 and .events[2].selected == true and .events[2].decision == "CLOSED" and .events[2].portfolio_decision == "REFUTED" and
+  .events[2].metrics == {exact_files_planned:7,exact_files_changed:7,ast_nodes_added:5,replay_mismatches:0,repository_writes:0} and
+  all(.events[]; .repository_writes == 0 and .local_execution_counts == {go_test:0,go_build:0,go_vet:0,conformance:0})
+' "$repository/evidence/planner-v044-candidate-history.json" >/dev/null
+echo "conformance: v0.44 candidate-stage planner history preserved"
+
+echo "conformance: verify authoring operational history"
+jq -e '
+  .schema == "gooo/self-improvement-ledger/authoring-operational-history/v1" and
+  .event_id == "v0.44-authoring-local-static-checks" and
+  .state == "OPERATIONAL_REFUTED" and
+  .reason == "LOCAL_AUTHORING_STATIC_CHECKS_EXECUTED_OUTSIDE_GITHUB_ACTIONS" and
+  .checks.bash_syntax.executions == 3 and
+  .checks.workflow_yaml_parse.executions == 4 and
+  .checks.workflow_yaml_parse.successful_executions == 3 and
+  .checks.workflow_yaml_parse.failed_executions == 1 and
+  .checks.json_static_parse.batch_executions == 3 and
+  .checks.git_diff_check.executions == 3 and
+  .product_runtime_authority == {verification:"GITHUB_ACTIONS",local_go_run_compile:0,local_go_build:0,local_go_test:0,local_go_vet:0,local_go_conformance:0,local_go_integration:0,repository_writes:0}
+' "$repository/evidence/authoring-operational-history-v1.json" >/dev/null
+echo "conformance: authoring operational history preserved"
 
 echo "conformance: verify staged quasiquote release lock"
 jq -e '
@@ -132,6 +171,28 @@ jq -e '
   }
 ' "$repository/contracts/release-locks-v1.json" >/dev/null
 echo "conformance: incremental module compiler release lock passed"
+
+echo "conformance: verify self-rewrite sandbox release lock"
+jq -e '
+  .releases.self_rewrite_sandbox_durable_release == {
+    repository:"kimjooyoon/gooo-self-rewrite-sandbox",
+    tag:"v0.1.1",
+    release_id:380237396,
+    release_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/tag/v0.1.1",
+    target_commit_sha:"bccfd3a740f3d9c254d715e01a61a7554e96568a",
+    tag_object_sha:"7afaab763564e356e454db4d63d22ffa7ba53f14",
+    immutable:true,
+    assets:[
+      {id:539057455,name:"gooo-self-rewrite-sandbox-linux-amd64-v0.1.1.tar.gz",size_bytes:2825115,sha256:"sha256:313d243bd9e7cba3479511a10472882b05d5b954a3082f109aacd82297b471d8",download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/gooo-self-rewrite-sandbox-linux-amd64-v0.1.1.tar.gz",role:"release-binary"},
+      {id:539057461,name:"gooo-self-rewrite-sandbox-source-v0.1.1.tar.gz",size_bytes:23210,sha256:"sha256:16ac09b679257fc77dce92d538d79e8676eea088ef499bc73c10290a4b1e5b1b",download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/gooo-self-rewrite-sandbox-source-v0.1.1.tar.gz",role:"release-source"},
+      {id:539057456,name:"release-manifest-v0.1.1.json",size_bytes:790,sha256:"sha256:d7a4615beb26b9e27883f4d46620215f78548d1eec646fe5cf156446592b3383",download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/release-manifest-v0.1.1.json",role:"release-manifest"},
+      {id:539057458,name:"release-report-v0.1.1.json",size_bytes:40509,sha256:"sha256:d5072d9ba452636a0023513f346cecc879b25fbb7730f26932950f8037d93d38",download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/release-report-v0.1.1.json",role:"release-report"},
+      {id:539057459,name:"SHA256SUMS",size_bytes:498,sha256:"sha256:37b2f03ea77842bd81503435f0a069d10c2c61e0f5446ecadcaf0f0841de7570",download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/SHA256SUMS",role:"release-checksums"},
+      {id:539057471,name:"version.json",size_bytes:294,sha256:"sha256:32e1ed0dd02ef58c148feb74705384d961915197e047f7639f7ec339c6c56008",download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/version.json",role:"release-version"}
+    ]
+  }
+' "$repository/contracts/release-locks-v1.json" >/dev/null
+echo "conformance: self-rewrite sandbox release lock passed"
 
 echo "conformance: verify preserved release transport failure envelope"
 jq -e '
@@ -992,7 +1053,7 @@ echo "conformance: differential semantics runtime release lock passed"
 
 echo "conformance: verify emitted report"
 jq -e '
-  .denominator_migration == {from:48,to:49,add:1,retire:0,split:0,append_only:true} and
+  .denominator_migration == {from:49,to:50,add:1,retire:0,split:0,append_only:true} and
   .local_validation_followup == {local_validation_executions:2,inspection_only:false,process_state:"REFUTED",local_schema_replays:0,local_conformance_replays:0,local_go_test:0,local_go_build:0,local_go_vet:0,local_go_conformance:0} and
   (.state_transition_events|length) == 1 and
   .state_transition_events[0].cell_id == "CORE_SEMANTIC_AUTHORITY" and
@@ -1256,7 +1317,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 49 and
+  (.cells|length) == 50 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -1674,6 +1735,35 @@ jq -e '
     ($incremental.evidence | index("planner-tool-executions:version=v0.3.0:current_task=1:classification=generator_only:not_validation=true")) != null and
     ($incremental.evidence | index("local-validation-followup:local_validation_executions=2:inspection_only=false:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null and
     ($incremental.evidence | index("planner-ci:workflow=v0.43.0 planner generator-only:run_id=33486099504:run_url=https://github.com/kimjooyoon/gooo-self-improvement-ledger/actions/runs/33486099504:artifact_id=9791810587:artifact_digest=f70286380682101739b1c19b84219f0d09dc09f5dfaca1d1327ecb7ff8767b3c")) != null) and
+  ((.cells[] | select(.cell_id == "SELF_REWRITE_SANDBOX_DURABLE_RELEASE")) as $sandbox |
+    $sandbox.state == "CLOSED" and
+    $sandbox.release_key == "self_rewrite_sandbox_durable_release" and
+    ($sandbox.evidence | index("upstream-release:repo=kimjooyoon/gooo-self-rewrite-sandbox:tag=v0.1.1:release=380237396:tag_object=7afaab763564e356e454db4d63d22ffa7ba53f14:target=bccfd3a740f3d9c254d715e01a61a7554e96568a:immutable=true")) != null and
+    ($sandbox.evidence | index("upstream-assets:539057455:2825115:sha256:313d243bd9e7cba3479511a10472882b05d5b954a3082f109aacd82297b471d8,539057461:23210:sha256:16ac09b679257fc77dce92d538d79e8676eea088ef499bc73c10290a4b1e5b1b,539057456:790:sha256:d7a4615beb26b9e27883f4d46620215f78548d1eec646fe5cf156446592b3383,539057458:40509:sha256:d5072d9ba452636a0023513f346cecc879b25fbb7730f26932950f8037d93d38,539057459:498:sha256:37b2f03ea77842bd81503435f0a069d10c2c61e0f5446ecadcaf0f0841de7570,539057471:294:sha256:32e1ed0dd02ef58c148feb74705384d961915197e047f7639f7ec339c6c56008")) != null and
+    ($sandbox.evidence | index("upstream-ci:workflow=Conformance:run_id=33474678408:job=99751363760:commit=bccfd3a740f3d9c254d715e01a61a7554e96568a:success")) != null and
+    ($sandbox.evidence | index("upstream-ci-artifact:9787734796:2890709:sha256:6ba52984ba8a072baf33ecc32836475179ebd11094b1a5704f41d4edd5c65aa4")) != null and
+    ($sandbox.evidence | index("upstream-release-ci:workflow=Immutable release:run_id=33474686476:job=99751390530:commit=bccfd3a740f3d9c254d715e01a61a7554e96568a:success")) != null and
+    ($sandbox.evidence | index("upstream-manifest:manifest_sha256=sha256:d7a4615beb26b9e27883f4d46620215f78548d1eec646fe5cf156446592b3383:source_sha256=sha256:16ac09b679257fc77dce92d538d79e8676eea088ef499bc73c10290a4b1e5b1b:binary_sha256=sha256:313d243bd9e7cba3479511a10472882b05d5b954a3082f109aacd82297b471d8:report_sha256=sha256:d5072d9ba452636a0023513f346cecc879b25fbb7730f26932950f8037d93d38:sums_sha256=sha256:37b2f03ea77842bd81503435f0a069d10c2c61e0f5446ecadcaf0f0841de7570:version_sha256=sha256:32e1ed0dd02ef58c148feb74705384d961915197e047f7639f7ec339c6c56008")) != null and
+    ($sandbox.evidence | index("corpus:cases=6:selected=6:executed=6:closed=3:unknown=1:refuted=2:replay=0:overall=CLOSED")) != null and
+    ($sandbox.evidence | index("runtime:compile=6052:build=6052:test=2304:conformance=1256:integration=0:peak_rss_kib=281064")) != null and
+    ($sandbox.evidence | index("inventory:go=6/1401:gooo=9/148:regular_files=31:subdirectories=17")) != null and
+    ($sandbox.evidence | index("generated-artifacts:count=40:bytes=24997")) != null and
+    ($sandbox.evidence | index("tests:total=4:selected=4:executed=4:reused=0:failed=0:unknown=1")) != null and
+    ($sandbox.evidence | index("upstream-improvement:status=CLOSED:reason=MATCHED_EXACT_PAIR")) != null and
+    ($sandbox.evidence | index("authority:repository_writes=0:local_test_executions=0:cross_project_required_gates=0")) != null and
+    ($sandbox.evidence | index("parent-v0.43.0:release=380333473:tag_object=df8f2ac1dddcb6db09883fc488e0f5b45d8e843b:target=8de54d1adb544be8506e938522e6e247a7b1a216:asset=539249006:27461608:sha256:b6f96d505ccfd27aa24755887ca4ae9bc9549285d776ca872fb44b3a3503660b:immutable=true")) != null and
+    ($sandbox.evidence | index("parent-v0.43.0-transport:run_id=33487786002:job=99791823088:receipt_artifact=9792471417:755:sha256:cedcbff51c841e9b825e021541aeceb3d42315959a7e81cedf1d4df435119477")) != null and
+    ($sandbox.evidence | index("immutable-v0.43.0-baseline:semantic-source-bound")) != null and
+    ($sandbox.evidence | index("structural-append:cell=SELF_REWRITE_SANDBOX_DURABLE_RELEASE:activity=AdoptSelfRewriteSandboxDurableRelease:lock=self_rewrite_sandbox_durable_release")) != null and
+    ($sandbox.evidence | index("derived-projection-regeneration:report-and-history-replaced-in-caller-copy")) != null and
+    ($sandbox.evidence | index("projection-replacements:count=2:report=replace:history=replace")) != null and
+    ($sandbox.evidence | index("ast-patch:planned=7:changed=7:ast_nodes_added=5:replay_mismatches=0:planning_repository_writes=0")) != null and
+    ($sandbox.evidence | index("rollback-receipt:rollback_ready=true")) != null and
+    ($sandbox.evidence | index("replay-mismatches:0")) != null and
+    ($sandbox.evidence | index("input-repository-writes:0")) != null and
+    ($sandbox.evidence | index("planner-tool-executions:version=v0.3.0:current_task=1:classification=generator_only:not_validation=true")) != null and
+    ($sandbox.evidence | index("local-validation-followup:local_validation_executions=0:inspection_only=true:process=REFUTED:local_schema_replays=0:local_conformance_replays=0:local_go_test=0:local_go_build=0:local_go_vet=0:local_go_conformance=0")) != null and
+    ($sandbox.evidence | index("planner-ci:workflow=v0.44.0 planner generator-only:run_id=33488925074:run_url=https://github.com/kimjooyoon/gooo-self-improvement-ledger/actions/runs/33488925074:artifact_id=9792922258:artifact_digest=fff595d3e1f6265fd05d7ef5ab963fd9a2ab1ef19b9cbda089fce6a20f871542")) != null) and
   .optional_dependencies[0].id == "gooo-receipt-schema-migration-v0.3" and
   .optional_dependencies[0].status == "UNRELEASED" and
   .optional_dependencies[0].required == false and
@@ -1709,7 +1799,8 @@ jq -e '
 ' "$repository/evidence/assessment-v1.json" >/dev/null
 
 start=$(date +%s%N)
-/usr/bin/time -f '%M' -o "$artifact/report-peak-rss" "$binary" \
+set +e
+/usr/bin/time -f '%M' -o "$probe/report-peak-rss" "$binary" \
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
   -activities "$repository/examples/self-improvement-portfolio/main.gooo" \
   -assessment "$repository/evidence/assessment-v1.json" \
@@ -1718,18 +1809,36 @@ start=$(date +%s%N)
   -repository-root "$repository" \
   -artifact-root "$artifact" \
   -output-json "$probe/report.json" \
-  -output-markdown "$probe/report.md"
+  -output-markdown "$probe/report.md" 2>"$artifact/report-command.stderr"
+report_status=$?
+set -e
+echo "conformance: probe report generator exit status=$report_status"
+if test -s "$artifact/report-command.stderr"; then
+  cat "$artifact/report-command.stderr" >&2
+fi
+if test "$report_status" -ne 0; then
+  exit 1
+fi
 end=$(date +%s%N)
 report_wall=$(( (end - start) / 1000000 ))
 report_raw=$((end - start))
-report_rss=$(cat "$artifact/report-peak-rss")
-
-jq --argjson wall "$report_wall" --argjson raw "$report_raw" --argjson rss "$report_rss" \
-  '.timing.report={wall_ms:$wall,duration_ns:$raw,peak_rss_kib:$rss}' \
-  "$artifact/runtime.json" > "$probe/runtime.json"
+echo "conformance: probe report generator completed"
+if test -f "$probe/report-peak-rss"; then
+  report_rss=$(cat "$probe/report-peak-rss")
+  jq --argjson wall "$report_wall" --argjson raw "$report_raw" --argjson rss "$report_rss" \
+    '.timing.report={wall_ms:$wall,duration_ns:$raw,peak_rss_kib:($rss|tonumber)}' \
+    "$artifact/runtime.json" > "$probe/runtime.json"
+else
+  echo "conformance: probe report peak RSS measurement missing; preserving UNKNOWN frontier" >&2
+  jq --argjson wall "$report_wall" --argjson raw "$report_raw" \
+    --argjson measurement_state '{"state":"UNKNOWN","stage":"CONFORMANCE","step":"CAPTURE_REPORT_PEAK_RSS","reason":"REPORT_PEAK_RSS_MEASUREMENT_UNAVAILABLE","unknown_class":"MEASUREMENT_MISSING","next_operation":"RECAPTURE_REPORT_PEAK_RSS_IN_GITHUB_ACTIONS","blocked_by":["report-peak-rss"]}' \
+    '.timing.report={wall_ms:$wall,duration_ns:$raw,peak_rss_kib:null,measurement_state:$measurement_state}' \
+    "$artifact/runtime.json" > "$probe/runtime.json"
+fi
 mv "$probe/runtime.json" "$artifact/runtime.json"
 
 start=$(date +%s%N)
+set +e
 /usr/bin/time -f '%M' -o "$probe/final-report-peak-rss" "$binary" \
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
   -activities "$repository/examples/self-improvement-portfolio/main.gooo" \
@@ -1739,18 +1848,30 @@ start=$(date +%s%N)
   -repository-root "$repository" \
   -artifact-root "$artifact" \
   -output-json "$artifact/report.json" \
-  -output-markdown "$artifact/report.md"
+  -output-markdown "$artifact/report.md" 2>"$artifact/final-report-command.stderr"
+final_report_status=$?
+set -e
+echo "conformance: final report generator exit status=$final_report_status"
+if test -s "$artifact/final-report-command.stderr"; then
+  cat "$artifact/final-report-command.stderr" >&2
+fi
+if test "$final_report_status" -ne 0; then
+  exit 1
+fi
 end=$(date +%s%N)
+
+echo "conformance: emitted report diagnostics"
+jq '{schema,profile_id,decision,summary,proof_counts,indicator_counts,bindings,releases,authority,local_execution_counts}' "$artifact/report.json"
 
 jq -e '
   .schema == "gooo/self-improvement-portfolio/report/v1" and
   .profile_id == "self-improvement-portfolio-v1" and
-  .summary == {total:49,closed:46,unknown:1,refuted:2} and
+  .summary == {total:50,closed:47,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 49 and
+  (.cells|length) == 50 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 46 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 47 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -1802,25 +1923,31 @@ jq -e '
     DIFFERENTIAL_SEMANTICS_RUNTIME_DURABLE_RELEASE:"CLOSED",
     STAGED_QUASIQUOTE_DURABLE_RELEASE:"CLOSED",
     ERROR_DIRECTED_EVOLUTION_PLANNER_DURABLE_RELEASE:"CLOSED",
-    INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE:"CLOSED"
+    INCREMENTAL_MODULE_COMPILER_DURABLE_RELEASE:"CLOSED",
+    SELF_REWRITE_SANDBOX_DURABLE_RELEASE:"CLOSED"
   } and
   all(.cells[]; if .state == "UNKNOWN" then
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:49,activities:49,unique_axes:49,unique_metrics:49,source_bindings:49,ir_bindings:49,generated_artifact_bindings:49,evaluator_bindings:49} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 40 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 40 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:46,verified:46,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:50,activities:50,unique_axes:50,unique_metrics:50,source_bindings:50,ir_bindings:50,generated_artifact_bindings:50,evaluator_bindings:50} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 41 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 41 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:47,verified:47,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and
   (.performance.report.wall_ms|type) == "number" and (.performance.report.duration_ns|type) == "number" and
+  (.performance.report | if .peak_rss_kib == null then
+    .measurement_state == {state:"UNKNOWN",stage:"CONFORMANCE",step:"CAPTURE_REPORT_PEAK_RSS",reason:"REPORT_PEAK_RSS_MEASUREMENT_UNAVAILABLE",unknown_class:"MEASUREMENT_MISSING",next_operation:"RECAPTURE_REPORT_PEAK_RSS_IN_GITHUB_ACTIONS",blocked_by:["report-peak-rss"]}
+  else
+    (.peak_rss_kib|type) == "number" and (has("measurement_state")|not)
+  end) and
   .authority.runtime_repository_writes == 0 and .authority.caller_owned_temp_output == true and .authority.cross_project_required_gates == 0 and
   .local_execution_counts == {gofmt:0,build:0,test:0,vet:0,conformance:0} and
   (has("percentage")|not) and (has("score")|not)
 ' "$artifact/report.json" >/dev/null
 
-jq -S -n --argjson report "$(cat "$artifact/report.json")" --argjson wall "$report_wall" --argjson raw "$((end - start))" \
-  '{schema:"gooo/self-improvement-portfolio/conformance/v1",tests:{executed:1,reused:0,skipped:0},report_decision:$report.decision,summary:$report.summary,report_generation:{wall_ms:$wall,duration_ns:$raw,peak_rss_kib:($report.performance.report.peak_rss_kib|tonumber)},repository_writes:$report.authority.runtime_repository_writes}' \
+jq -S -n --slurpfile report "$artifact/report.json" --argjson wall "$report_wall" --argjson raw "$((end - start))" \
+  '{schema:"gooo-self-improvement-portfolio/conformance/v1",tests:{executed:1,reused:0,skipped:0},report_decision:$report[0].decision,summary:$report[0].summary,report_generation:{wall_ms:$wall,duration_ns:$raw,peak_rss_kib:(if $report[0].performance.report.peak_rss_kib == null then null else ($report[0].performance.report.peak_rss_kib|tonumber) end),measurement_state:$report[0].performance.report.measurement_state},repository_writes:$report[0].authority.runtime_repository_writes}' \
   > "$artifact/conformance.json"

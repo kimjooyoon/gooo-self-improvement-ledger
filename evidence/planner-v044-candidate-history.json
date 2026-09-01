@@ -1,0 +1,121 @@
+{
+  "schema": "gooo/ledger-append-planner/candidate-operational-history/v1",
+  "transaction_id": "self-rewrite-sandbox-durable-release-v0.44.0",
+  "semantic_cell_adoption_state": "CLOSED",
+  "portfolio_decision": "REFUTED",
+  "selected_final_authority": {
+    "run_id": 33488925074,
+    "job_id": 99795503759,
+    "output_artifact_id": 9792923641,
+    "output_artifact_size_bytes": 380704,
+    "output_artifact_digest": "sha256:e9aa3fdb253eae025dddc923369fb22d19c143efc7e1d7f25c5a7d0bacd84139",
+    "output_debug_artifact_id": 9792923091,
+    "output_debug_artifact_size_bytes": 380704,
+    "output_debug_artifact_digest": "sha256:2c3a098d1ebc4d6f6b1662ed4ebbeb71fb0d66d5f4d4f1ea4e1f35ec8864345d",
+    "ci_proof_artifact_id": 9792922258,
+    "ci_proof_artifact_size_bytes": 470,
+    "ci_proof_artifact_digest": "sha256:fff595d3e1f6265fd05d7ef5ab963fd9a2ab1ef19b9cbda089fce6a20f871542"
+  },
+  "events": [
+    {
+      "run_id": 33488777592,
+      "event": "CANDIDATE_STAGE_PLANNER_UNKNOWN",
+      "trigger": "push",
+      "head_sha": "46870edb1021e957355eac91c596c1168eb49b2b",
+      "job_id": 99795024431,
+      "failure_step": "Run planner v0.3.0 generator-only against clean v0.43.0",
+      "selected": false,
+      "output_debug_artifact": {
+        "id": 9792866068,
+        "size_bytes": 5015,
+        "digest": "sha256:d7ef99c1c3bad26bc3fbbb456259153d5222dc0fd975bc24c0d7cabff2e12c54"
+      },
+      "ci_proof_artifact": {
+        "id": 9792865052,
+        "size_bytes": 470,
+        "digest": "sha256:4368c2668b06102489ea2aa2c5227b8fbd7c1b060932cd25a696023f3e5814f6"
+      },
+      "decision": "UNKNOWN",
+      "reasons": [
+        {
+          "stage": "VERIFY",
+          "step": "BIND_TRANSACTION_MANIFEST_TARGET",
+          "reason": "TRANSACTION_MANIFEST_BINDING_UNKNOWN",
+          "counterexample": "transaction manifest target binding is absent",
+          "blocked_by": ["manifest_key", "v0.43.0"]
+        }
+      ],
+      "repository_writes": 0,
+      "local_execution_counts": {
+        "go_test": 0,
+        "go_build": 0,
+        "go_vet": 0,
+        "conformance": 0
+      }
+    },
+    {
+      "run_id": 33488868111,
+      "event": "CANDIDATE_STAGE_PLANNER_REFUTED",
+      "trigger": "push",
+      "head_sha": "4cfc95ed4ab06a149a80d6645f232f591cdf5e65",
+      "job_id": 99795315950,
+      "failure_step": "Run planner v0.3.0 generator-only against clean v0.43.0",
+      "selected": false,
+      "output_debug_artifact": {
+        "id": 9792901866,
+        "size_bytes": 5114,
+        "digest": "sha256:b05800eae47fb66bea9f13ee54ff865b3c7e64d98128dec793df94f7494d5a6f"
+      },
+      "ci_proof_artifact": {
+        "id": 9792900888,
+        "size_bytes": 468,
+        "digest": "sha256:98df7275edff65c50e715b0bb1d735172f6038e1b0cd9d511243183dff24c038"
+      },
+      "decision": "REFUTED",
+      "reasons": [
+        {
+          "stage": "VERIFY",
+          "step": "CHECK_TARGET_STRUCTURAL_ANCHORS",
+          "reason": "TARGET_STRUCTURAL_ANCHOR_MISMATCH",
+          "counterexample": "registry.last_entry_id observed=incremental-module-compiler-v0.1.3 expected=incremental-module-compiler-v0.1.1"
+        }
+      ],
+      "repository_writes": 0,
+      "local_execution_counts": {
+        "go_test": 0,
+        "go_build": 0,
+        "go_vet": 0,
+        "conformance": 0
+      }
+    },
+    {
+      "run_id": 33488925074,
+      "event": "SELECTED_AUTHORITY_PLANNER_CLOSED",
+      "trigger": "push",
+      "head_sha": "92639fa2963d27ffeb4e415406acff231ceae581",
+      "job_id": 99795503759,
+      "selected": true,
+      "output_artifact": {
+        "id": 9792923641,
+        "size_bytes": 380704,
+        "digest": "sha256:e9aa3fdb253eae025dddc923369fb22d19c143efc7e1d7f25c5a7d0bacd84139"
+      },
+      "decision": "CLOSED",
+      "portfolio_decision": "REFUTED",
+      "metrics": {
+        "exact_files_planned": 7,
+        "exact_files_changed": 7,
+        "ast_nodes_added": 5,
+        "replay_mismatches": 0,
+        "repository_writes": 0
+      },
+      "repository_writes": 0,
+      "local_execution_counts": {
+        "go_test": 0,
+        "go_build": 0,
+        "go_vet": 0,
+        "conformance": 0
+      }
+    }
+  ]
+}

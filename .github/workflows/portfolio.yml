@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify forty-six immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify forty-seven immutable release locks plus preserved counterexamples and failed release triggers
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,7 +78,7 @@ jobs:
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
           bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:46,verified:46,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          jq -e '.summary=={total:47,verified:47,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           planner_dir="$ARTIFACT_ROOT/releases/structural_ledger_append_planner_durable_release/assets"
           test "$(cat "$planner_dir/SHA256SUMS")" = $'25274148049853e3147618e6278570259cf3238fb578b8f808231e47c2488da8  release/gooo-ledger-append-planner-linux-amd64-v0.2.0\nf01a5ad3350a507aca5f91142e8cd09cbaf7ab923507a85f8209084d873663f7  release/gooo-ledger-append-planner-source-v0.2.0.tar.gz'
@@ -984,7 +984,37 @@ jobs:
           test "$(awk '$2=="refs/tags/v0.1.3^{}" {print $1}' <<< "$compiler_refs")" = 336669ce954917fc0d34b0b190da8ab5487ab095
           echo "upstream incremental module compiler v0.1.3 release and four exact assets verified"
 
-      - name: Verify separate twenty-eight-entry non-completeness capability evidence registry
+      - name: Verify self-rewrite sandbox v0.1.1 release and six exact assets
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          sandbox_repo="kimjooyoon/gooo-self-rewrite-sandbox"
+          sandbox_dir="$ARTIFACT_ROOT/releases/self_rewrite_sandbox_durable_release/assets"
+          sandbox_release_json="$ARTIFACT_ROOT/releases/self_rewrite_sandbox_durable_release.release.json"
+          jq -e '.id==380237396 and .tag_name=="v0.1.1" and .html_url=="https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/tag/v0.1.1" and .target_commitish=="main" and .draft==false and .prerelease==false and .immutable==true and ([.assets[]|{id,name,size,digest,browser_download_url}]|sort_by(.id))==([{id:539057455,name:"gooo-self-rewrite-sandbox-linux-amd64-v0.1.1.tar.gz",size:2825115,digest:"sha256:313d243bd9e7cba3479511a10472882b05d5b954a3082f109aacd82297b471d8",browser_download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/gooo-self-rewrite-sandbox-linux-amd64-v0.1.1.tar.gz"},{id:539057456,name:"release-manifest-v0.1.1.json",size:790,digest:"sha256:d7a4615beb26b9e27883f4d46620215f78548d1eec646fe5cf156446592b3383",browser_download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/release-manifest-v0.1.1.json"},{id:539057458,name:"release-report-v0.1.1.json",size:40509,digest:"sha256:d5072d9ba452636a0023513f346cecc879b25fbb7730f26932950f8037d93d38",browser_download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/release-report-v0.1.1.json"},{id:539057459,name:"SHA256SUMS",size:498,digest:"sha256:37b2f03ea77842bd81503435f0a069d10c2c61e0f5446ecadcaf0f0841de7570",browser_download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/SHA256SUMS"},{id:539057461,name:"gooo-self-rewrite-sandbox-source-v0.1.1.tar.gz",size:23210,digest:"sha256:16ac09b679257fc77dce92d538d79e8676eea088ef499bc73c10290a4b1e5b1b",browser_download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/gooo-self-rewrite-sandbox-source-v0.1.1.tar.gz"},{id:539057471,name:"version.json",size:294,digest:"sha256:32e1ed0dd02ef58c148feb74705384d961915197e047f7639f7ec339c6c56008",browser_download_url:"https://github.com/kimjooyoon/gooo-self-rewrite-sandbox/releases/download/v0.1.1/version.json"}]|sort_by(.id))' "$sandbox_release_json" >/dev/null
+          while IFS='|' read -r asset_name asset_size asset_sha; do
+            test "$(wc -c < "$sandbox_dir/$asset_name" | tr -d ' ')" = "$asset_size"
+            test "$(sha256sum "$sandbox_dir/$asset_name" | awk '{print $1}')" = "$asset_sha"
+          done <<'EOF'
+          gooo-self-rewrite-sandbox-linux-amd64-v0.1.1.tar.gz|2825115|313d243bd9e7cba3479511a10472882b05d5b954a3082f109aacd82297b471d8
+          release-manifest-v0.1.1.json|790|d7a4615beb26b9e27883f4d46620215f78548d1eec646fe5cf156446592b3383
+          release-report-v0.1.1.json|40509|d5072d9ba452636a0023513f346cecc879b25fbb7730f26932950f8037d93d38
+          SHA256SUMS|498|37b2f03ea77842bd81503435f0a069d10c2c61e0f5446ecadcaf0f0841de7570
+          gooo-self-rewrite-sandbox-source-v0.1.1.tar.gz|23210|16ac09b679257fc77dce92d538d79e8676eea088ef499bc73c10290a4b1e5b1b
+          version.json|294|32e1ed0dd02ef58c148feb74705384d961915197e047f7639f7ec339c6c56008
+          EOF
+          sandbox_ref=$(gh api "repos/$sandbox_repo/git/ref/tags/v0.1.1")
+          jq -e '.object.sha=="7afaab763564e356e454db4d63d22ffa7ba53f14" and .object.type=="tag"' <<< "$sandbox_ref" >/dev/null
+          sandbox_tag=$(gh api "repos/$sandbox_repo/git/tags/7afaab763564e356e454db4d63d22ffa7ba53f14")
+          jq -e '.object.sha=="bccfd3a740f3d9c254d715e01a61a7554e96568a" and .object.type=="commit"' <<< "$sandbox_tag" >/dev/null
+          sandbox_refs=$(git ls-remote "https://github.com/$sandbox_repo.git" refs/tags/v0.1.1 'refs/tags/v0.1.1^{}')
+          test "$(awk '$2=="refs/tags/v0.1.1" {print $1}' <<< "$sandbox_refs")" = 7afaab763564e356e454db4d63d22ffa7ba53f14
+          test "$(awk '$2=="refs/tags/v0.1.1^{}" {print $1}' <<< "$sandbox_refs")" = bccfd3a740f3d9c254d715e01a61a7554e96568a
+          echo "upstream self-rewrite sandbox v0.1.1 release and six exact assets verified"
+
+      - name: Verify separate twenty-nine-entry non-completeness capability evidence registry
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -1012,7 +1042,7 @@ jobs:
             --arg schema "gooo/self-improvement-portfolio/runtime/v1" \
             --arg subject "$SUBJECT_SHA" --arg go_version "$(go env GOVERSION)" \
             --argjson fetch "$fetch" --argjson verify "$verify" --argjson verify_rss "$verify_rss" --argjson ci "$ci" \
-            '{schema:$schema,subject_sha:$subject,go_version:$go_version,timing:{fetch:$fetch,verify:($verify|.peak_rss_kib=$verify_rss),report:{wall_ms:0,duration_ns:0,peak_rss_kib:0}},ci_observations:$ci,authority:{runtime_repository_writes:0,caller_owned_temp_output:true,cross_project_required_gates:0},local_execution_counts:{gofmt:0,build:0,test:0,vet:0,conformance:0}}' \
+            '{schema:$schema,subject_sha:$subject,go_version:$go_version,timing:{fetch:$fetch,verify:($verify|.peak_rss_kib=$verify_rss),report:{wall_ms:0,duration_ns:0,peak_rss_kib:null,measurement_state:{state:"UNKNOWN",stage:"CONFORMANCE",step:"CAPTURE_REPORT_PEAK_RSS",reason:"REPORT_PEAK_RSS_MEASUREMENT_UNAVAILABLE",unknown_class:"MEASUREMENT_MISSING",next_operation:"RECAPTURE_REPORT_PEAK_RSS_IN_GITHUB_ACTIONS",blocked_by:["report-peak-rss"]}}},ci_observations:$ci,authority:{runtime_repository_writes:0,caller_owned_temp_output:true,cross_project_required_gates:0},local_execution_counts:{gofmt:0,build:0,test:0,vet:0,conformance:0}}' \
             > "$ARTIFACT_ROOT/runtime.json"
 
       - name: Run fixed-denominator conformance and emit human report
@@ -1023,7 +1053,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:49,closed:46,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:50,closed:47,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
@@ -1032,6 +1062,14 @@ jobs:
       - name: Preserve v0.43 candidate-stage planner operational history
         shell: bash
         run: cp evidence/planner-v043-candidate-history.json "$ARTIFACT_ROOT/planner-v043-candidate-history.json"
+
+      - name: Preserve v0.44 candidate-stage planner operational history
+        shell: bash
+        run: cp evidence/planner-v044-candidate-history.json "$ARTIFACT_ROOT/planner-v044-candidate-history.json"
+
+      - name: Preserve v0.44 authoring operational history
+        shell: bash
+        run: cp evidence/authoring-operational-history-v1.json "$ARTIFACT_ROOT/authoring-operational-history-v1.json"
 
       - name: Upload human-readable evidence
         if: always()
