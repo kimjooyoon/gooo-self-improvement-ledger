@@ -321,8 +321,8 @@ func validateProfile(profile Profile) {
 	if profile.Schema != profileSchema || profile.ProfileID == "" {
 		fatalf("invalid profile identity")
 	}
-	if profile.TotalCells != 50 || len(profile.Cells) != profile.TotalCells {
-		fatalf("profile must contain exactly 50 cells")
+	if profile.TotalCells != 51 || len(profile.Cells) != profile.TotalCells {
+		fatalf("profile must contain exactly 51 cells")
 	}
 	if !equalStringSlice(profile.Precedence, []string{stateRefuted, stateUnknown, stateClosed}) {
 		fatalf("profile precedence must be REFUTED > UNKNOWN > CLOSED")
@@ -330,11 +330,11 @@ func validateProfile(profile Profile) {
 	if profile.Policy.DenominatorMutationDuringRun || profile.Policy.StatusInferenceFromMissing || profile.Policy.RuntimeRepositoryWrites != 0 || !profile.Policy.CallerOwnedTempOutputOnly || profile.Policy.CrossProjectRequiredGates != 0 || profile.Policy.AggregatePercentage || profile.Policy.AggregateScore {
 		fatalf("profile policy violates fixed denominator or authority boundary")
 	}
-	if !equalIntMap(profile.ProofTotals, map[string]int{"FOUNDATION": 4, "COHERENCE": 41, "REGRESSION": 5}) {
-		fatalf("proof totals must be FOUNDATION4/COHERENCE41/REGRESSION5")
+	if !equalIntMap(profile.ProofTotals, map[string]int{"FOUNDATION": 4, "COHERENCE": 42, "REGRESSION": 5}) {
+		fatalf("proof totals must be FOUNDATION4/COHERENCE42/REGRESSION5")
 	}
-	if !equalIntMap(profile.IndicatorTotals, map[string]int{"DRIVER": 4, "OUTCOME": 41, "GUARDRAIL": 5}) {
-		fatalf("indicator totals must be DRIVER4/OUTCOME41/GUARDRAIL5")
+	if !equalIntMap(profile.IndicatorTotals, map[string]int{"DRIVER": 4, "OUTCOME": 42, "GUARDRAIL": 5}) {
+		fatalf("indicator totals must be DRIVER4/OUTCOME42/GUARDRAIL5")
 	}
 	seenIDs := map[string]bool{}
 	seenAxes := map[string]bool{}
@@ -357,7 +357,7 @@ func validateProfile(profile Profile) {
 		actualIndicator[cell.Indicator]++
 	}
 	if !equalIntMap(actualProof, profile.ProofTotals) || !equalIntMap(actualIndicator, profile.IndicatorTotals) {
-		fatalf("profile cell classification totals do not match declared 4/41/5")
+		fatalf("profile cell classification totals do not match declared 4/42/5")
 	}
 }
 
