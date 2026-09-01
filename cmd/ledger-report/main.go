@@ -88,19 +88,19 @@ type Unknown struct {
 }
 
 type SemanticAudit struct {
-	Schema                      string             `json:"schema"`
-	AuditID                     string             `json:"audit_id"`
-	AuditedRelease              string             `json:"audited_release"`
-	SemanticCellAdditions       int                `json:"semantic_cell_additions"`
-	Denominator                 DenominatorAudit  `json:"denominator"`
-	Precedence                  []string           `json:"precedence"`
-	ParentV044Continuity        ParentContinuity   `json:"parent_v044_continuity"`
-	ParentAssetCurrentBytes     *AssetObservation  `json:"parent_asset_current_bytes"`
-	ParentAssetCurrentBytesState string            `json:"parent_asset_current_bytes_state"`
-	ParentAssetCurrentBytesUnknown *Unknown        `json:"parent_asset_current_bytes_unknown"`
-	CurrentReleaseAssetBytes    AssetObservation   `json:"current_release_asset_bytes"`
-	PreservedFailure            PreservedFailure   `json:"preserved_failure"`
-	Authority                   AuditAuthority     `json:"authority"`
+	Schema                         string            `json:"schema"`
+	AuditID                        string            `json:"audit_id"`
+	AuditedRelease                 string            `json:"audited_release"`
+	SemanticCellAdditions          int               `json:"semantic_cell_additions"`
+	Denominator                    DenominatorAudit  `json:"denominator"`
+	Precedence                     []string          `json:"precedence"`
+	ParentV044Continuity           ParentContinuity  `json:"parent_v044_continuity"`
+	ParentAssetCurrentBytes        *AssetObservation `json:"parent_asset_current_bytes"`
+	ParentAssetCurrentBytesState   string            `json:"parent_asset_current_bytes_state"`
+	ParentAssetCurrentBytesUnknown *Unknown          `json:"parent_asset_current_bytes_unknown"`
+	CurrentReleaseAssetBytes       AssetObservation  `json:"current_release_asset_bytes"`
+	PreservedFailure               PreservedFailure  `json:"preserved_failure"`
+	Authority                      AuditAuthority    `json:"authority"`
 }
 
 type DenominatorAudit struct {
@@ -109,19 +109,19 @@ type DenominatorAudit struct {
 }
 
 type ParentContinuity struct {
-	State              string `json:"state"`
-	Basis              string `json:"basis"`
-	ReleaseID          int    `json:"release_id"`
-	Tag                string `json:"tag"`
-	Immutable          bool   `json:"immutable"`
-	TagObjectSHA       string `json:"tag_object_sha"`
+	State             string `json:"state"`
+	Basis             string `json:"basis"`
+	ReleaseID         int    `json:"release_id"`
+	Tag               string `json:"tag"`
+	Immutable         bool   `json:"immutable"`
+	TagObjectSHA      string `json:"tag_object_sha"`
 	TargetCommitSHA   string `json:"target_commit_sha"`
-	AssetID            int    `json:"asset_id"`
-	AssetSizeBytes     int64  `json:"asset_size_bytes"`
-	AssetSHA256        string `json:"asset_sha256"`
-	TransportRunID     int    `json:"transport_run_id"`
-	TransportJobID     int    `json:"transport_job_id"`
-	ReceiptArtifactID  int    `json:"receipt_artifact_id"`
+	AssetID           int    `json:"asset_id"`
+	AssetSizeBytes    int64  `json:"asset_size_bytes"`
+	AssetSHA256       string `json:"asset_sha256"`
+	TransportRunID    int    `json:"transport_run_id"`
+	TransportJobID    int    `json:"transport_job_id"`
+	ReceiptArtifactID int    `json:"receipt_artifact_id"`
 }
 
 type AssetObservation struct {
@@ -135,14 +135,14 @@ type AssetObservation struct {
 }
 
 type PreservedFailure struct {
-	Tag                  string `json:"tag"`
-	ReleaseID            int    `json:"release_id"`
-	Immutable            bool   `json:"immutable"`
-	AssetCount           int    `json:"asset_count"`
-	State                string `json:"state"`
-	Reason               string `json:"reason"`
-	Preserved            bool   `json:"preserved"`
-	MutationPolicy       string `json:"mutation_policy"`
+	Tag            string `json:"tag"`
+	ReleaseID      int    `json:"release_id"`
+	Immutable      bool   `json:"immutable"`
+	AssetCount     int    `json:"asset_count"`
+	State          string `json:"state"`
+	Reason         string `json:"reason"`
+	Preserved      bool   `json:"preserved"`
+	MutationPolicy string `json:"mutation_policy"`
 }
 
 type AuditAuthority struct {
