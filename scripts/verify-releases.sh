@@ -36,8 +36,19 @@ fetch_start=$(date +%s%N)
 for key in $(jq -r '.releases | keys[]' "$lock"); do
   repo=$(jq -r --arg key "$key" '.releases[$key].repository' "$lock")
   tag=$(jq -r --arg key "$key" '.releases[$key].tag' "$lock")
-  /usr/bin/time -f '%M' -o "$output/$key.fetch-rss" \
-    gh api "repos/$repo/releases/tags/$tag" > "$output/$key.release.json"
+  if [ -n "${GOOO_RELEASE_SNAPSHOT_DIR:-}" ]; then
+    snapshot_release="$GOOO_RELEASE_SNAPSHOT_DIR/$key.release.json"
+    test -s "$snapshot_release"
+    cp "$snapshot_release" "$output/$key.release.json"
+    if [ -f "$GOOO_RELEASE_SNAPSHOT_DIR/$key.fetch-rss" ]; then
+      cp "$GOOO_RELEASE_SNAPSHOT_DIR/$key.fetch-rss" "$output/$key.fetch-rss"
+    else
+      printf '0\n' > "$output/$key.fetch-rss"
+    fi
+  else
+    /usr/bin/time -f '%M' -o "$output/$key.fetch-rss" \
+      gh api "repos/$repo/releases/tags/$tag" > "$output/$key.release.json"
+  fi
 done
 for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_id' "$lock"); do
   repo=$(jq -r --arg id "$counterexample_id" '.counterexamples[] | select(.counterexample_id==$id) | .repository' "$lock")

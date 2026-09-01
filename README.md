@@ -2,7 +2,7 @@
 
 This repository records a deliberately narrow `self-improvement-portfolio-v1`
 capability profile. It does not estimate the completeness of Gooo or any other
-language. The denominator is exactly 53 named cells, each bound one-to-one to
+language. The denominator is exactly 60 named cells, each bound one-to-one to
 one real `.gooo` activity, one semantic-IR location, one generated artifact,
 and one evaluator binding.
 
@@ -46,11 +46,18 @@ The fixed axes are:
 `SELF_REWRITE_SANDBOX_DURABLE_RELEASE`, and
 `RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE`, and
 `INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE`, and
-`SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE`.
+`SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE`,
+`SEMANTIC_CHANGE_CONFLUENCE_DURABLE_RELEASE`,
+`BOOTSTRAP_FIXED_POINT_DURABLE_RELEASE`,
+`SEMANTIC_MIGRATION_COMPILER_DURABLE_RELEASE`,
+`BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE`,
+`PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE`,
+`DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE`, and
+`IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE`.
 
-The denominator migration is explicit and append-only: `52 -> 53` with
-`ADD1/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
-`4/44/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/44/5`.
+The denominator migration is explicit and append-only: `53 -> 60` with
+`ADD7/RETIRE0/SPLIT0`. The proof buckets are `FOUNDATION/COHERENCE/REGRESSION`
+`4/51/5`, and the indicator buckets are `DRIVER/OUTCOME/GUARDRAIL` `4/51/5`.
 Every physical metric has a denominator of `1`. Status precedence is
 `REFUTED > UNKNOWN > CLOSED`.
 
@@ -950,7 +957,7 @@ adoption-proposal file digest and its declared proposal digest. Historical
 `REFUTED` records are never deleted or promoted in place.
 
 `contracts/release-locks-v1.json` pins the exact release URL, tag, target
-commit, and consumer asset identities for the forty-seven immutable inputs
+commit, and consumer asset identities for the fifty-seven immutable inputs
 requested by the portfolio. CI fetches every asset and verifies its exact size and SHA-256
 digest before using it as cell evidence. It also verifies the six failed
 improvement-frontier upstream attempts and two failed OpenTofu envelope
@@ -958,7 +965,7 @@ attempts as append-only counterexample references; those runs are never
 closure-gated. The reflexive-loop v0.3 lock also
 binds its source Actions artifact and upstream release-manifest lock digest.
 A later immutable release updates the evidence lock and assessment input; it
-does not change the fixed fifty-three-cell denominator unless an explicit
+does not change the fixed sixty-cell denominator unless an explicit
 append-only migration updates the profile.
 
 GitHub Actions is the verification authority. The workflow uses Go 1.27 and
@@ -993,3 +1000,24 @@ verification is run `33511709706`/job `99868732834`/artifact `9801892833`.
 The upstream operational record remains `REFUTED` for one local YAML parser
 invocation; operator API attempts remain `null` with an explicit `UNKNOWN`
 reconciliation frontier.
+
+The v0.48.0 frontier is one atomic adoption wave of seven independent cells:
+semantic-change confluence, bootstrap fixed point, semantic migration compiler,
+bounded self-change compiler, proof-aware test reuse, deterministic proof-fetch
+scheduler, and improvement-dominance lattice. Their immutable upstream release
+coordinates and asset digests are pinned in `contracts/release-locks-v1.json`;
+historical mutable or contradictory upstream observations remain typed
+subclaims rather than being aggregated into portfolio state. The generated
+current profile is `60 total / 57 CLOSED / 1 UNKNOWN / 2 REFUTED`, with proof
+totals `FOUNDATION 4 / COHERENCE 51 / REGRESSION 5` and indicator totals
+`DRIVER 4 / OUTCOME 51 / GUARDRAIL 5`.
+
+The release-lock verifier now fetches each immutable release exactly once into a
+caller-owned snapshot using a deterministic bound of eight workers, three retry
+attempts, 250ms backoff, and a 30-second timeout. Sequential and parallel
+semantic evaluators consume that same snapshot, merge in ascending lock order,
+and require exact equivalence with `REFUTED > UNKNOWN > CLOSED` precedence.
+The live network improvement claim remains `UNKNOWN` because this repository
+has no matched before/after network pair; the 53-lock scheduler fixture is
+preserved as upstream evidence only. v0.47.1 remains the CLOSED parent and the
+immutable v0.47.0 tag-target mismatch remains an untouched REFUTED history.

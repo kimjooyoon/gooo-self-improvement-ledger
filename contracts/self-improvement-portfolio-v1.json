@@ -862,21 +862,133 @@
       "proof": "COHERENCE",
       "release_key": "semantic_denominator_projector_durable_release",
       "source": "examples/self-improvement-portfolio/main.gooo#AdoptSemanticDenominatorProjectorDurableRelease"
+    },
+    {
+      "activity": "AdoptSemanticChangeConfluenceDurableRelease",
+      "axis": "SEMANTIC_CHANGE_CONFLUENCE_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "semantic-change-confluence",
+      "generated_artifact": "evidence/cells/SEMANTIC_CHANGE_CONFLUENCE_DURABLE_RELEASE.json",
+      "id": "SEMANTIC_CHANGE_CONFLUENCE_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptSemanticChangeConfluenceDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.semantic-change-confluence-durable-release.v1",
+      "ordinal": 54,
+      "proof": "COHERENCE",
+      "release_key": "semantic_change_confluence_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptSemanticChangeConfluenceDurableRelease"
+    },
+    {
+      "activity": "AdoptBootstrapFixedPointDurableRelease",
+      "axis": "BOOTSTRAP_FIXED_POINT_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "bootstrap-fixed-point",
+      "generated_artifact": "evidence/cells/BOOTSTRAP_FIXED_POINT_DURABLE_RELEASE.json",
+      "id": "BOOTSTRAP_FIXED_POINT_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptBootstrapFixedPointDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.bootstrap-fixed-point-durable-release.v1",
+      "ordinal": 55,
+      "proof": "COHERENCE",
+      "release_key": "bootstrap_fixed_point_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptBootstrapFixedPointDurableRelease"
+    },
+    {
+      "activity": "AdoptSemanticMigrationCompilerDurableRelease",
+      "axis": "SEMANTIC_MIGRATION_COMPILER_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "semantic-migration-compiler",
+      "generated_artifact": "evidence/cells/SEMANTIC_MIGRATION_COMPILER_DURABLE_RELEASE.json",
+      "id": "SEMANTIC_MIGRATION_COMPILER_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptSemanticMigrationCompilerDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.semantic-migration-compiler-durable-release.v1",
+      "ordinal": 56,
+      "proof": "COHERENCE",
+      "release_key": "semantic_migration_compiler_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptSemanticMigrationCompilerDurableRelease"
+    },
+    {
+      "activity": "AdoptBoundedSelfChangeCompilerDurableRelease",
+      "axis": "BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "bounded-self-change-compiler",
+      "generated_artifact": "evidence/cells/BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE.json",
+      "id": "BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptBoundedSelfChangeCompilerDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.bounded-self-change-compiler-durable-release.v1",
+      "ordinal": 57,
+      "proof": "COHERENCE",
+      "release_key": "bounded_self_change_compiler_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptBoundedSelfChangeCompilerDurableRelease"
+    },
+    {
+      "activity": "AdoptProofAwareTestReuseDurableRelease",
+      "axis": "PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "proof-aware-test-reuse",
+      "generated_artifact": "evidence/cells/PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE.json",
+      "id": "PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptProofAwareTestReuseDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.proof-aware-test-reuse-durable-release.v1",
+      "ordinal": 58,
+      "proof": "COHERENCE",
+      "release_key": "proof_aware_test_reuse_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptProofAwareTestReuseDurableRelease"
+    },
+    {
+      "activity": "AdoptDeterministicProofFetchSchedulerDurableRelease",
+      "axis": "DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "deterministic-proof-fetch-scheduler",
+      "generated_artifact": "evidence/cells/DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE.json",
+      "id": "DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptDeterministicProofFetchSchedulerDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.deterministic-proof-fetch-scheduler-durable-release.v1",
+      "ordinal": 59,
+      "proof": "COHERENCE",
+      "release_key": "deterministic_proof_fetch_scheduler_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptDeterministicProofFetchSchedulerDurableRelease"
+    },
+    {
+      "activity": "AdoptImprovementDominanceLatticeDurableRelease",
+      "axis": "IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "improvement-dominance-lattice",
+      "generated_artifact": "evidence/cells/IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE.json",
+      "id": "IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptImprovementDominanceLatticeDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.improvement-dominance-lattice-durable-release.v1",
+      "ordinal": 60,
+      "proof": "COHERENCE",
+      "release_key": "improvement_dominance_lattice_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptImprovementDominanceLatticeDurableRelease"
     }
   ],
   "denominator_migration": {
-    "add": 1,
+    "add": 7,
     "append_only": true,
-    "from": 52,
+    "from": 53,
     "retire": 0,
     "split": 0,
-    "to": 53
+    "to": 60
   },
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
   "indicator_totals": {
     "DRIVER": 4,
     "GUARDRAIL": 5,
-    "OUTCOME": 44
+    "OUTCOME": 51
   },
   "policy": {
     "aggregate_percentage": false,
@@ -894,10 +1006,10 @@
   ],
   "profile_id": "self-improvement-portfolio-v1",
   "proof_totals": {
-    "COHERENCE": 44,
+    "COHERENCE": 51,
     "FOUNDATION": 4,
     "REGRESSION": 5
   },
   "schema": "gooo/self-improvement-portfolio/contract/v1",
-  "total_cells": 53
+  "total_cells": 60
 }

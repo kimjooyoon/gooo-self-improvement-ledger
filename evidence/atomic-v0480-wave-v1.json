@@ -1,0 +1,54 @@
+{
+  "schema": "gooo/self-improvement-ledger/atomic-v0480-adoption-wave/v1",
+  "wave": {
+    "release_tag": "v0.48.0",
+    "atomic": true,
+    "cell_count": 7,
+    "ordinals": [54, 55, 56, 57, 58, 59, 60],
+    "cell_state": "CLOSED",
+    "parent_profile_state": {"total": 53, "closed": 50, "unknown": 1, "refuted": 2},
+    "projected_profile_state": {"total": 60, "closed": 57, "unknown": 1, "refuted": 2},
+    "proof_totals": {"FOUNDATION": 4, "COHERENCE": 51, "REGRESSION": 5},
+    "indicator_totals": {"DRIVER": 4, "OUTCOME": 51, "GUARDRAIL": 5}
+  },
+  "cells": [
+    {"ordinal":54,"cell_id":"SEMANTIC_CHANGE_CONFLUENCE_DURABLE_RELEASE","activity":"AdoptSemanticChangeConfluenceDurableRelease","release_key":"semantic_change_confluence_durable_release","repository":"kimjooyoon/gooo-semantic-change-confluence","tag":"v0.1.0","release_id":380565951,"tag_object_sha":"b67530de32df6f1d7ea8888749dba6b9e232a200","target_commit_sha":"e4834ac28224e49fb0b7d3e17542e56bd6cfa36c","immutable":true,"assets":[{"id":539651396,"name":"gooo-semantic-change-confluence-linux-amd64-v0.1.0.tar.gz","size_bytes":5045918,"sha256":"sha256:17ba77862b6a8dbad7a6bf57df284cd193a88a7886461a9d914aaba533202349"},{"id":539651397,"name":"gooo-semantic-change-confluence-source-v0.1.0.tar.gz","size_bytes":17113,"sha256":"sha256:d0d681e8df4972fd27bfc6cb9b1d5f606047f24ff15d5c5c5e926e8d6e2c833f"},{"id":539651394,"name":"release-manifest-v0.1.0.json","size_bytes":812,"sha256":"sha256:e8ca5cda3b189063f07fef0dd99332a3d8ec956858ad819cc01e17e93f773884"},{"id":539651399,"name":"release-report-v0.1.0.json","size_bytes":4659,"sha256":"sha256:7eed80832ad1eb3f3baf90e18205b07d9eaf436abd1b64584e11d2d883804bb0"},{"id":539651418,"name":"release-report-v0.1.0.md","size_bytes":1370,"sha256":"sha256:05f9b2f80bef1a8f5b2a93fc0cf8ea2d5529acc495b1c90dd488e7223d8a499b"},{"id":539651395,"name":"SHA256SUMS","size_bytes":522,"sha256":"sha256:a4080897efeac32cafe969c68f510432be0fd78d53ac7dc89639261d978132a3"}],"typed_subclaims":{"utility":"UNKNOWN","normal_cases":3,"unknown_cases":3,"refuted_cases":3}},
+    {"ordinal":55,"cell_id":"BOOTSTRAP_FIXED_POINT_DURABLE_RELEASE","activity":"AdoptBootstrapFixedPointDurableRelease","release_key":"bootstrap_fixed_point_durable_release","repository":"kimjooyoon/gooo-bootstrap-fixed-point","tag":"v0.1.1","release_id":380565963,"tag_object_sha":"31f1f93bcb30a65d12de0882127361c7469ac47d","target_commit_sha":"82b26d87d08405a3317598b7979a55fe2e9b42f1","immutable":true,"assets":[{"id":539651576,"name":"gooo-bootstrap-fixed-point-v0.1.1.tar.gz","size_bytes":8824,"sha256":"sha256:423eff16267c69f243315230edc4df03dcb839a286fe1e5c184ebb630feff2ce"},{"id":539652526,"name":"release-provenance-v0.1.1.json","size_bytes":5886,"sha256":"sha256:93ed143baf1c1c73a544c0f1517abf4e14d5873ae52e63bf0d06a3a2ad7b0a8b"},{"id":539652495,"name":"release-report-v0.1.1.json","size_bytes":12926,"sha256":"sha256:2f8184edb525f07122dde9e3f6d127b4c9633214c6df5b243d6c25b5a27aa837"},{"id":539652494,"name":"release-report-v0.1.1.md","size_bytes":1150,"sha256":"sha256:a72fbd6d09442b1994a654a93d0833c5981aae7b4e9579aa248549497fff07d4"}],"typed_subclaims":{"historical_v0_1_0":{"immutable":false,"state":"UNKNOWN","activation_attempts":1},"bootstrap_trust":"UNKNOWN","utility":"UNKNOWN"}},
+    {"ordinal":56,"cell_id":"SEMANTIC_MIGRATION_COMPILER_DURABLE_RELEASE","activity":"AdoptSemanticMigrationCompilerDurableRelease","release_key":"semantic_migration_compiler_durable_release","repository":"kimjooyoon/gooo-semantic-migration-compiler","tag":"v0.1.1","release_id":380573346,"tag_object_sha":"656f4de6621ce1010bae12e92fa1beebf8044169","target_commit_sha":"647d470f9812206bbbb022d4dc454f18b01a78ac","immutable":true,"assets":[{"id":539662132,"name":"gooo-semantic-migration-compiler-v0.1.1-linux-amd64.tar.gz","size_bytes":2694484,"sha256":"sha256:e0ff9681616e2f22091c7ad9bc6dbfae0b6e205a0cc88607e65183feff34982c2"},{"id":539662131,"name":"gooo-semantic-migration-compiler-v0.1.1-linux-amd64.tar.gz.sha256","size_bytes":125,"sha256":"sha256:3b114d6690a1089e72d25dcda8039b718e64f72194ce676beb808a99f0503791"},{"id":539662134,"name":"release-manifest.json","size_bytes":396,"sha256":"sha256:0835ccf6e704bc99999555314aaf09ab92d618b5106b3b030b2412816b52e24d"}],"typed_subclaims":{"historical_v0_1_0":{"immutable":false,"state":"UNKNOWN"},"cross_project_required_gates":0}},
+    {"ordinal":57,"cell_id":"BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE","activity":"AdoptBoundedSelfChangeCompilerDurableRelease","release_key":"bounded_self_change_compiler_durable_release","repository":"kimjooyoon/gooo-bounded-self-change-compiler","tag":"v0.1.1","release_id":380575903,"tag_object_sha":"dc1d6fac07f25c17ba3bdb69021d44ee4a5262cb","target_commit_sha":"e4b74d44c3a38b506e62040bd205d5e8d7976989","immutable":true,"assets":[{"id":539665415,"name":"gooo-bounded-self-change-compiler-v0.1.1-ci-evidence.tar.gz","size_bytes":5341,"sha256":"sha256:5bc660ae5f574ecd0f6aa82adf2a3228d27e383a1498252bb3751618e15131fe"}],"typed_subclaims":{"normal_cases":3,"unknown_cases":3,"refuted_cases":3,"exact_before_after":"CLOSED","utility":"UNKNOWN","local_validation_commands":0}},
+    {"ordinal":58,"cell_id":"PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE","activity":"AdoptProofAwareTestReuseDurableRelease","release_key":"proof_aware_test_reuse_durable_release","repository":"kimjooyoon/gooo-proof-aware-test-reuse","tag":"v0.1.2","release_id":380592431,"tag_object_sha":"2c66e0c8527fe0bc80600f0a90d560ac82cadb6a","target_commit_sha":"4ed2a1c2f95e1a08863c84c7e54ddc8348c684c4","immutable":true,"assets":[{"id":539694215,"name":"gooo-proof-aware-test-reuse-evidence.tar.gz","size_bytes":2645413,"sha256":"sha256:4a3c2f144cb0900ac394e2737fde2175560397554a7a7d5bba5faa76f83a9cd1"}],"typed_subclaims":{"initial_operational_refutation":{"state":"REFUTED","exact_count":1,"stage":"AUTHORING","step":"OPEN_IMPLEMENTATION_PR_BEFORE_MAIN_INTEGRATION","reason":"INITIAL_IMPLEMENTATION_PUSH_PRECEDED_PR"},"indicator_vector":{"build_wall":"CLOSED","build_peak_rss":"REFUTED","test_wall":"NOT_CLAIMED","test_peak_rss":"CLOSED","selected":"CLOSED","executed":"CLOSED","reused":"CLOSED"},"aggregate_improvement":false,"utility":"UNKNOWN"}},
+    {"ordinal":59,"cell_id":"DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE","activity":"AdoptDeterministicProofFetchSchedulerDurableRelease","release_key":"deterministic_proof_fetch_scheduler_durable_release","repository":"kimjooyoon/gooo-deterministic-proof-fetch-scheduler","tag":"v1.0.0","release_id":380600706,"tag_object_sha":"ba0f19b2709e8d3cd0dcc91acb1d46caea33edba","target_commit_sha":"d724931f0013cedc0cc1b85700537b0a653b1c36","immutable":true,"assets":[{"id":539708363,"name":"evidence-v1.0.0.tar.gz","size_bytes":6407,"sha256":"sha256:ce586b4d282dcf099d98aaaa26640fbc46d8154cd6d35135232554bb6d51bd39"},{"id":539708359,"name":"evidence-v1.0.0.tar.gz.sha256","size_bytes":113,"sha256":"sha256:5c6b4c474297a7ddc0fa9f71b4ca445eb05f26c4442a07dbe57ed0337c97d5b8"}],"typed_subclaims":{"upstream_fixture":{"locks":53,"baseline_wall_ms":1047,"candidate_wall_ms":235,"baseline_peak_rss_kib":34676,"candidate_peak_rss_kib":34676,"requests":52,"max_in_flight":8,"completed":46,"reused":3,"unknown":3,"refuted":1,"semantic_root_equal":true},"local_network_improvement":"UNKNOWN","reason":"NO_MATCHED_LIVE_BEFORE_AFTER_PAIR"}},
+    {"ordinal":60,"cell_id":"IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE","activity":"AdoptImprovementDominanceLatticeDurableRelease","release_key":"improvement_dominance_lattice_durable_release","repository":"kimjooyoon/gooo-improvement-dominance-lattice","tag":"v0.1.2","release_id":380630405,"tag_object_sha":"0293fd1b7c81d04fbae40e051a73fb5589f1897f","target_commit_sha":"048b10c0a19faf9dfec8a72266845715f14f2725","immutable":true,"assets":[{"id":539762514,"name":"gooo-improvement-dominance-lattice-v0.1.2-evidence.tar.gz","size_bytes":22358,"sha256":"sha256:4f8d9fe9b348dee117ad04a298455efebaf72232cf7bab4351a6311edf8e5191"},{"id":539762515,"name":"gooo-improvement-dominance-lattice-v0.1.2-manifest.json","size_bytes":2122,"sha256":"sha256:673370839b4d1a8136135fb2a0032269d91c9292d7f3f5082abd55f6e7865582"},{"id":539762517,"name":"manifest.sha256","size_bytes":162,"sha256":"sha256:699efbbecba8ee7261907a0bae7eb69a466c0393997b4c33ffb059bd2ae2342d"}],"typed_subclaims":{"rss_non_increase":"REFUTED","rss_plus_4096_kib_budget":"DOMINATES/CLOSED","failed_runs":[33525071820,33525113174,33525240400,33525349966,33525462227]}}
+  ],
+  "bounded_parallel_verifier": {
+    "concurrency_bound": 8,
+    "retry_max_attempts": 3,
+    "retry_backoff_ms": 250,
+    "timeout_seconds": 30,
+    "canonical_lock_order": "release_lock_id:ascending",
+    "state_precedence": ["REFUTED", "UNKNOWN", "CLOSED"],
+    "snapshot_single_fetch": true,
+    "completion_order_ignored": true,
+    "semantic_equivalence_required": true,
+    "network_improvement_state": "UNKNOWN",
+    "network_improvement_reason": "NO_MATCHED_LIVE_BEFORE_AFTER_PAIR",
+    "upstream_fixture_not_local_attribution": true
+  },
+  "authority": {
+    "verification": "GITHUB_ACTIONS",
+    "github_token": "github.token",
+    "repository_writes": 0,
+    "runtime_apply": 0,
+    "runtime_commit": 0,
+    "runtime_merge": 0,
+    "runtime_tag": 0,
+    "runtime_release": 0,
+    "cross_project_required_gates": 0,
+    "caller_owned_temp_outputs_only": true,
+    "local_product_validation_executions": 0
+  },
+  "preservation": {
+    "parent_v0_47_1": {"release_id":380630346,"tag":"v0.47.1","immutable":true,"target_commit_sha":"004edebd21d1935bfcec9d9d923292e555bc66fe","state":"CLOSED"},
+    "v0_47_0_counterexample": {"release_id":380601504,"tag":"v0.47.0","immutable":true,"target_commit_sha":"a8104f3b22177e3bb193559e38180cbed13e5f36","state":"REFUTED","mutation_policy":"NO_DELETE_NO_OVERWRITE"}
+  }
+}

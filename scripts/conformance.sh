@@ -14,8 +14,8 @@ mkdir -p "$probe"
 
 echo "conformance: verify profile contract"
 jq -e '
-  .total_cells == 53 and
-  .denominator_migration == {from:52,to:53,add:1,retire:0,split:0,append_only:true} and
+  .total_cells == 60 and
+  .denominator_migration == {from:53,to:60,add:7,retire:0,split:0,append_only:true} and
   (.cells|map(.id)|.[0:38]) == [
     "CORE_SEMANTIC_AUTHORITY","RESOLUTION_DESCENT","CAUSAL_CI_SELECTION","META_RESOURCE_BUDGET",
     "DENOMINATOR_EVOLUTION","REFLEXIVE_LOOP","IMMUTABLE_INPUT_INTEGRATION","SEMANTIC_MERGE_ADVICE",
@@ -36,8 +36,15 @@ jq -e '
   .cells[50].id == "RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE" and
   .cells[51].id == "INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE" and
   .cells[52].id == "SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE" and
-  .proof_totals == {FOUNDATION:4,COHERENCE:44,REGRESSION:5} and
-  .indicator_totals == {DRIVER:4,OUTCOME:44,GUARDRAIL:5} and
+  .cells[53].id == "SEMANTIC_CHANGE_CONFLUENCE_DURABLE_RELEASE" and
+  .cells[54].id == "BOOTSTRAP_FIXED_POINT_DURABLE_RELEASE" and
+  .cells[55].id == "SEMANTIC_MIGRATION_COMPILER_DURABLE_RELEASE" and
+  .cells[56].id == "BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE" and
+  .cells[57].id == "PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE" and
+  .cells[58].id == "DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE" and
+  .cells[59].id == "IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE" and
+  .proof_totals == {FOUNDATION:4,COHERENCE:51,REGRESSION:5} and
+  .indicator_totals == {DRIVER:4,OUTCOME:51,GUARDRAIL:5} and
   (.cells|map(select(.id=="COUNTERFACTUAL_CHANGE_RELEASE" and .release_key=="counterfactual_change_release"))|length)==1 and
   (.cells|map(select(.id=="VERIFICATION_REUSE_RELEASE" and .release_key=="verification_reuse_release"))|length)==1 and
   (.cells|map(select(.id=="SEMANTIC_DRIFT_RELEASE" and .release_key=="semantic_drift_release"))|length)==1 and
@@ -79,6 +86,13 @@ jq -e '
   and (.cells|map(select(.id=="RELEASE_TRANSPORT_CONFORMER_DURABLE_RELEASE" and .release_key=="release_transport_conformer_durable_release" and .ordinal==51 and .activity=="AdoptReleaseTransportConformerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE" and .release_key=="incremental_release_proof_durable_release" and .ordinal==52 and .activity=="AdoptIncrementalReleaseProofDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
   and (.cells|map(select(.id=="SEMANTIC_DENOMINATOR_PROJECTOR_DURABLE_RELEASE" and .release_key=="semantic_denominator_projector_durable_release" and .ordinal==53 and .activity=="AdoptSemanticDenominatorProjectorDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="SEMANTIC_CHANGE_CONFLUENCE_DURABLE_RELEASE" and .release_key=="semantic_change_confluence_durable_release" and .ordinal==54 and .activity=="AdoptSemanticChangeConfluenceDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="BOOTSTRAP_FIXED_POINT_DURABLE_RELEASE" and .release_key=="bootstrap_fixed_point_durable_release" and .ordinal==55 and .activity=="AdoptBootstrapFixedPointDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="SEMANTIC_MIGRATION_COMPILER_DURABLE_RELEASE" and .release_key=="semantic_migration_compiler_durable_release" and .ordinal==56 and .activity=="AdoptSemanticMigrationCompilerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="BOUNDED_SELF_CHANGE_COMPILER_DURABLE_RELEASE" and .release_key=="bounded_self_change_compiler_durable_release" and .ordinal==57 and .activity=="AdoptBoundedSelfChangeCompilerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="PROOF_AWARE_TEST_REUSE_DURABLE_RELEASE" and .release_key=="proof_aware_test_reuse_durable_release" and .ordinal==58 and .activity=="AdoptProofAwareTestReuseDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="DETERMINISTIC_PROOF_FETCH_SCHEDULER_DURABLE_RELEASE" and .release_key=="deterministic_proof_fetch_scheduler_durable_release" and .ordinal==59 and .activity=="AdoptDeterministicProofFetchSchedulerDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
+  and (.cells|map(select(.id=="IMPROVEMENT_DOMINANCE_LATTICE_DURABLE_RELEASE" and .release_key=="improvement_dominance_lattice_durable_release" and .ordinal==60 and .activity=="AdoptImprovementDominanceLatticeDurableRelease" and .proof=="COHERENCE" and .indicator=="OUTCOME" and .metric_denominator==1))|length)==1
 ' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null
 echo "conformance: profile contract passed"
 
@@ -1455,7 +1469,7 @@ jq -e '
     ($language_delta.evidence | index("asset:538495828:26671:sha256:77424f9465322c37ab87efcb920f936e6ddf3e02c2b7e59657fae82ff05283ba")) != null and
     ($language_delta.evidence | index("asset:538495832:736:sha256:0c467b96e4b91915139aa0d5990b49c8ca5a038a2ac965d43a4a5656e511064a")) != null and
     ($language_delta.evidence | index("ledger-global-core=REFUTED:ledger-development-process=REFUTED")) != null) and
-  (.cells|length) == 53 and
+  (.cells|length) == 60 and
   ((.cells[] | select(.cell_id == "IMPROVEMENT_FRONTIER_RELEASE")) as $frontier |
     $frontier.state == "CLOSED" and
     $frontier.release_key == "improvement_frontier_release" and
@@ -2042,6 +2056,52 @@ jq -e '
 ' "$repository/evidence/semantic-denominator-projector-v1.json" >/dev/null
 echo "conformance: released semantic denominator projector exact matches passed"
 
+echo "conformance: verify bounded-parallel snapshot and atomic v0.48 wave"
+jq -e '
+  .release_lock_snapshot.snapshot_single_fetch == true and
+  .release_lock_snapshot.canonical_order_exact == true and
+  .release_lock_snapshot.completion_order_ignored == true and
+  .release_lock_snapshot.snapshot_semantic_equivalence.state == "CLOSED" and
+  .release_lock_snapshot.snapshot_semantic_equivalence.same_snapshot == true and
+  .release_lock_snapshot.snapshot_semantic_equivalence.legacy_sequential_same_state == true and
+  .release_lock_snapshot.snapshot_semantic_equivalence.canonical_order_exact == true and
+  .release_lock_snapshot.snapshot_semantic_equivalence.completion_order_ignored == true and
+  (.release_lock_snapshot.snapshot_semantic_equivalence.sequential_digest|startswith("sha256:")) and
+  (.release_lock_snapshot.snapshot_semantic_equivalence.parallel_digest|startswith("sha256:")) and
+  .release_lock_snapshot.legacy_sequential.semantic_equivalence == "CLOSED" and
+  (.release_lock_snapshot.legacy_sequential.results|length) == 57 and
+  .release_lock_snapshot.sequential.summary == {total:57,closed:57,unknown:0,refuted:0} and
+  .release_lock_snapshot.parallel.summary == {total:57,closed:57,unknown:0,refuted:0} and
+  .release_lock_snapshot.sequential.canonical_order == (.releases|keys|sort) and
+  .release_lock_snapshot.parallel.canonical_order == (.releases|keys|sort) and
+  (.release_lock_snapshot.parallel.results | map(.lock_id)) == (.releases|keys|sort) and
+  .release_lock_snapshot.parallel_live_metrics.max_in_flight == 8 and
+  (.release_lock_snapshot.parallel_live_metrics.wall_ms|type) == "number" and
+  (.release_lock_snapshot.parallel_live_metrics.exact_wall_ms|type) == "number" and
+  (.release_lock_snapshot.parallel_live_metrics.peak_rss_kib|type) == "number" and
+  (.release_lock_snapshot.parallel_live_metrics.requests|type) == "number" and
+  .release_lock_snapshot.parallel_live_metrics.completed == 57 and
+  .release_lock_snapshot.parallel_live_metrics.reused == 0 and
+  .release_lock_snapshot.parallel_live_metrics.unknown == 0 and
+  .release_lock_snapshot.parallel_live_metrics.refuted == 0
+' "$artifact/releases/verification.json" >/dev/null
+jq -e --slurpfile locks "$repository/contracts/release-locks-v1.json" '
+  .schema == "gooo/self-improvement-ledger/atomic-v0480-adoption-wave/v1" and
+  .wave == {release_tag:"v0.48.0",atomic:true,cell_count:7,ordinals:[54,55,56,57,58,59,60],cell_state:"CLOSED",parent_profile_state:{total:53,closed:50,unknown:1,refuted:2},projected_profile_state:{total:60,closed:57,unknown:1,refuted:2},proof_totals:{FOUNDATION:4,COHERENCE:51,REGRESSION:5},indicator_totals:{DRIVER:4,OUTCOME:51,GUARDRAIL:5}} and
+  (.cells|length) == 7 and
+  ([.cells[].release_key] == ["semantic_change_confluence_durable_release","bootstrap_fixed_point_durable_release","semantic_migration_compiler_durable_release","bounded_self_change_compiler_durable_release","proof_aware_test_reuse_durable_release","deterministic_proof_fetch_scheduler_durable_release","improvement_dominance_lattice_durable_release"]) and
+  all(.cells[]; .immutable == true and .target_commit_sha != "" and (.assets|length) > 0) and
+  all(.cells[]; . as $c | $locks[0].releases[$c.release_key] as $l | ($l.release_id==$c.release_id and $l.tag_object_sha==$c.tag_object_sha and $l.target_commit_sha==$c.target_commit_sha and (($l.assets|map({id,name,size_bytes,sha256})) == ($c.assets|map({id,name,size_bytes,sha256}))))) and
+  .authority == {verification:"GITHUB_ACTIONS",github_token:"github.token",repository_writes:0,runtime_apply:0,runtime_commit:0,runtime_merge:0,runtime_tag:0,runtime_release:0,cross_project_required_gates:0,caller_owned_temp_outputs_only:true,local_product_validation_executions:0} and
+  .bounded_parallel_verifier.concurrency_bound == 8 and .bounded_parallel_verifier.retry_max_attempts == 3 and .bounded_parallel_verifier.timeout_seconds == 30 and
+  .bounded_parallel_verifier.canonical_lock_order == "release_lock_id:ascending" and .bounded_parallel_verifier.state_precedence == ["REFUTED","UNKNOWN","CLOSED"] and
+  .bounded_parallel_verifier.snapshot_single_fetch == true and .bounded_parallel_verifier.completion_order_ignored == true and .bounded_parallel_verifier.semantic_equivalence_required == true and
+  .bounded_parallel_verifier.network_improvement_state == "UNKNOWN" and .bounded_parallel_verifier.upstream_fixture_not_local_attribution == true and
+  .preservation.parent_v0_47_1 == {release_id:380630346,tag:"v0.47.1",immutable:true,target_commit_sha:"004edebd21d1935bfcec9d9d923292e555bc66fe",state:"CLOSED"} and
+  .preservation.v0_47_0_counterexample == {release_id:380601504,tag:"v0.47.0",immutable:true,target_commit_sha:"a8104f3b22177e3bb193559e38180cbed13e5f36",state:"REFUTED",mutation_policy:"NO_DELETE_NO_OVERWRITE"}
+' "$repository/evidence/atomic-v0480-wave-v1.json" >/dev/null
+echo "conformance: bounded-parallel snapshot and atomic v0.48 wave passed"
+
 echo "conformance: emitted report diagnostics"
 jq '{schema,profile_id,decision,summary,proof_counts,indicator_counts,bindings,releases,authority,local_execution_counts}' "$artifact/report.json"
 
@@ -2054,12 +2114,12 @@ jq -e '
   .semantic_audit.parent_asset_current_bytes_state == "UNKNOWN" and
   (.semantic_audit.parent_asset_current_bytes_unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
   .semantic_audit.current_release_asset_bytes.state == "CLOSED" and
-  .summary == {total:53,closed:50,unknown:1,refuted:2} and
+  .summary == {total:60,closed:57,unknown:1,refuted:2} and
   .precedence == ["REFUTED","UNKNOWN","CLOSED"] and
-  (.cells|length) == 53 and
+  (.cells|length) == 60 and
   (.cells|map(.id)|length) == (.cells|map(.id)|unique|length) and
   (.cells|map(.activity)|length) == (.cells|map(.activity)|unique|length) and
-  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 50 and
+  (.cells|map(select(.numerator == 1 and .denominator == 1))|length) == 57 and
   (.cells|map(select(.state == "UNKNOWN"))|length) == 1 and
   (.cells|map(select(.state == "REFUTED"))|length) == 2 and
   ([.cells[] | {key:.id,value:.state}] | from_entries) == {
@@ -2121,10 +2181,10 @@ jq -e '
     (.unknown|keys|sort) == ["blocked_by","next_operation","reason","stage","step","unknown_class"] and
     (.unknown.blocked_by|length) > 0
   else true end) and
-  .bindings == {one_to_one:true,cells:53,activities:53,unique_axes:53,unique_metrics:53,source_bindings:53,ir_bindings:53,generated_artifact_bindings:53,evaluator_bindings:53} and
-  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 44 and .proof_counts.REGRESSION.denominator == 5 and
-  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 44 and .indicator_counts.GUARDRAIL.denominator == 5 and
-  .releases == {total:50,verified:50,unknown:0,refuted:0} and
+  .bindings == {one_to_one:true,cells:60,activities:60,unique_axes:60,unique_metrics:60,source_bindings:60,ir_bindings:60,generated_artifact_bindings:60,evaluator_bindings:60} and
+  .proof_counts.FOUNDATION.denominator == 4 and .proof_counts.COHERENCE.denominator == 51 and .proof_counts.REGRESSION.denominator == 5 and
+  .indicator_counts.DRIVER.denominator == 4 and .indicator_counts.OUTCOME.denominator == 51 and .indicator_counts.GUARDRAIL.denominator == 5 and
+  .releases == {total:57,verified:57,unknown:0,refuted:0} and
   .policy.aggregate_percentage == false and .policy.aggregate_score == false and
   (.performance.fetch.wall_ms|type) == "number" and (.performance.fetch.duration_ns|type) == "number" and
   (.performance.verify.wall_ms|type) == "number" and (.performance.verify.duration_ns|type) == "number" and

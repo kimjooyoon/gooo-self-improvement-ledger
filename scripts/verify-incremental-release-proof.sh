@@ -130,7 +130,7 @@ binary="$RUNNER_TEMP/gooo-incremental-release-proof-$GITHUB_RUN_ID-$GITHUB_RUN_A
 (cd "$source_root" && go build -trimpath -o "$binary" ./cmd/gooo-incremental-release-proof)
 
 full_verification="$artifact_root/releases/verification.json"
-jq -e '.summary=={total:50,verified:50,unknown:0,refuted:0}' "$full_verification" >/dev/null
+jq -e '.summary=={total:57,verified:57,unknown:0,refuted:0}' "$full_verification" >/dev/null
 full_wall=$(jq -r '.timing.verify.wall_ms' "$full_verification")
 full_peak=$(cat "$artifact_root/release-verify-peak-rss")
 test "$full_wall" -ge 0

@@ -69,7 +69,7 @@ jobs:
             '{schema:$schema,go_version:$go_version,go_version_line:$go_version_line,checks:{gofmt:{command:"gofmt -l .",status:"success"},vet:{command:"go vet ./...",status:"success"},build:{command:"go build -trimpath -o $RUNNER_TEMP/ledger-report ./cmd/ledger-report",status:"success",timing:{wall_ms:$build_wall,duration_ns:$build_raw,peak_rss_kib:$build_rss}},test:{command:"go test -json ./...",status:"success",timing:{wall_ms:$test_wall,duration_ns:$test_raw,peak_rss_kib:$test_rss},summary:$test_summary}}}' \
             > "$ARTIFACT_ROOT/ci-observations.json"
 
-      - name: Fetch and verify forty-eight immutable release locks plus preserved counterexamples and failed release triggers
+      - name: Fetch and verify fifty-seven immutable release locks with bounded-parallel snapshot evaluation plus preserved history
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -77,8 +77,8 @@ jobs:
           set -Eeuo pipefail
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
           /usr/bin/time -f '%M' -o "$ARTIFACT_ROOT/release-verify-peak-rss" \
-          bash scripts/verify-releases.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
-          jq -e '.summary=={total:50,verified:50,unknown:0,refuted:0} and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
+          bash scripts/verify-releases-parallel.sh contracts/release-locks-v1.json "$ARTIFACT_ROOT/releases"
+          jq -e '.summary=={total:57,verified:57,unknown:0,refuted:0} and .release_lock_snapshot.snapshot_semantic_equivalence.state=="CLOSED" and .release_lock_snapshot.snapshot_semantic_equivalence.same_snapshot==true and .release_lock_snapshot.parallel_live_metrics.max_in_flight==8 and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
             "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
           planner_dir="$ARTIFACT_ROOT/releases/structural_ledger_append_planner_durable_release/assets"
           test "$(cat "$planner_dir/SHA256SUMS")" = $'25274148049853e3147618e6278570259cf3238fb578b8f808231e47c2488da8  release/gooo-ledger-append-planner-linux-amd64-v0.2.0\nf01a5ad3350a507aca5f91142e8cd09cbaf7ab923507a85f8209084d873663f7  release/gooo-ledger-append-planner-source-v0.2.0.tar.gz'
@@ -1130,7 +1130,7 @@ jobs:
           final_before=$(cat "$RUNNER_TEMP/repository-after")
           git status --porcelain=v1 -z --untracked-files=all | sha256sum | awk '{print $1}' > "$RUNNER_TEMP/repository-final"
           test "$final_before" = "$(cat "$RUNNER_TEMP/repository-final")"
-          jq -e '.repository_writes==0 and .summary=={total:53,closed:50,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
+          jq -e '.repository_writes==0 and .summary=={total:60,closed:57,unknown:1,refuted:2}' "$ARTIFACT_ROOT/conformance.json" >/dev/null
           cat "$ARTIFACT_ROOT/ci-observations.json" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/report.md" >> "$GITHUB_STEP_SUMMARY"
           cat "$ARTIFACT_ROOT/conformance.json" >> "$GITHUB_STEP_SUMMARY"
@@ -1169,6 +1169,10 @@ jobs:
       - name: Preserve v0.47.0 semantic denominator projector adoption evidence
         shell: bash
         run: cp evidence/semantic-denominator-projector-v1.json "$ARTIFACT_ROOT/semantic-denominator-projector-v1.json"
+
+      - name: Preserve v0.48.0 atomic seven-cell adoption wave evidence
+        shell: bash
+        run: cp evidence/atomic-v0480-wave-v1.json "$ARTIFACT_ROOT/atomic-v0480-wave-v1.json"
 
       - name: Upload human-readable evidence
         if: always()
