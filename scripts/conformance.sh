@@ -128,6 +128,7 @@ jq -e '
 echo "conformance: v0.45.1 semantic audit boundary passed"
 
 echo "conformance: verify v0.46.0 incremental release proof adoption"
+echo "conformance: verify v0.46 adoption evidence"
 jq -e '
   .schema == "gooo/self-improvement-ledger/incremental-release-proof-adoption/v1" and
   .cell_id == "INCREMENTAL_RELEASE_PROOF_DURABLE_RELEASE" and
@@ -140,6 +141,7 @@ jq -e '
   .authority == {github_actions_token:"github.token",repository_writes:0,local_product_validation_executions:0,cross_project_required_gates:0} and
   .preserved_parent_byte_frontier.parent_asset_current_bytes == null and .preserved_parent_byte_frontier.state == "UNKNOWN" and .preserved_failure.state == "REFUTED"
 ' "$repository/evidence/incremental-release-proof-v1.json" >/dev/null
+echo "conformance: verify v0.46 adoption report"
 jq -e '
   .transaction_id == "incremental-release-proof-durable-release-v0.46.0" and .decision == "CLOSED" and .portfolio_decision == "REFUTED" and
   .migration == {operation:"ADD1",from:51,to:52,add:1,retire:0,split:0,append_only:true} and
@@ -148,6 +150,7 @@ jq -e '
   .baseline.tag == "v0.45.1" and .baseline.release_id == 380480877 and .baseline.immutable == true and
   .incremental_release_proof.exact_before_after_pair.status == "CLOSED" and .authority.repository_writes == 0 and .authority.local_product_validation_executions == 0
 ' "$repository/evidence/report-v0460-v1.json" >/dev/null
+echo "conformance: verify v0.46 replay measurement"
 test -f "$artifact/incremental-release-proof/measurement.json"
 jq -e '
   .schema == "gooo/self-improvement-portfolio/incremental-release-proof-measurement/v1" and
