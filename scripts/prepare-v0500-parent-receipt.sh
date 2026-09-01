@@ -16,6 +16,7 @@ parent_source_root="$temp_root/parent-source-artifact"
 parent_release_root="$temp_root/parent-release-asset"
 parent_artifact_zip="$temp_root/parent-source-artifact.zip"
 parent_release_zip="$temp_root/parent-release-asset.zip"
+api_request_counter="$temp_root/api-request-count"
 
 command -v gh >/dev/null
 command -v jq >/dev/null
@@ -26,6 +27,7 @@ command -v wc >/dev/null
 test -n "${GH_TOKEN:-}"
 test -s "$contract"
 mkdir -p "$artifact_root" "$temp_root"
+printf '0\n' > "$api_request_counter"
 
 repo="kimjooyoon/gooo-self-improvement-ledger"
 parent_tag="v0.49.0"
@@ -64,12 +66,14 @@ unknown_class=PARENT_RECEIPT_UNAVAILABLE
 primary_state=UNKNOWN
 
 github_api() {
-  api_requests=$((api_requests + 1))
+  request_count=$(cat "$api_request_counter")
+  printf '%d\n' "$((request_count + 1))" > "$api_request_counter"
   gh api "$@"
 }
 
 download_api() {
-  api_requests=$((api_requests + 1))
+  request_count=$(cat "$api_request_counter")
+  printf '%d\n' "$((request_count + 1))" > "$api_request_counter"
   gh api -H "Accept: application/octet-stream" "$@"
 }
 
@@ -197,6 +201,20 @@ if [ "$primary_state" != REFUTED ] && [ "$primary_state" != UNKNOWN ]; then
         reason="IMMUTABLE_V049_RELEASE_AND_EXACT_59_LOCK_SET_RECEIPT_MATCHED"
         mkdir -p "$artifact_root/releases"
         cp -a "$parent_source_root/releases/." "$artifact_root/releases/"
+        cp "$artifact_root/releases/verification.json" "$artifact_root/releases/v049-full-audit-verification.json"
+        jq -S '
+          .release_lock_snapshot.parallel_live_metrics.requests=0 |
+          .release_lock_snapshot.parallel_live_metrics.selected=0 |
+          .release_lock_snapshot.parallel_live_metrics.executed=0 |
+          .release_lock_snapshot.parallel_live_metrics.reused=59 |
+          .release_lock_snapshot.parallel_live_metrics.completed=0 |
+          .release_lock_snapshot.parallel_live_metrics.duration_ns=0 |
+          .release_lock_snapshot.parallel_live_metrics.exact_wall_ms=0 |
+          .release_lock_snapshot.parallel_live_metrics.peak_rss_kib=0 |
+          .release_lock_snapshot.parallel_live_metrics.wall_ms=0 |
+          .release_lock_snapshot.parallel_live_metrics.max_in_flight=0
+        ' "$artifact_root/releases/verification.json" > "$artifact_root/releases/verification.json.tmp"
+        mv "$artifact_root/releases/verification.json.tmp" "$artifact_root/releases/verification.json"
       fi
     fi
   else
@@ -210,6 +228,7 @@ rate_limit='{}'
 if observed_rate=$(github_api rate_limit 2>/dev/null); then rate_limit="$observed_rate"; fi
 rate_remaining=$(jq -r '.resources.core.remaining // .rate.remaining // null' <<< "$rate_limit")
 rate_reset=$(jq -r '.resources.core.reset // .rate.reset // null' <<< "$rate_limit")
+api_requests=$(cat "$api_request_counter")
 parent_manifest_digest=${parent_manifest_digest:-null}
 parent_lock_set_digest=${parent_lock_set_digest:-null}
 release_manifest_digest=${release_manifest_digest:-null}
