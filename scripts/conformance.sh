@@ -1799,7 +1799,8 @@ jq -e '
 ' "$repository/evidence/assessment-v1.json" >/dev/null
 
 start=$(date +%s%N)
-if ! /usr/bin/time -f '%M' -o "$probe/report-peak-rss" "$binary" \
+set +e
+/usr/bin/time -f '%M' -o "$probe/report-peak-rss" "$binary" \
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
   -activities "$repository/examples/self-improvement-portfolio/main.gooo" \
   -assessment "$repository/evidence/assessment-v1.json" \
@@ -1808,8 +1809,14 @@ if ! /usr/bin/time -f '%M' -o "$probe/report-peak-rss" "$binary" \
   -repository-root "$repository" \
   -artifact-root "$artifact" \
   -output-json "$probe/report.json" \
-  -output-markdown "$probe/report.md" 2>"$artifact/report-command.stderr"; then
+  -output-markdown "$probe/report.md" 2>"$artifact/report-command.stderr"
+report_status=$?
+set -e
+echo "conformance: probe report generator exit status=$report_status"
+if test -s "$artifact/report-command.stderr"; then
   cat "$artifact/report-command.stderr" >&2
+fi
+if test "$report_status" -ne 0; then
   exit 1
 fi
 end=$(date +%s%N)
@@ -1819,8 +1826,8 @@ echo "conformance: probe report generator completed"
 if test -f "$probe/report-peak-rss"; then
   report_rss=$(cat "$probe/report-peak-rss")
 else
-  echo "conformance: probe report peak RSS measurement missing; recording zero"
-  report_rss=0
+  echo "conformance: probe report peak RSS measurement missing" >&2
+  exit 1
 fi
 
 jq --argjson wall "$report_wall" --argjson raw "$report_raw" --argjson rss "$report_rss" \
@@ -1829,7 +1836,8 @@ jq --argjson wall "$report_wall" --argjson raw "$report_raw" --argjson rss "$rep
 mv "$probe/runtime.json" "$artifact/runtime.json"
 
 start=$(date +%s%N)
-if ! /usr/bin/time -f '%M' -o "$probe/final-report-peak-rss" "$binary" \
+set +e
+/usr/bin/time -f '%M' -o "$probe/final-report-peak-rss" "$binary" \
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
   -activities "$repository/examples/self-improvement-portfolio/main.gooo" \
   -assessment "$repository/evidence/assessment-v1.json" \
@@ -1838,8 +1846,14 @@ if ! /usr/bin/time -f '%M' -o "$probe/final-report-peak-rss" "$binary" \
   -repository-root "$repository" \
   -artifact-root "$artifact" \
   -output-json "$artifact/report.json" \
-  -output-markdown "$artifact/report.md" 2>"$artifact/final-report-command.stderr"; then
+  -output-markdown "$artifact/report.md" 2>"$artifact/final-report-command.stderr"
+final_report_status=$?
+set -e
+echo "conformance: final report generator exit status=$final_report_status"
+if test -s "$artifact/final-report-command.stderr"; then
   cat "$artifact/final-report-command.stderr" >&2
+fi
+if test "$final_report_status" -ne 0; then
   exit 1
 fi
 end=$(date +%s%N)
