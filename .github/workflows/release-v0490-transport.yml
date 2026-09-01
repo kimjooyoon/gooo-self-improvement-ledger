@@ -47,6 +47,8 @@ env:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Check out source commit
         uses: actions/checkout@v5
