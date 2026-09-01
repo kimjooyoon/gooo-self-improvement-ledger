@@ -1973,12 +1973,16 @@ jq -e '
 ' "$repository/evidence/assessment-v1.json" >/dev/null
 
 start=$(date +%s%N)
+verification_path="$artifact/releases/verification.json"
+if test -s "$artifact/releases/v049-full-audit-verification.json"; then
+  verification_path="$artifact/releases/v049-full-audit-verification.json"
+fi
 set +e
 /usr/bin/time -f '%M' -o "$probe/report-peak-rss" "$binary" \
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
   -activities "$repository/examples/self-improvement-portfolio/main.gooo" \
   -assessment "$repository/evidence/assessment-v1.json" \
-  -verification "$artifact/releases/verification.json" \
+  -verification "$verification_path" \
   -runtime "$artifact/runtime.json" \
   -repository-root "$repository" \
   -artifact-root "$artifact" \
@@ -2017,7 +2021,7 @@ set +e
   -profile "$repository/contracts/self-improvement-portfolio-v1.json" \
   -activities "$repository/examples/self-improvement-portfolio/main.gooo" \
   -assessment "$repository/evidence/assessment-v1.json" \
-  -verification "$artifact/releases/verification.json" \
+  -verification "$verification_path" \
   -runtime "$artifact/runtime.json" \
   -repository-root "$repository" \
   -artifact-root "$artifact" \
@@ -2106,7 +2110,7 @@ jq -e '
   .release_lock_snapshot.parallel_live_metrics.reused == 0 and
   .release_lock_snapshot.parallel_live_metrics.unknown == 0 and
   .release_lock_snapshot.parallel_live_metrics.refuted == 0
-' "$artifact/releases/verification.json" >/dev/null
+' "$verification_path" >/dev/null
 jq -e --slurpfile locks "$repository/contracts/release-locks-v1.json" '
   .schema == "gooo/self-improvement-ledger/atomic-v0480-adoption-wave/v1" and
   .wave == {release_tag:"v0.48.0",atomic:true,cell_count:7,ordinals:[54,55,56,57,58,59,60],cell_state:"CLOSED",parent_profile_state:{total:53,closed:50,unknown:1,refuted:2},projected_profile_state:{total:60,closed:57,unknown:1,refuted:2},proof_totals:{FOUNDATION:4,COHERENCE:51,REGRESSION:5},indicator_totals:{DRIVER:4,OUTCOME:51,GUARDRAIL:5}} and
