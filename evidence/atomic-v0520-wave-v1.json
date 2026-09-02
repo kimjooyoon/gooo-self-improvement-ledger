@@ -1,0 +1,135 @@
+{
+  "schema": "gooo/self-improvement-ledger/atomic-v0520-adoption-wave/v1",
+  "wave": {
+    "release_tag": "v0.52.0",
+    "atomic": true,
+    "cell_count": 4,
+    "ordinals": [68, 69, 70, 71],
+    "cell_state": "CLOSED",
+    "parent_profile_state": {
+      "total": 67,
+      "closed": 64,
+      "unknown": 1,
+      "refuted": 2
+    },
+    "projected_profile_state": {
+      "total": 71,
+      "closed": 68,
+      "unknown": 1,
+      "refuted": 2
+    },
+    "proof_totals": {
+      "FOUNDATION": 4,
+      "COHERENCE": 62,
+      "REGRESSION": 5
+    },
+    "indicator_totals": {
+      "DRIVER": 4,
+      "OUTCOME": 62,
+      "GUARDRAIL": 5
+    }
+  },
+  "cells": [
+    {
+      "ordinal": 68,
+      "cell_id": "BOUNDED_SELF_CHANGE_COMPILER_V2_DURABLE_RELEASE",
+      "activity": "AdoptBoundedSelfChangeCompilerV2DurableRelease",
+      "axis": "BOUNDED_SELF_CHANGE_COMPILER_V2_DURABLE_RELEASE",
+      "release_key": "bounded_self_change_compiler_v2_durable_release",
+      "state": "CLOSED",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME"
+    },
+    {
+      "ordinal": 69,
+      "cell_id": "CAUSAL_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE",
+      "activity": "AdoptCausalCounterexampleReducerDurableRelease",
+      "axis": "CAUSAL_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE",
+      "release_key": "causal_counterexample_reducer_durable_release",
+      "state": "CLOSED",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME"
+    },
+    {
+      "ordinal": 70,
+      "cell_id": "BOUNDED_OBSERVATIONAL_EQUIVALENCE_DURABLE_RELEASE",
+      "activity": "AdoptBoundedObservationalEquivalenceDurableRelease",
+      "axis": "BOUNDED_OBSERVATIONAL_EQUIVALENCE_DURABLE_RELEASE",
+      "release_key": "bounded_observational_equivalence_durable_release",
+      "state": "CLOSED",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME"
+    },
+    {
+      "ordinal": 71,
+      "cell_id": "SEMANTIC_WAVE_MERGE_PROJECTOR_DURABLE_RELEASE",
+      "activity": "AdoptSemanticWaveMergeProjectorDurableRelease",
+      "axis": "SEMANTIC_WAVE_MERGE_PROJECTOR_DURABLE_RELEASE",
+      "release_key": "semantic_wave_merge_projector_durable_release",
+      "state": "CLOSED",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME"
+    }
+  ],
+  "parent_preservation": {
+    "parent_release": "v0.51.0",
+    "parent_lock_count": 62,
+    "parent_selected": 0,
+    "parent_executed": 0,
+    "parent_reused": 62,
+    "changed_selected": 4,
+    "changed_executed": 4,
+    "changed_reused": 0,
+    "full_66_lock_audit": false,
+    "fallback_only_if_parent_not_closed": true
+  },
+  "semantic_wave": {
+    "base_release": "v0.51.0",
+    "base_asset_digest": "sha256:565adc039ee9db092775d2abe309a3341a94ee589414c0368857711c8e0e60f9",
+    "base_ledger_digest": "ledger:wave-v1",
+    "proposal_write_sets": [
+      {
+        "proposal_id": "proposal-cell-68",
+        "writes": ["cell/68", "release-lock/63"]
+      },
+      {
+        "proposal_id": "proposal-cell-69",
+        "writes": ["cell/69", "release-lock/64"]
+      },
+      {
+        "proposal_id": "proposal-cell-70",
+        "writes": ["cell/70", "release-lock/65"]
+      },
+      {
+        "proposal_id": "proposal-cell-71",
+        "writes": ["cell/71", "release-lock/66"]
+      }
+    ],
+    "accepted_wave_order": [
+      "proposal-cell-68",
+      "proposal-cell-69",
+      "proposal-cell-70",
+      "proposal-cell-71"
+    ],
+    "conflict_witnesses": [],
+    "deferred_frontier": [],
+    "state": "CLOSED",
+    "reason": "ALL_PROPOSALS_SERIALIZABLE_AND_AUTHORITY_CLOSED",
+    "replay_match": true
+  },
+  "preservation": {
+    "v0_51_semantic_summary": "preserved_as_parent_release_evidence",
+    "historical_refutations_preserved": true,
+    "external_utility_state": "UNKNOWN",
+    "general_program_equivalence_claim": false,
+    "improvement_aggregation": "NOT_CLAIMED",
+    "mutation_policy": "NO_DELETE_NO_OVERWRITE"
+  },
+  "authority": {
+    "repository_writes": 0,
+    "local_validation_commands": 0,
+    "cross_project_gates": 0,
+    "verification": "GITHUB_ACTIONS_ONLY",
+    "token_source": "github.token"
+  }
+}
