@@ -27,13 +27,22 @@ mapfile -t keys < <(jq -r '.releases | keys[]' "$lock" | LC_ALL=C sort)
 
 fetch_one() {
   local key=$1
-  local repo tag attempt=0 tmp response_status=UNKNOWN
+  local repo tag release_id attempt=0 tmp response_status=UNKNOWN fetch_ok
   repo=$(jq -r --arg key "$key" '.releases[$key].repository' "$lock")
   tag=$(jq -r --arg key "$key" '.releases[$key].tag' "$lock")
+  release_id=$(jq -r --arg key "$key" '.releases[$key].release_id // empty' "$lock")
   tmp="$snapshot/$key.release.json.tmp"
   while [ "$attempt" -lt "$max_attempts" ]; do
     attempt=$((attempt + 1))
-    if /usr/bin/time -f '%M' -o "$snapshot/$key.fetch-rss" timeout "${timeout_seconds}s" gh api "repos/$repo/releases/tags/$tag" > "$tmp"; then
+    fetch_ok=false
+    if [ -n "$release_id" ]; then
+      if /usr/bin/time -f '%M' -o "$snapshot/$key.fetch-rss" timeout "${timeout_seconds}s" gh api "repos/$repo/releases/$release_id" > "$tmp"; then
+        fetch_ok=true
+      fi
+    elif /usr/bin/time -f '%M' -o "$snapshot/$key.fetch-rss" timeout "${timeout_seconds}s" gh api "repos/$repo/releases?per_page=100" | jq -e --arg tag "$tag" '[.[] | select(.tag_name==$tag)] | if length==1 then .[0] else error("expected one release") end' > "$tmp"; then
+      fetch_ok=true
+    fi
+    if [ "$fetch_ok" = true ]; then
       mv "$tmp" "$snapshot/$key.release.json"
       response_status=CLOSED
       break
