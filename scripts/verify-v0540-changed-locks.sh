@@ -28,7 +28,7 @@ jq -S '
   .releases |= with_entries(select(.key=="output_authority_projector_durable_release" or .key=="protected_change_gate_projector_durable_release")) |
   .counterexamples=[] | .counterexample_runs=[] | .failed_release_triggers=[]
 ' "$repository/contracts/release-locks-v1.json" > "$changed_lock"
-jq -e '.releases|length==2 and (.releases|keys|sort)==["output_authority_projector_durable_release","protected_change_gate_projector_durable_release"]' "$changed_lock" >/dev/null
+jq -e '(.releases|length)==2 and ((.releases|keys|sort)==["output_authority_projector_durable_release","protected_change_gate_projector_durable_release"])' "$changed_lock" >/dev/null
 
 rm -rf "$changed_root"
 mkdir -p "$changed_root"
