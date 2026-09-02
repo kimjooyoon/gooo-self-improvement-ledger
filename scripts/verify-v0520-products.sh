@@ -76,7 +76,7 @@ reducer_product="$products/causal-counterexample-reducer"
 mkdir -p "$reducer_product"
 reducer_asset="$artifact_root/releases/$reducer_key/assets/conformance-report.json"
 cp "$reducer_asset" "$reducer_product/conformance-report.json"
-jq -e '.schema=="gooo.causal-counterexample-reducer/conformance/v1" and .denominator_id=="causal-counterexample-reducer-v1" and .scenarios==7 and .closed==0 and .unknown==3 and .refuted==4 and .pass==true and .authority.repository_writes==0 and .authority.local_test_executions==0 and .authority.cross_project_required_gates==0' "$reducer_product/conformance-report.json" >/dev/null
+jq -e '.schema=="gooo.causal-counterexample-reducer/conformance/v1" and .denominator_id=="causal-counterexample-reducer-v1" and .scenarios==7 and .closed==0 and .unknown==3 and .refuted==4 and .pass==true and .repository_writes==0 and .local_test_executions==0 and .cross_project_required_gates==0' "$reducer_product/conformance-report.json" >/dev/null
 jq -S -n --argjson lock "$reducer_lock" --arg asset_digest "$(sha256_prefixed "$reducer_asset")" --slurpfile report "$reducer_product/conformance-report.json" \
   '{schema:"gooo/self-improvement-ledger/v0520-causal-counterexample-reducer-receipt/v1",release:$lock,asset_observed_digest:$asset_digest,adoption_state:"CLOSED",released_conformance:$report[0],preservation:{historical_refuted:4,historical_unknown:3,decision_improvement_aggregation:"NOT_CLAIMED"},improvement:{state:"UNKNOWN",reason:"reducer conformance is not a same-scenario before-after ledger measurement"},external_utility:{state:"UNKNOWN"},authority:{verification:"GITHUB_ACTIONS",repository_writes:0,local_test_executions:0,cross_project_required_gates:0}}' > "$reducer_product/receipt.json"
 
