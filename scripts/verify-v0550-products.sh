@@ -78,21 +78,17 @@ test "$wave_target" = d1abdcba2e72ca8aaf2992887ede753884b88c7f
 
 wave_archive="$work_root/$wave_asset_name"
 wave_source_archive="$work_root/semantic-wave-source.tar.gz"
-wave_release_root="$work_root/semantic-wave-release"
 wave_source_root="$work_root/semantic-wave-source"
 wave_cases="$work_root/semantic-wave-cases"
 wave_bin="$work_root/semantic-wave-projector"
 gh api -H 'Accept: application/octet-stream' "repos/kimjooyoon/gooo-semantic-wave-merge-projector/releases/assets/$wave_asset_id" > "$wave_archive"
 test "$(sha256_prefixed "$wave_archive")" = "$wave_asset_digest"
 test "$(wc -c <"$wave_archive" | tr -d ' ')" = "$(jq -r '.release.assets[0].size_bytes' "$wave_receipt")"
-mkdir -p "$wave_release_root" "$wave_source_root" "$wave_cases"
-tar --no-xattrs -xzf "$wave_archive" -C "$wave_release_root"
+mkdir -p "$wave_source_root" "$wave_cases"
 gh api -H 'Accept: application/vnd.github.raw+json' "repos/kimjooyoon/gooo-semantic-wave-merge-projector/tarball/$wave_target" > "$wave_source_archive"
 tar --no-xattrs -xzf "$wave_source_archive" -C "$wave_source_root"
 wave_source_dir=$(find "$wave_source_root" -mindepth 1 -maxdepth 1 -type d -print -quit)
-wave_release_dir=$(find "$wave_release_root" -mindepth 1 -maxdepth 1 -type d -print -quit)
 test -n "$wave_source_dir"
-test -n "$wave_release_dir"
 wave_graph="$wave_source_dir/.gooo/semantic-wave-merge-projector.gooo"
 test -s "$wave_graph"
 cp "$wave_source_dir"/fixtures/cases/*.json "$wave_cases/"
