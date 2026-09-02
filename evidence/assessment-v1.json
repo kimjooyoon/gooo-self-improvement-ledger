@@ -1541,7 +1541,7 @@
       "release_key": "self_improvement_cycle_detector_durable_release",
       "evidence": [
         "upstream-release:repo=kimjooyoon/gooo-self-improvement-cycle-detector:tag=v0.1.0:release=380919907:tag_object=71b7f851d3965d1c3cd1e2480d2e09ce79cbc3d1:target=d7ded6c362af36543586da934336136ad211d757:immutable=true",
-        "upstream-assets:540426258:5831:sha256:454b73cf8e260f9fbe2ea1cfe535bd8500ea526d3d70f4d2dc426e74f57eea0a0",
+        "upstream-assets:540426258:5831:sha256:454b73cf8e260f9fbe2ea1cfe535bd8500ea526d3d70f4d2dc426e74f57eea0",
         "cycle-detector:denominator=12:distribution=CLOSED2/UNKNOWN8/REFUTED2:periods=1/2/3:evaluator-frontier=UNKNOWN:missing-frontier=UNKNOWN:stale-frontier=UNKNOWN:ordering-frontier=UNKNOWN:no-global-score=true",
         "cycle-detector:replay=true:repository-writes=0:local-test-executions=0:cross-project-required-gates=0:direct-main-history=OPERATIONAL_REFUTED:preserved=true:failed-release-history=OPERATIONAL_REFUTED:preserved=true",
         "structural-append:cell=SELF_IMPROVEMENT_CYCLE_DETECTOR_DURABLE_RELEASE:activity=AdoptSelfImprovementCycleDetectorDurableRelease:lock=self_improvement_cycle_detector_durable_release"

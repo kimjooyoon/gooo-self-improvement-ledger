@@ -7663,7 +7663,7 @@
     },
     "self_improvement_cycle_detector_durable_release": {
       "assets": [
-        {"download_url":"https://github.com/kimjooyoon/gooo-self-improvement-cycle-detector/releases/download/v0.1.0/gooo-release-report-v0.1.0.tar.gz","id":540426258,"name":"gooo-release-report-v0.1.0.tar.gz","sha256":"sha256:454b73cf8e260f9fbe2ea1cfe535bd8500ea526d3d70f4d2dc426e74f57eea0a0","size_bytes":5831}
+        {"download_url":"https://github.com/kimjooyoon/gooo-self-improvement-cycle-detector/releases/download/v0.1.0/gooo-release-report-v0.1.0.tar.gz","id":540426258,"name":"gooo-release-report-v0.1.0.tar.gz","sha256":"sha256:454b73cf8e260f9fbe2ea1cfe535bd8500ea526d3d70f4d2dc426e74f57eea0","size_bytes":5831}
       ],
       "immutable": true,
       "release_id": 380919907,
