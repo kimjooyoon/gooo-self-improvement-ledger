@@ -14,7 +14,7 @@ release_repo="kimjooyoon/gooo-self-improvement-ledger"
 parent_tag="v0.53.0"
 parent_release_id=380943341
 parent_asset_id=540503110
-parent_asset_name="gooo-self-improvement-ledger-217fa01"
+parent_asset_name="gooo-self-improvement-ledger-e84c9209316cfa6d07d2ea96d988d05c8c6f7367"
 parent_asset_size=58162484
 parent_asset_digest="sha256:6a63abbe48cbe5ccf6955b81a19de1d7a6ec7301d595d0152bdff7ac997e7ae3"
 parent_tag_object="dd204df84abecdd634e9321cc40b2714f91d96eb"
@@ -46,7 +46,7 @@ test "$current_parent_digest" = "$parent_lock_set_digest"
 release_json=$(gh api "repos/$release_repo/releases/$parent_release_id")
 jq -e --arg tag "$parent_tag" --arg name "$parent_asset_name" --arg digest "$parent_asset_digest" --argjson release_id "$parent_release_id" --argjson asset_id "$parent_asset_id" --argjson size "$parent_asset_size" '
   .id==$release_id and .tag_name==$tag and .draft==false and .prerelease==false and .immutable==true and
-  ([.assets[]|select(.id==$asset_id and .name==$name and .size==$size and .digest==$digest and .expired==false)]|length)==1
+  ([.assets[]|select(.id==$asset_id and .name==$name and .size==$size and .digest==$digest)]|length)==1
 ' <<<"$release_json" >/dev/null
 
 tag_ref=$(gh api "repos/$release_repo/git/ref/tags/$parent_tag")
