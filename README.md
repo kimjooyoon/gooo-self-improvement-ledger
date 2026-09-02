@@ -1073,7 +1073,9 @@ false. The incremental conformance planner keeps its annotated tag target
 main head `fbe78a13c01e016f9410620c208953c28c7fe478`; Actions records the
 15-commit ahead comparison.
 
-The semantic-wave projector replays the fixed 12-case corpus and replaces only
+The release-lineage policy is `NO_DELETE_NO_OVERWRITE`: public releases, tags,
+and assets are immutable and are never deleted, recreated, overwritten, or
+retagged. The semantic-wave projector replays the fixed 12-case corpus and replaces only
 the normal fixture with seven disjoint proposals. It requires accepted order
 82-88, zero conflict witnesses, an empty deferred frontier, and zero semantic
 projector release-lock writes. Release-lineage plan conformance runs in
