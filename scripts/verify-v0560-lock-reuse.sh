@@ -29,7 +29,7 @@ jq -e '.schema=="gooo/self-improvement-ledger/v0560-parent-lock-receipt/v1" and 
 jq -e '.schema=="gooo/self-improvement-portfolio/release-verification/v1" and .summary=={total:72,verified:72,unknown:0,refuted:0} and (.releases|length)==72' "$parent_verification" >/dev/null
 
 changed_keys='["claim_discharge_calculus_release","incremental_conformance_planner_release","opentofu_service_contract_bridge_release","release_lineage_guard_release","self_hosted_semantic_kernel_release"]'
-jq -S --argjson keys "$changed_keys" ' .releases |= with_entries(select(.key as $key | ($keys|index($key)) != null)) ' "$lock_file" > "$changed_lock"
+jq -S --argjson keys "$changed_keys" ' {schema, releases:(.releases|with_entries(select(.key as $key | ($keys|index($key)) != null)))} ' "$lock_file" > "$changed_lock"
 jq -e --argjson keys "$changed_keys" '(.releases|length)==5 and ((.releases|keys|sort)==($keys|sort)) and all(.releases[]; .immutable==true and (.assets|length)==1)' "$changed_lock" >/dev/null
 
 release_start=$(date +%s%N)
