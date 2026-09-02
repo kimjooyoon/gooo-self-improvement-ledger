@@ -20,12 +20,13 @@ test -s "$source_gooo"
 
 source_digest="sha256:$(sha256sum "$source_gooo" | awk '{print $1}')"
 v2_events=$(jq -c '[.refutation_resolution_events[] | select((.schema_version // 0) >= 2)]' "$assessment")
+all_event_ids=$(jq -c '[.refutation_resolution_events[].event_id]' "$assessment")
 test "$(jq 'length' <<<"$v2_events")" -ge 1
 
 jq -S -n \
   --arg source_path "examples/self-improvement-portfolio/main.gooo" \
   --arg source_digest "$source_digest" \
-  --argjson events "$v2_events" '
+  --argjson events "$v2_events" --argjson all_event_ids "$all_event_ids" '
   def nonempty_string: (type == "string" and length > 0);
   def edge_list:
     if (.edge_ids | type) == "array" then .edge_ids
@@ -63,7 +64,6 @@ jq -S -n \
       }
     } |
     .pass = (all(.checks[]; . == true));
-  ($events | map(.event_id)) as $all_event_ids |
   ($events | map(assertion($all_event_ids))) as $assertions |
   {
     schema: "gooo/self-improvement-ledger/frontier-resolution-generated-meta-assertions/v1",
