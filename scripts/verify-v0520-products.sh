@@ -10,7 +10,7 @@ fi
 artifact_root=$(realpath "$1")
 repository=$(realpath "$2")
 products="$artifact_root/v052-products"
-temp_root="${RUNNER_TEMP:-$artifact_root/.v052-products-temp}"
+temp_root="${RUNNER_TEMP:-$artifact_root}/v052-products-temp"
 rm -rf "$products" "$temp_root"
 mkdir -p "$products" "$temp_root"
 
