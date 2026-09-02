@@ -96,7 +96,8 @@ jobs:
         shell: bash
         run: |
           set -Eeuo pipefail
-          if gh api "repos/$REPOSITORY/releases/tags/$RELEASE_TAG" >/dev/null 2>&1; then exit 1; fi
+          releases=$(gh api "repos/$REPOSITORY/releases?per_page=100")
+          if jq -e --arg tag "$RELEASE_TAG" 'any(.[]; .tag_name==$tag)' <<< "$releases" >/dev/null; then exit 1; fi
           if gh api "repos/$REPOSITORY/git/ref/tags/$RELEASE_TAG" >/dev/null 2>&1; then exit 1; fi
 
       - name: Create annotated v0.53.0 tag
@@ -153,7 +154,7 @@ jobs:
           product_receipt="$evidence_root/v0530-products/product-integration.json"
           release_json=""
           for attempt in $(seq 1 12); do
-            if release_json=$(gh api "repos/$REPOSITORY/releases/tags/$RELEASE_TAG"); then break; fi
+            if release_json=$(gh api "repos/$REPOSITORY/releases?per_page=100" | jq -e --arg tag "$RELEASE_TAG" '[.[] | select(.tag_name==$tag)] | if length==1 then .[0] else error("expected one release") end'); then break; fi
             sleep 5
           done
           release_id=$(jq -r '.id' <<< "$release_json")

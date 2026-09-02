@@ -24,6 +24,13 @@ command -v git >/dev/null
 command -v jq >/dev/null
 command -v sha256sum >/dev/null
 
+release_by_tag() {
+  local repo=$1
+  local tag=$2
+  gh api "repos/$repo/releases?per_page=100" |
+    jq -e --arg tag "$tag" '[.[] | select(.tag_name==$tag)] | if length==1 then .[0] else error("expected one release") end'
+}
+
 measurement() {
   local start=$1
   local end=$2
@@ -47,7 +54,7 @@ for key in $(jq -r '.releases | keys[]' "$lock"); do
     fi
   else
     /usr/bin/time -f '%M' -o "$output/$key.fetch-rss" \
-      gh api "repos/$repo/releases/tags/$tag" > "$output/$key.release.json"
+      bash -c 'gh api "$1" | jq -e --arg tag "$2" '\''[.[] | select(.tag_name==$tag)] | if length==1 then .[0] else error("expected one release") end'\''' _ "repos/$repo/releases?per_page=100" "$tag" > "$output/$key.release.json"
   fi
 done
 for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_id' "$lock"); do
@@ -63,7 +70,7 @@ for counterexample_id in $(jq -r '(.counterexamples // [])[] | .counterexample_i
     printf '0\n' > "$output/$counterexample_id.fetch-rss"
   else
     /usr/bin/time -f '%M' -o "$output/$counterexample_id.fetch-rss" \
-      gh api "repos/$repo/releases/tags/$tag" > "$output/$counterexample_id.release.json"
+      bash -c 'gh api "$1" | jq -e --arg tag "$2" '\''[.[] | select(.tag_name==$tag)] | if length==1 then .[0] else error("expected one release") end'\''' _ "repos/$repo/releases?per_page=100" "$tag" > "$output/$counterexample_id.release.json"
   fi
 done
 for counterexample_id in $(jq -r '(.counterexample_runs // [])[] | .counterexample_id' "$lock"); do
@@ -79,7 +86,7 @@ for counterexample_id in $(jq -r '(.failed_release_triggers // [])[] | .countere
   tag=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .tag' "$lock")
   run_id=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.run_id' "$lock")
   job_id=$(jq -r --arg id "$counterexample_id" '.failed_release_triggers[] | select(.counterexample_id==$id) | .failed_run.job_id' "$lock")
-  if gh api "repos/$repo/releases/tags/$tag" > "$output/$counterexample_id.release.json"; then
+  if release_by_tag "$repo" "$tag" > "$output/$counterexample_id.release.json"; then
     release_exit=0
   else
     release_exit=$?

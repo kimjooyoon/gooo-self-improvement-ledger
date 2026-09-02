@@ -33,7 +33,7 @@ fetch_one() {
   tmp="$snapshot/$key.release.json.tmp"
   while [ "$attempt" -lt "$max_attempts" ]; do
     attempt=$((attempt + 1))
-    if /usr/bin/time -f '%M' -o "$snapshot/$key.fetch-rss" timeout "${timeout_seconds}s" gh api "repos/$repo/releases/tags/$tag" > "$tmp"; then
+    if /usr/bin/time -f '%M' -o "$snapshot/$key.fetch-rss" timeout "${timeout_seconds}s" gh api "repos/$repo/releases?per_page=100" | jq -e --arg tag "$tag" '[.[] | select(.tag_name==$tag)] | if length==1 then .[0] else error("expected one release") end' > "$tmp"; then
       mv "$tmp" "$snapshot/$key.release.json"
       response_status=CLOSED
       break
