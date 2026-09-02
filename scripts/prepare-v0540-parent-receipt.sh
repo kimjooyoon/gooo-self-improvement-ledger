@@ -19,10 +19,10 @@ parent_asset_size=58162484
 parent_asset_digest="sha256:6a63abbe48cbe5ccf6955b81a19de1d7a6ec7301d595d0152bdff7ac997e7ae3"
 parent_tag_object="dd204df84abecdd634e9321cc40b2714f91d96eb"
 parent_target="e84c9209316cfa6d07d2ea96d988d05c8c6f7367"
-parent_manifest_blob="2c6877c2fea2090fe19ab0782872c076dd79507c"
-parent_manifest_size=314813
-parent_manifest_digest="sha256:8802e3874758fb4f00a2c8ad906f23b51524bdbcc06f308fcf91688a296e7bb9"
-parent_lock_set_digest="sha256:31f9885ee4282a1b72308021814c968221003d9bcbdc5b1ec4c7533c2fd59635"
+parent_manifest_blob="73d61aba0158d3a4d3535f09c89ffb3f218b08cd"
+parent_manifest_size=319611
+parent_manifest_digest="sha256:17893af29dfafd11c1927c152372778127cc7d77199c045f7c3e808405b6f981"
+parent_lock_set_digest="sha256:ffc92192ef7ba838e8f4917c5f7c97d878786a00a79f6079e0761f64a05001b3"
 
 temp_root="${RUNNER_TEMP:-$artifact_root/.v0540-parent-temp}"
 parent_root="$temp_root/v053-parent-release"

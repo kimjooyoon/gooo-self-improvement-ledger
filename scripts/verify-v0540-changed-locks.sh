@@ -21,7 +21,7 @@ command -v sha256sum >/dev/null
 test -n "${GH_TOKEN:-}"
 test -s "$parent_receipt"
 test -s "$parent_verification"
-jq -e '.primary.state=="CLOSED" and .parent.tag=="v0.53.0" and .parent.release_id==380943341 and .parent.parent_lock_set_digest=="sha256:31f9885ee4282a1b72308021814c968221003d9bcbdc5b1ec4c7533c2fd59635"' "$parent_receipt" >/dev/null
+jq -e '.primary.state=="CLOSED" and .parent.tag=="v0.53.0" and .parent.release_id==380943341 and .parent.parent_lock_set_digest=="sha256:ffc92192ef7ba838e8f4917c5f7c97d878786a00a79f6079e0761f64a05001b3"' "$parent_receipt" >/dev/null
 jq -e '.schema=="gooo/self-improvement-portfolio/release-verification/v1" and .summary=={total:70,verified:70,unknown:0,refuted:0} and (.releases|length)==70' "$parent_verification" >/dev/null
 
 jq -S '
