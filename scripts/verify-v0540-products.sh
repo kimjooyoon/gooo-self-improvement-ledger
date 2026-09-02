@@ -65,7 +65,8 @@ fetch_locked_asset "$output_lock" 540522213 "$output_sums"
 chmod 0755 "$output_binary"
 caller_root="$temp_root/output-authority-caller"
 mkdir -p "$caller_root"
-"$output_binary" conformance --caller-root "$caller_root" --repository-root "$repository" --output "$output_dir/conformance.json"
+"$output_binary" conformance --caller-root "$caller_root" --repository-root "$repository" --output "$caller_root/conformance.json"
+cp "$caller_root/conformance.json" "$output_dir/conformance.json"
 jq -e '
   (has("schema")|not) and .authority_identity=="gooo-output-authority-projector@0.1" and
   .authority_digest=="sha256:1e803f8b4528e1dc5694c38d8f37dc2e8fdd863ebbd4e840e409dc8b2cf4b8dd" and
