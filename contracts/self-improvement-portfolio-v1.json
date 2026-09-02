@@ -1448,7 +1448,7 @@
   },
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
   "indicator_totals": {
-    "DRIVER": 4,
+    "DRIVER": 5,
     "GUARDRAIL": 8,
     "OUTCOME": 75
   },
