@@ -1278,21 +1278,53 @@
       "proof": "COHERENCE",
       "release_key": null,
       "source": "examples/self-improvement-portfolio/main.gooo#ResolveSemanticDriftPullRequestFrontier"
+    },
+    {
+      "activity": "ResolveCoreSemanticAuthorityFrontierV2",
+      "axis": "CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION_V2",
+      "depends_on": ["CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION", "OUTPUT_AUTHORITY_PROJECTOR_DURABLE_RELEASE", "PROTECTED_CHANGE_GATE_PROJECTOR_DURABLE_RELEASE"],
+      "evaluator": "core-semantic-authority-frontier-resolution-v2",
+      "generated_artifact": "evidence/cells/CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION_V2.json",
+      "id": "CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION_V2",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/ResolveCoreSemanticAuthorityFrontierV2",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.core-semantic-authority-frontier-resolution-v2.v1",
+      "ordinal": 80,
+      "proof": "COHERENCE",
+      "release_key": null,
+      "source": "examples/self-improvement-portfolio/main.gooo#ResolveCoreSemanticAuthorityFrontierV2"
+    },
+    {
+      "activity": "ResolveSemanticDriftPullRequestFrontierV2",
+      "axis": "SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION_V2",
+      "depends_on": ["SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION", "PROTECTED_CHANGE_GATE_PROJECTOR_DURABLE_RELEASE"],
+      "evaluator": "semantic-drift-pull-request-frontier-resolution-v2",
+      "generated_artifact": "evidence/cells/SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION_V2.json",
+      "id": "SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION_V2",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/ResolveSemanticDriftPullRequestFrontierV2",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.semantic-drift-pull-request-frontier-resolution-v2.v1",
+      "ordinal": 81,
+      "proof": "COHERENCE",
+      "release_key": null,
+      "source": "examples/self-improvement-portfolio/main.gooo#ResolveSemanticDriftPullRequestFrontierV2"
     }
   ],
   "denominator_migration": {
-    "add": 26,
+    "add": 28,
     "append_only": true,
     "from": 53,
     "retire": 0,
     "split": 0,
-    "to": 79
+    "to": 81
   },
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
   "indicator_totals": {
     "DRIVER": 4,
     "GUARDRAIL": 5,
-    "OUTCOME": 70
+    "OUTCOME": 72
   },
   "policy": {
     "aggregate_percentage": false,
@@ -1310,10 +1342,10 @@
   ],
   "profile_id": "self-improvement-portfolio-v1",
   "proof_totals": {
-    "COHERENCE": 70,
+    "COHERENCE": 72,
     "FOUNDATION": 4,
     "REGRESSION": 5
   },
   "schema": "gooo/self-improvement-portfolio/contract/v1",
-  "total_cells": 79
+  "total_cells": 81
 }
