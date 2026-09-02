@@ -37,26 +37,24 @@ mkdir -p "$changed_root"
 jq -e '.summary=={total:2,verified:2,unknown:0,refuted:0} and (.releases|length)==2 and .release_lock_snapshot.parallel_live_metrics.completed==2 and .release_lock_snapshot.parallel_live_metrics.unknown==0 and .release_lock_snapshot.parallel_live_metrics.refuted==0' "$changed_root/verification.json" >/dev/null
 cp -a "$changed_root" "$artifact_root/releases/changed-live-verification"
 
-parent_json=$(cat "$parent_verification")
-changed_json=$(cat "$changed_root/verification.json")
 changed_metrics=$(jq -c '.release_lock_snapshot.parallel_live_metrics' "$changed_root/verification.json")
 parent_keys=$(jq -c '.releases|keys|sort' "$parent_verification")
 changed_keys=$(jq -c '.releases|keys|sort' "$changed_lock")
 parent_requests=$(jq -r '.release_lock_snapshot.parallel_live_metrics.requests // 0' "$parent_verification")
 parent_metadata=$(jq -r '.release_lock_snapshot.parallel_live_metrics.requests // 0' "$parent_verification")
 jq -S -n \
-  --argjson parent "$parent_json" --argjson changed "$changed_json" --argjson metrics "$changed_metrics" \
+  --slurpfile parent "$parent_verification" --slurpfile changed "$changed_root/verification.json" --argjson metrics "$changed_metrics" \
   --argjson parent_keys "$parent_keys" --argjson changed_keys "$changed_keys" \
   --argjson parent_requests "$parent_requests" --argjson parent_metadata "$parent_metadata" \
   '.schema="gooo/self-improvement-portfolio/release-verification/v1" |
-   .releases=($parent.releases+$changed.releases) |
+   .releases=($parent[0].releases+$changed[0].releases) |
    .counterexamples=[] | .counterexample_runs=[] | .failed_release_triggers=[] |
    .summary={total:72,verified:72,unknown:0,refuted:0} |
    .release_lock_snapshot={snapshot_single_fetch:true,canonical_order_exact:true,completion_order_ignored:true,
      parent_reuse:{mode:"PARENT_V0530_RELEASE_RECEIPT_REUSE",selected:0,executed:0,reused:70,reused_lock_ids:$parent_keys,parent_input_api_requests:$parent_requests,parent_metadata_api_requests:$parent_metadata},
      changed_live:{selected:2,executed:2,reused:0,live_verified:2,changed_lock_ids:$changed_keys,parallel_live_metrics:$metrics},
      full_72_lock_audit:{executed:false,required:false,reason:"PARENT_REUSE_PLUS_TWO_CHANGED_LOCKS"}} |
-   .timing=$changed.timing' \
+   .timing=$changed[0].timing' \
   > "$artifact_root/releases/verification.json"
 
 live_requests=$(jq -r '.requests' <<<"$changed_metrics")
