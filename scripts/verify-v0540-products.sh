@@ -35,7 +35,7 @@ verify_release_metadata() {
   release_json=$(gh api "repos/$release_repo/releases/$release_id")
   jq -e --argjson lock "$lock_value" '
     .id==$lock.release_id and .tag_name==$lock.tag and .draft==false and .prerelease==false and .immutable==true and
-    ([.assets[]|{id,name,size_bytes:.size,digest:.digest}]|sort_by(.id)) == ($lock.assets|map({id,name,size_bytes,sha256:digest})|map({id,name,size_bytes, digest:.sha256})|sort_by(.id))
+    ([.assets[]|{id,name,size_bytes:.size,digest:.digest}]|sort_by(.id)) == ($lock.assets|map({id,name,size_bytes,sha256:.sha256})|map({id,name,size_bytes, digest:.sha256})|sort_by(.id))
   ' <<<"$release_json" >/dev/null
 }
 
