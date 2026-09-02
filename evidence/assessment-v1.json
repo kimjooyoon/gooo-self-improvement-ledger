@@ -1606,6 +1606,29 @@
         "frontier-resolution:historical_refutation_preserved=true:successor_projection=CLOSED:accepted_resume_operations=1:repository_writes=0:cross_project_required_gates=0",
         "structural-append:cell=SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION:activity=ResolveSemanticDriftPullRequestFrontier:source_cell=SEMANTIC_DRIFT_DEVELOPMENT_PROCESS"
       ]
+    },
+    {
+      "cell_id": "CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION_V2",
+      "state": "CLOSED",
+      "release_key": null,
+      "evidence": [
+        "append-only-successor-v2:previous_event=CORE_SEMANTIC_AUTHORITY-FRONTIER-RESOLVED-v0.54.0:previous_schema_version=1:previous_schema_classification=INCOMPLETE",
+        "resolution-schema-v2:stable_edge_ids=2:coverage_components=2/2:historical_cell_ordinal=1:historical_state=REFUTED:next_operation_match=true",
+        "resolved-by:cell=76:release-lock=71:release=380949449:asset=540522209:sha256:699327a9f032258f4be0e4ff860f3253d5c2116541dccfa2da59a99e5a29b287",
+        "resolved-by:cell=77:release-lock=72:release=380957875:asset=540550228:sha256:b837e97e298a1b9c33941ccc31f071273959645735667073a337163b9cbddf07",
+        "structural-append:cell=CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION_V2:activity=ResolveCoreSemanticAuthorityFrontierV2:source_cell=CORE_SEMANTIC_AUTHORITY"
+      ]
+    },
+    {
+      "cell_id": "SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION_V2",
+      "state": "CLOSED",
+      "release_key": null,
+      "evidence": [
+        "append-only-successor-v2:previous_event=SEMANTIC_DRIFT_DEVELOPMENT_PROCESS-FRONTIER-RESOLVED-v0.54.0:previous_schema_version=1:previous_schema_classification=INCOMPLETE",
+        "resolution-schema-v2:stable_edge_ids=1:coverage_components=1/1:historical_cell_ordinal=16:historical_state=REFUTED:next_operation_match=true",
+        "resolved-by:cell=77:release-lock=72:release=380957875:asset=540550228:sha256:b837e97e298a1b9c33941ccc31f071273959645735667073a337163b9cbddf07",
+        "structural-append:cell=SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION_V2:activity=ResolveSemanticDriftPullRequestFrontierV2:source_cell=SEMANTIC_DRIFT_DEVELOPMENT_PROCESS"
+      ]
     }
   ],
   "core_refutation_observation_events": [
@@ -1999,6 +2022,124 @@
         "accepted_resume_operations": 1,
         "historical_refutation_preserved": true
       }
+    },
+    {
+      "append_only": true,
+      "cell_id": "CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION_V2",
+      "event_id": "CORE_SEMANTIC_AUTHORITY-FRONTIER-RESOLVED-v0.55.0-V2",
+      "schema_version": 2,
+      "supersedes_event_id": "CORE_SEMANTIC_AUTHORITY-FRONTIER-RESOLVED-v0.54.0",
+      "historical_cell_ordinal": 1,
+      "historical_cell_id": "CORE_SEMANTIC_AUTHORITY",
+      "historical_state": "REFUTED",
+      "historical_refutation_preserved": true,
+      "historical_next_operation": "PUBLISH_EXECUTABLE_PROTECTED_PATH_AUTHORIZATION_DISPATCH_AND_ADOPT_GATE_ORDER",
+      "next_operation": "PUBLISH_EXECUTABLE_PROTECTED_PATH_AUTHORIZATION_DISPATCH_AND_ADOPT_GATE_ORDER",
+      "next_operation_match": true,
+      "resolution_state": "CLOSED",
+      "coverage": {
+        "components": [
+          "PROTECTED_PATH_OUTPUT_AUTHORIZATION",
+          "DISPATCH_AND_ADOPT_GATE_ORDER"
+        ],
+        "denominator": 2,
+        "covered": 2,
+        "complete": true
+      },
+      "edge_ids": [
+        "resolution-edge/core-semantic-authority/output-authority-v1",
+        "resolution-edge/core-semantic-authority/protected-change-gate-v1"
+      ],
+      "resolved_by": [
+        {
+          "edge_id": "resolution-edge/core-semantic-authority/output-authority-v1",
+          "cell_id": "OUTPUT_AUTHORITY_PROJECTOR_DURABLE_RELEASE",
+          "cell_ordinal": 76,
+          "release_lock": "release-lock/71",
+          "release_lock_ordinal": 71,
+          "release_key": "output_authority_projector_durable_release",
+          "product_release": "kimjooyoon/gooo-output-authority-projector@v0.1.1",
+          "release_id": 380949449,
+          "tag": "v0.1.1",
+          "immutable": true,
+          "adopted_asset": {
+            "id": 540522209,
+            "name": "gooo-output-authority-projector",
+            "size_bytes": 4468921,
+            "digest": "sha256:699327a9f032258f4be0e4ff860f3253d5c2116541dccfa2da59a99e5a29b287"
+          },
+          "coverage_component": "PROTECTED_PATH_OUTPUT_AUTHORIZATION"
+        },
+        {
+          "edge_id": "resolution-edge/core-semantic-authority/protected-change-gate-v1",
+          "cell_id": "PROTECTED_CHANGE_GATE_PROJECTOR_DURABLE_RELEASE",
+          "cell_ordinal": 77,
+          "release_lock": "release-lock/72",
+          "release_lock_ordinal": 72,
+          "release_key": "protected_change_gate_projector_durable_release",
+          "product_release": "kimjooyoon/gooo-protected-change-gate-projector@v0.1.1",
+          "release_id": 380957875,
+          "tag": "v0.1.1",
+          "immutable": true,
+          "adopted_asset": {
+            "id": 540550228,
+            "name": "conformance.json",
+            "size_bytes": 32056,
+            "digest": "sha256:b837e97e298a1b9c33941ccc31f071273959645735667073a337163b9cbddf07"
+          },
+          "coverage_component": "DISPATCH_AND_ADOPT_GATE_ORDER"
+        }
+      ],
+      "resolution": "RESOLVED_BY_V2_COMPOSITE_PROTECTED_PATH_AND_CHANGE_GATE_AUTHORITY"
+    },
+    {
+      "append_only": true,
+      "cell_id": "SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION_V2",
+      "event_id": "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS-FRONTIER-RESOLVED-v0.55.0-V2",
+      "schema_version": 2,
+      "supersedes_event_id": "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS-FRONTIER-RESOLVED-v0.54.0",
+      "historical_cell_ordinal": 16,
+      "historical_cell_id": "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS",
+      "historical_state": "REFUTED",
+      "historical_refutation_preserved": true,
+      "historical_next_operation": "REQUIRE_PULL_REQUEST_FOR_SUBSTANTIVE_IMPLEMENTATION",
+      "next_operation": "REQUIRE_PULL_REQUEST_FOR_SUBSTANTIVE_IMPLEMENTATION",
+      "next_operation_match": true,
+      "resolution_state": "CLOSED",
+      "coverage": {
+        "components": [
+          "SUBSTANTIVE_CHANGE_REQUIRES_PULL_REQUEST"
+        ],
+        "denominator": 1,
+        "covered": 1,
+        "complete": true
+      },
+      "edge_id": "resolution-edge/semantic-drift/pr-first-v1",
+      "edge_ids": [
+        "resolution-edge/semantic-drift/pr-first-v1"
+      ],
+      "resolved_by": [
+        {
+          "edge_id": "resolution-edge/semantic-drift/pr-first-v1",
+          "cell_id": "PROTECTED_CHANGE_GATE_PROJECTOR_DURABLE_RELEASE",
+          "cell_ordinal": 77,
+          "release_lock": "release-lock/72",
+          "release_lock_ordinal": 72,
+          "release_key": "protected_change_gate_projector_durable_release",
+          "product_release": "kimjooyoon/gooo-protected-change-gate-projector@v0.1.1",
+          "release_id": 380957875,
+          "tag": "v0.1.1",
+          "immutable": true,
+          "adopted_asset": {
+            "id": 540550228,
+            "name": "conformance.json",
+            "size_bytes": 32056,
+            "digest": "sha256:b837e97e298a1b9c33941ccc31f071273959645735667073a337163b9cbddf07"
+          },
+          "coverage_component": "SUBSTANTIVE_CHANGE_REQUIRES_PULL_REQUEST"
+        }
+      ],
+      "resolution": "RESOLVED_BY_V2_PULL_REQUEST_FIRST_CHANGE_AUTHORITY"
     }
   ],
   "schema": "gooo/self-improvement-portfolio/assessment/v1",
@@ -2026,6 +2167,42 @@
         "unknown_class": "DEPENDENCY_BLOCKED"
       },
       "to_state": "REFUTED"
+    }
+  ],
+  "frontier_resolution_schema_classifications": [
+    {
+      "event_id": "CORE_SEMANTIC_AUTHORITY-FRONTIER-RESOLVED-v0.54.0",
+      "schema_version": 1,
+      "classification": "INCOMPLETE",
+      "missing_fields": [
+        "schema_version",
+        "supersedes_event_id",
+        "historical_cell_ordinal",
+        "historical_state",
+        "next_operation_match",
+        "stable_edge_ids",
+        "component_coverage_denominator",
+        "resolved_by_immutable_identities"
+      ],
+      "preserved": true,
+      "successor_event_id": "CORE_SEMANTIC_AUTHORITY-FRONTIER-RESOLVED-v0.55.0-V2"
+    },
+    {
+      "event_id": "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS-FRONTIER-RESOLVED-v0.54.0",
+      "schema_version": 1,
+      "classification": "INCOMPLETE",
+      "missing_fields": [
+        "schema_version",
+        "supersedes_event_id",
+        "historical_cell_ordinal",
+        "historical_state",
+        "next_operation_match",
+        "stable_edge_ids",
+        "component_coverage_denominator",
+        "resolved_by_immutable_identities"
+      ],
+      "preserved": true,
+      "successor_event_id": "SEMANTIC_DRIFT_DEVELOPMENT_PROCESS-FRONTIER-RESOLVED-v0.55.0-V2"
     }
   ]
 }

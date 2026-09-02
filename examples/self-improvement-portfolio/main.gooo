@@ -87,3 +87,5 @@ activity AdoptOutputAuthorityProjectorDurableRelease(PortfolioInput) -> Portfoli
 activity AdoptProtectedChangeGateProjectorDurableRelease(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=PROTECTED_CHANGE_GATE_PROJECTOR_DURABLE_RELEASE;proof=COHERENCE;indicator=OUTCOME"
 activity ResolveCoreSemanticAuthorityFrontier(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION;proof=COHERENCE;indicator=OUTCOME"
 activity ResolveSemanticDriftPullRequestFrontier(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION;proof=COHERENCE;indicator=OUTCOME"
+activity ResolveCoreSemanticAuthorityFrontierV2(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION_V2;proof=COHERENCE;indicator=OUTCOME"
+activity ResolveSemanticDriftPullRequestFrontierV2(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION_V2;proof=COHERENCE;indicator=OUTCOME"
