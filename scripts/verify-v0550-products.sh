@@ -118,7 +118,7 @@ jq -e --slurpfile wave "$wave_evidence" '
 jq -e '
   (.proposals|length)==2 and
   (([.proposals[].semantic_write_set[]] | unique | length) == ([.proposals[].semantic_write_set[]] | length)) and
-  (([.proposals[].semantic_write_set[][] | select(startswith("release-lock/"))] | length) == 0)
+  (([.proposals[].semantic_write_set[] | select(startswith("release-lock/"))] | length) == 0)
 ' "$wave_cases/01-independent-merge.json" >/dev/null
 
 (cd "$wave_source_dir" && go build -trimpath -o "$wave_bin" ./cmd/projector)
