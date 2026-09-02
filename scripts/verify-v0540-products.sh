@@ -119,7 +119,7 @@ jq -e '
   ([.cases[].projection.decision]|group_by(.)|map({key:.[0],value:length})|from_entries)=={CLOSED:3,UNKNOWN:2,REFUTED:7} and
   ([.cases[]|select(.name=="normal_implementation_pr_path" or .name=="normal_maintenance_pr_path" or .name=="interrupted_release_resumed_by_exact_release_id_without_recreation")|.projection.decision]|sort)==["CLOSED","CLOSED","CLOSED"] and
   ([.cases[]|select(.name=="direct_main_implementation" or .name=="direct_main_release_plumbing" or .name=="lightweight_instead_of_annotated_tag" or .name=="tag_target_mismatch" or .name=="publish_before_policy" or .name=="publish_before_asset_verification" or .name=="attempt_to_replace_immutable_asset")|.projection.decision]|sort)==["REFUTED","REFUTED","REFUTED","REFUTED","REFUTED","REFUTED","REFUTED"] and
-  (.operational_history|length)==10 and all(.[];.classification=="OPERATIONAL_REFUTED") and any(.[];.release_id==380952007 and .tag=="v0.1.0")
+  (.operational_history|length)==10 and all(.operational_history[];.classification=="OPERATIONAL_REFUTED") and any(.operational_history[];.release_id==380952007 and .tag=="v0.1.0")
 ' "$protected_dir/conformance.json" >/dev/null
 jq -e '
   .schema=="gooo.protected-change-gate-projector/v0.1" and (.cases|length)==12 and
