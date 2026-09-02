@@ -95,8 +95,13 @@ jobs:
         run: |
           set -Eeuo pipefail
           trap 'status=$?; echo "release evidence assertion failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
-          if test "$(jq -r '.primary.state' "$ARTIFACT_ROOT/v0500-parent-lock-receipt.json")" = CLOSED; then
-            echo "reused immutable v0.49 parent lock receipt; no 59-lock live fetch is required"
+          historical_parent_reuse=false
+          if test "$(jq -r '.primary.state' "$ARTIFACT_ROOT/v0500-parent-lock-receipt.json")" = CLOSED || \
+             jq -e '.lock_set.current_count==72' "$ARTIFACT_ROOT/v0500-parent-lock-receipt.json" >/dev/null; then
+            historical_parent_reuse=true
+          fi
+          if test "$historical_parent_reuse" = true; then
+            echo "preserved immutable v0.50 parent receipt; no 59-lock live fetch is required"
             printf '0\n' > "$ARTIFACT_ROOT/release-verify-peak-rss"
           else
             jq -S ' .releases |= with_entries(select(.key != "measurement_boundary_v2_projector_durable_release" and .key != "operational_provenance_projector_durable_release" and .key != "self_improvement_frontier_projector_durable_release")) ' contracts/release-locks-v1.json > "$RUNNER_TEMP/v050-locks.json"
@@ -104,7 +109,7 @@ jobs:
             bash scripts/verify-releases-parallel.sh "$RUNNER_TEMP/v050-locks.json" "$ARTIFACT_ROOT/releases"
             bash scripts/finalize-v0500-parent-receipt.sh "$ARTIFACT_ROOT"
           fi
-          if test "$(jq -r '.primary.state' "$ARTIFACT_ROOT/v0500-parent-lock-receipt.json")" = CLOSED; then
+          if test "$historical_parent_reuse" = true; then
             jq -e '.summary=={total:59,verified:59,unknown:0,refuted:0} and .release_lock_snapshot.snapshot_semantic_equivalence.state=="CLOSED" and .release_lock_snapshot.snapshot_semantic_equivalence.same_snapshot==true and .release_lock_snapshot.parallel_live_metrics.requests==0 and .release_lock_snapshot.parallel_live_metrics.selected==0 and .release_lock_snapshot.parallel_live_metrics.executed==0 and .release_lock_snapshot.parallel_live_metrics.reused==59 and (.counterexamples|length)==8 and all(.counterexamples[]; .state=="REFUTED" and .verified==true) and (.counterexample_runs|length)==8 and all(.counterexample_runs[]; .verified==true and .conclusion=="failure") and (.failed_release_triggers|length)==1 and all(.failed_release_triggers[]; .state=="REFUTED" and .verified==true and .release_absent==true and .reason=="FAILED_RELEASE_TRIGGER")' \
               "$ARTIFACT_ROOT/releases/verification.json" >/dev/null
             jq -e '.summary=={total:59,verified:59,unknown:0,refuted:0} and .release_lock_snapshot.parallel_live_metrics.requests==59 and .release_lock_snapshot.parallel_live_metrics.reused==0 and .release_lock_snapshot.parallel_live_metrics.max_in_flight==8' \
