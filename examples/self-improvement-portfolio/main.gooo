@@ -89,3 +89,17 @@ activity ResolveCoreSemanticAuthorityFrontier(PortfolioInput) -> PortfolioEviden
 activity ResolveSemanticDriftPullRequestFrontier(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION;proof=COHERENCE;indicator=OUTCOME"
 activity ResolveCoreSemanticAuthorityFrontierV2(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION_V2;proof=COHERENCE;indicator=OUTCOME"
 activity ResolveSemanticDriftPullRequestFrontierV2(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION_V2;proof=COHERENCE;indicator=OUTCOME"
+// dependency-edge=adoption-edge/claim-discharge-calculus/v1 release-lock=release-lock/73
+activity AdoptClaimDischargeCalculus(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=PRODUCT_CLAIM_DISCHARGE_CALCULUS_ADOPTION;proof=COHERENCE;indicator=OUTCOME;dependency_edge=adoption-edge/claim-discharge-calculus/v1;release_lock=release-lock/73"
+// dependency-edge=adoption-edge/self-hosted-semantic-kernel/v1 release-lock=release-lock/74
+activity AdoptSelfHostedSemanticKernel(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=PRODUCT_SELF_HOSTED_SEMANTIC_KERNEL_ADOPTION;proof=FOUNDATION;indicator=DRIVER;dependency_edge=adoption-edge/self-hosted-semantic-kernel/v1;release_lock=release-lock/74"
+// dependency-edge=adoption-edge/incremental-conformance-planner/v1 release-lock=release-lock/75
+activity AdoptIncrementalConformancePlanner(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=PRODUCT_INCREMENTAL_CONFORMANCE_PLANNER_ADOPTION;proof=COHERENCE;indicator=OUTCOME;dependency_edge=adoption-edge/incremental-conformance-planner/v1;release_lock=release-lock/75"
+// dependency-edge=adoption-edge/opentofu-service-contract-bridge/v1 release-lock=release-lock/76
+activity AdoptOpenTofuServiceContractBridge(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=PRODUCT_OPENTOFU_SERVICE_CONTRACT_BRIDGE_ADOPTION;proof=COHERENCE;indicator=OUTCOME;dependency_edge=adoption-edge/opentofu-service-contract-bridge/v1;release_lock=release-lock/76"
+// dependency-edge=adoption-edge/release-lineage-guard/v1 release-lock=release-lock/77
+activity AdoptReleaseLineageGuard(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=PRODUCT_RELEASE_LINEAGE_GUARD_ADOPTION;proof=REGRESSION;indicator=GUARDRAIL;dependency_edge=adoption-edge/release-lineage-guard/v1;release_lock=release-lock/77"
+// dependency-edge=operational-edge/public-release-delete/claim-discharge/v1 release-lock=null
+activity PreserveClaimDischargeReleaseDeletionRefutation(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=OPERATIONAL_PUBLIC_RELEASE_DELETE_CLAIM_DISCHARGE;proof=REGRESSION;indicator=GUARDRAIL;dependency_edge=operational-edge/public-release-delete/claim-discharge/v1;release_lock=null"
+// dependency-edge=operational-edge/public-release-delete/opentofu-bridge/v1 release-lock=null
+activity PreserveOpenTofuReleaseDeletionRefutation(PortfolioInput) -> PortfolioEvidence computes "self-improvement-portfolio:v1;axis=OPERATIONAL_PUBLIC_RELEASE_DELETE_OPENTOFU_BRIDGE;proof=REGRESSION;indicator=GUARDRAIL;dependency_edge=operational-edge/public-release-delete/opentofu-bridge/v1;release_lock=null"

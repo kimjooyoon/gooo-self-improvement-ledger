@@ -12,6 +12,9 @@ artifact=$(realpath "$3")
 if jq '.total_cells == 81' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null 2>&1; then
   exec bash "$repository/scripts/conformance-v0550.sh" "$binary" "$repository" "$artifact"
 fi
+if jq '.total_cells == 88' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null 2>&1; then
+  exec bash "$repository/scripts/conformance-v0560.sh" "$binary" "$repository" "$artifact"
+fi
 if jq '.total_cells == 79' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null 2>&1; then
   exec bash "$repository/scripts/conformance-v0540.sh" "$binary" "$repository" "$artifact"
 fi
