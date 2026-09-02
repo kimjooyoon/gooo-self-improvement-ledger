@@ -106,7 +106,7 @@ events_file=$(find "$wave_temp" -type f -name projection-events.ndjson -print -q
 test -n "$events_file"
 cp "$events_file" "$wave_product/upstream/projection-events.ndjson"
 jq -e '.schema=="gooo/semantic-wave-merge-projector/wave-projection/v1" and .scenario_denominator==12 and .state_counts=={total:12,closed:4,unknown:4,refuted:4} and .authority.repository_writes==0 and .authority.local_test_executions==0 and .authority.cross_project_required_gates==0' "$wave_product/upstream/wave-projection.json" >/dev/null
-jq -e '.schema=="gooo/semantic-wave-merge-projector/wave-distribution/v1" and .scenario_denominator==12 and .state_counts=={total:12,closed:4,unknown:4,refuted:4}' "$wave_product/upstream/wave-distribution.json" >/dev/null
+jq -e '.schema=="gooo/semantic-wave-merge-projector/wave-distribution/v1" and .states=={total:12,closed:4,unknown:4,refuted:4} and .direct_counts_only==true' "$wave_product/upstream/wave-distribution.json" >/dev/null
 jq -e '.schema=="gooo/semantic-wave-merge-projector/replay-receipt/v1" and .state=="CLOSED" and .match==true and .normal_digest==.order_perturbed_digest and .immutable==true' "$wave_product/upstream/replay-receipt.json" >/dev/null
 
 wave_source_archive="$temp_root/semantic-wave-source.tar.gz"
