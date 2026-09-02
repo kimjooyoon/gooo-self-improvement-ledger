@@ -98,7 +98,7 @@ jq -e '
   .releases=={total:66,verified:66,unknown:0,refuted:0} and .precedence==["REFUTED","UNKNOWN","CLOSED"] and .policy.aggregate_percentage==false and .policy.aggregate_score==false and
   .authority.runtime_repository_writes==0 and .authority.cross_project_required_gates==0 and .local_execution_counts=={gofmt:0,build:0,test:0,vet:0,conformance:0} and (has("percentage")|not) and (has("score")|not)
 ' "$report" >/dev/null
-jq -e '.schema=="gooo-self-improvement-portfolio/conformance/v1" and .summary=={total:71,closed:68,unknown:1,refuted:2} and .repository_writes==0' "$conformance" >/dev/null
+jq -e '.schema=="gooo/self-improvement-portfolio/conformance/v1" and .summary=={total:71,closed:68,unknown:1,refuted:2} and .repository_writes==0' "$conformance" >/dev/null
 jq -e '.schema=="gooo/self-improvement-portfolio/semantic-denominator/v1" and .scenario_denominator==71 and .state_counts=={total:71,closed:68,unknown:1,refuted:2} and .proof_totals=={COHERENCE:62,FOUNDATION:4,REGRESSION:5} and .indicator_totals=={DRIVER:4,GUARDRAIL:5,OUTCOME:62}' "$semantic" >/dev/null
 
 jq -e '
