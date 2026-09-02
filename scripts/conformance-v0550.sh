@@ -10,7 +10,7 @@ fi
 binary=$(realpath "$1")
 repository=$(realpath "$2")
 artifact=$(realpath "$3")
-probe="${RUNNER_TEMP:-$artifact/.v0550-conformance-probe}"
+probe="${RUNNER_TEMP:-$artifact}/v0550-conformance-probe"
 rm -rf "$probe"
 mkdir -p "$probe"
 command -v jq >/dev/null
