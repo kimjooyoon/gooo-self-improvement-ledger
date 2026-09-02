@@ -7684,6 +7684,34 @@
       "tag": "v0.1.3",
       "tag_object_sha": "9d36711bd5dac7feca52b40fccbec89800734bed",
       "target_commit_sha": "1aea2dd16f0921d3577eb717a47ae92461eefac1"
+    },
+    "output_authority_projector_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-output-authority-projector/releases/download/v0.1.1/gooo-output-authority-projector","id":540522209,"name":"gooo-output-authority-projector","sha256":"sha256:699327a9f032258f4be0e4ff860f3253d5c2116541dccfa2da59a99e5a29b287","size_bytes":4468921},
+        {"download_url":"https://github.com/kimjooyoon/gooo-output-authority-projector/releases/download/v0.1.1/SHA256SUMS","id":540522213,"name":"SHA256SUMS","sha256":"sha256:f0f484edee28a6c2bc75b879a4c8483f4d34f9786a3f9a3cd211c2ca7f94f928","size_bytes":122}
+      ],
+      "immutable": true,
+      "release_id": 380949449,
+      "release_url": "https://github.com/kimjooyoon/gooo-output-authority-projector/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-output-authority-projector",
+      "tag": "v0.1.1",
+      "tag_object_sha": "e3f6251bf30fda7b7b472368524e9238a3700b77",
+      "target_commit_sha": "6fd787a9b6a40da74c032b2e88be5c5b0933ba02"
+    },
+    "protected_change_gate_projector_durable_release": {
+      "assets": [
+        {"download_url":"https://github.com/kimjooyoon/gooo-protected-change-gate-projector/releases/download/v0.1.1/conformance.json","id":540550228,"name":"conformance.json","sha256":"sha256:b837e97e298a1b9c33941ccc31f071273959645735667073a337163b9cbddf07","size_bytes":32056},
+        {"download_url":"https://github.com/kimjooyoon/gooo-protected-change-gate-projector/releases/download/v0.1.1/measurement.json","id":540550227,"name":"measurement.json","sha256":"sha256:4957d1e8d973bbba71dc39fde48a5b9d5c0a71dc7ba6065ea741695d9925c147","size_bytes":32088},
+        {"download_url":"https://github.com/kimjooyoon/gooo-protected-change-gate-projector/releases/download/v0.1.1/replay.json","id":540550229,"name":"replay.json","sha256":"sha256:4031d13f224549d6654898c892397ddad5f33d7c0d7f21d90c8a77e51aebb65b","size_bytes":31996},
+        {"download_url":"https://github.com/kimjooyoon/gooo-protected-change-gate-projector/releases/download/v0.1.1/SHA256SUMS","id":540550226,"name":"SHA256SUMS","sha256":"sha256:f1bf93d86ada68d7fec543ba7647bc8b1497bd375afcc9aa4ec806de473a9f9c","size_bytes":355}
+      ],
+      "immutable": true,
+      "release_id": 380957875,
+      "release_url": "https://github.com/kimjooyoon/gooo-protected-change-gate-projector/releases/tag/v0.1.1",
+      "repository": "kimjooyoon/gooo-protected-change-gate-projector",
+      "tag": "v0.1.1",
+      "tag_object_sha": "66d44c732d666d58069522c86b296c51e1538d1f",
+      "target_commit_sha": "64f08cfa4e28e38cd040fc7cca0a51a49aaa8117"
     }
   },
   "schema": "gooo/self-improvement-portfolio/release-locks/v1"
