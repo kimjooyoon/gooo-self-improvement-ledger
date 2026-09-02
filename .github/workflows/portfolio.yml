@@ -1255,6 +1255,10 @@ jobs:
         shell: bash
         run: cp evidence/atomic-v0520-wave-v1.json "$ARTIFACT_ROOT/atomic-v0520-wave-v1.json"
 
+      - name: Preserve v0.53.0 atomic four-cell adoption wave evidence
+        shell: bash
+        run: cp evidence/atomic-v0530-wave-v1.json "$ARTIFACT_ROOT/atomic-v0530-wave-v1.json"
+
       - name: Final v0.53 release input preflight after artifact materialization
         shell: bash
         env:
