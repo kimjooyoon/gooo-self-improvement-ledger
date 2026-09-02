@@ -43,7 +43,7 @@ if [ "$mode" = --repository ]; then
     .releases.self_improvement_cycle_detector_durable_release=={
       repository:"kimjooyoon/gooo-self-improvement-cycle-detector",tag:"v0.1.0",release_id:380919907,immutable:true,
       tag_object_sha:"71b7f851d3965d1c3cd1e2480d2e09ce79cbc3d1",target_commit_sha:"d7ded6c362af36543586da934336136ad211d757",
-      assets:[{id:540426258,name:"gooo-release-report-v0.1.0.tar.gz",size_bytes:5831,sha256:"sha256:454b73cf8e260f9fbe2ea1cfe535bd8500ea526d3d70f4d2dc426e74f57eea0",download_url:"https://github.com/kimjooyoon/gooo-self-improvement-cycle-detector/releases/download/v0.1.0/gooo-release-report-v0.1.0.tar.gz"}],release_url:"https://github.com/kimjooyoon/gooo-self-improvement-cycle-detector/releases/tag/v0.1.0"
+      assets:[{id:540426258,name:"gooo-release-report-v0.1.0.tar.gz",size_bytes:5831,sha256:"sha256:454b73cf8e260f9fbe2ea1cfe535bd8500ea526d3d70f4d2dc426e74f57eea0a",download_url:"https://github.com/kimjooyoon/gooo-self-improvement-cycle-detector/releases/download/v0.1.0/gooo-release-report-v0.1.0.tar.gz"}],release_url:"https://github.com/kimjooyoon/gooo-self-improvement-cycle-detector/releases/tag/v0.1.0"
     } and
     .releases.closed_loop_self_improvement_usecase_durable_release=={
       repository:"kimjooyoon/gooo-closed-loop-self-improvement-usecase",tag:"v0.1.3",release_id:380921827,immutable:true,
