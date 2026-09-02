@@ -1150,21 +1150,85 @@
       "proof": "COHERENCE",
       "release_key": "semantic_wave_merge_projector_durable_release",
       "source": "examples/self-improvement-portfolio/main.gooo#AdoptSemanticWaveMergeProjectorDurableRelease"
+    },
+    {
+      "activity": "AdoptEvaluatorIntegrityProjectorDurableRelease",
+      "axis": "EVALUATOR_INTEGRITY_PROJECTOR_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "evaluator-integrity-projector",
+      "generated_artifact": "evidence/cells/EVALUATOR_INTEGRITY_PROJECTOR_DURABLE_RELEASE.json",
+      "id": "EVALUATOR_INTEGRITY_PROJECTOR_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptEvaluatorIntegrityProjectorDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.evaluator-integrity-projector-durable-release.v1",
+      "ordinal": 72,
+      "proof": "COHERENCE",
+      "release_key": "evaluator_integrity_projector_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptEvaluatorIntegrityProjectorDurableRelease"
+    },
+    {
+      "activity": "AdoptSemanticImpactSlicerDurableRelease",
+      "axis": "SEMANTIC_IMPACT_SLICER_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "semantic-impact-slicer",
+      "generated_artifact": "evidence/cells/SEMANTIC_IMPACT_SLICER_DURABLE_RELEASE.json",
+      "id": "SEMANTIC_IMPACT_SLICER_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptSemanticImpactSlicerDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.semantic-impact-slicer-durable-release.v1",
+      "ordinal": 73,
+      "proof": "COHERENCE",
+      "release_key": "semantic_impact_slicer_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptSemanticImpactSlicerDurableRelease"
+    },
+    {
+      "activity": "AdoptSelfImprovementCycleDetectorDurableRelease",
+      "axis": "SELF_IMPROVEMENT_CYCLE_DETECTOR_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "self-improvement-cycle-detector",
+      "generated_artifact": "evidence/cells/SELF_IMPROVEMENT_CYCLE_DETECTOR_DURABLE_RELEASE.json",
+      "id": "SELF_IMPROVEMENT_CYCLE_DETECTOR_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptSelfImprovementCycleDetectorDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.self-improvement-cycle-detector-durable-release.v1",
+      "ordinal": 74,
+      "proof": "COHERENCE",
+      "release_key": "self_improvement_cycle_detector_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptSelfImprovementCycleDetectorDurableRelease"
+    },
+    {
+      "activity": "AdoptClosedLoopSelfImprovementUsecaseDurableRelease",
+      "axis": "CLOSED_LOOP_SELF_IMPROVEMENT_USECASE_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "closed-loop-self-improvement-usecase",
+      "generated_artifact": "evidence/cells/CLOSED_LOOP_SELF_IMPROVEMENT_USECASE_DURABLE_RELEASE.json",
+      "id": "CLOSED_LOOP_SELF_IMPROVEMENT_USECASE_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptClosedLoopSelfImprovementUsecaseDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.closed-loop-self-improvement-usecase-durable-release.v1",
+      "ordinal": 75,
+      "proof": "COHERENCE",
+      "release_key": "closed_loop_self_improvement_usecase_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptClosedLoopSelfImprovementUsecaseDurableRelease"
     }
   ],
   "denominator_migration": {
-    "add": 18,
+    "add": 22,
     "append_only": true,
     "from": 53,
     "retire": 0,
     "split": 0,
-    "to": 71
+    "to": 75
   },
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
   "indicator_totals": {
     "DRIVER": 4,
     "GUARDRAIL": 5,
-    "OUTCOME": 62
+    "OUTCOME": 66
   },
   "policy": {
     "aggregate_percentage": false,
@@ -1182,10 +1246,10 @@
   ],
   "profile_id": "self-improvement-portfolio-v1",
   "proof_totals": {
-    "COHERENCE": 62,
+    "COHERENCE": 66,
     "FOUNDATION": 4,
     "REGRESSION": 5
   },
   "schema": "gooo/self-improvement-portfolio/contract/v1",
-  "total_cells": 71
+  "total_cells": 75
 }

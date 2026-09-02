@@ -42,7 +42,7 @@ parent_manifest_digest="sha256:7fbcb681ac47f1ae26935615229c824b21d4aca08ea41cb76
 parent_lock_set_digest="sha256:5d36775c847acd70597cf92717106265f50e3719daa45d2d0fc29f8cc595cf71"
 
 current_count=$(jq '.releases|length' "$contract")
-current_lock_set_digest="sha256:$(jq -cS 'del(.releases.measurement_boundary_v2_projector_durable_release,.releases.operational_provenance_projector_durable_release,.releases.self_improvement_frontier_projector_durable_release,.releases.bounded_self_change_compiler_v2_durable_release,.releases.causal_counterexample_reducer_durable_release,.releases.bounded_observational_equivalence_durable_release,.releases.semantic_wave_merge_projector_durable_release) | .releases' "$contract" | sha256sum | awk '{print $1}')"
+current_lock_set_digest="sha256:$(jq -cS 'del(.releases.measurement_boundary_v2_projector_durable_release,.releases.operational_provenance_projector_durable_release,.releases.self_improvement_frontier_projector_durable_release,.releases.bounded_self_change_compiler_v2_durable_release,.releases.causal_counterexample_reducer_durable_release,.releases.bounded_observational_equivalence_durable_release,.releases.semantic_wave_merge_projector_durable_release,.releases.evaluator_integrity_projector_durable_release,.releases.semantic_impact_slicer_durable_release,.releases.self_improvement_cycle_detector_durable_release,.releases.closed_loop_self_improvement_usecase_durable_release) | .releases' "$contract" | sha256sum | awk '{print $1}')"
 current_manifest_digest="sha256:$(sha256sum "$contract" | awk '{print $1}')"
 
 api_requests=0
@@ -109,7 +109,7 @@ if [ "$metadata_state" = REFUTED ] || [ "$tag_state" = REFUTED ] || [ "$target_s
   primary_state=REFUTED
   reason="PARENT_V050_RELEASE_IDENTITY_OR_MANIFEST_CONTRADICTED"
   unknown_class="PARENT_RECEIPT_CONTRADICTION"
-elif [ "$metadata_state" = CLOSED ] && [ "$tag_state" = CLOSED ] && [ "$target_state" = CLOSED ] && [ "$contents_state" = CLOSED ] && [ "$public_tag_state" = CLOSED ] && { [ "$current_count" -eq 62 ] || [ "$current_count" -eq 66 ]; } && [ "$current_lock_set_digest" = "$parent_lock_set_digest" ]; then
+elif [ "$metadata_state" = CLOSED ] && [ "$tag_state" = CLOSED ] && [ "$target_state" = CLOSED ] && [ "$contents_state" = CLOSED ] && [ "$public_tag_state" = CLOSED ] && { [ "$current_count" -eq 62 ] || [ "$current_count" -eq 66 ] || [ "$current_count" -eq 70 ]; } && [ "$current_lock_set_digest" = "$parent_lock_set_digest" ]; then
   primary_state=CLOSED
   reason="IMMUTABLE_V050_PARENT_METADATA_AND_59_LOCK_SET_MATCHED"
 else
