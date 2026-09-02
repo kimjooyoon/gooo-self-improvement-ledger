@@ -1191,6 +1191,10 @@ jobs:
           set -Eeuo pipefail
           bash scripts/verify-v0550-products.sh "$ARTIFACT_ROOT" "$GITHUB_WORKSPACE"
 
+      - name: Preserve v0.55.0 atomic two-cell adoption wave evidence
+        shell: bash
+        run: cp evidence/atomic-v0550-wave-v1.json "$ARTIFACT_ROOT/atomic-v0550-wave-v1.json"
+
       - name: Run fixed-denominator conformance and emit human report
         shell: bash
         run: |
@@ -1274,10 +1278,6 @@ jobs:
       - name: Preserve v0.54.0 atomic four-cell adoption wave evidence
         shell: bash
         run: cp evidence/atomic-v0540-wave-v1.json "$ARTIFACT_ROOT/atomic-v0540-wave-v1.json"
-
-      - name: Preserve v0.55.0 atomic two-cell adoption wave evidence
-        shell: bash
-        run: cp evidence/atomic-v0550-wave-v1.json "$ARTIFACT_ROOT/atomic-v0550-wave-v1.json"
 
       - name: Final v0.55 release input preflight after artifact materialization
         shell: bash
