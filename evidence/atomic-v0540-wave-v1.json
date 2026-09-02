@@ -1,0 +1,127 @@
+{
+  "schema": "gooo/self-improvement-ledger/atomic-v0540-adoption-wave/v1",
+  "wave": {
+    "release_tag": "v0.54.0",
+    "atomic": true,
+    "cell_count": 4,
+    "ordinals": [76, 77, 78, 79],
+    "cell_state": "CLOSED",
+    "parent_profile_state": {
+      "total": 75,
+      "closed": 72,
+      "unknown": 1,
+      "refuted": 2
+    },
+    "projected_profile_state": {
+      "total": 79,
+      "closed": 76,
+      "unknown": 1,
+      "refuted": 2
+    },
+    "proof_totals": {
+      "FOUNDATION": 4,
+      "COHERENCE": 70,
+      "REGRESSION": 5
+    },
+    "indicator_totals": {
+      "DRIVER": 4,
+      "OUTCOME": 70,
+      "GUARDRAIL": 5
+    }
+  },
+  "cells": [
+    {
+      "ordinal": 76,
+      "cell_id": "OUTPUT_AUTHORITY_PROJECTOR_DURABLE_RELEASE",
+      "activity": "AdoptOutputAuthorityProjectorDurableRelease",
+      "axis": "OUTPUT_AUTHORITY_PROJECTOR_DURABLE_RELEASE",
+      "release_key": "output_authority_projector_durable_release",
+      "state": "CLOSED",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME"
+    },
+    {
+      "ordinal": 77,
+      "cell_id": "PROTECTED_CHANGE_GATE_PROJECTOR_DURABLE_RELEASE",
+      "activity": "AdoptProtectedChangeGateProjectorDurableRelease",
+      "axis": "PROTECTED_CHANGE_GATE_PROJECTOR_DURABLE_RELEASE",
+      "release_key": "protected_change_gate_projector_durable_release",
+      "state": "CLOSED",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME"
+    },
+    {
+      "ordinal": 78,
+      "cell_id": "CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION",
+      "activity": "ResolveCoreSemanticAuthorityFrontier",
+      "axis": "CORE_SEMANTIC_AUTHORITY_FRONTIER_RESOLUTION",
+      "release_key": null,
+      "state": "CLOSED",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME"
+    },
+    {
+      "ordinal": 79,
+      "cell_id": "SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION",
+      "activity": "ResolveSemanticDriftPullRequestFrontier",
+      "axis": "SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION",
+      "release_key": null,
+      "state": "CLOSED",
+      "proof": "COHERENCE",
+      "indicator": "OUTCOME"
+    }
+  ],
+  "parent_preservation": {
+    "parent_release": "v0.53.0",
+    "parent_release_id": 380943341,
+    "parent_lock_count": 70,
+    "parent_selected": 0,
+    "parent_executed": 0,
+    "parent_reused": 70,
+    "changed_selected": 2,
+    "changed_executed": 2,
+    "changed_reused": 0,
+    "full_72_lock_audit": false,
+    "fallback_only_if_parent_not_closed": true
+  },
+  "semantic_wave": {
+    "projector_release": "kimjooyoon/gooo-semantic-wave-merge-projector@v0.1.3",
+    "projector_asset_id": 540372611,
+    "projector_asset_sha256": "sha256:fe55255e0337c8625f4c1fee42608fbcea20b3057f05a4f5370617147abf1744",
+    "base_release": "v0.53.0",
+    "base_asset_digest": "sha256:6a63abbe48cbe5ccf6955b81a19de1d7a6ec7301d595d0152bdff7ac997e7ae3",
+    "base_ledger_digest": "ledger:wave-v1",
+    "proposal_write_sets": [
+      {"proposal_id": "proposal-cell-76", "writes": ["cell/76", "release-lock/71"]},
+      {"proposal_id": "proposal-cell-77", "writes": ["cell/77", "release-lock/72"]},
+      {"proposal_id": "proposal-cell-78", "writes": ["cell/78", "frontier-resolution/core-semantic-authority"]},
+      {"proposal_id": "proposal-cell-79", "writes": ["cell/79", "frontier-resolution/semantic-drift-pull-request"]}
+    ],
+    "accepted_wave_order": [
+      "proposal-cell-76",
+      "proposal-cell-77",
+      "proposal-cell-78",
+      "proposal-cell-79"
+    ],
+    "conflict_witnesses": [],
+    "deferred_frontier": [],
+    "state": "CLOSED",
+    "reason": "ALL_PROPOSALS_SERIALIZABLE_AND_AUTHORITY_CLOSED",
+    "replay_match": true
+  },
+  "preservation": {
+    "v0_53_semantic_summary": "preserved_as_parent_release_evidence",
+    "historical_refutations_preserved": true,
+    "external_utility_state": "UNKNOWN",
+    "general_program_equivalence_claim": false,
+    "improvement_aggregation": "NOT_CLAIMED",
+    "mutation_policy": "NO_DELETE_NO_OVERWRITE"
+  },
+  "authority": {
+    "repository_writes": 0,
+    "local_validation_commands": 0,
+    "cross_project_gates": 0,
+    "verification": "GITHUB_ACTIONS_ONLY",
+    "token_source": "github.token"
+  }
+}
