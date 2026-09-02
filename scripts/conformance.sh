@@ -9,6 +9,9 @@ fi
 binary=$(realpath "$1")
 repository=$(realpath "$2")
 artifact=$(realpath "$3")
+if jq '.total_cells == 71' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null 2>&1; then
+  exec bash "$repository/scripts/conformance-v0520.sh" "$binary" "$repository" "$artifact"
+fi
 if jq '.total_cells == 67' "$repository/contracts/self-improvement-portfolio-v1.json" >/dev/null 2>&1; then
   exec bash "$repository/scripts/conformance-v0510.sh" "$binary" "$repository" "$artifact"
 fi

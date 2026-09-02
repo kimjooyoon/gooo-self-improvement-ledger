@@ -1086,21 +1086,85 @@
       "proof": "COHERENCE",
       "release_key": "self_improvement_frontier_projector_durable_release",
       "source": "examples/self-improvement-portfolio/main.gooo#AdoptSelfImprovementFrontierProjectorDurableRelease"
+    },
+    {
+      "activity": "AdoptBoundedSelfChangeCompilerV2DurableRelease",
+      "axis": "BOUNDED_SELF_CHANGE_COMPILER_V2_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "bounded-self-change-compiler-v2",
+      "generated_artifact": "evidence/cells/BOUNDED_SELF_CHANGE_COMPILER_V2_DURABLE_RELEASE.json",
+      "id": "BOUNDED_SELF_CHANGE_COMPILER_V2_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptBoundedSelfChangeCompilerV2DurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.bounded-self-change-compiler-v2-durable-release.v1",
+      "ordinal": 68,
+      "proof": "COHERENCE",
+      "release_key": "bounded_self_change_compiler_v2_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptBoundedSelfChangeCompilerV2DurableRelease"
+    },
+    {
+      "activity": "AdoptCausalCounterexampleReducerDurableRelease",
+      "axis": "CAUSAL_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "causal-counterexample-reducer",
+      "generated_artifact": "evidence/cells/CAUSAL_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE.json",
+      "id": "CAUSAL_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptCausalCounterexampleReducerDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.causal-counterexample-reducer-durable-release.v1",
+      "ordinal": 69,
+      "proof": "COHERENCE",
+      "release_key": "causal_counterexample_reducer_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptCausalCounterexampleReducerDurableRelease"
+    },
+    {
+      "activity": "AdoptBoundedObservationalEquivalenceDurableRelease",
+      "axis": "BOUNDED_OBSERVATIONAL_EQUIVALENCE_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "bounded-observational-equivalence-projector",
+      "generated_artifact": "evidence/cells/BOUNDED_OBSERVATIONAL_EQUIVALENCE_DURABLE_RELEASE.json",
+      "id": "BOUNDED_OBSERVATIONAL_EQUIVALENCE_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptBoundedObservationalEquivalenceDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.bounded-observational-equivalence-durable-release.v1",
+      "ordinal": 70,
+      "proof": "COHERENCE",
+      "release_key": "bounded_observational_equivalence_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptBoundedObservationalEquivalenceDurableRelease"
+    },
+    {
+      "activity": "AdoptSemanticWaveMergeProjectorDurableRelease",
+      "axis": "SEMANTIC_WAVE_MERGE_PROJECTOR_DURABLE_RELEASE",
+      "depends_on": ["semantic_denominator_projector_durable_release"],
+      "evaluator": "semantic-wave-merge-projector",
+      "generated_artifact": "evidence/cells/SEMANTIC_WAVE_MERGE_PROJECTOR_DURABLE_RELEASE.json",
+      "id": "SEMANTIC_WAVE_MERGE_PROJECTOR_DURABLE_RELEASE",
+      "indicator": "OUTCOME",
+      "ir": "semantic-ir/activity/AdoptSemanticWaveMergeProjectorDurableRelease",
+      "metric_denominator": 1,
+      "metric_id": "gooo.metric.self-improvement.semantic-wave-merge-projector-durable-release.v1",
+      "ordinal": 71,
+      "proof": "COHERENCE",
+      "release_key": "semantic_wave_merge_projector_durable_release",
+      "source": "examples/self-improvement-portfolio/main.gooo#AdoptSemanticWaveMergeProjectorDurableRelease"
     }
   ],
   "denominator_migration": {
-    "add": 14,
+    "add": 18,
     "append_only": true,
     "from": 53,
     "retire": 0,
     "split": 0,
-    "to": 67
+    "to": 71
   },
   "description": "A fixed, evidence-backed capability profile; not a claim about whole-language completeness.",
   "indicator_totals": {
     "DRIVER": 4,
     "GUARDRAIL": 5,
-    "OUTCOME": 58
+    "OUTCOME": 62
   },
   "policy": {
     "aggregate_percentage": false,
@@ -1118,10 +1182,10 @@
   ],
   "profile_id": "self-improvement-portfolio-v1",
   "proof_totals": {
-    "COHERENCE": 58,
+    "COHERENCE": 62,
     "FOUNDATION": 4,
     "REGRESSION": 5
   },
   "schema": "gooo/self-improvement-portfolio/contract/v1",
-  "total_cells": 67
+  "total_cells": 71
 }

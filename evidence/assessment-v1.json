@@ -1462,6 +1462,54 @@
         "frontier-projector-conformance:denominator=12:closed=4:unknown=4:refuted=4:replay=true:runtime-authority=zero",
         "structural-append:cell=SELF_IMPROVEMENT_FRONTIER_PROJECTOR_DURABLE_RELEASE:activity=AdoptSelfImprovementFrontierProjectorDurableRelease:lock=self_improvement_frontier_projector_durable_release"
       ]
+    },
+    {
+      "cell_id": "BOUNDED_SELF_CHANGE_COMPILER_V2_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "bounded_self_change_compiler_v2_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-bounded-self-change-compiler:tag=v0.2.1:release=380886826:tag_object=8b5d6b5293d85f54c90a9217c485f219f9d778ee:target=1162d3a9de043564bf8002fa441f99996069cb43:immutable=true",
+        "upstream-assets:540290070:17923:sha256:da4793a5e5a669952faf5289ce5aa90e7307bd158b1d5e4593621bc3b1ab77e1",
+        "bounded-self-change-v2:explicit-human-adoption=required:external-utility=UNKNOWN:repository-writes=0:local-test-executions=0",
+        "bounded-self-change-v2:historical-refuted-and-unknown-slices-preserved:improvement=UNKNOWN",
+        "structural-append:cell=BOUNDED_SELF_CHANGE_COMPILER_V2_DURABLE_RELEASE:activity=AdoptBoundedSelfChangeCompilerV2DurableRelease:lock=bounded_self_change_compiler_v2_durable_release"
+      ]
+    },
+    {
+      "cell_id": "CAUSAL_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "causal_counterexample_reducer_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-causal-counterexample-reducer:tag=v0.1.1:release=380886153:tag_object=72d2160945daf959d98404ebe5a454adc69ad9ab:target=f98d7b7ad88d4190e103e2202a696dd6e6e3928d:immutable=true",
+        "upstream-assets:540288031:9354:sha256:4b920fd4c85c34cf31ebb2e67a38b6eb34c845379838849ba5ce20b67ab596b4",
+        "causal-counterexample-reducer:historical-refuted-and-unknown-slices-preserved:reduction-not-summed-as-improvement:external-utility=UNKNOWN",
+        "causal-counterexample-reducer:repository-writes=0:local-test-executions=0:cross-project-required-gates=0",
+        "structural-append:cell=CAUSAL_COUNTEREXAMPLE_REDUCER_DURABLE_RELEASE:activity=AdoptCausalCounterexampleReducerDurableRelease:lock=causal_counterexample_reducer_durable_release"
+      ]
+    },
+    {
+      "cell_id": "BOUNDED_OBSERVATIONAL_EQUIVALENCE_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "bounded_observational_equivalence_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-bounded-observational-equivalence-projector:tag=v0.1.2:release=380897010:tag_object=6a605cd4d123f5eebee254850715a92922edda0d:target=95b544d438a71e31511c12b4e9c9cd848f1f8091:immutable=true",
+        "upstream-assets:540332168:2624296:sha256:738165e9d6cc423e8944aa63048ec5f00e22008be9c2a03e3c2abe84882ce365",
+        "bounded-observational-equivalence:scope=bounded-observations-only:general-program-equivalence=NOT_CLAIMED:improvement=UNKNOWN",
+        "bounded-observational-equivalence:corpus=3-CLOSED/4-UNKNOWN/4-REFUTED:repository-writes=0:local-test-executions=0",
+        "structural-append:cell=BOUNDED_OBSERVATIONAL_EQUIVALENCE_DURABLE_RELEASE:activity=AdoptBoundedObservationalEquivalenceDurableRelease:lock=bounded_observational_equivalence_durable_release"
+      ]
+    },
+    {
+      "cell_id": "SEMANTIC_WAVE_MERGE_PROJECTOR_DURABLE_RELEASE",
+      "state": "CLOSED",
+      "release_key": "semantic_wave_merge_projector_durable_release",
+      "evidence": [
+        "upstream-release:repo=kimjooyoon/gooo-semantic-wave-merge-projector:tag=v0.1.3:release=380905719:tag_object=3c795b9577e3fe8050601c40896e2f247074fb90:target=d1abdcba2e72ca8aaf2992887ede753884b88c7f:immutable=true",
+        "upstream-assets:540372611:6190:sha256:fe55255e0337c8625f4c1fee42608fbcea20b3057f05a4f5370617147abf1744",
+        "semantic-wave-merge:base=v0.51.0:four-disjoint-write-sets:accepted-wave-serializable:conflict-witness=none:deferred-frontier=preserved",
+        "semantic-wave-merge:replay-order-independent:external-utility=UNKNOWN:repository-writes=0:local-test-executions=0",
+        "structural-append:cell=SEMANTIC_WAVE_MERGE_PROJECTOR_DURABLE_RELEASE:activity=AdoptSemanticWaveMergeProjectorDurableRelease:lock=semantic_wave_merge_projector_durable_release"
+      ]
     }
   ],
   "core_refutation_observation_events": [
