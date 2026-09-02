@@ -3,7 +3,7 @@ set -Eeuo pipefail
 trap 'status=$?; echo "v0.53 product integration failed at line ${LINENO}: ${BASH_COMMAND}" >&2; exit "$status"' ERR
 
 if [ "$#" -ne 2 ]; then echo "usage: verify-v0530-products.sh ARTIFACT_ROOT REPOSITORY_ROOT" >&2; exit 64; fi
-artifact_root=$(realpath "$1"); repository=$(realpath "$2"); products="$artifact_root/v0530-products"; temp_root="${RUNNER_TEMP:-$artifact_root/.v0530-products-temp}"
+artifact_root=$(realpath "$1"); repository=$(realpath "$2"); products="$artifact_root/v0530-products"; temp_base="${RUNNER_TEMP:-$artifact_root/.v0530-products-temp}"; temp_root="$temp_base/gooo-v0530-products-temp"
 rm -rf "$products" "$temp_root"; mkdir -p "$products" "$temp_root"
 command -v jq >/dev/null; command -v tar >/dev/null; command -v sha256sum >/dev/null; command -v awk >/dev/null; command -v wc >/dev/null; command -v go >/dev/null; test -n "${GH_TOKEN:-}"
 sha256_prefixed() { printf 'sha256:%s\n' "$(sha256sum "$1"|awk '{print $1}')"; }
