@@ -1629,6 +1629,117 @@
         "resolved-by:cell=77:release-lock=72:release=380957875:asset=540550228:sha256:b837e97e298a1b9c33941ccc31f071273959645735667073a337163b9cbddf07",
         "structural-append:cell=SEMANTIC_DRIFT_PULL_REQUEST_FRONTIER_RESOLUTION_V2:activity=ResolveSemanticDriftPullRequestFrontierV2:source_cell=SEMANTIC_DRIFT_DEVELOPMENT_PROCESS"
       ]
+    },
+    {
+      "cell_id": "PRODUCT_CLAIM_DISCHARGE_CALCULUS_ADOPTION",
+      "state": "CLOSED",
+      "release_key": "claim_discharge_calculus_release",
+      "evidence": [
+        "dependency-edge:adoption-edge/claim-discharge-calculus/v1",
+        "release-lock:release-lock/73:key=claim_discharge_calculus_release:release=381013465:tag=v0.1.1:tag_object=b6e6fbbe59cd1627df4df3f02757f19ac51dbdc6:target=e66a26afc39525bf0d1a4c76e8572e09b613b21d:immutable=true",
+        "release-asset:540720771:gooo-claim-discharge-calculus-v0.1.1.tar.gz:13847:sha256:4bc34e27f2bdd1944d8efd1053fb7e5f17ba64876b58633e07f4b23f1d1bd675",
+        "source-actions:run=33597747526:job=100144543893:job_name=Main Go 1.27 evidence:conclusion=success",
+        "source-artifact:9833989616:gooo-claim-discharge-calculus-main-33597747526:15820:sha256:616174bce4811cabe1d459c66a43f95056a29e11c526c221ac611d4c9d5ef333",
+        "measurement-inventory:go_lines=null:go_files=null:gooo_lines=null:gooo_files=null:dirs=null:files=null:generated_artifacts=null:state=UNKNOWN",
+        "structural-append:cell=PRODUCT_CLAIM_DISCHARGE_CALCULUS_ADOPTION:activity=AdoptClaimDischargeCalculus"
+      ]
+    },
+    {
+      "cell_id": "PRODUCT_SELF_HOSTED_SEMANTIC_KERNEL_ADOPTION",
+      "state": "CLOSED",
+      "release_key": "self_hosted_semantic_kernel_release",
+      "evidence": [
+        "dependency-edge:adoption-edge/self-hosted-semantic-kernel/v1",
+        "release-lock:release-lock/74:key=self_hosted_semantic_kernel_release:release=381013558:tag=v0.1.1:tag_object=6f7e59239461b14717a2583a3707b54bffc28222:target=14949f52b9c55d21841fada27f4cbde7d6593711:immutable=true",
+        "release-asset:540721071:gooo-conformance-v0.1.1-33597926498.tar.gz:2524538:sha256:e1758574126f3e5ebdcac1030ad7dd613aedac2caf92d1a6888a83ea2b79e45d",
+        "source-actions:run=33597926498:jobs=100145084337(go1.27 bounded conformance),100145084538(actionlint):conclusion=success",
+        "source-artifact:9834057612:gooo-conformance:2559534:sha256:faebd308d967871a0087045e24e80dca3f3b8c338ad045d015d85ab60a6f9e65",
+        "measurement-inventory:go_lines=null:go_files=null:gooo_lines=null:gooo_files=null:dirs=null:files=null:generated_artifacts=null:state=UNKNOWN",
+        "structural-append:cell=PRODUCT_SELF_HOSTED_SEMANTIC_KERNEL_ADOPTION:activity=AdoptSelfHostedSemanticKernel"
+      ]
+    },
+    {
+      "cell_id": "PRODUCT_INCREMENTAL_CONFORMANCE_PLANNER_ADOPTION",
+      "state": "CLOSED",
+      "release_key": "incremental_conformance_planner_release",
+      "evidence": [
+        "dependency-edge:adoption-edge/incremental-conformance-planner/v1",
+        "release-lock:release-lock/75:key=incremental_conformance_planner_release:release=381036116:tag=v0.1.2:tag_object=d2f16f107819822277421ff9cd0771d7ef3ca0c6:tag_target=39df38fc084f7caae318c4ba79bca478b0a86825:immutable=true",
+        "release-lineage:current_main_head=fbe78a13c01e016f9410620c208953c28c7fe478:recovery_source_head=fbe78a13c01e016f9410620c208953c28c7fe478:compare=status=ahead:ahead_by=15:behind_by=0:total_commits=15:merge_base=39df38fc084f7caae318c4ba79bca478b0a86825",
+        "release-asset:540786204:gooo-incremental-conformance-planner-v0.1.2-evidence.tar.gz:11587:sha256:be66a8fb529bcddcf2880751eb9812cf1b02c988a37219188e259ba3c6ce87d7",
+        "source-actions:run=33603051032:job=100160823798:job_name=release:head=fbe78a13c01e016f9410620c208953c28c7fe478:conclusion=success",
+        "source-artifact:9835929022:gooo-incremental-conformance-planner-main-33603051032:51042:sha256:23c71a7dc261fdb4a22fd9cb60147632e69b618d99a616342841dbf74416635f",
+        "measurement-inventory:go_lines=null:go_files=null:gooo_lines=null:gooo_files=null:dirs=null:files=null:generated_artifacts=null:state=UNKNOWN",
+        "structural-append:cell=PRODUCT_INCREMENTAL_CONFORMANCE_PLANNER_ADOPTION:activity=AdoptIncrementalConformancePlanner"
+      ]
+    },
+    {
+      "cell_id": "PRODUCT_OPENTOFU_SERVICE_CONTRACT_BRIDGE_ADOPTION",
+      "state": "CLOSED",
+      "release_key": "opentofu_service_contract_bridge_release",
+      "evidence": [
+        "dependency-edge:adoption-edge/opentofu-service-contract-bridge/v1",
+        "release-lock:release-lock/76:key=opentofu_service_contract_bridge_release:release=381006835:tag=v0.1.0:tag_object=041abe030a2d9f7366c3232475430bddb223174c:target=be0541ab2058608c2251ba644dad2998b42670ef:immutable=true",
+        "release-asset:540704480:evidence-v0.1.0.tar.gz:8548:sha256:af8e1a88a06c11aebb1d6e53d812b1c1aa77f5df94339e26a6b2235c480f7456",
+        "source-actions:run=33596655812:job=100141348735:job_name=verify:conclusion=success",
+        "source-artifact:9833627742:bridge-evidence:11201:sha256:bd11678ceeaefdc2c2166973a33bd372563bc4861eb2ec304c0efb39189876c5",
+        "measurement-inventory:go_lines=null:go_files=null:gooo_lines=null:gooo_files=null:dirs=null:files=null:generated_artifacts=null:state=UNKNOWN",
+        "structural-append:cell=PRODUCT_OPENTOFU_SERVICE_CONTRACT_BRIDGE_ADOPTION:activity=AdoptOpenTofuServiceContractBridge"
+      ]
+    },
+    {
+      "cell_id": "PRODUCT_RELEASE_LINEAGE_GUARD_ADOPTION",
+      "state": "CLOSED",
+      "release_key": "release_lineage_guard_release",
+      "evidence": [
+        "dependency-edge:adoption-edge/release-lineage-guard/v1",
+        "release-lock:release-lock/77:key=release_lineage_guard_release:release=381017586:tag=v0.1.0:tag_object=3032a02d2e600e7432eea66ef3d5905dfe04c449:target=2a9f08fe34516d8f6502e5a4ddd4d4521426d42d:immutable=true",
+        "release-asset:540726942:gooo-release-lineage-guard-v0.1.0.tar.gz:34789:sha256:a3cf3f470f912201335cef950682b308523f1861a7ad225cf7fd4f29f66cc5f7",
+        "source-actions:run=33598442463:job=100146635917:job_name=authoritative-go-checks:conclusion=success",
+        "source-artifact:null:state=UNKNOWN:reason=NO_ACTIONS_ARTIFACT_OBSERVED",
+        "measurement-inventory:go_lines=null:go_files=null:gooo_lines=null:gooo_files=null:dirs=null:files=null:generated_artifacts=null:state=UNKNOWN",
+        "structural-append:cell=PRODUCT_RELEASE_LINEAGE_GUARD_ADOPTION:activity=AdoptReleaseLineageGuard"
+      ]
+    },
+    {
+      "cell_id": "OPERATIONAL_PUBLIC_RELEASE_DELETE_CLAIM_DISCHARGE",
+      "state": "REFUTED",
+      "release_key": null,
+      "evidence": [
+        "dependency-edge:operational-edge/public-release-delete/claim-discharge/v1",
+        "deleted-original-release:repository=kimjooyoon/gooo-claim-discharge-calculus:release_id=381008767:api_status=404:tag=null:assets=null:tag_state=UNKNOWN:asset_state=UNKNOWN",
+        "recreated-current-release:repository=kimjooyoon/gooo-claim-discharge-calculus:release_id=381009887:tag=v0.1.0:immutable=true",
+        "next-operation=FORBID_PUBLIC_RELEASE_DELETE_AND_ADVANCE_PATCH_VERSION",
+        "structural-append:cell=OPERATIONAL_PUBLIC_RELEASE_DELETE_CLAIM_DISCHARGE:activity=PreserveClaimDischargeReleaseDeletionRefutation"
+      ],
+      "refutation": {
+        "stage": "RELEASE_HISTORY",
+        "step": "PRESERVE_DELETED_PUBLIC_RELEASE_IDENTITY",
+        "reason": "PUBLIC_RELEASE_DELETED_AND_RECREATED",
+        "unknown_class": "HISTORICAL_IDENTITY_UNOBSERVED",
+        "next_operation": "FORBID_PUBLIC_RELEASE_DELETE_AND_ADVANCE_PATCH_VERSION",
+        "blocked_by": ["deleted-release-381008767", "recreated-release-381009887"]
+      }
+    },
+    {
+      "cell_id": "OPERATIONAL_PUBLIC_RELEASE_DELETE_OPENTOFU_BRIDGE",
+      "state": "REFUTED",
+      "release_key": null,
+      "evidence": [
+        "dependency-edge:operational-edge/public-release-delete/opentofu-bridge/v1",
+        "deleted-original-release:repository=kimjooyoon/gooo-opentofu-service-contract-bridge:release_id=381006306:api_status=404:tag=null:assets=null:tag_state=UNKNOWN:asset_state=UNKNOWN",
+        "recreated-current-release:repository=kimjooyoon/gooo-opentofu-service-contract-bridge:release_id=381006835:tag=v0.1.0:immutable=true",
+        "next-operation=FORBID_PUBLIC_RELEASE_DELETE_AND_ADVANCE_PATCH_VERSION",
+        "structural-append:cell=OPERATIONAL_PUBLIC_RELEASE_DELETE_OPENTOFU_BRIDGE:activity=PreserveOpenTofuReleaseDeletionRefutation"
+      ],
+      "refutation": {
+        "stage": "RELEASE_HISTORY",
+        "step": "PRESERVE_DELETED_PUBLIC_RELEASE_IDENTITY",
+        "reason": "PUBLIC_RELEASE_DELETED_AND_RECREATED",
+        "unknown_class": "HISTORICAL_IDENTITY_UNOBSERVED",
+        "next_operation": "FORBID_PUBLIC_RELEASE_DELETE_AND_ADVANCE_PATCH_VERSION",
+        "blocked_by": ["deleted-release-381006306", "recreated-release-381006835"]
+      }
     }
   ],
   "core_refutation_observation_events": [

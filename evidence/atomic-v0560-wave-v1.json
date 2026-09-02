@@ -1,0 +1,78 @@
+{
+  "schema": "gooo/self-improvement-ledger/atomic-v0560-adoption-wave/v1",
+  "wave": {
+    "atomic": true,
+    "cell_count": 7,
+    "cell_state": "CLOSED",
+    "indicator_totals": {"DRIVER": 5, "GUARDRAIL": 8, "OUTCOME": 75},
+    "ordinals": [82, 83, 84, 85, 86, 87, 88],
+    "parent_profile_state": {"closed": 78, "refuted": 2, "total": 81, "unknown": 1},
+    "projected_profile_state": {"closed": 83, "refuted": 4, "total": 88, "unknown": 1},
+    "proof_totals": {"COHERENCE": 75, "FOUNDATION": 5, "REGRESSION": 8},
+    "release_tag": "v0.56.0"
+  },
+  "parent_preservation": {
+    "parent_release": "v0.55.0",
+    "parent_release_id": 380997346,
+    "parent_target_commit_sha": "a6591498d5096b73586d06760e1008370fae5eef",
+    "parent_reused": 72,
+    "parent_selected": 0,
+    "parent_executed": 0,
+    "changed_selected": 5,
+    "changed_executed": 5,
+    "changed_reused": 0,
+    "full_72_lock_audit": false,
+    "product_receipts_reused_from_parent": true,
+    "parent_release_lock_count": 72,
+    "new_release_lock_count": 5
+  },
+  "semantic_wave": {
+    "projector_release": "semantic_wave_merge_projector_durable_release",
+    "projector_release_id": 380905719,
+    "projector_tag": "v0.1.3",
+    "fixture_mode": "REPLACE_NORMAL_FIXTURE",
+    "scenario_denominator": 12,
+    "fixed_suite_state_counts": {"total": 12, "closed": 4, "unknown": 4, "refuted": 4},
+    "accepted_wave_order": ["proposal-cell-82", "proposal-cell-83", "proposal-cell-84", "proposal-cell-85", "proposal-cell-86", "proposal-cell-87", "proposal-cell-88"],
+    "proposal_write_sets": [
+      {"proposal_id":"proposal-cell-82","writes":["cell/82","product-adoption/claim-discharge-calculus"]},
+      {"proposal_id":"proposal-cell-83","writes":["cell/83","product-adoption/self-hosted-semantic-kernel"]},
+      {"proposal_id":"proposal-cell-84","writes":["cell/84","product-adoption/incremental-conformance-planner"]},
+      {"proposal_id":"proposal-cell-85","writes":["cell/85","product-adoption/opentofu-service-contract-bridge"]},
+      {"proposal_id":"proposal-cell-86","writes":["cell/86","product-adoption/release-lineage-guard"]},
+      {"proposal_id":"proposal-cell-87","writes":["cell/87","operational-refutation/public-release-delete/claim-discharge"]},
+      {"proposal_id":"proposal-cell-88","writes":["cell/88","operational-refutation/public-release-delete/opentofu-bridge"]}
+    ],
+    "conflict_witnesses": [],
+    "deferred_frontier": [],
+    "replay_match": true,
+    "new_release_lock_writes": 0,
+    "release_lock_writes_explanation": "The five immutable release locks are append-only ledger inputs; the semantic projector proposal write sets intentionally contain no release-lock namespace writes."
+  },
+  "dependency_edges": [
+    "adoption-edge/claim-discharge-calculus/v1",
+    "adoption-edge/self-hosted-semantic-kernel/v1",
+    "adoption-edge/incremental-conformance-planner/v1",
+    "adoption-edge/opentofu-service-contract-bridge/v1",
+    "adoption-edge/release-lineage-guard/v1",
+    "operational-edge/public-release-delete/claim-discharge/v1",
+    "operational-edge/public-release-delete/opentofu-bridge/v1"
+  ],
+  "preservation": {
+    "existing_81_cells_byte_semantic": true,
+    "existing_refutation_resolution_events_byte_semantic": true,
+    "existing_72_release_locks_byte_semantic": true,
+    "external_utility_state": "UNKNOWN",
+    "general_program_equivalence_claim": false,
+    "improvement_aggregation": "NOT_CLAIMED",
+    "mutation_policy": "NO_DELETE_NO_OVERWRITE",
+    "exact_before_after_pair": "UNKNOWN"
+  },
+  "authority": {
+    "cross_project_gates": 0,
+    "local_validation_commands": 0,
+    "repository_writes": 0,
+    "token_source": "github.token",
+    "verification": "GITHUB_ACTIONS_ONLY"
+  }
+}

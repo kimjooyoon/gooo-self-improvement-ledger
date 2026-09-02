@@ -1054,3 +1054,32 @@ The live network improvement claim remains `UNKNOWN` because this repository
 has no matched before/after network pair; the 53-lock scheduler fixture is
 preserved as upstream evidence only. v0.47.1 remains the CLOSED parent and the
 immutable v0.47.0 tag-target mismatch remains an untouched REFUTED history.
+
+## v0.56.0 adoption wave
+
+v0.56.0 is an append-only seven-cell wave (ordinals 82-88). It adds five
+product adoptions and preserves two public-release deletion incidents as
+REFUTED counterexamples. The resulting fixed profile is exactly 88 total / 83
+CLOSED / 1 UNKNOWN / 4 REFUTED, with proof totals FOUNDATION 5 / COHERENCE 75 /
+REGRESSION 8 and indicator totals DRIVER 5 / OUTCOME 75 / GUARDRAIL 8.
+
+The five product cells are bound to stable dependency edges and immutable
+release locks 73-77. The v0.55.0 release (380997346, target
+`a6591498d5096b73586d06760e1008370fae5eef`) is the immutable parent: its 72
+locks and prior product receipts are reused, while only the five changed locks
+are selected and executed in Actions. Full historical re-execution remains
+false. The incremental conformance planner keeps its annotated tag target
+`39df38fc084f7caae318c4ba79bca478b0a86825` separate from its recovery/current
+main head `fbe78a13c01e016f9410620c208953c28c7fe478`; Actions records the
+15-commit ahead comparison.
+
+The release-lineage policy is `NO_DELETE_NO_OVERWRITE`: public releases, tags,
+and assets are immutable and are never deleted, recreated, overwritten, or
+retagged. The semantic-wave projector replays the fixed 12-case corpus and replaces only
+the normal fixture with seven disjoint proposals. It requires accepted order
+82-88, zero conflict witnesses, an empty deferred frontier, and zero semantic
+projector release-lock writes. Release-lineage plan conformance runs in
+Actions; if the adopted release asset has no executable guard, the literal
+policy assertion is retained with an explicit UNKNOWN limitation. External
+utility, whole-language improvement, and any exact matched before/after
+improvement pair remain UNKNOWN; no aggregate score or percentage is emitted.
